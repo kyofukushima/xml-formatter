@@ -19,7 +19,7 @@ from copy import deepcopy
 # 親ディレクトリのutils/をインポートパスに追加
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-from utils.label_utils import get_hierarchy_level, is_label, detect_label_pattern, get_number_type, get_alphabet_type, LabelPattern
+from utils.label_utils import get_hierarchy_level, is_label, detect_label_id, get_number_type, get_alphabet_type, is_valid_label_id
 from utils.bracket_utils import is_subject_name_bracket, is_instruction_bracket, is_grade_single_bracket, is_grade_double_bracket
 
 
@@ -368,15 +368,19 @@ def are_same_hierarchy(current_elem, list_elem, config: ConversionConfig) -> boo
 
     if current_type == 'labeled' and list_type == 'labeled':
         current_title_text = "".join(current_elem.find(config.title_tag).itertext()).strip()
-        current_pattern = detect_label_pattern(current_title_text)
-        list_pattern = detect_label_pattern(list_title_text)
+        current_label_id = detect_label_id(current_title_text)
+        list_label_id = detect_label_id(list_title_text)
 
-        # パターンが異なる場合は異なる階層
-        if current_pattern != list_pattern:
+        # ラベルIDが取得できない場合は異なる階層
+        if current_label_id is None or list_label_id is None:
             return False
-        
-        # パターンが同じ場合でも、数字パターンの場合は全角/半角/漢数字、括弧の種類を区別
-        if current_pattern in [LabelPattern.NUMBER, LabelPattern.PAREN_NUMBER, LabelPattern.DOUBLE_PAREN_NUMBER]:
+
+        # ラベルIDが異なる場合は異なる階層
+        if current_label_id != list_label_id:
+            return False
+
+        # ラベルIDが同じ場合でも、数字パターンの場合は全角/半角/漢数字、括弧の種類を区別
+        if current_label_id in ['number', 'paren_number', 'double_paren_number']:
             current_number_type = get_number_type(current_title_text)
             list_number_type = get_number_type(list_title_text)
             # 数字の種類が異なる場合は異なる階層
@@ -386,7 +390,7 @@ def are_same_hierarchy(current_elem, list_elem, config: ConversionConfig) -> boo
             return True
 
         # アルファベットパターンの場合は大文字/小文字、全角/半角、括弧の種類を区別
-        if current_pattern in [LabelPattern.ALPHABET, LabelPattern.PAREN_ALPHABET, LabelPattern.DOUBLE_PAREN_ALPHABET]:
+        if current_label_id in ['alphabet', 'paren_alphabet', 'double_paren_alphabet']:
             current_alphabet_type = get_alphabet_type(current_title_text)
             list_alphabet_type = get_alphabet_type(list_title_text)
             # アルファベットの種類が異なる場合は異なる階層
@@ -394,8 +398,8 @@ def are_same_hierarchy(current_elem, list_elem, config: ConversionConfig) -> boo
                 return False
             # アルファベットの種類が同じ場合は同じ階層
             return True
-        
-        # パターンが同じで、数字以外の場合は同じ階層
+
+        # ラベルIDが同じで、上記以外の場合は同じ階層
         return True
 
     if current_type == 'subject_name' and list_type == 'subject_name':

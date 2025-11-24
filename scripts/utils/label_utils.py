@@ -9,12 +9,14 @@
 """
 
 import re
+import json
 from enum import Enum
-from typing import Tuple, Optional
+from typing import Tuple, Optional, Dict, List
+from pathlib import Path
 
 
 class LabelPattern(Enum):
-    """項目ラベルのパターン"""
+    """項目ラベルのパターン（後方互換性のため維持）"""
     GRADE_DOUBLE = "grade_double"                  # 〔第１学年及び第２学年〕
     GRADE_SINGLE = "grade_single"                  # 〔第１学年〕
     SUBJECT_LABEL = "subject_label"                # 〔医療と社会〕
@@ -33,103 +35,184 @@ class LabelPattern(Enum):
     UNKNOWN = "unknown"                            # 不明
 
 
-def detect_label_pattern(text: str) -> LabelPattern:
+class LabelConfig:
+    """JSON設定ファイルベースのラベル設定管理クラス"""
+
+    def __init__(self, config_path: Optional[str] = None):
+        """
+        LabelConfigの初期化
+
+        Args:
+            config_path: 設定ファイルのパス（Noneの場合はデフォルトパス）
+        """
+        if config_path is None:
+            # デフォルト設定ファイルパス
+            script_dir = Path(__file__).parent.parent
+            config_path = script_dir / "config" / "label_config.json"
+
+        try:
+            with open(config_path, 'r', encoding='utf-8') as f:
+                self.config = json.load(f)
+        except FileNotFoundError:
+            raise FileNotFoundError(f"ラベル設定ファイルが見つかりません: {config_path}")
+        except json.JSONDecodeError as e:
+            raise ValueError(f"ラベル設定ファイルのJSON構文エラー: {e}")
+
+        self._build_pattern_cache()
+
+    def _build_pattern_cache(self):
+        """正規表現パターンをコンパイルしてキャッシュ"""
+        self.pattern_cache: Dict[str, Dict] = {}
+        self.pattern_priority: List[str] = self.config.get('pattern_priority', [])
+
+        for label_id, definition in self.config['label_definitions'].items():
+            compiled_patterns = []
+            for pattern in definition.get('patterns', []):
+                try:
+                    compiled_patterns.append(re.compile(pattern))
+                except re.error as e:
+                    raise ValueError(f"無効な正規表現パターン '{pattern}' in {label_id}: {e}")
+
+            self.pattern_cache[label_id] = {
+                'patterns': compiled_patterns,
+                'hierarchy_level': definition.get('hierarchy_level', -1),
+                'definition': definition
+            }
+
+    def detect_label_id(self, text: str) -> Optional[str]:
+        """
+        テキストからラベルIDを判定
+
+        Args:
+            text: 判定するテキスト
+
+        Returns:
+            Optional[str]: ラベルID、見つからない場合はNone
+        """
+        if text is None:
+            return None
+
+        text = text.strip()
+
+        # 優先順位に従ってパターンマッチング
+        for label_id in self.pattern_priority:
+            if label_id in self.pattern_cache:
+                cache_item = self.pattern_cache[label_id]
+                for pattern in cache_item['patterns']:
+                    if pattern.match(text):
+                        return label_id
+
+        return None
+
+    def get_hierarchy_level(self, label_id: str) -> int:
+        """
+        ラベルIDから階層レベルを取得
+
+        Args:
+            label_id: ラベルID
+
+        Returns:
+            int: 階層レベル
+        """
+        if label_id in self.pattern_cache:
+            return self.pattern_cache[label_id]['hierarchy_level']
+        return -1
+
+    def get_label_definition(self, label_id: str) -> Optional[Dict]:
+        """
+        ラベルIDの定義情報を取得
+
+        Args:
+            label_id: ラベルID
+
+        Returns:
+            Optional[Dict]: ラベル定義情報
+        """
+        if label_id in self.pattern_cache:
+            return self.pattern_cache[label_id]['definition']
+        return None
+
+    def is_valid_label_id(self, label_id: str) -> bool:
+        """
+        有効なラベルIDかどうかを判定
+
+        Args:
+            label_id: ラベルID
+
+        Returns:
+            bool: 有効な場合はTrue
+        """
+        return label_id in self.pattern_cache
+
+
+# グローバル設定インスタンス（遅延初期化）
+_label_config: Optional[LabelConfig] = None
+
+def get_label_config() -> LabelConfig:
+    """グローバルLabelConfigインスタンスを取得"""
+    global _label_config
+    if _label_config is None:
+        _label_config = LabelConfig()
+    return _label_config
+
+def detect_label_id(text: str) -> Optional[str]:
     """
-    項目ラベルのパターンを判定
-    
-    logic2_2_Paragraph_text.mdの「パターン判定の優先順位」に従って判定します。
-    
+    テキストからラベルIDを判定（JSON設定ベース）
+
     Args:
         text: 判定するテキスト
-        
+
+    Returns:
+        Optional[str]: ラベルID、見つからない場合はNone
+    """
+    return get_label_config().detect_label_id(text)
+
+def get_hierarchy_level_from_id(label_id: str) -> int:
+    """
+    ラベルIDから階層レベルを取得（JSON設定ベース）
+
+    Args:
+        label_id: ラベルID
+
+    Returns:
+        int: 階層レベル
+    """
+    return get_label_config().get_hierarchy_level(label_id)
+
+def is_valid_label_id(label_id: str) -> bool:
+    """
+    有効なラベルIDかどうかを判定
+
+    Args:
+        label_id: ラベルID
+
+    Returns:
+        bool: 有効な場合はTrue
+    """
+    return get_label_config().is_valid_label_id(label_id)
+
+
+def detect_label_pattern(text: str) -> LabelPattern:
+    """
+    項目ラベルのパターンを判定（後方互換性のため維持）
+
+    JSON設定ベースの実装を使用し、Enumにマッピングして返します。
+
+    Args:
+        text: 判定するテキスト
+
     Returns:
         LabelPattern: 判定されたパターン
-        
-    Examples:
-        >>> detect_label_pattern("１")
-        LabelPattern.NUMBER
-        
-        >>> detect_label_pattern("（１）")
-        LabelPattern.PAREN_NUMBER
-        
-        >>> detect_label_pattern("ア")
-        LabelPattern.KATAKANA
-        
-        >>> detect_label_pattern("①")
-        LabelPattern.CIRCLED_NUMBER
-        
-        >>> detect_label_pattern("〔医療と社会〕")
-        LabelPattern.SUBJECT_LABEL
     """
-    if text is None:
+    label_id = detect_label_id(text)
+    if label_id is None:
         return LabelPattern.UNKNOWN
-    
-    text = text.strip()
-    
-    # 空文字
-    if text == '':
-        return LabelPattern.EMPTY
-    
-    # 優先順位順にチェック（logic2_2_Paragraph_text.md の順序）
 
-    # 1. 学年パターン（2つ記載）（最優先）
-    if re.match(r'^〔第[1-6１-６]学年及び第[1-6１-６]学年〕$', text):
-        return LabelPattern.GRADE_DOUBLE
-
-    # 2. 学年パターン（1つ記載）
-    if re.match(r'^〔第[1-6１-６]学年〕$', text):
-        return LabelPattern.GRADE_SINGLE
-
-    # 3. 括弧科目名
-    if re.match(r'^[〔【［].+[〕】］]$', text):
-        return LabelPattern.SUBJECT_LABEL
-    
-    # 2. 第○パターン（Article分割）
-    if re.match(r'^第[0-9０-９一二三四五六七八九十百千]+$', text):
-        return LabelPattern.ARTICLE_BOUNDARY
-    
-    # 3. 二重括弧アルファベット
-    if re.match(r'^[（(]{2}[a-zａ-ｚA-ZＡ-Ｚ]+[）)]{2}$', text):
-        return LabelPattern.DOUBLE_PAREN_ALPHABET
-
-    # 4. 二重括弧数字
-    if re.match(r'^[（(]{2}[０-９0-9一二三四五六七八九十百千]+[）)]{2}$', text):
-        return LabelPattern.DOUBLE_PAREN_NUMBER
-
-    # 5. 二重括弧カタカナ
-    if re.match(r'^[（(]{2}[ア-ヴ]+[）)]{2}$', text):
-        return LabelPattern.DOUBLE_PAREN_KATAKANA
-
-    # 6. 括弧アルファベット（全角・半角、小文字・大文字）
-    if re.match(r'^[（(][a-zａ-ｚA-ZＡ-Ｚ]+[）)]$', text):
-        return LabelPattern.PAREN_ALPHABET
-    
-    # 5. 括弧カタカナ
-    if re.match(r'^[（(][ア-ヴ]+[）)]$', text):
-        return LabelPattern.PAREN_KATAKANA
-    
-    # 6. 括弧数字（全角・半角・漢数字）
-    if re.match(r'^[（(][０-９0-9一二三四五六七八九十百千]+[）)]$', text):
-        return LabelPattern.PAREN_NUMBER
-    
-    # 7. 丸数字（①-⑳）
-    if re.match(r'^[①-⑳]+$', text):
-        return LabelPattern.CIRCLED_NUMBER
-    
-    # 8. カタカナ（括弧なし）
-    if re.match(r'^[ア-ヴ]+$', text):
-        return LabelPattern.KATAKANA
-    
-    # 9. アルファベット（括弧なし、全角・半角、小文字・大文字）
-    if re.match(r'^[a-zａ-ｚA-ZＡ-Ｚ]+$', text):
-        return LabelPattern.ALPHABET
-    
-    # 10. 数字（括弧なし、全角・半角・漢数字）
-    if re.match(r'^[０-９0-9一二三四五六七八九十百千]+$', text):
-        return LabelPattern.NUMBER
-    
-    # 11. マッチしない場合
-    return LabelPattern.UNKNOWN
+    # ラベルIDをLabelPattern Enumにマッピング
+    try:
+        return LabelPattern(label_id)
+    except ValueError:
+        return LabelPattern.UNKNOWN
 
 
 def is_label(text: str) -> bool:
@@ -365,52 +448,21 @@ def get_number_type(label: str) -> str:
 
 def get_hierarchy_level(label: str) -> int:
     """
-    項目ラベルの階層レベルを取得
-    
-    logic2_2_Paragraph_text.mdの「階層レベルの順序」に従います。
-    
+    項目ラベルの階層レベルを取得（後方互換性のため維持）
+
+    JSON設定ベースの実装を使用します。
+
     Args:
         label: 項目ラベル
-        
+
     Returns:
-        int: 階層レベル（0-7）、不明な場合は-1
-        
-    階層レベル:
-        0: 第○パターン（Article分割）
-        1: 数字（Paragraph / Item）
-        2: 括弧数字（Item / Subitem1）
-        3: カタカナ（Subitem1 / Subitem2）
-        4: 括弧カタカナ（Subitem2 / Subitem3）
-        4: 丸数字（Subitem3レベル）
-        5: 二重括弧カタカナ（Subitem3 / Subitem4）
-        6: アルファベット（Subitem3以降）
-        7: 括弧アルファベット（Subitem4以降）
-        
-    Examples:
-        >>> get_hierarchy_level("１")
-        1
-        
-        >>> get_hierarchy_level("（１）")
-        2
-        
-        >>> get_hierarchy_level("ア")
-        3
+        int: 階層レベル、不明な場合は-1
     """
-    pattern = detect_label_pattern(label)
-    
-    hierarchy_map = {
-        LabelPattern.ARTICLE_BOUNDARY: 0,
-        LabelPattern.NUMBER: 1,
-        LabelPattern.PAREN_NUMBER: 2,
-        LabelPattern.KATAKANA: 3,
-        LabelPattern.PAREN_KATAKANA: 4,
-        LabelPattern.CIRCLED_NUMBER: 4,  # Subitem3レベル（括弧カタカナと同じ階層）
-        LabelPattern.DOUBLE_PAREN_KATAKANA: 5,
-        LabelPattern.ALPHABET: 6,
-        LabelPattern.PAREN_ALPHABET: 7,
-    }
-    
-    return hierarchy_map.get(pattern, -1)
+    label_id = detect_label_id(label)
+    if label_id is None:
+        return -1
+
+    return get_hierarchy_level_from_id(label_id)
 
 
 def split_label_and_content(text: str) -> Tuple[Optional[str], Optional[str]]:

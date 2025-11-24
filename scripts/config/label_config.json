@@ -1,0 +1,164 @@
+{
+  "version": "1.0",
+  "label_definitions": {
+    "grade_double": {
+      "id": "grade_double",
+      "name": "学年ラベル（2つ記載）",
+      "patterns": ["^〔第[1-6１-６]学年及び第[1-6１-６]学年〕$"],
+      "examples": ["〔第１学年及び第２学年〕"],
+      "hierarchy_level": -1,
+      "description": "特殊処理用"
+    },
+    "grade_single": {
+      "id": "grade_single",
+      "name": "学年ラベル（1つ記載）",
+      "patterns": ["^〔第[1-6１-６]学年〕$"],
+      "examples": ["〔第１学年〕"],
+      "hierarchy_level": -1,
+      "description": "特殊処理用"
+    },
+    "subject_label": {
+      "id": "subject_label",
+      "name": "括弧科目名",
+      "patterns": ["^[〔【［].+[〕】］]$"],
+      "examples": ["〔医療と社会〕", "【医療と社会】", "［善悪の判断，自律，自由と責任］"],
+      "hierarchy_level": -1,
+      "description": "Itemレベル（特殊処理）"
+    },
+    "article_boundary": {
+      "id": "article_boundary",
+      "name": "第○パターン",
+      "patterns": ["^第[0-9０-９一二三四五六七八九十百千]+$"],
+      "examples": ["第１", "第２", "第一", "第二"],
+      "hierarchy_level": 0,
+      "description": "Article（分割）"
+    },
+    "double_paren_alphabet": {
+      "id": "double_paren_alphabet",
+      "name": "二重括弧アルファベット",
+      "patterns": ["^[（(]{2}[a-zａ-ｚA-ZＡ-Ｚ]+[）)]{2}$"],
+      "examples": ["（（a））", "((a))", "（（ａ））"],
+      "hierarchy_level": -1,
+      "description": "特殊処理用"
+    },
+    "double_paren_number": {
+      "id": "double_paren_number",
+      "name": "二重括弧数字",
+      "patterns": ["^[（(]{2}[０-９0-9一二三四五六七八九十百千]+[）)]{2}$"],
+      "examples": ["（（１））", "((1))"],
+      "hierarchy_level": -1,
+      "description": "特殊処理用"
+    },
+    "double_paren_katakana": {
+      "id": "double_paren_katakana",
+      "name": "二重括弧カタカナ",
+      "patterns": ["^[（(]{2}[ア-ヴ]+[）)]{2}$"],
+      "examples": ["（（ア））", "（（イ））", "((ア))", "((イ))"],
+      "hierarchy_level": 5,
+      "description": "Subitem3/Subitem4レベル"
+    },
+    "paren_alphabet": {
+      "id": "paren_alphabet",
+      "name": "括弧アルファベット",
+      "patterns": ["^[（(][a-zａ-ｚA-ZＡ-Ｚ]+[）)]$"],
+      "examples": ["（a）", "（ａ）", "(a)", "(ａ)"],
+      "hierarchy_level": 7,
+      "description": "Subitem4以降"
+    },
+    "paren_katakana": {
+      "id": "paren_katakana",
+      "name": "括弧カタカナ",
+      "patterns": ["^[（(][ア-ヴ]+[）)]$"],
+      "examples": ["（ア）", "（イ）", "(ア)", "(イ)"],
+      "hierarchy_level": 4,
+      "description": "Subitem2/Subitem3レベル"
+    },
+    "paren_number": {
+      "id": "paren_number",
+      "name": "括弧数字",
+      "patterns": ["^[（(][０-９0-9一二三四五六七八九十百千]+[）)]$"],
+      "examples": ["（１）", "（２）", "(1)", "(2)"],
+      "hierarchy_level": 2,
+      "description": "Item/Subitem1レベル"
+    },
+    "circled_number": {
+      "id": "circled_number",
+      "name": "丸数字",
+      "patterns": ["^[①-⑳]+$"],
+      "examples": ["①", "②", "③"],
+      "hierarchy_level": 4,
+      "description": "Subitem3レベル"
+    },
+    "katakana": {
+      "id": "katakana",
+      "name": "カタカナ",
+      "patterns": ["^[ア-ヴ]+$"],
+      "examples": ["ア", "イ", "ウ", "エ", "オ"],
+      "hierarchy_level": 3,
+      "description": "Subitem1/Subitem2レベル"
+    },
+    "alphabet": {
+      "id": "alphabet",
+      "name": "アルファベット",
+      "patterns": ["^[a-zａ-ｚA-ZＡ-Ｚ]+$"],
+      "examples": ["a", "b", "c", "A", "B", "C", "ａ", "ｂ", "ｃ", "Ａ", "Ｂ", "Ｃ"],
+      "hierarchy_level": 6,
+      "description": "Subitem3以降"
+    },
+    "number": {
+      "id": "number",
+      "name": "数字",
+      "patterns": ["^[０-９0-9一二三四五六七八九十百千]+$"],
+      "examples": ["１", "２", "３", "1", "2", "3", "一", "二", "十"],
+      "hierarchy_level": 1,
+      "description": "Paragraph/Itemレベル"
+    },
+    "empty": {
+      "id": "empty",
+      "name": "空",
+      "patterns": ["^$"],
+      "examples": [""],
+      "hierarchy_level": -1,
+      "description": "親要素を継承"
+    },
+    "unknown": {
+      "id": "unknown",
+      "name": "不明",
+      "patterns": [],
+      "examples": [],
+      "hierarchy_level": -1,
+      "description": "該当なし"
+    }
+  },
+  "pattern_priority": [
+    "grade_double",
+    "grade_single",
+    "subject_label",
+    "article_boundary",
+    "double_paren_alphabet",
+    "double_paren_number",
+    "double_paren_katakana",
+    "paren_alphabet",
+    "paren_katakana",
+    "paren_number",
+    "circled_number",
+    "katakana",
+    "alphabet",
+    "number",
+    "empty"
+  ],
+  "hierarchy_rules": {
+    "same_pattern_same_hierarchy": true,
+    "allow_cross_hierarchy_split": false,
+    "special_patterns": {
+      "grade_patterns": ["grade_double", "grade_single"],
+      "subject_patterns": ["subject_label"]
+    }
+  },
+  "metadata": {
+    "description": "XML文書変換用ラベルパターン設定ファイル",
+    "created": "2025-01-01",
+    "last_updated": "2025-01-01",
+    "author": "XML Processing Pipeline"
+  }
+}
