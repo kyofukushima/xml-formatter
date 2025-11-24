@@ -1,0 +1,263 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Law xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Era="Reiwa" Year="5" Num="1" LawType="MinisterialOrdinance" Lang="ja" xsi:noNamespaceSchemaLocation="../../../../schema/kokuji20250320_asukoe.xsd">
+  <LawNum>サンプル告示</LawNum>
+  <LawBody>
+    <MainProvision>
+      <Chapter Num="1">
+        <ChapterTitle>第１章　総則</ChapterTitle>
+        <Section Num="1">
+          <SectionTitle>第１節　教育目標</SectionTitle>
+          <Article Num="999999999">
+            <ArticleTitle />
+            <Paragraph Num="1">
+              <ParagraphNum />
+              <List>
+                <ListSentence>
+                  <Sentence Num="1">高等部における教育については，学校教育法第７２条に定める目的を実現するために，生徒の障害の状態や特性及び心身の発達の段階等を十分考慮して，次に掲げる目標の達成に努めなければならない。</Sentence>
+                </ListSentence>
+              </List>
+              <List>
+                <ListSentence>
+                  <Column Num="1">
+                    <Sentence Num="1">１</Sentence>
+                  </Column>
+                  <Column Num="2">
+                    <Sentence Num="1">学校教育法第５１条に規定する高等学校教育の目標</Sentence>
+                  </Column>
+                </ListSentence>
+              </List>
+              <List>
+                <ListSentence>
+                  <Column Num="1">
+                    <Sentence Num="1">２</Sentence>
+                  </Column>
+                  <Column Num="2">
+                    <Sentence Num="1">生徒の障害による学習上又は生活上の困難を改善・克服し自立を図るために必要な知識，技能，態度及び習慣を養うこと。</Sentence>
+                  </Column>
+                </ListSentence>
+              </List>
+            </Paragraph>
+          </Article>
+        </Section>
+        <Section Num="2">
+          <SectionTitle>第２節　教育課程の編成</SectionTitle>
+          <Subsection Num="1">
+            <SubsectionTitle>第１款　高等部における教育の基本と教育課程の役割</SubsectionTitle>
+            <Article Num="999999999">
+              <ArticleTitle />
+              <Paragraph Num="1">
+                <ParagraphNum>１</ParagraphNum>
+                <ParagraphSentence>
+                  <Sentence Num="1">各学校においては，教育基本法及び学校教育法その他の法令並びにこの章以下に示すところに従い，生徒の人間として調和のとれた育成を目指し，生徒の障害の状態や特性及び心身の発達の段階等，学科の特色及び学校や地域の実態を十分考慮して，適切な教育課程を編成するものとし，これらに掲げる目標を達成するよう教育を行うものとする。</Sentence>
+                </ParagraphSentence>
+                <List>
+                  <ListSentence>
+                    <Column Num="1">
+                      <Sentence Num="1">２</Sentence>
+                    </Column>
+                    <Column Num="2">
+                      <Sentence Num="1">学校の教育活動を進めるに当たっては，各学校において，第３款の１に示す主体的・対話的で深い学びの実現に向けた授業改善を通して，創意工夫を生かした特色ある教育活動を展開する中で，次の（１）から（４）までに掲げる事項の実現を図り，生徒に生きる力を育むことを目指すものとする。</Sentence>
+                    </Column>
+                  </ListSentence>
+                </List>
+                <List>
+                  <ListSentence>
+                    <Column Num="1">
+                      <Sentence Num="1">（１）</Sentence>
+                    </Column>
+                    <Column Num="2">
+                      <Sentence Num="1">基礎的・基本的な知識及び技能を確実に習得させ，これらを活用して課題を解決するために必要な思考力，判断力，表現力等を育むとともに，主体的に学習に取り組む態度を養い，個性を生かし多様な人々との協働を促す教育の充実に努めること。その際，生徒の発達の段階を考慮して，生徒の言語活動など，学習の基盤をつくる活動を充実するとともに，家庭との連携を図りながら，生徒の学習習慣が確立するよう配慮すること。</Sentence>
+                    </Column>
+                  </ListSentence>
+                </List>
+                <List>
+                  <ListSentence>
+                    <Column Num="1">
+                      <Sentence Num="1">（２）</Sentence>
+                    </Column>
+                    <Column Num="2">
+                      <Sentence Num="1">道徳教育や体験活動，多様な表現や鑑賞の活動等を通して，豊かな心や創造性の<Ruby>涵<Rt>かん</Rt>
+                        </Ruby>養を目指した教育の充実に努めること。</Sentence>
+                    </Column>
+                  </ListSentence>
+                </List>
+                <List>
+                  <ListSentence>
+                    <Sentence Num="1">学校における道徳教育は，人間としての在り方生き方に関する教育を学校の教育活動全体を通じて行うことによりその充実を図るものとし，視覚障害者，聴覚障害者，肢体不自由者又は病弱者である生徒に対する教育を行う特別支援学校においては，各教科に属する科目（以下「各教科・科目」という。），総合的な探究の時間，特別活動及び自立活動（以下「各教科・科目等」という。）において，また，知的障害者である生徒に対する教育を行う特別支援学校においては，第３章に掲げる特別の教科である道徳（以下「道徳科」という。）を要として，各教科，総合的な探究の時間，特別活動及び自立活動において，それぞれの特質に応じて，適切な指導を行うこと。</Sentence>
+                  </ListSentence>
+                </List>
+                <List>
+                  <ListSentence>
+                    <Sentence Num="1">道徳教育は，教育基本法及び学校教育法に定められた教育の根本精神に基づき，生徒が自己探求と自己実現に努め国家・社会の一員としての自覚に基づき行為しうる発達の段階にあることを考慮し，人間としての在り方生き方を考え，主体的な判断の下に行動し，自立した人間として他者と共によりよく生きるための基盤となる道徳性を養うことを目標とすること。</Sentence>
+                  </ListSentence>
+                </List>
+                <List>
+                  <ListSentence>
+                    <Sentence Num="1">道徳教育を進めるに当たっては，人間尊重の精神と生命に対する畏敬の念を家庭，学校，その他社会における具体的な生活の中に生かし，豊かな心をもち，伝統と文化を尊重し，それらを育んできた我が国と郷土を愛し，個性豊かな文化の創造を図るとともに，平和で民主的な国家及び社会の形成者として，公共の精神を尊び，社会及び国家の発展に努め，他国を尊重し，国際社会の平和と発展や環境の保全に貢献し未来を<Ruby>拓<Rt>ひら</Rt>
+                      </Ruby>く主体性のある日本人の育成に資することとなるよう特に留意すること。</Sentence>
+                  </ListSentence>
+                </List>
+                <List>
+                  <ListSentence>
+                    <Column Num="1">
+                      <Sentence Num="1">（３）</Sentence>
+                    </Column>
+                    <Column Num="2">
+                      <Sentence Num="1">学校における体育・健康に関する指導を，生徒の発達の段階を考慮して，学校の教育活動全体を通じて適切に行うことにより，健康で安全な生活と豊かなスポーツライフの実現を目指した教育の充実に努めること。特に，学校における食育の推進並びに体力の向上に関する指導，安全に関する指導及び心身の健康の保持増進に関する指導については，保健体育科，家庭科及び特別活動の時間はもとより，各教科・科目，総合的な探究の時間及び自立活動（知的障害者である生徒に対する教育を行う特別支援学校においては，各教科，道徳科，総合的な探究の時間及び自立活動。）などにおいてもそれぞれの特質に応じて適切に行うよう努めること。また，それらの指導を通して，家庭や地域社会との連携を図りながら，日常生活において適切な体育・健康に関する活動の実践を促し，生涯を通じて健康・安全で活力ある生活を送るための基礎が培われるよう配慮すること。</Sentence>
+                    </Column>
+                  </ListSentence>
+                </List>
+                <List>
+                  <ListSentence>
+                    <Column Num="1">
+                      <Sentence Num="1">（４）</Sentence>
+                    </Column>
+                    <Column Num="2">
+                      <Sentence Num="1">学校における自立活動の指導は，障害による学習上又は生活上の困難を改善・克服し，自立し社会参加する資質を養うため，自立活動の時間はもとより，学校の教育活動全体を通じて適切に行うものとする。特に，自立活動の時間における指導は，各教科・科目，総合的な探究の時間及び特別活動（知的障害者である生徒に対する教育を行う特別支援学校においては，各教科，道徳科，総合的な探究の時間及び特別活動。）と密接な関連を保ち，個々の生徒の障害の状態や特性及び心身の発達の段階等を的確に把握して，適切な指導計画の下に行うよう配慮すること。</Sentence>
+                    </Column>
+                  </ListSentence>
+                </List>
+                <List>
+                  <ListSentence>
+                    <Column Num="1">
+                      <Sentence Num="1">３</Sentence>
+                    </Column>
+                    <Column Num="2">
+                      <Sentence Num="1">２の（１）から（４）までに掲げる事項の実現を図り，豊かな創造性を備え持続可能な社会の創り手となることが期待される生徒に，生きる力を育むことを目指すに当たっては，学校教育全体，各教科・科目等並びに知的障害者である生徒に対する教育を行う特別支援学校における各教科，道徳科，総合的な探究の時間，特別活動及び自立活動（以下「各教科等」という。）において，それぞれの指導を通してどのような資質・能力の育成を目指すのかを明確にしながら，教育活動の充実を図るものとする。その際，生徒の障害の状態や特性及び心身の発達の段階等を踏まえつつ，次に掲げることが偏りなく実現できるようにするものとする。</Sentence>
+                    </Column>
+                  </ListSentence>
+                </List>
+                <List>
+                  <ListSentence>
+                    <Column Num="1">
+                      <Sentence Num="1">（１）</Sentence>
+                    </Column>
+                    <Column Num="2">
+                      <Sentence Num="1">知識及び技能が習得されるようにすること。</Sentence>
+                    </Column>
+                  </ListSentence>
+                </List>
+                <List>
+                  <ListSentence>
+                    <Column Num="1">
+                      <Sentence Num="1">（２）</Sentence>
+                    </Column>
+                    <Column Num="2">
+                      <Sentence Num="1">思考力，判断力，表現力等を育成すること。</Sentence>
+                    </Column>
+                  </ListSentence>
+                </List>
+                <List>
+                  <ListSentence>
+                    <Column Num="1">
+                      <Sentence Num="1">（３）</Sentence>
+                    </Column>
+                    <Column Num="2">
+                      <Sentence Num="1">学びに向かう力，人間性等を<Ruby>涵<Rt>かん</Rt>
+                        </Ruby>養すること。</Sentence>
+                    </Column>
+                  </ListSentence>
+                </List>
+                <List>
+                  <ListSentence>
+                    <Column Num="1">
+                      <Sentence Num="1">４</Sentence>
+                    </Column>
+                    <Column Num="2">
+                      <Sentence Num="1">学校においては，生徒の障害の状態や特性及び心身の発達の段階等，学校や地域の実態等に応じて，就業やボランティアに関わる体験的な学習の指導を適切に行うようにし，勤労の尊さや創造することの喜びを体得させ，望ましい勤労観，職業観の育成や社会奉仕の精神の<Ruby>涵<Rt>かん</Rt>
+                        </Ruby>養に資するものとする。</Sentence>
+                    </Column>
+                  </ListSentence>
+                </List>
+                <List>
+                  <ListSentence>
+                    <Column Num="1">
+                      <Sentence Num="1">５</Sentence>
+                    </Column>
+                    <Column Num="2">
+                      <Sentence Num="1">各学校においては，生徒や学校，地域の実態を適切に把握し，教育の目的や目標の実現に必要な教育の内容等を教科等横断的な視点で組み立てていくこと，教育課程の実施状況を評価してその改善を図っていくこと，教育課程の実施に必要な人的又は物的な体制を確保するとともにその改善を図っていくことなどを通して，教育課程に基づき組織的かつ計画的に各学校の教育活動の質の向上を図っていくこと（以下「カリキュラム・マネジメント」という。）に努めるものとする。その際，生徒に何が身に付いたかという学習の成果を的確に捉え，第２款の３の（５）のイに示す個別の指導計画の実施状況の評価と改善を，教育課程の評価と改善につなげていくよう工夫すること。</Sentence>
+                    </Column>
+                  </ListSentence>
+                </List>
+              </Paragraph>
+            </Article>
+          </Subsection>
+        </Section>
+      </Chapter>
+      <Chapter Num="2">
+        <ChapterTitle>第２章　各教科</ChapterTitle>
+        <Section Num="1">
+          <SectionTitle>第１節　視覚障害者，聴覚障害者，肢体不自由者又は病弱者である生徒に対する教育を行う特別支援学校</SectionTitle>
+          <Subsection Num="1">
+            <SubsectionTitle>第１款　各教科の目標及び各科目の目標と内容</SubsectionTitle>
+            <Article Num="999999999">
+              <ArticleTitle />
+              <Paragraph Num="1">
+                <ParagraphNum />
+                <List>
+                  <ListSentence>
+                    <Sentence Num="1">各教科の目標及び各科目の目標と内容については，当該各教科及び各科目に対応する高等学校学習指導要領第２章及び第３章に示す各教科の目標及び各科目の目標と内容に準ずるほか，視覚障害者である生徒に対する教育を行う特別支援学校については第３款から第５款まで，聴覚障害者である生徒に対する教育を行う特別支援学校については第６款から第９款までに示すところによるものとする。</Sentence>
+                  </ListSentence>
+                </List>
+              </Paragraph>
+            </Article>
+          </Subsection>
+          <Subsection Num="2">
+            <SubsectionTitle>第２款　各科目に関する指導計画の作成と内容の取扱い</SubsectionTitle>
+            <Article Num="999999999">
+              <ArticleTitle />
+              <Paragraph Num="1">
+                <ParagraphNum />
+                <List>
+                  <ListSentence>
+                    <Sentence Num="1">各科目に関する指導計画の作成と内容の取扱いについては，高等学校学習指導要領第２章及び第３章に示すものに準ずるほか，視覚障害者である生徒に対する教育を行う特別支援学校については第３款から第５款まで，聴覚障害者である生徒に対する教育を行う特別支援学校については第６款から第９款までに示すところによるものとするが，生徒の障害の状態や特性及び心身の発達の段階等を十分考慮するとともに，特に次の事項に配慮するものとする。</Sentence>
+                  </ListSentence>
+                </List>
+                <List>
+                  <ListSentence>
+                    <Column Num="1">
+                      <Sentence Num="1">１</Sentence>
+                    </Column>
+                    <Column Num="2">
+                      <Sentence Num="1">視覚障害者である生徒に対する教育を行う特別支援学校</Sentence>
+                    </Column>
+                  </ListSentence>
+                </List>
+                <List>
+                  <ListSentence>
+                    <Column Num="1">
+                      <Sentence Num="1">（１）</Sentence>
+                    </Column>
+                    <Column Num="2">
+                      <Sentence Num="1">生徒の視覚障害の状態等に応じて，点字又は普通の文字等による的確な理解と豊かな表現力を一層養うこと。なお，点字を常用して学習する生徒に対しても，漢字・漢語の意味や構成等についての理解を一層促すため，適切な指導が行われるようにすること。</Sentence>
+                    </Column>
+                  </ListSentence>
+                </List>
+                <List>
+                  <ListSentence>
+                    <Column Num="1">
+                      <Sentence Num="1">（２）</Sentence>
+                    </Column>
+                    <Column Num="2">
+                      <Sentence Num="1">視覚的なイメージを伴わないと理解が困難な事象や習得が難しい技能については，既習の内容や経験と関連付けながら，具体例を示すなど指導方法を工夫して，理解を深め習得を促すようにすること。</Sentence>
+                    </Column>
+                  </ListSentence>
+                </List>
+                <List>
+                  <ListSentence>
+                    <Column Num="1">
+                      <Sentence Num="1">（３）</Sentence>
+                    </Column>
+                    <Column Num="2">
+                      <Sentence Num="1">生徒の視覚障害の状態等に応じて，指導内容を適切に精選し，基礎的・基本的な事項を確実に習得するとともに，考えを深めていくことができるよう指導すること。</Sentence>
+                    </Column>
+                  </ListSentence>
+                </List>
+              </Paragraph>
+            </Article>
+          </Subsection>
+        </Section>
+      </Chapter>
+    </MainProvision>
+  </LawBody>
+</Law>

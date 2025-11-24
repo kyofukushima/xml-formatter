@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Law>
+  <LawBody>
+    <MainProvision>
+      <Paragraph Num="1">
+        <ParagraphNum/>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence>（１）</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence>Paragraphレベルのラベルではないので変換されない</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+      </Paragraph>
+    </MainProvision>
+  </LawBody>
+</Law>

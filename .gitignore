@@ -1,0 +1,33 @@
+# macOS system files
+.DS_Store
+
+# Temporary files
+temp_*.xml
+temp_test.xml
+
+# Test output directories
+test_output/
+test_output2.xml
+
+# Processing output directories
+output/
+
+# Report files
+xml_comparison_report.txt
+xml_comparison_report_backup.txt
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# IDE files
+.vscode/
+.idea/
+
+# Log files
+*.log
+
+# Backup files
+*.bak
+*~

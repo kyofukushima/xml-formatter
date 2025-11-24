@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Law>
+  <LawBody>
+    <Item Num="1">
+      <ItemTitle>第一</ItemTitle>
+      <ItemSentence>
+        <Sentence Num="1">以下に定める。</Sentence>
+      </ItemSentence>
+      <Subitem1 Num="1">
+        <Subitem1Title>１</Subitem1Title>
+        <Subitem1Sentence>
+          <Sentence Num="1">次の各号に掲げる事項</Sentence>
+        </Subitem1Sentence>
+        <Subitem2 Num="1">
+          <Subitem2Title/>
+          <Subitem2Sentence>
+            <Sentence Num="1"/>
+          </Subitem2Sentence>
+          <List>
+            <ListSentence>
+              <Sentence Num="1">分割前の内容</Sentence>
+            </ListSentence>
+          </List>
+        </Subitem2>
+        <Subitem2 Num="2">
+          <Subitem2Title/>
+          <Subitem2Sentence>
+            <Sentence Num="1"/>
+          </Subitem2Sentence>
+          <List>
+            <ListSentence>
+              <Column Num="1">
+                <Sentence Num="1">（１）</Sentence>
+              </Column>
+              <Column Num="2">
+                <Sentence Num="1">分割後の内容</Sentence>
+              </Column>
+            </ListSentence>
+          </List>
+        </Subitem2>
+      </Subitem1>
+    </Item>
+  </LawBody>
+</Law>

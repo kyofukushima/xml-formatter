@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<Law>
+  <LawBody>
+    <Paragraph Num="1">
+      <ParagraphNum>1</ParagraphNum>
+      <ParagraphSentence>
+        <Sentence Num="1">アルファベットパターンのテスト</Sentence>
+      </ParagraphSentence>
+      <!-- &#22823;&#25991;&#23383;&#12450;&#12523;&#12501;&#12449;&#12505;&#12483;&#12488; -->
+      <Item Num="1">
+        <ItemTitle>A</ItemTitle>
+        <ItemSentence>
+          <Sentence Num="1">大文字アルファベットAの内容</Sentence>
+        </ItemSentence>
+      </Item>
+      <Item Num="2">
+        <ItemTitle>B</ItemTitle>
+        <ItemSentence>
+          <Sentence Num="1">大文字アルファベットBの内容</Sentence>
+        </ItemSentence>
+        <Subitem1 Num="1">
+          <Subitem1Title>a</Subitem1Title>
+          <Subitem1Sentence>
+            <Sentence Num="1">小文字アルファベットaの内容</Sentence>
+          </Subitem1Sentence>
+        </Subitem1>
+        <Subitem1 Num="2">
+          <Subitem1Title>b</Subitem1Title>
+          <Subitem1Sentence>
+            <Sentence Num="1">小文字アルファベットbの内容</Sentence>
+          </Subitem1Sentence>
+          <Subitem2 Num="1">
+            <Subitem2Title>Ａ</Subitem2Title>
+            <Subitem2Sentence>
+              <Sentence Num="1">全角大文字アルファベットＡの内容</Sentence>
+            </Subitem2Sentence>
+          </Subitem2>
+          <Subitem2 Num="2">
+            <Subitem2Title>Ｂ</Subitem2Title>
+            <Subitem2Sentence>
+              <Sentence Num="1">全角大文字アルファベットＢの内容</Sentence>
+            </Subitem2Sentence>
+          </Subitem2>
+        </Subitem1>
+      </Item>
+      <!-- &#23567;&#25991;&#23383;&#12450;&#12523;&#12501;&#12449;&#12505;&#12483;&#12488; -->
+      <!-- &#20840;&#35282;&#22823;&#25991;&#23383;&#12450;&#12523;&#12501;&#12449;&#12505;&#12483;&#12488; -->
+    </Paragraph>
+  </LawBody>
+</Law>

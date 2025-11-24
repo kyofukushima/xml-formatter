@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<Law>
+  <LawBody>
+    <MainProvision>
+      <Paragraph Num="1">
+        <ParagraphNum/>
+        <Item Num="1">
+          <ItemTitle>スキップされるべき</ItemTitle>
+          <ItemSentence>
+            <Sentence>Listではないので変換されない</Sentence>
+          </ItemSentence>
+        </Item>
+      </Paragraph>
+    </MainProvision>
+  </LawBody>
+</Law>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Law>
+  <LawBody>
+    <Paragraph Num="1">
+      <ParagraphNum>1</ParagraphNum>
+      <ParagraphSentence>
+        <Sentence Num="1">括弧付き数字パターンのテスト</Sentence>
+      </ParagraphSentence>
+      
+      <!-- 括弧付き全角数字 -->
+      <List>
+        <ListSentence>
+          <Column Num="1">
+            <Sentence Num="1">（０）</Sentence>
+          </Column>
+          <Column Num="2">
+            <Sentence Num="1">括弧付き全角数字（０）の内容</Sentence>
+          </Column>
+        </ListSentence>
+      </List>
+      <List>
+        <ListSentence>
+          <Column Num="1">
+            <Sentence Num="1">（１）</Sentence>
+          </Column>
+          <Column Num="2">
+            <Sentence Num="1">括弧付き全角数字（１）の内容</Sentence>
+          </Column>
+        </ListSentence>
+      </List>
+      <!-- 括弧付き半角数字 -->
+      <List>
+        <ListSentence>
+          <Column Num="1">
+            <Sentence Num="1">(1)</Sentence>
+          </Column>
+          <Column Num="2">
+            <Sentence Num="1">括弧付き半角数字(1)の内容</Sentence>
+          </Column>
+        </ListSentence>
+      </List>
+      <List>
+        <ListSentence>
+          <Column Num="1">
+            <Sentence Num="1">(2)</Sentence>
+          </Column>
+          <Column Num="2">
+            <Sentence Num="1">括弧付き半角数字(2)の内容</Sentence>
+          </Column>
+        </ListSentence>
+      </List>
+      <!-- 括弧付き漢数字 -->
+      <List>
+        <ListSentence>
+          <Column Num="1">
+            <Sentence Num="1">（一）</Sentence>
+          </Column>
+          <Column Num="2">
+            <Sentence Num="1">括弧付き漢数字（一）の内容</Sentence>
+          </Column>
+        </ListSentence>
+      </List>
+      <List>
+        <ListSentence>
+          <Column Num="1">
+            <Sentence Num="1">（二）</Sentence>
+          </Column>
+          <Column Num="2">
+            <Sentence Num="1">括弧付き漢数字（二）の内容</Sentence>
+          </Column>
+        </ListSentence>
+      </List>
+      
+    </Paragraph>
+  </LawBody>
+</Law>

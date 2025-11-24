@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<Law>
+  <LawBody>
+    <Paragraph Num="1">
+      <ParagraphNum>1</ParagraphNum>
+      <ParagraphSentence>
+        <Sentence Num="1">Paragraphの内容</Sentence>
+      </ParagraphSentence>
+      <Item Num="1">
+        <ItemTitle/>
+        <ItemSentence>
+          <Sentence Num="1">〔指導項目〕</Sentence>
+        </ItemSentence>
+      </Item>
+    </Paragraph>
+  </LawBody>
+</Law>

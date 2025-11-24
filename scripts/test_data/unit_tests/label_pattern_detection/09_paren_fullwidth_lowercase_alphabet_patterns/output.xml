@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<Law>
+  <LawBody>
+    <Paragraph Num="1">
+      <ParagraphNum>1</ParagraphNum>
+      <ParagraphSentence>
+        <Sentence Num="1">括弧付き全角小文字アルファベットパターンのテスト</Sentence>
+      </ParagraphSentence>
+      <!-- &#25324;&#24359;&#20184;&#12365;&#20840;&#35282;&#23567;&#25991;&#23383;&#12450;&#12523;&#12501;&#12449;&#12505;&#12483;&#12488; -->
+      <Item Num="1">
+        <ItemTitle>(ａ)</ItemTitle>
+        <ItemSentence>
+          <Sentence Num="1">括弧付き全角小文字アルファベット(ａ)の内容</Sentence>
+        </ItemSentence>
+      </Item>
+      <Item Num="2">
+        <ItemTitle>(ｂ)</ItemTitle>
+        <ItemSentence>
+          <Sentence Num="1">括弧付き全角小文字アルファベット(ｂ)の内容</Sentence>
+        </ItemSentence>
+        <Subitem1 Num="1">
+          <Subitem1Title>（ａ）</Subitem1Title>
+          <Subitem1Sentence>
+            <Sentence Num="1">括弧付き全角小文字アルファベット（ａ）の内容</Sentence>
+          </Subitem1Sentence>
+        </Subitem1>
+        <Subitem1 Num="2">
+          <Subitem1Title>（ｂ）</Subitem1Title>
+          <Subitem1Sentence>
+            <Sentence Num="1">括弧付き全角小文字アルファベット（ｂ）の内容</Sentence>
+          </Subitem1Sentence>
+        </Subitem1>
+      </Item>
+    </Paragraph>
+  </LawBody>
+</Law>

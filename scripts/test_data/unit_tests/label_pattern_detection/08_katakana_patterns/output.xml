@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<Law>
+  <LawBody>
+    <Paragraph Num="1">
+      <ParagraphNum>1</ParagraphNum>
+      <ParagraphSentence>
+        <Sentence Num="1">カタカナパターンのテスト</Sentence>
+      </ParagraphSentence>
+      <!-- &#12459;&#12479;&#12459;&#12490;&#65288;&#25324;&#24359;&#12394;&#12375;&#65289; -->
+      <Item Num="1">
+        <ItemTitle>ア</ItemTitle>
+        <ItemSentence>
+          <Sentence Num="1">カタカナアの内容</Sentence>
+        </ItemSentence>
+      </Item>
+      <Item Num="2">
+        <ItemTitle>イ</ItemTitle>
+        <ItemSentence>
+          <Sentence Num="1">カタカナイの内容</Sentence>
+        </ItemSentence>
+        <Subitem1 Num="1">
+          <Subitem1Title>（ア）</Subitem1Title>
+          <Subitem1Sentence>
+            <Sentence Num="1">括弧付きカタカナ（ア）の内容</Sentence>
+          </Subitem1Sentence>
+        </Subitem1>
+        <Subitem1 Num="2">
+          <Subitem1Title>（イ）</Subitem1Title>
+          <Subitem1Sentence>
+            <Sentence Num="1">括弧付きカタカナ（イ）の内容</Sentence>
+          </Subitem1Sentence>
+          <Subitem2 Num="1">
+            <Subitem2Title>（（ア））</Subitem2Title>
+            <Subitem2Sentence>
+              <Sentence Num="1">二重括弧付きカタカナ（（ア））の内容</Sentence>
+            </Subitem2Sentence>
+          </Subitem2>
+          <Subitem2 Num="2">
+            <Subitem2Title>（（イ））</Subitem2Title>
+            <Subitem2Sentence>
+              <Sentence Num="1">二重括弧付きカタカナ（（イ））の内容</Sentence>
+            </Subitem2Sentence>
+          </Subitem2>
+        </Subitem1>
+      </Item>
+      <!-- &#25324;&#24359;&#20184;&#12365;&#12459;&#12479;&#12459;&#12490; -->
+      <!-- &#20108;&#37325;&#25324;&#24359;&#20184;&#12365;&#12459;&#12479;&#12459;&#12490; -->
+    </Paragraph>
+  </LawBody>
+</Law>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Law Era="Reiwa" Year="5" Num="1" LawType="MinisterialOrdinance" Lang="ja">
+  <LawNum>テスト告示</LawNum>
+  <LawBody>
+    <MainProvision>
+      <Article Num="999999999">
+        <ArticleTitle/>
+        <Paragraph Num="1">
+          <ParagraphNum/>
+          <List>
+            <ListSentence>
+              <Sentence Num="1">これは第1段落の文章です。</Sentence>
+            </ListSentence>
+          </List>
+          <List>
+            <ListSentence>
+              <Column Num="1">
+                <Sentence Num="1">１</Sentence>
+              </Column>
+              <Column Num="2">
+                <Sentence Num="1">第1項目の内容</Sentence>
+              </Column>
+            </ListSentence>
+          </List>
+        </Paragraph>
+      </Article>
+    </MainProvision>
+  </LawBody>
+</Law>

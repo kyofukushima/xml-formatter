@@ -1,0 +1,740 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Law DataInfo="250815e81k80m01" Era="Heisei" Lang="ja" LawType="Misc" Num="121" Year="9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../schema/kokuji20250320_asukoe.xsd">
+  <LawNum>平成九年郵政省告示第百二十一号</LawNum>
+  <LawBody>
+    <LawTitle>平成九年郵政省告示第百二十一号（無線設備規則第十四条第三項及び第四十九条第三号の規定に基づく衛星測位誤差補正情報を提供する無線航行陸上局の無線設備の技術的条件）</LawTitle>
+    <EnactStatement>無線設備規則（昭和二十五年電波監理委員会規則第十八号）第十四条第三項及び第四十八条の三第三号の規定に基づき、衛星測位誤差補正情報を提供する無線航行陸上局の無線設備の技術的条件を次のように定める。</EnactStatement>
+    <MainProvision>
+      <Paragraph Num="1">
+        <ParagraphNum>一</ParagraphNum>
+        <ParagraphSentence>
+          <Sentence Num="1" >一般的条件</Sentence>
+        </ParagraphSentence>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1" >１</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1" >次の情報を送信できるものであること。</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1" >（一）</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1" >ＧＰＳ（全地球的衛星航法システムをいう。以下同じ。）の衛星の電波を受信して得られる測位誤差を測定する地点の位置</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1" >（二）</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1" >ＧＰＳの衛星の状態に関する情報</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1" >（三）</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1" >ＧＰＳのヌル情報（送信すべき情報がないとき又は情報の送信の開始を調整するときに送る情報をいう。以下同じ。）</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1" >（四）</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1" >無線航行陸上局のアルマナックデータ（近隣の無線航行陸上局の位置、周波数、状態に関するデータをいう。以下同じ。）</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1" >（五）</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1" >ＧＰＳの衛星の電波を受信して得られる測位誤差の補正に関する情報</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1" >（六）</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1" >特別情報</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1" >２</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1" >１の衛星測位誤差補正情報の種別番号は、次の表の上欄の衛星測位誤差補正情報の種別に従い、それぞれ同表の下欄に掲げるとおりとする。</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        <TableStruct>
+          <Table >
+            <TableRow>
+              <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
+                <Sentence Num="1" >種別</Sentence>
+              </TableColumn>
+              <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
+                <Sentence Num="1" >種別番号</Sentence>
+              </TableColumn>
+            </TableRow>
+            <TableRow>
+              <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
+                <Sentence Num="1" >ＧＰＳの衛星の電波を受信して得られる測位誤差を測定する地点の位置</Sentence>
+              </TableColumn>
+              <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
+                <Sentence Num="1" >三</Sentence>
+              </TableColumn>
+            </TableRow>
+            <TableRow>
+              <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
+                <Sentence Num="1" >ＧＰＳの衛星の状態に関する情報</Sentence>
+              </TableColumn>
+              <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
+                <Sentence Num="1" >五</Sentence>
+              </TableColumn>
+            </TableRow>
+            <TableRow>
+              <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
+                <Sentence Num="1" >ＧＰＳのヌル情報</Sentence>
+              </TableColumn>
+              <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
+                <Sentence Num="1" >六</Sentence>
+              </TableColumn>
+            </TableRow>
+            <TableRow>
+              <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
+                <Sentence Num="1" >無線航行陸上局のアルマナックデータ</Sentence>
+              </TableColumn>
+              <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
+                <Sentence Num="1" >七</Sentence>
+              </TableColumn>
+            </TableRow>
+            <TableRow>
+              <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
+                <Sentence Num="1" >ＧＰＳの衛星の電波を受信して得られる測位誤差の補正に関する情報</Sentence>
+              </TableColumn>
+              <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
+                <Sentence Num="1" >九</Sentence>
+              </TableColumn>
+            </TableRow>
+            <TableRow>
+              <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
+                <Sentence Num="1" >特別情報</Sentence>
+              </TableColumn>
+              <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
+                <Sentence Num="1" >十六</Sentence>
+              </TableColumn>
+            </TableRow>
+          </Table>
+        </TableStruct>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1" >３</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1" >試験又は調整のための情報を送信できるものであること。</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        </Paragraph>
+        <Paragraph Num="2">
+          <ParagraphNum>二</ParagraphNum>
+          <ParagraphSentence>
+            <Sentence Num="1" >電気的条件</Sentence>
+          </ParagraphSentence>
+        </Paragraph>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1" >１</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1" >送信信号の構成は、別図第一号から別図第六号までに示すところによるものであること。</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1" >２</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1" >空中線電力の許容値は上限一〇パーセント、下限二〇パーセントとする。</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+      </Paragraph>
+    </MainProvision>
+    <AppdxTable>
+      <AppdxTableTitle >別図第一号</AppdxTableTitle>
+      <RelatedArticleNum>　ＧＰＳの衛星の電波を受信して得られる測位誤差を測定する地点の位置の信号の構成（第１信号及び第２信号により構成すること。）</RelatedArticleNum>
+      <FigStruct>
+        <FigStructTitle>第１信号</FigStructTitle>
+        <Fig src="./pict/3JH00000231863.jpg"/>
+        <Remarks>
+          <RemarksLabel>注１</RemarksLabel>
+          <Sentence >衛星測位誤差補正情報の種別は、次表のとおりであること。</Sentence>
+          <TableStruct>
+          <Table >
+            <TableRow>
+              <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
+                <Sentence Num="1" >種別番号</Sentence>
+              </TableColumn>
+              <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
+                <Sentence Num="1" >種別</Sentence>
+              </TableColumn>
+              <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
+                <Sentence Num="1" >ビット表示</Sentence>
+              </TableColumn>
+            </TableRow>
+            <TableRow>
+              <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
+                <Sentence Num="1" >三</Sentence>
+              </TableColumn>
+              <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
+                <Sentence Num="1" >ＧＰＳの衛星の電波を受信して得られる測位誤差を測定する地点の位置</Sentence>
+              </TableColumn>
+              <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
+                <Sentence Num="1" >００００１１</Sentence>
+              </TableColumn>
+            </TableRow>
+            <TableRow>
+              <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
+                <Sentence Num="1" >五</Sentence>
+              </TableColumn>
+              <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
+                <Sentence Num="1" >ＧＰＳの衛星の状態に関する情報</Sentence>
+              </TableColumn>
+              <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
+                <Sentence Num="1" >０００１０１</Sentence>
+              </TableColumn>
+            </TableRow>
+            <TableRow>
+              <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
+                <Sentence Num="1" >六</Sentence>
+              </TableColumn>
+              <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
+                <Sentence Num="1" >ＧＰＳのヌル情報</Sentence>
+              </TableColumn>
+              <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
+                <Sentence Num="1" >０００１１０</Sentence>
+              </TableColumn>
+            </TableRow>
+            <TableRow>
+              <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
+                <Sentence Num="1" >七</Sentence>
+              </TableColumn>
+              <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
+                <Sentence Num="1" >無線航行陸上局のアルマナックデータ</Sentence>
+              </TableColumn>
+              <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
+                <Sentence Num="1" >０００１１１</Sentence>
+              </TableColumn>
+            </TableRow>
+            <TableRow>
+              <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
+                <Sentence Num="1" >九</Sentence>
+              </TableColumn>
+              <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
+                <Sentence Num="1" >ＧＰＳの衛星の電波を受信して得られる測位誤差の補正に関する情報</Sentence>
+              </TableColumn>
+              <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
+                <Sentence Num="1" >００１００１</Sentence>
+              </TableColumn>
+            </TableRow>
+            <TableRow>
+              <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
+                <Sentence Num="1" >十六</Sentence>
+              </TableColumn>
+              <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
+                <Sentence Num="1" >特別情報</Sentence>
+              </TableColumn>
+              <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
+                <Sentence Num="1" >０１００００</Sentence>
+              </TableColumn>
+            </TableRow>
+          </Table>
+        </TableStruct>
+        <Remarks>
+          <RemarksLabel>注２</RemarksLabel>
+          <Sentence >国際航路標識協会（ＩＡＬＡ）の分配による識別番号を使用すること。</Sentence>
+        </Remarks>
+        <Remarks>
+          <RemarksLabel>注３</RemarksLabel>
+          <Sentence >衛星誤差補正情報の基準時間を示す。各ＧＰＳ時間の始めに０の値から始まり、最大値は、３，５９９．４秒、分解能は０．６秒であること。他の時間計算と同様に、利用者の受信装置においてＧＰＳ時間の計算に使用するものであること。</Sentence>
+        </Remarks>
+        <Remarks>
+          <RemarksLabel>注４</RemarksLabel>
+          <Sentence >衛星測位誤差補正情報の送信ごとに１増加するものとし、同期化のために使用するものであること。</Sentence>
+        </Remarks>
+        <Remarks>
+          <RemarksLabel>注５</RemarksLabel>
+          <Sentence >第２語に引き続いて「Ｎ」語が送信されることを表すものであること。</Sentence>
+        </Remarks>
+        <Remarks>
+          <RemarksLabel>注６</RemarksLabel>
+          <Sentence >「１１１」は正常に動作していないことを、「１１０」は無線航行陸上局の送信が監視されていないことを表すものであること。</Sentence>
+        </Remarks>
+      </FigStruct>
+      <FigStruct>
+        <FigStructTitle>第２信号</FigStructTitle>
+        <Fig src="./pict/3JH00000231864.jpg"/>
+        <Remarks>
+          <RemarksLabel>注</RemarksLabel>
+          <Sentence >「ＥＣＥＦ」は、ＷＧＳ―８４座標系における地球中心・地球固定直交座標系を示すものであること。</Sentence>
+        </Remarks>
+      </FigStruct>
+    </AppdxTable>
+    <AppdxTable>
+      <AppdxTableTitle >別図第二号</AppdxTableTitle>
+      <RelatedArticleNum>　ＧＰＳの衛星の状態に関する情報の信号の構成（第１信号及び第２信号により構成すること。）</RelatedArticleNum>
+      <Item Num="1">
+        <ItemTitle/>
+        <ItemSentence>
+          <Sentence Num="1" >第１信号</Sentence>
+        </ItemSentence>
+        <Subitem1 Num="1">
+          <Subitem1Title/>
+          <Subitem1Sentence>
+            <Sentence Num="1" >別図第一号の第１信号と同じものであること。</Sentence>
+          </Subitem1Sentence>
+        </Subitem1>
+      </Item>
+      <Item Num="2">
+        <ItemTitle/>
+        <ItemSentence>
+          <Sentence Num="1" >第２信号</Sentence>
+        </ItemSentence>
+        <Subitem1 Num="1">
+          <Subitem1Title/>
+          <Subitem1Sentence>
+            <Sentence Num="1" >各衛星につき、次のとおり１語で構成すること（各信号の条件は別表のとおりとする。）。</Sentence>
+          </Subitem1Sentence>
+          <FigStruct>
+            <Fig src="./pict/3JH00000231865.jpg"/>
+            <Remarks>
+              <RemarksLabel>注</RemarksLabel>
+              <Sentence >Ｎ<Sub>１</Sub>は、衛星の数を表すものであること。</Sentence>
+            </Remarks>
+          </FigStruct>
+        </Subitem1>
+      </Item>
+    </AppdxTable>
+    <AppdxTable>
+      <AppdxTableTitle >別表</AppdxTableTitle>
+      <RelatedArticleNum>　各信号の条件</RelatedArticleNum>
+      <TableStruct>
+        <Table >
+          <TableRow>
+            <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
+              <Sentence Num="1" >信号</Sentence>
+            </TableColumn>
+            <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
+              <Sentence Num="1" >ビット番号</Sentence>
+            </TableColumn>
+            <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
+              <Sentence Num="1" >条件</Sentence>
+            </TableColumn>
+          </TableRow>
+          <TableRow>
+            <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
+              <Sentence Num="1" >予備</Sentence>
+            </TableColumn>
+            <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
+              <Sentence Num="1" >１</Sentence>
+            </TableColumn>
+            <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
+              <Sentence Num="1" >将来、衛星の数が３２個を超えたときのために使用すること。</Sentence>
+            </TableColumn>
+          </TableRow>
+          <TableRow>
+            <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
+              <Sentence Num="1" >衛星識別番号</Sentence>
+            </TableColumn>
+            <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
+              <Sentence Num="1" >２から６まで</Sentence>
+            </TableColumn>
+            <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
+              <Sentence Num="1" >標準書式で１から３２（３２は全ビット「０」）を表すこと。</Sentence>
+            </TableColumn>
+          </TableRow>
+          <TableRow>
+            <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
+              <Sentence Num="1" >データ発行番号リンク</Sentence>
+            </TableColumn>
+            <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
+              <Sentence Num="1" >７</Sentence>
+            </TableColumn>
+            <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
+              <Sentence Num="1" >「０」のとき、別図第五号の信号のエフェメリスデータ（個々の衛星の軌道情報等のデータをいう。以下同じ。）の発行番号の航法データを参照することを表すこと。</Sentence>
+            </TableColumn>
+          </TableRow>
+          <TableRow>
+            <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
+              <Sentence Num="1" >状態データ</Sentence>
+            </TableColumn>
+            <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
+              <Sentence Num="1" >８から１０まで</Sentence>
+            </TableColumn>
+            <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
+              <Sentence Num="1" >衛星の航法データの状態を示すものであること。「０００」のとき、全てのデータが正常であることを表し、いずれかが「１」のとき、全部又は一部が異常であることを表すこと。</Sentence>
+            </TableColumn>
+          </TableRow>
+          <TableRow>
+            <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
+              <Sentence Num="1" >Ｃ／Ｎ<Sub>０</Sub></Sentence>
+            </TableColumn>
+            <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
+              <Sentence Num="1" >１１から１５まで</Sentence>
+            </TableColumn>
+            <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
+              <Sentence Num="1" >基準設備で測定した衛星信号の信号対雑音比であること。単位は１〔ｄＢ－Ｈｚ〕であり、２５から５５〔ｄＢ―Ｈｚ〕の範囲を表す。「０００００」は衛星信号を捕捉していないことを表し、「００００１」は最低値の２５〔ｄＢ―Ｈｚ〕、「１１１１１」は最高値の５５〔ｄＢ―Ｈｚ〕を表すこと。</Sentence>
+            </TableColumn>
+          </TableRow>
+          <TableRow>
+            <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
+              <Sentence Num="1" >強制的正常衛星扱い</Sentence>
+            </TableColumn>
+            <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
+              <Sentence Num="1" >１６</Sentence>
+            </TableColumn>
+            <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
+              <Sentence Num="1" >「１」のとき、衛星の航法データが異常を示してもＤＧＰＳ利用装置は、これを無視して同データを正常とみなして良いことを表すこと。</Sentence>
+            </TableColumn>
+          </TableRow>
+          <TableRow>
+            <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
+              <Sentence Num="1" >新航法データ入手</Sentence>
+            </TableColumn>
+            <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
+              <Sentence Num="1" >１７</Sentence>
+            </TableColumn>
+            <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
+              <Sentence Num="1" >「１」のとき、衛星の新航法データを基準設備が入手し擬似距離補正値の生成過程であることを表すこと。別図第五号の信号の順次番号を更新する予定であることを表すこと。</Sentence>
+            </TableColumn>
+          </TableRow>
+          <TableRow>
+            <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
+              <Sentence Num="1" >異常状態予定警報</Sentence>
+            </TableColumn>
+            <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
+              <Sentence Num="1" >１８</Sentence>
+            </TableColumn>
+            <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
+              <Sentence Num="1" >「１」のとき、衛星の航法データの状態が異常となる予定であることを表すこと。正常である時間の概略は次桁からの４ビットで表すこと。</Sentence>
+            </TableColumn>
+          </TableRow>
+          <TableRow>
+            <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
+              <Sentence Num="1" >異常状態への時間</Sentence>
+            </TableColumn>
+            <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
+              <Sentence Num="1" >１９から２２まで</Sentence>
+            </TableColumn>
+            <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
+              <Sentence Num="1" >１８ビット参照。単位は５分であり、０から７５分の範囲を表すこと。「００００」は直ちに異常となることを、「１１１１」は約７５分後に異常となることを表すこと。</Sentence>
+            </TableColumn>
+          </TableRow>
+        </Table>
+      </TableStruct>
+    </AppdxTable>
+    <AppdxTable>
+      <AppdxTableTitle >別図第三号</AppdxTableTitle>
+      <RelatedArticleNum>　ＧＰＳのヌル情報の信号の構成（第１信号及び第２信号により構成すること。）</RelatedArticleNum>
+      <Item Num="1">
+        <ItemTitle/>
+        <ItemSentence>
+          <Sentence Num="1" >第１信号</Sentence>
+        </ItemSentence>
+        <Subitem1 Num="1">
+          <Subitem1Title/>
+          <Subitem1Sentence>
+            <Sentence Num="1" >別図第一号の第１信号と同じものであること。</Sentence>
+          </Subitem1Sentence>
+        </Subitem1>
+      </Item>
+      <Item Num="2">
+        <ItemTitle/>
+        <ItemSentence>
+          <Sentence Num="1" >第２信号</Sentence>
+        </ItemSentence>
+        <Subitem1 Num="1">
+          <Subitem1Title/>
+          <Subitem1Sentence>
+            <Sentence Num="1" >本信号は、何もパラメータを含まず、必要に応じて、送信を連続させ、回線の維持に使用するものであること。この信号を送信する目的は、無線航行陸上局が送信すべき情報を用意できていないとき、又は、情報の送信の開始時期を調整したいときに用いるものであること。</Sentence>
+          </Subitem1Sentence>
+        </Subitem1>
+        <Subitem1 Num="2">
+          <Subitem1Title/>
+          <Subitem1Sentence>
+            <Sentence Num="1" >本信号は、他の送信信号の構成と同様に、送信語数を偶数にするか奇数にするかにより、送付予定語数をＮ＝「０」又は「１」とした最初の２語を含むものであること。Ｎ＝「１」のとき、最初の２語に続く語の中の２４桁のデータビットは「１」、「０」の交互のデータでなければならない。誤り検定符号は他の送信信号の構成と同様に、正常に動作するものでなければならない。</Sentence>
+          </Subitem1Sentence>
+        </Subitem1>
+      </Item>
+    </AppdxTable>
+    <AppdxTable>
+      <AppdxTableTitle >別図第四号</AppdxTableTitle>
+      <RelatedArticleNum>　無線航行陸上局のアルマナックデータの信号の構成（第１信号及び第２信号により構成すること。）</RelatedArticleNum>
+      <Item Num="1">
+        <ItemTitle/>
+        <ItemSentence>
+          <Sentence Num="1" >第１信号</Sentence>
+        </ItemSentence>
+        <Subitem1 Num="1">
+          <Subitem1Title/>
+          <Subitem1Sentence>
+            <Sentence Num="1" >別図第一号の第１信号と同じものであること。</Sentence>
+          </Subitem1Sentence>
+        </Subitem1>
+      </Item>
+      <FigStruct>
+        <FigStructTitle>第２信号</FigStructTitle>
+        <Fig src="./pict/3JH00000231866.jpg"/>
+        <Remarks>
+          <RemarksLabel>注１</RemarksLabel>
+          <Sentence >”＋”の値は、緯度の場合は北緯を、経度の場合は東経を示すものであること。</Sentence>
+        </Remarks>
+        <Remarks>
+          <RemarksLabel>注２</RemarksLabel>
+          <Sentence >単位は１００Ｈｚであること。</Sentence>
+        </Remarks>
+        <Remarks>
+          <RemarksLabel>注３</RemarksLabel>
+          <Sentence >無線航行陸上局の状態は、次表のとおりであること。</Sentence>
+          <TableStruct>
+            <Table >
+              <TableRow>
+                <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
+                  <Sentence Num="1" >ビット表示</Sentence>
+                </TableColumn>
+                <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
+                  <Sentence Num="1" >番号</Sentence>
+                </TableColumn>
+                <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
+                  <Sentence Num="1" >状態</Sentence>
+                </TableColumn>
+              </TableRow>
+              <TableRow>
+                <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
+                  <Sentence Num="1" >「００」</Sentence>
+                </TableColumn>
+                <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
+                  <Sentence Num="1" >（０）</Sentence>
+                </TableColumn>
+                <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
+                  <Sentence Num="1" >正常運用</Sentence>
+                </TableColumn>
+              </TableRow>
+              <TableRow>
+                <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
+                  <Sentence Num="1" >「０１」</Sentence>
+                </TableColumn>
+                <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
+                  <Sentence Num="1" >（１）</Sentence>
+                </TableColumn>
+                <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
+                  <Sentence Num="1" >非完全監視運用</Sentence>
+                </TableColumn>
+              </TableRow>
+              <TableRow>
+                <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
+                  <Sentence Num="1" >「１０」</Sentence>
+                </TableColumn>
+                <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
+                  <Sentence Num="1" >（２）</Sentence>
+                </TableColumn>
+                <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
+                  <Sentence Num="1" >提供情報無し</Sentence>
+                </TableColumn>
+              </TableRow>
+              <TableRow>
+                <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
+                  <Sentence Num="1" >「１１」</Sentence>
+                </TableColumn>
+                <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
+                  <Sentence Num="1" >（３）</Sentence>
+                </TableColumn>
+                <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
+                  <Sentence Num="1" >使用不可</Sentence>
+                </TableColumn>
+              </TableRow>
+            </Table>
+            <Remarks>
+              <RemarksLabel>注４</RemarksLabel>
+              <Sentence >国際航路標識協会（ＩＡＬＡ）の分配による識別番号を使用すること。</Sentence>
+            </Remarks>
+            <Remarks>
+              <RemarksLabel>注５</RemarksLabel>
+              <Sentence >送信速度は、次表のとおりであること。</Sentence>
+            </Remarks>
+          </TableStruct>
+          <TableStruct>
+            <Table >
+              <TableRow>
+                <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
+                  <Sentence Num="1" >ビット表示</Sentence>
+                </TableColumn>
+                <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
+                  <Sentence Num="1" >番号</Sentence>
+                </TableColumn>
+                <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
+                  <Sentence Num="1" >送信速度</Sentence>
+                </TableColumn>
+              </TableRow>
+              <TableRow>
+                <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
+                  <Sentence Num="1" >「００１」</Sentence>
+                </TableColumn>
+                <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
+                  <Sentence Num="1" >（１）</Sentence>
+                </TableColumn>
+                <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
+                  <Sentence Num="1" >５０ビット／秒</Sentence>
+                </TableColumn>
+              </TableRow>
+              <TableRow>
+                <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
+                  <Sentence Num="1" >「０１０」</Sentence>
+                </TableColumn>
+                <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
+                  <Sentence Num="1" >（２）</Sentence>
+                </TableColumn>
+                <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
+                  <Sentence Num="1" >１００ビット／秒</Sentence>
+                </TableColumn>
+              </TableRow>
+              <TableRow>
+                <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
+                  <Sentence Num="1" >「１０１」</Sentence>
+                </TableColumn>
+                <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
+                  <Sentence Num="1" >（５）</Sentence>
+                </TableColumn>
+                <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
+                  <Sentence Num="1" >２００ビット／秒</Sentence>
+                </TableColumn>
+              </TableRow>
+            </Table>
+            <Remarks>
+              <RemarksLabel>注６</RemarksLabel>
+              <Sentence >Ｎ<Sub>ｂ</Sub>は、アルマナックデータに含まれる無線航行陸上局の数を示すものであること。</Sentence>
+            </Remarks>
+          </TableStruct>
+        </Remarks>
+      </FigStruct>
+    </AppdxTable>
+    <AppdxTable>
+      <AppdxTableTitle >別図第五号</AppdxTableTitle>
+      <RelatedArticleNum>　ＧＰＳの衛星の電波を受信して得られる測位誤差の補正に関する情報の信号の構成（第１信号から第３信号までにより構成すること。）</RelatedArticleNum>
+      <Item Num="1">
+        <ItemTitle/>
+        <ItemSentence>
+          <Sentence Num="1" >第１信号</Sentence>
+        </ItemSentence>
+        <Subitem1 Num="1">
+          <Subitem1Title/>
+          <Subitem1Sentence>
+            <Sentence Num="1" >別図第一号の第１信号と同じものであること。</Sentence>
+          </Subitem1Sentence>
+        </Subitem1>
+      </Item>
+      <FigStruct>
+        <FigStructTitle>第２信号</FigStructTitle>
+        <Fig src="./pict/3JH00000231867.jpg"/>
+        <Remarks>
+          <RemarksLabel>注１</RemarksLabel>
+          <Sentence >「１００００００００００００００００」のビット表示は、問題が発生していることを示すものであること。</Sentence>
+        </Remarks>
+        <Remarks>
+          <RemarksLabel>注２</RemarksLabel>
+          <Sentence >「１０００００００」のビット表示は、問題が発生していることを示すものであること。</Sentence>
+        </Remarks>
+      </FigStruct>
+      <FigStruct>
+        <FigStructTitle>第３信号</FigStructTitle>
+        <Fig src="./pict/3JH00000231868.jpg"/>
+        <Remarks>
+          <RemarksLabel>注</RemarksLabel>
+          <Sentence >「１０１０１０１０」のビット表示によること。</Sentence>
+        </Remarks>
+      </FigStruct>
+      <Item Num="2">
+        <ItemTitle/>
+        <ItemSentence>
+          <Sentence Num="1" >第３信号</Sentence>
+        </ItemSentence>
+        <Subitem1 Num="">
+          <Subitem1Title></Subitem1Title>
+          <Subitem1Sentence>
+              <Sentence Num="1"></Sentence>
+          </Subitem1Sentence>
+          <List>
+            <ListSentence>
+              <Sentence Num="1" >衛星の数Ｎ<Sub>１</Sub>、が３で割り切れない場合は、衛星誤差の補正に関する情報を完成させるため、次の２語の内、どちらかの語で補完すること。</Sentence>
+            </ListSentence>
+          </List>
+        </Subitem1>
+        <FigStruct>
+          <FigStructTitle></FigStructTitle>
+          <Fig src="./pict/3JH00000231868.jpg"/>
+          <Remarks>
+            <RemarksLabel>注</RemarksLabel>
+            <Sentence >「１０１０１０１０」のビット表示によること。</Sentence>
+          </Remarks>
+        </FigStruct>
+      </Item>
+    </AppdxTable>
+    <AppdxTable>
+      <AppdxTableTitle >別図第六号</AppdxTableTitle>
+      <RelatedArticleNum>　ＧＳＰの特別情報の構成（第１信号及び第２信号により構成すること。）</RelatedArticleNum>
+      <Item Num="1">
+        <ItemTitle/>
+        <ItemSentence>
+          <Sentence Num="1" >第１信号</Sentence>
+        </ItemSentence>
+        <Subitem1 Num="1">
+          <Subitem1Title/>
+          <Subitem1Sentence>
+            <Sentence Num="1" >別図第一号の第１信号と同じものであること。</Sentence>
+          </Subitem1Sentence>
+        </Subitem1>
+      </Item>
+      <FigStruct>
+        <FigStructTitle>第２信号</FigStructTitle>
+        <Fig src="./pict/3JH00000231869.jpg"/>
+        <Remarks>
+          <RemarksLabel>注１</RemarksLabel>
+          <Sentence >Ｎは１から２８までとすること。</Sentence>
+        </Remarks>
+        <Remarks>
+          <RemarksLabel>注２</RemarksLabel>
+          <Sentence >アスキーコードによること。</Sentence>
+        </Remarks>
+      </FigStruct>
+    </AppdxTable>
+  </LawBody>
+</Law>

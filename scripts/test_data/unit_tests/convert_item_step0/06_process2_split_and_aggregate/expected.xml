@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Law>
+  <LawBody>
+    <Paragraph Num="1">
+      <ParagraphNum>1</ParagraphNum>
+      <ParagraphSentence>
+        <Sentence Num="1">Paragraphの内容</Sentence>
+      </ParagraphSentence>
+      <Item Num="1">
+        <ItemTitle>（１）</ItemTitle>
+        <ItemSentence>
+          <Sentence Num="1">最初のItemの内容</Sentence>
+        </ItemSentence>
+      </Item>
+      <Item Num="2">
+        <ItemTitle>（２）</ItemTitle>
+        <ItemSentence>
+          <Sentence Num="1">同じ階層のList - 分割される</Sentence>
+        </ItemSentence>
+        <List>
+          <ListSentence>
+            <Sentence Num="1">ColumnなしList - 取り込まれる</Sentence>
+          </ListSentence>
+        </List>
+      </Item>
+    </Paragraph>
+  </LawBody>
+</Law>

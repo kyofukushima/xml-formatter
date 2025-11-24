@@ -1,0 +1,109 @@
+<!-- 括弧数字のみの場合 -->
+ <!-- 入力 -->
+<Subitem1 Num="2">
+    <Subitem1Title>２</Subitem1Title>
+    <Subitem1Sentence>
+      <Sentence Num="1">内容</Sentence>
+    </Subitem1Sentence>
+    <Subitem2 Num="1">
+      <Subitem2Title/>
+      <Subitem2Sentence>
+        <Sentence Num="1"/>
+      </Subitem2Sentence>
+      <List>
+        <ListSentence>
+          <Sentence Num="1">テキスト1</Sentence>
+        </ListSentence>
+      </List>
+      <List>
+        <ListSentence>
+          <Sentence Num="1">テキスト2</Sentence>
+        </ListSentence>
+      </List>
+      <List>
+        <ListSentence>
+          <Sentence Num="1">〔指導項目〕</Sentence>
+        </ListSentence>
+      </List>
+    </Subitem2>
+</Subitem1>
+<!-- 出力 （見出しで分割）-->
+
+<Subitem1 Num="2">
+  <Subitem1Title>２</Subitem1Title>
+  <Subitem1Sentence>
+    <Sentence Num="1">内容</Sentence>
+  </Subitem1Sentence>
+  <Subitem2 Num="1">
+    <Subitem2Title/>
+    <Subitem2Sentence>
+      <Sentence Num="1"/>
+    </Subitem2Sentence>
+    <List>
+      <ListSentence>
+        <Sentence Num="1">テキスト1</Sentence>
+      </ListSentence>
+    </List>
+    <List>
+      <ListSentence>
+        <Sentence Num="1">テキスト2</Sentence>
+      </ListSentence>
+    </List>
+  </Subitem2>
+  <Subitem2 Num="2">
+    <Subitem2Title/>
+    <Subitem2Sentence>
+      <Sentence Num="1"/>
+    </Subitem2Sentence>
+    <List>
+      <ListSentence>
+        <Sentence Num="1">〔指導項目〕</Sentence>
+      </ListSentence>
+    </List>
+  </Subitem2>
+</Subitem1>
+
+
+
+
+
+
+
+
+
+<!-- 出力 -->
+
+<Subitem1 Num="2">
+    <Subitem1Title>２</Subitem1Title>
+    <Subitem1Sentence>
+      <Sentence Num="1">内容</Sentence>
+    </Subitem1Sentence>
+    <Subitem2 Num="1">
+      <Subitem2Title/>
+      <Subitem2Sentence>
+        <Sentence Num="1"/>
+      </Subitem2Sentence>
+      <List>
+        <ListSentence>
+          <Sentence Num="1">テキスト1</Sentence>
+        </ListSentence>
+      </List>
+      <List>
+        <ListSentence>
+          <Sentence Num="1">テキスト2</Sentence>
+        </ListSentence>
+      </List>
+    </Subitem2>
+    <Subitem2 Num="2">
+      <Subitem2Title/>
+      <Subitem2Sentence>
+        <Sentence Num="1"/>
+      </Subitem2Sentence>
+      <Subitem3 Num="1">
+        <Subitem3Title>〔指導項目〕</Subitem3Title>
+        <Subitem3Sentence>
+          <Sentence Num="1"></Sentence>
+        </Subitem3Sentence>
+      </Subitem3>
+    </Subitem2>
+</Subitem1>

@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Law Era="Reiwa" Year="5" Num="1" LawType="MinisterialOrdinance" Lang="ja" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../schema/kokuji20250320_asukoe.xsd">
+  <LawNum>コンパクト検証用告示</LawNum>
+  <LawBody>
+    <MainProvision>
+      <Chapter Num="1">
+        <ChapterTitle>第１章　教育課程の編成</ChapterTitle>
+        
+        <!-- パターン1: Article配下に複数のParagraph（ParagraphNum付き） -->
+        <Article Num="1">
+          <ArticleTitle/>
+          <Paragraph Num="1">
+            <ParagraphNum>１</ParagraphNum>
+            <ParagraphSentence>
+              <Sentence Num="1">各教科・科目及び単位数等</Sentence>
+            </ParagraphSentence>
+            <!-- パターン1-1: 深い階層のラベル付きList（Item変換対象） -->
+            <List>
+              <ListSentence>
+                <Column Num="1">
+                  <Sentence Num="1">（１）</Sentence>
+                </Column>
+                <Column Num="2">
+                  <Sentence Num="1">各学校においては，教育課程を編成する。</Sentence>
+                </Column>
+              </ListSentence>
+            </List>
+            <List>
+              <ListSentence>
+                <Column Num="1">
+                  <Sentence Num="1">（２）</Sentence>
+                </Column>
+                <Column Num="2">
+                  <Sentence Num="1">次の事項を踏まえる。</Sentence>
+                </Column>
+              </ListSentence>
+            </List>
+          </Paragraph>
+          
+          <!-- パターン2: 同じ階層のラベル付きList（Paragraph分割対象） -->
+          <Paragraph Num="2">
+            <ParagraphNum>２</ParagraphNum>
+            <ParagraphSentence>
+              <Sentence Num="1">内容の取扱い</Sentence>
+            </ParagraphSentence>
+            <List>
+              <ListSentence>
+                <Column Num="1">
+                  <Sentence Num="1">３</Sentence>
+                </Column>
+                <Column Num="2">
+                  <Sentence Num="1">履修の方法</Sentence>
+                </Column>
+              </ListSentence>
+            </List>
+            <List>
+              <ListSentence>
+                <Sentence Num="1">各学校においては、次の表に定めるところにより履修させる。</Sentence>
+              </ListSentence>
+            </List>
+          </Paragraph>
+        </Article>
+        
+        <!-- パターン3: ParagraphNum空で、複数のラベル付きList（Item変換対象） -->
+        <Article Num="2">
+          <ArticleTitle/>
+          <Paragraph Num="1">
+            <ParagraphNum/>
+            <ParagraphSentence>
+              <Sentence Num="1">高等部における教育については、次に掲げる目標の達成に努める。</Sentence>
+            </ParagraphSentence>
+            <List>
+              <ListSentence>
+                <Column Num="1">
+                  <Sentence Num="1">１</Sentence>
+                </Column>
+                <Column Num="2">
+                  <Sentence Num="1">学校教育法第５１条に規定する目標</Sentence>
+                </Column>
+              </ListSentence>
+            </List>
+            <List>
+              <ListSentence>
+                <Column Num="1">
+                  <Sentence Num="1">２</Sentence>
+                </Column>
+                <Column Num="2">
+                  <Sentence Num="1">生徒の障害による困難を改善すること。</Sentence>
+                </Column>
+              </ListSentence>
+            </List>
+          </Paragraph>
+        </Article>
+        
+        <!-- パターン4: ColumnなしList（Item変換対象） -->
+        <Article Num="3">
+          <ArticleTitle/>
+          <Paragraph Num="1">
+            <ParagraphNum/>
+            <ParagraphSentence>
+              <Sentence Num="1">次のとおりとする。</Sentence>
+            </ParagraphSentence>
+            <List>
+              <ListSentence>
+                <Sentence Num="1">各学校においては、適切に教育課程を編成する。</Sentence>
+              </ListSentence>
+            </List>
+            <List>
+              <ListSentence>
+                <Sentence Num="1">各教科・科目等の内容は、次のとおりとする。</Sentence>
+              </ListSentence>
+            </List>
+            <!-- この後に階層の深いList -->
+            <List>
+              <ListSentence>
+                <Column Num="1">
+                  <Sentence Num="1">（１）</Sentence>
+                </Column>
+                <Column Num="2">
+                  <Sentence Num="1">教科・科目の目標</Sentence>
+                </Column>
+              </ListSentence>
+            </List>
+          </Paragraph>
+        </Article>
+        
+        <!-- パターン5: 括弧科目名List（Item変換対象） -->
+        <Article Num="4">
+          <ArticleTitle/>
+          <Paragraph Num="1">
+            <ParagraphNum/>
+            <ParagraphSentence>
+              <Sentence Num="1">各科目</Sentence>
+            </ParagraphSentence>
+            <List>
+              <ListSentence>
+                <Sentence Num="1">〔国語〕</Sentence>
+              </ListSentence>
+            </List>
+            <List>
+              <ListSentence>
+                <Column Num="1">
+                  <Sentence Num="1">１</Sentence>
+                </Column>
+                <Column Num="2">
+                  <Sentence Num="1">目標</Sentence>
+                </Column>
+              </ListSentence>
+            </List>
+            <List>
+              <ListSentence>
+                <Sentence Num="1">〔地理歴史〕</Sentence>
+              </ListSentence>
+            </List>
+            <List>
+              <ListSentence>
+                <Column Num="1">
+                  <Sentence Num="1">１</Sentence>
+                </Column>
+                <Column Num="2">
+                  <Sentence Num="1">目標</Sentence>
+                </Column>
+              </ListSentence>
+            </List>
+          </Paragraph>
+        </Article>
+        
+        <!-- パターン6: TableStruct含む -->
+        <Article Num="5">
+          <ArticleTitle/>
+          <Paragraph Num="1">
+            <ParagraphNum/>
+            <ParagraphSentence>
+              <Sentence Num="1">次の表のとおりとする。</Sentence>
+            </ParagraphSentence>
+            <TableStruct>
+              <TableRow>
+                <TableColumn>
+                  <Sentence Num="1">教科</Sentence>
+                </TableColumn>
+                <TableColumn>
+                  <Sentence Num="1">科目</Sentence>
+                </TableColumn>
+              </TableRow>
+              <TableRow>
+                <TableColumn>
+                  <Sentence Num="1">国語</Sentence>
+                </TableColumn>
+                <TableColumn>
+                  <Sentence Num="1">現代の国語</Sentence>
+                </TableColumn>
+              </TableRow>
+            </TableStruct>
+          </Paragraph>
+        </Article>
+        
+      </Chapter>
+    </MainProvision>
+  </LawBody>
+</Law>
+

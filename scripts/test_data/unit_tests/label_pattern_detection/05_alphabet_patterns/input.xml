@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Law>
+  <LawBody>
+    <Paragraph Num="1">
+      <ParagraphNum>1</ParagraphNum>
+      <ParagraphSentence>
+        <Sentence Num="1">アルファベットパターンのテスト</Sentence>
+      </ParagraphSentence>
+      
+      <!-- 大文字アルファベット -->
+      <List>
+        <ListSentence>
+          <Column Num="1">
+            <Sentence Num="1">A</Sentence>
+          </Column>
+          <Column Num="2">
+            <Sentence Num="1">大文字アルファベットAの内容</Sentence>
+          </Column>
+        </ListSentence>
+      </List>
+      <List>
+        <ListSentence>
+          <Column Num="1">
+            <Sentence Num="1">B</Sentence>
+          </Column>
+          <Column Num="2">
+            <Sentence Num="1">大文字アルファベットBの内容</Sentence>
+          </Column>
+        </ListSentence>
+      </List>
+      <!-- 小文字アルファベット -->
+      <List>
+        <ListSentence>
+          <Column Num="1">
+            <Sentence Num="1">a</Sentence>
+          </Column>
+          <Column Num="2">
+            <Sentence Num="1">小文字アルファベットaの内容</Sentence>
+          </Column>
+        </ListSentence>
+      </List>
+      <List>
+        <ListSentence>
+          <Column Num="1">
+            <Sentence Num="1">b</Sentence>
+          </Column>
+          <Column Num="2">
+            <Sentence Num="1">小文字アルファベットbの内容</Sentence>
+          </Column>
+        </ListSentence>
+      </List>
+      <!-- 全角大文字アルファベット -->
+      <List>
+        <ListSentence>
+          <Column Num="1">
+            <Sentence Num="1">Ａ</Sentence>
+          </Column>
+          <Column Num="2">
+            <Sentence Num="1">全角大文字アルファベットＡの内容</Sentence>
+          </Column>
+        </ListSentence>
+      </List>
+      <List>
+        <ListSentence>
+          <Column Num="1">
+            <Sentence Num="1">Ｂ</Sentence>
+          </Column>
+          <Column Num="2">
+            <Sentence Num="1">全角大文字アルファベットＢの内容</Sentence>
+          </Column>
+        </ListSentence>
+      </List>
+      
+    </Paragraph>
+  </LawBody>
+</Law>

@@ -1,0 +1,888 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Law DataInfo="250808e81k80m01" Era="Heisei" Lang="ja" LawType="Misc" Num="73" Year="24" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../schema/kokuji20250320_asukoe.xsd" >
+  <LawNum>平成二十四年経済産業省告示第七十三号</LawNum>
+  <LawBody>
+    <LawTitle>軽油中の酸価の増加の測定方法として経済産業大臣が定める方法</LawTitle>
+    <EnactStatement>揮発油等の品質の確保等に関する法律施行規則の一部を改正する省令（平成二十四年経済産業省令第二十六号）附則第二項の規定に基づき、軽油中の酸価の増加の測定方法として経済産業大臣が定める方法を次のように定め、平成二十四年四月一日から適用する。</EnactStatement>
+    <MainProvision>
+      <Paragraph Num="1">
+        <ParagraphNum>１．</ParagraphNum>
+        <ParagraphSentence>
+          <Sentence Num="1" >引用規格</Sentence>
+        </ParagraphSentence>
+        <List>
+          <ListSentence>
+            <Sentence Num="1" >次に掲げる規格は、この測定方法に引用されることによって、この測定方法の一部を構成する。これらの引用規格は、その最新版（追補を含む。）を適用する。</Sentence>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1" >（１）</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1" >産業標準化法（昭和２４年法律第１８５号）に基づく日本産業規格（以下「日本産業規格」という。）Ｋ０５５７号（用水・排水の試験に用いる水）</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1" >（２）</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1" >日本産業規格Ｋ１１０１号（酸素）</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1" >（３）</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1" >日本産業規格Ｋ２２５１号（原油及び石油製品―試料採取方法）</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1" >（４）</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1" >日本産業規格Ｋ２２７６号（石油製品一般航空燃料油試験方法）</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1" >（５）</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1" >日本産業規格Ｋ２５０１号（石油製品及び潤滑油―中和価試験方法）</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1" >（６）</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1" >日本産業規格Ｋ８０３４号（アセトン（試薬））</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1" >（７）</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1" >日本産業規格Ｋ８６８０号（トルエン（試薬））</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1" >（８）</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1" >日本産業規格Ｋ８８９１号（メタノール（試薬））</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1" >（９）</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1" >日本産業規格Ｚ８４０１号（数値の丸め方）</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1" >（１０）</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1" >日本産業規格Ｚ８４０２―６号（測定方法及び測定結果の精確さ（真度及び精度）―第６部：精確さに関する値の実用的な使い方）</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1" >（１１）</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1" >国際標準化機構が定めた規格（以下「国際標準化機構規格」という。）１２２０５（１９９５）</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+      </Paragraph>
+      <Paragraph Num="2">
+        <ParagraphNum>２．</ParagraphNum>
+        <ParagraphSentence>
+          <Sentence Num="1" >定義</Sentence>
+        </ParagraphSentence>
+        <List>
+          <ListSentence>
+            <Sentence Num="1" >この測定方法で用いる主な用語及び定義は次による。</Sentence>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1" >（１）</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1" >酸価</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Sentence Num="1" >軽油１ｇのうちに含まれる酸の中和に要する水酸化カリウムのｍｇ数。</Sentence>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1" >（２）</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1" >酸価の増加</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Sentence Num="1" >酸化前後の酸価の増加量で、酸化後の酸価から酸化前の酸価を減じた値。</Sentence>
+          </ListSentence>
+        </List>
+      </Paragraph>
+      <Paragraph Num="3">
+        <ParagraphNum>３．</ParagraphNum>
+        <ParagraphSentence>
+          <Sentence Num="1" >測定の原理</Sentence>
+        </ParagraphSentence>
+        <List>
+          <ListSentence>
+            <Sentence Num="1" >あらかじめろ過した試料を１１５℃、１６時間、酸素を吹込みながら酸化させた後に、日本産業規格Ｋ２５０１号（石油製品及び潤滑油―中和価試験方法）の電位差滴定法（酸価）で定める測定方法によって、試料中の酸価を測定する。未酸化試料の酸価と比較し、酸価の増加を求める。</Sentence>
+          </ListSentence>
+        </List>
+      </Paragraph>
+      <Paragraph Num="4">
+        <ParagraphNum>４．</ParagraphNum>
+        <ParagraphSentence>
+          <Sentence Num="1" >測定器及び器具</Sentence>
+        </ParagraphSentence>
+        <List>
+          <ListSentence>
+            <Sentence Num="1" >測定器及び器具は次のとおりとする。</Sentence>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1" >（１）</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1" >酸化器</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Sentence Num="1" >試験管、凝縮器及び酸素吹込管から構成され、国際標準化機構規格１２２０５（１９９５）の図１に示しているほうけい酸ガラス製の酸化器と同一のもの。</Sentence>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1" >（２）</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1" >恒温槽</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Sentence Num="1" >酸化器中の試料を１１５℃±０．２℃に保つことができる浴液を備えるもの。浴液中の温度が均一になるようなかき混ぜ機を備え、深さ約３５０ｍｍまで酸化器を浸すことができるもので、酸化中に試料を光から遮蔽できるもの。酸化器一台あたりの浴液最少量は、６Ｌとする。</Sentence>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1" >備考</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1" >同一容量で制御装置を備えた金属ブロック浴を用いてもよい。</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1" >（３）</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1" >流量計</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Sentence Num="1" >酸素の流量を３．０Ｌ／ｈ±０．３Ｌ／ｈに調節できるもので、酸化器ごとに設置する。</Sentence>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1" >（４）</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1" >ガラス器具乾燥用恒温槽</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Sentence Num="1" >ガラス器具を１０５℃±５℃で乾燥できるもの。</Sentence>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1" >（５）</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1" >ろ過装置</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Sentence Num="1" >日本産業規格Ｋ２２７６号（石油製品一般航空燃料油試験方法）の微粒きょう雑物試験方法（試験室ろ過法）で規定するろ過装置と同一のもの。</Sentence>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1" >（６）</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1" >フィルタ</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Sentence Num="1" >細孔径０．８μｍ、直径４７ｍｍのポリテトラフルオロエチレン製メンブランフィルタ。測定前の予備ろ過には一枚、ろ過分離不溶解分の測定には二枚重ねて使用する。</Sentence>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1" >備考</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1" >セルロースエステル製フィルタは、酸、アルコール、エステル等に対する耐薬品性が低いので用いてはならない。</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1" >（７）</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1" >その他の機器</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Sentence Num="1" >フィルタを取り扱うための先がスペード型のピンセット。ストップウォッチ。</Sentence>
+          </ListSentence>
+        </List>
+      </Paragraph>
+      <Paragraph Num="5">
+        <ParagraphNum>５．</ParagraphNum>
+        <ParagraphSentence>
+          <Sentence Num="1" >試薬等</Sentence>
+        </ParagraphSentence>
+        <List>
+          <ListSentence>
+            <Sentence Num="1" >試薬等は次のとおりとする。</Sentence>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1" >（１）</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1" >アセトン</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Sentence Num="1" >日本産業規格Ｋ８０３４号（アセトン（試薬））に規定するもの。</Sentence>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1" >（２）</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1" >トルエン</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Sentence Num="1" >日本産業規格Ｋ８６８０号（トルエン（試薬））に規定するもの。</Sentence>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1" >（３）</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1" >メタノール</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Sentence Num="1" >日本産業規格Ｋ８８９１号（メタノール（試薬））に規定するもの。</Sentence>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1" >（４）</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1" >三種混合溶剤</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Sentence Num="1" >アセトン、トルエン及びメタノールを等容量ずつ混合した溶剤。</Sentence>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1" >（５）</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1" >酸素</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Sentence Num="1" >日本産業規格Ｋ１１０１号（酸素）に規定するもの。</Sentence>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1" >（６）</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1" >水</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Sentence Num="1" >日本産業規格Ｋ０５５７号（用水・排水の試験に用いる水）に規定するＡ３のもの。</Sentence>
+          </ListSentence>
+        </List>
+      </Paragraph>
+      <Paragraph Num="6">
+        <ParagraphNum>６．</ParagraphNum>
+        <ParagraphSentence>
+          <Sentence Num="1" >測定の準備</Sentence>
+        </ParagraphSentence>
+        <List>
+          <ListSentence>
+            <Sentence Num="1" >測定の準備は次のとおりとする。</Sentence>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1" >（１）</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1" >酸化器以外のガラス器具の準備</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Sentence Num="1" >全てのガラス器具を三種混合溶剤で洗い、さらに水道水ですすぐ。アルカリ性又は中性の洗剤で洗い、水で三回すすぎ、その後アセトンですすぎ、乾燥する。</Sentence>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1" >（２）</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1" >酸化器及び付属機器の準備</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Sentence Num="1" >（１）の操作を終了後、弱アルカリ性又は中性の洗剤を混ぜた水を酸化器の試験管に満たす。試験管に酸素吹込管を取り付け、酸素吹込管の上に凝縮器を取り付け、少なくとも２時間浸しておく。これらを洗い、水道水で五回すすぎ、水で三回すすぐ。さらにアセトンですすいだ後、酸化器及び吹込管を乾燥する。</Sentence>
+          </ListSentence>
+        </List>
+      </Paragraph>
+      <Paragraph Num="7">
+        <ParagraphNum>７．</ParagraphNum>
+        <ParagraphSentence>
+          <Sentence Num="1" >試料の採取及び調整方法</Sentence>
+        </ParagraphSentence>
+        <List>
+          <ListSentence>
+            <Sentence Num="1" >試料の採取方法及び調整方法は次のとおりとする。</Sentence>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1" >（１）</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1" >試料は、日本産業規格Ｋ２２５１号（原油及び石油製品―試料採取方法）に規定する一次試料の採取方法及び二次試料調整方法によるか、又はそれに準じた方法によって採取及び調整する。</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1" >（２）</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1" >試料は、直射日光を避けた場所で、十分な撹拌後に採取する。試料の酸化前の保存、酸化及び酸化後の冷却は、暗所で行う。なお、試料の酸化後の冷却については、９．（５）試料の冷却に基づいて行う。</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1" >（３）</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1" >（２）で試料を採取する容器は、あらかじめ二回共洗いしたエポキシ樹脂又は同等の材質でライニングした金属製若しくはほうけい酸ガラス製を用いる。ソーダガラス製又はプラスチック製容器は、可塑剤が溶け出る可能性があるので、用いてはならない。</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1" >備考</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1" >一日以内に測定できない場合には、不活性ガスを封入して試料を１０℃以下の温度で保存し、できるだけ速やかに測定する。</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+      </Paragraph>
+      <Paragraph Num="8">
+        <ParagraphNum>８．</ParagraphNum>
+        <ParagraphSentence>
+          <Sentence Num="1" >試料の準備</Sentence>
+        </ParagraphSentence>
+          <List>
+            <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1" >（１）</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1" >７．（２）で採取した試料が、タンク、ドラム又は容量１９Ｌを超える容器に入っているときは、直射日光を避けた場所で、十分な撹拌後に採取する。また、７．（２）で採取した試料が、少量のときは、振とう及び転がしなどで混ぜてから、試料を注ぐか又はピペットその他の手段で採取する。</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Sentence Num="1" >なお、１０℃以下で貯蔵してきた試料の場合は、室温にして、不溶性のワックスがないことを確認してから、撹拌して採取する。</Sentence>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1" >（２）</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1" >（１）で試料に触れる全てのチューブ、試料を採取する容器及びピペットなどの器具は、三種混合溶剤で洗浄し、試料で共洗いする。</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+      </Paragraph>
+      <Paragraph Num="9">
+        <ParagraphNum>９．</ParagraphNum>
+        <ParagraphSentence>
+          <Sentence Num="1" >測定の手順</Sentence>
+        </ParagraphSentence>
+        <List>
+          <ListSentence>
+            <Sentence Num="1" >測定の手順は次のとおりとする。</Sentence>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1" >（１）</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1" >試料のろ過</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Sentence Num="1" >ろ過装置のフィルタ保持台に一枚のフィルタを取り付け、約８０ｋＰａの圧力で吸引して、５００ｍＬの洗浄した吸引フラスコに試料４５０ｍＬをフィルタろ過する。試料ごとにろ過を繰り返す。</Sentence>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1" >備考</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1" >異なる試料に使用済みフィルタを用いてはならない。前の試料でフィルタに付着したたい積物が次の試料の固形物をより多く除去してしまうことがあるためである。</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1" >（２）</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1" >試料の分取</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Sentence Num="1" >吸引フラスコを傾斜し、試料５０ｍｌ±０．５ｍｌを分取する。</Sentence>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1" >（３）</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1" >酸価の測定</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Sentence Num="1" >（２）で分取した試料を、直ちに日本産業規格Ｋ２５０１号（原油及び石油製品―試料採取方法）の電位差滴定法（酸価）で定める測定方法によって測定する。</Sentence>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1" >備考</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1" >直ちに測定できない場合には、不活性ガスを封入して試料を暗所に保存し、できるだけ速やかに測定する。</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1" >（４）</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1" >酸化器の組立て</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Sentence Num="1" >酸素吹込管を取り付けた試験管に、ろ過した試料３５０ｍＬ±５ｍＬを入れる。６０分を超えないうちに恒温槽中の試料が液浴の面より下になるように酸化器を浸す。酸化器を浸している間、酸化器は暗所に置いておく。酸化器と酸素吹込管の上に凝縮器をのせ、凝縮器に冷却水を接続する。酸素吹込管に流量計を介して酸素供給管を接続し、流量を３．０Ｌ／ｈ±０．３Ｌ／ｈに調節する。このとき、試料に光が当たらないようにする。最初に酸化器を恒温槽に浸した時刻をゼロとして記録をし、酸化器を１１５℃±０．２℃にて１６．００ｈ±０．２５ｈ保持する。恒温槽中の酸化器の配置を記録しておく。恒温槽に入れる酸化器の数が定数に満たない場合は、軽油を３５０ｍＬ入れ、酸素吹込管及び凝縮器を付けないダミー管を恒温槽に浸して定数とする。</Sentence>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1" >（５）</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1" >試料の冷却</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Sentence Num="1" >試料を恒温槽から取り出し、酸化器の口をアルミニウムホイール又はプラスチックで粉塵が入らないように塞ぐ。すぐに氷水中（約０℃）にて５時間放置する。</Sentence>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1" >（６）</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1" >試料の分取</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Sentence Num="1" >酸化器を傾斜し、上澄みの部分５０ｍｌ±０．５ｍｌを分取する。</Sentence>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1" >（７）</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1" >酸価の測定</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Sentence Num="1" >（６）で分取した試料を、直ちに日本産業規格Ｋ２５０１号（石油製品及び潤滑油―中和価試験方法）の電位差滴定法（酸価）で定める測定方法によって測定する。</Sentence>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1" >備考</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1" >直ちに測定できない場合には、不活性ガスを封入して試料を暗所に保存し、できるだけ速やかに測定する。</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+      </Paragraph>
+      <Paragraph Num="10">
+        <ParagraphNum>１０．</ParagraphNum>
+        <ParagraphSentence>
+          <Sentence Num="1" >計算方法</Sentence>
+        </ParagraphSentence>
+        <List>
+          <ListSentence>
+            <Sentence Num="1" >酸価の増加は次式から算出する。</Sentence>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Sentence Num="1" ><ArithFormula>ΔＴＡＮ＝ＴＡＮ<Sub>ｔ</Sub>－ＴＡＮ<Sub>０</Sub></ArithFormula></Sentence>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Sentence Num="1" >ΔＴＡＮ：酸価の増加</Sentence>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Sentence Num="1" >ＴＡＮ<Sub>ｔ</Sub>：９．（７）により得られた酸化後の酸価</Sentence>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Sentence Num="1" >ＴＡＮ<Sub>０</Sub>：９．（３）により得られた酸化前の酸価</Sentence>
+          </ListSentence>
+        </List>
+      </Paragraph>
+      <Paragraph Num="11">
+        <ParagraphNum>１１．</ParagraphNum>
+        <ParagraphSentence>
+          <Sentence Num="1" >結果の表し方</Sentence>
+        </ParagraphSentence>
+        <List>
+          <ListSentence>
+            <Sentence Num="1" >有効数字３桁に丸める。ただし、酸価が１未満の場合は、日本産業規格Ｚ８４０１号（数値の丸め方）の規定によって丸めの幅を０．０１に丸める。</Sentence>
+          </ListSentence>
+        </List>
+      </Paragraph>
+      <Paragraph Num="12">
+        <ParagraphNum>１２．</ParagraphNum>
+        <ParagraphSentence>
+          <Sentence Num="1" >精度</Sentence>
+        </ParagraphSentence>
+        <List>
+          <ListSentence>
+            <Sentence Num="1" >この測定方法で得られた測定結果の許容差（確率０．９５）は次のとおりとする。</Sentence>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1" >備考</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1" >測定結果が許容差を外れた場合には、日本産業規格Ｚ８４０２―６号（測定方法及び測定結果の精確さ（真度及び精度）―第６部：精確さに関する値の実用的な使い方）の規定によって処理する。</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1" >（１）</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1" >室内併行精度</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Sentence Num="1" >同一測定室において、同一人が同一測定器で、引き続き短時間内に同一試料を２回測定して求めた２個の測定結果の差の許容差を以下の表に示す。</Sentence>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1" >（２）</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1" >室間再現精度</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Sentence Num="1" >異なる測定室において、別人が別の測定器で、同一試料をそれぞれ１回ずつ測定して求めた２個の測定結果の差の許容差を以下の表に示す。</Sentence>
+          </ListSentence>
+        </List>
+        <TableStruct>
+          <TableStructTitle>表　精度</TableStructTitle>
+          <Table >
+            <TableRow>
+              <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
+                <Sentence Num="1" >室内併行許容差</Sentence>
+              </TableColumn>
+              <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
+                <Sentence Num="1" >室間再現許容差</Sentence>
+              </TableColumn>
+            </TableRow>
+            <TableRow>
+              <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
+                <Sentence Num="1" ><ArithFormula>０．２４Ｘ＋０．０１５</ArithFormula></Sentence>
+              </TableColumn>
+              <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
+                <Sentence Num="1" ><ArithFormula>１．１０Ｘ＋０．０２４</ArithFormula></Sentence>
+              </TableColumn>
+            </TableRow>
+          </Table>
+          <Remarks>
+            <RemarksLabel>備考</RemarksLabel>
+            <Sentence Num="1" >Ｘ：測定結果の平均値</Sentence>
+          </Remarks>
+        </TableStruct>
+      </Paragraph>
+      <Paragraph Num="13">
+        <ParagraphNum>１３．</ParagraphNum>
+        <ParagraphSentence>
+          <Sentence Num="1" >測定結果の報告</Sentence>
+        </ParagraphSentence>
+        <List>
+          <ListSentence>
+            <Sentence Num="1" >測定結果には、次の事項を記載する。</Sentence>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1" >（１）</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1" >試料名、採取場所及び採取年月日</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1" >（２）</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1" >測定方法名</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1" >（３）</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1" >１１．によって得られた結果</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1" >（４）</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1" >酸化器を恒温槽に浸せきした時間について、１６．００ｈ±０．２５ｈ以外の場合には、その時間</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1" >（５）</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1" >特記事項</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+      </Paragraph>
+      <Paragraph Num="14">
+        <ParagraphNum>１４．</ParagraphNum>
+        <ParagraphSentence>
+          <Sentence Num="1" >その他</Sentence>
+        </ParagraphSentence>
+        <List>
+          <ListSentence>
+            <Sentence Num="1" >この測定方法では、危険な試薬、操作及び測定器を用いることがあるが、安全な使用方法をすべてにわたって規定しているわけではないので、この測定方法の使用者は、測定に先立って、適切な安全上及び健康上の禁止事項を決めておかなければならない。</Sentence>
+          </ListSentence>
+        </List>
+      </Paragraph>
+    </MainProvision>
+    <SupplProvision AmendLawNum="令和元年七月一日経済産業省告示第四六号">
+      <SupplProvisionLabel>附　則</SupplProvisionLabel>
+      <Paragraph Num="1">
+        <ParagraphNum/>
+        <ParagraphSentence>
+          <Sentence Num="1" >この告示は、不正競争防止法等の一部を改正する法律の施行の日（令和元年七月一日）から施行する。</Sentence>
+        </ParagraphSentence>
+      </Paragraph>
+    </SupplProvision>
+  </LawBody>
+</Law>

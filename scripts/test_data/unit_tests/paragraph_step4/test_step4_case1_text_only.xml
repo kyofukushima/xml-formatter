@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Law>
+  <LawBody>
+    <MainProvision>
+      <Paragraph Num="1">
+        <ParagraphNum/>
+        <List>
+          <ListSentence>
+            <Sentence>これは変換されるべき文章です。</Sentence>
+          </ListSentence>
+        </List>
+      </Paragraph>
+    </MainProvision>
+  </LawBody>
+</Law>

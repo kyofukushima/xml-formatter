@@ -1,0 +1,2548 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Law DataInfo="250814e81k80m01" Era="Heisei" Lang="ja" LawType="Misc" Num="174" Year="30" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../schema/kokuji20250320_asukoe.xsd">
+  <LawNum>平成三十年文部科学省告示第百七十四号</LawNum>
+  <LawBody>
+    <LawTitle>高等学校教科用図書検定基準</LawTitle>
+    <EnactStatement>教科用図書検定規則（平成元年文部省令第二十号）第三条の規定に基づき、高等学校教科用図書検定基準を次のように定める。</EnactStatement>
+    <TOC>
+      <TOCLabel>目次</TOCLabel>
+      <TOCChapter Num="1">
+        <ChapterTitle>第１章　総則</ChapterTitle>
+      </TOCChapter>
+      <TOCChapter Num="2">
+        <ChapterTitle>第２章　教科共通の条件</ChapterTitle>
+        <TOCSection Num="1">
+          <SectionTitle>１　基本的条件</SectionTitle>
+        </TOCSection>
+        <TOCSection Num="2">
+          <SectionTitle>２　選択・扱い及び構成・排列</SectionTitle>
+        </TOCSection>
+        <TOCSection Num="3">
+          <SectionTitle>３　正確性及び表記・表現</SectionTitle>
+        </TOCSection>
+      </TOCChapter>
+      <TOCChapter Num="3">
+        <ChapterTitle>第３章　教科固有の条件</ChapterTitle>
+        <TOCSection Num="1">
+          <SectionTitle>【各教科】</SectionTitle>
+          <TOCSubsection Num="1">
+            <SubsectionTitle>［国語科］</SubsectionTitle>
+          </TOCSubsection>
+          <TOCSubsection Num="2">
+            <SubsectionTitle>［地理歴史科（「地図」を除く。）］</SubsectionTitle>
+          </TOCSubsection>
+          <TOCSubsection Num="3">
+            <SubsectionTitle>［地理歴史科「地図」］</SubsectionTitle>
+          </TOCSubsection>
+          <TOCSubsection Num="4">
+            <SubsectionTitle>［公民科］</SubsectionTitle>
+          </TOCSubsection>
+          <TOCSubsection Num="5">
+            <SubsectionTitle>［数学科］</SubsectionTitle>
+          </TOCSubsection>
+          <TOCSubsection Num="6">
+            <SubsectionTitle>［理科］</SubsectionTitle>
+          </TOCSubsection>
+          <TOCSubsection Num="7">
+            <SubsectionTitle>［保健体育科］</SubsectionTitle>
+          </TOCSubsection>
+          <TOCSubsection Num="8">
+            <SubsectionTitle>［芸術科「音楽」］</SubsectionTitle>
+          </TOCSubsection>
+          <TOCSubsection Num="9">
+            <SubsectionTitle>［芸術科「美術」及び「工芸」］</SubsectionTitle>
+          </TOCSubsection>
+          <TOCSubsection Num="10">
+            <SubsectionTitle>［芸術科「書道」］</SubsectionTitle>
+          </TOCSubsection>
+          <TOCSubsection Num="11">
+            <SubsectionTitle>［外国語科］</SubsectionTitle>
+          </TOCSubsection>
+          <TOCSubsection Num="12">
+            <SubsectionTitle>［家庭科（各学科に共通する教科）］</SubsectionTitle>
+          </TOCSubsection>
+          <TOCSubsection Num="13">
+            <SubsectionTitle>［情報科（各学科に共通する教科）］</SubsectionTitle>
+          </TOCSubsection>
+          <TOCSubsection Num="14">
+            <SubsectionTitle>［理数科（各学科に共通する教科）］</SubsectionTitle>
+          </TOCSubsection>
+          <TOCSubsection Num="15">
+            <SubsectionTitle>［農業科］</SubsectionTitle>
+          </TOCSubsection>
+          <TOCSubsection Num="16">
+            <SubsectionTitle>［工業科］</SubsectionTitle>
+          </TOCSubsection>
+          <TOCSubsection Num="17">
+            <SubsectionTitle>［商業科］</SubsectionTitle>
+          </TOCSubsection>
+          <TOCSubsection Num="18">
+            <SubsectionTitle>［水産科］</SubsectionTitle>
+          </TOCSubsection>
+          <TOCSubsection Num="19">
+            <SubsectionTitle>［家庭科（主として専門学科において開設される教科）］</SubsectionTitle>
+          </TOCSubsection>
+          <TOCSubsection Num="20">
+            <SubsectionTitle>［看護科］</SubsectionTitle>
+          </TOCSubsection>
+          <TOCSubsection Num="21">
+            <SubsectionTitle>［情報科（主として専門学科において開設される教科）］</SubsectionTitle>
+          </TOCSubsection>
+          <TOCSubsection Num="22">
+            <SubsectionTitle>［福祉科］</SubsectionTitle>
+          </TOCSubsection>
+        </TOCSection>
+      </TOCChapter>
+      <TOCSupplProvision>
+        <SupplProvisionLabel>附則</SupplProvisionLabel>
+      </TOCSupplProvision>
+      <TOCAppdxTableLabel>別表</TOCAppdxTableLabel>
+    </TOC>
+    <MainProvision>
+      <Chapter Num="1">
+        <ChapterTitle>第１章　総則</ChapterTitle>
+        <Article Num="1">
+          <ArticleTitle></ArticleTitle>
+          <Paragraph Num="1">
+            <ParagraphNum>（１）</ParagraphNum>
+            <ParagraphSentence>
+              <Sentence Num="1" >本基準は、教科用図書検定規則第３条の規定に基づき、学校教育法に規定する高等学校、中等教育学校の後期課程及び特別支援学校の高等部において使用される高等学校教科用図書について、その検定のために必要な審査基準を定めることを目的とする。</Sentence>
+            </ParagraphSentence>
+          </Paragraph>
+          <Paragraph Num="2">
+            <ParagraphNum>（２）</ParagraphNum>
+            <ParagraphSentence>
+              <Sentence Num="1" >本基準による審査においては、その教科用図書が、教育課程の構成に応じて組織排列された教科の主たる教材として、教授の用に供せられる生徒用図書であることにかんがみ、知・徳・体の調和がとれ、生涯にわたって自己実現を目指す自立した人間、公共の精神を尊び、国家・社会の形成に主体的に参画する国民及び我が国の伝統と文化を基盤として国際社会を生きる日本人の育成を目指す教育基本法に示す教育の目標並びに学校教育法及び学習指導要領に示す目標を達成するため、これらの目標に基づき、第２章及び第３章に掲げる各項目に照らして適切であるかどうかを審査するものとする。</Sentence>
+            </ParagraphSentence>
+            <TableStruct>
+              <Table >
+                <TableRow>
+                  <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
+                    <Sentence Num="1" >【教育基本法（平成１８年法律第１２０号）（抄）】</Sentence>
+                    <Sentence Num="2" >（教育の目標）</Sentence>
+                    <Sentence Num="3" >第２条　教育は、その目的を実現するため、学問の自由を尊重しつつ、次に掲げる目標を達成するよう行われるものとする。</Sentence>
+                    <Sentence Num="4" >一　幅広い知識と教養を身に付け、真理を求める態度を養い、豊かな情操と道徳心を培うとともに、健やかな身体を養うこと。</Sentence>
+                    <Sentence Num="5" >二　個人の価値を尊重して、その能力を伸ばし、創造性を培い、自主及び自律の精神を養うとともに、職業及び生活との関連を重視し、勤労を重んずる態度を養うこと。</Sentence>
+                    <Sentence Num="6" >三　正義と責任、男女の平等、自他の敬愛と協力を重んずるとともに、公共の精神に基づき、主体的に社会の形成に参画し、その発展に寄与する態度を養うこと。</Sentence>
+                    <Sentence Num="7" >四　生命を尊び、自然を大切にし、環境の保全に寄与する態度を養うこと。</Sentence>
+                    <Sentence Num="8" >五　伝統と文化を尊重し、それらをはぐくんできた我が国と郷土を愛するとともに、他国を尊重し、国際社会の平和と発展に寄与する態度を養うこと。</Sentence>
+                  </TableColumn>
+                </TableRow>
+              </Table>
+            </TableStruct>
+          </Paragraph>
+        </Article>
+      </Chapter>
+      <Chapter Num="2">
+        <ChapterTitle>第２章　各教科共通の条件</ChapterTitle>
+        <Article Num="1">
+          <ArticleTitle></ArticleTitle>
+          <Paragraph Num="1">
+            <ParagraphNum>１</ParagraphNum>
+            <ParagraphSentence>
+              <Sentence Num="1" >基本的条件</Sentence>
+            </ParagraphSentence>
+            <Item Num="1">
+              <ItemTitle></ItemTitle>
+              <ItemSentence>
+                <Sentence Num="1" >（教育基本法及び学校教育法との関係）</Sentence>
+              </ItemSentence>
+              <Subitem1 Num="1">
+                <Subitem1Title>（１）</Subitem1Title>
+                <Subitem1Sentence>
+                  <Sentence Num="1" >教育基本法第１条の教育の目的及び同法第２条に掲げる教育の目標に一致していること。また、学校教育法に定める各学校の目的及び教育の目標に一致していること。</Sentence>
+                </Subitem1Sentence>
+              </Subitem1>
+            </Item>
+            <Item Num="2">
+              <ItemTitle></ItemTitle>
+              <ItemSentence>
+                <Sentence Num="1" >（学習指導要領との関係）</Sentence>
+              </ItemSentence>
+              <Subitem1 Num="1">
+                <Subitem1Title>（２）</Subitem1Title>
+                <Subitem1Sentence>
+                  <Sentence Num="1" >学習指導要領の総則や教科の目標に一致していること。</Sentence>
+                </Subitem1Sentence>
+              </Subitem1>
+              <Subitem1 Num="2">
+                <Subitem1Title>（３）</Subitem1Title>
+                <Subitem1Sentence>
+                  <Sentence Num="1" >高等学校学習指導要領（平成３０年文部科学省告示第６８号。以下「学習指導要領」という。）に示す教科及び科目の「目標」（以下「学習指導要領に示す目標」という。）に従い、学習指導要領に示す科目の「内容」（以下「学習指導要領に示す内容」という。）及び「内容の取扱い」（「各科目にわたる指導計画の作成と内容の取扱い」を含む。以下「学習指導要領に示す内容の取扱い」という。）に示す事項を不足なく取り上げていること。</Sentence>
+                </Subitem1Sentence>
+              </Subitem1>
+              <Subitem1 Num="3">
+                <Subitem1Title>（４）</Subitem1Title>
+                <Subitem1Sentence>
+                  <Sentence Num="1" >本文、問題、説明文、注、資料、作品、挿絵、写真、図など教科用図書の内容（以下「図書の内容」という。）には、学習指導要領に示す目標、学習指導要領に示す内容及び学習指導要領に示す内容の取扱いに照らして不必要なものは取り上げていないこと。</Sentence>
+                </Subitem1Sentence>
+              </Subitem1>
+            </Item>
+            <Item Num="3">
+              <ItemTitle></ItemTitle>
+              <ItemSentence>
+                <Sentence Num="1" >（心身の発達段階への適応）</Sentence>
+              </ItemSentence>
+              <Subitem1 Num="1">
+                <Subitem1Title>（５）</Subitem1Title>
+                <Subitem1Sentence>
+                  <Sentence Num="1" >図書の内容は、生徒の心身の発達段階に適応しており、また、心身の健康や安全及び健全な情操の育成について必要な配慮を欠いているところはないこと。</Sentence>
+                </Subitem1Sentence>
+              </Subitem1>
+            </Item>
+          </Paragraph>
+          <Paragraph Num="2">
+            <ParagraphNum>２</ParagraphNum>
+            <ParagraphSentence>
+              <Sentence Num="1" >選択・扱い及び構成・排列</Sentence>
+            </ParagraphSentence>
+            <Item Num="1">
+              <ItemTitle></ItemTitle>
+              <ItemSentence>
+                <Sentence Num="1" >（学習指導要領との関係）</Sentence>
+              </ItemSentence>
+              <Subitem1 Num="1">
+                <Subitem1Title>（１）</Subitem1Title>
+                <Subitem1Sentence>
+                  <Sentence Num="1" >図書の内容の選択及び扱いには、学習指導要領の総則、学習指導要領に示す目標、学習指導要領に示す内容及び学習指導要領に示す内容の取扱いに照らして不適切なところその他生徒が学習する上に支障を生ずるおそれのあるところはないこと。その際、知識及び技能の活用、思考力、判断力、表現力等及び学びに向かう力、人間性等の発揮により、資質・能力の育成に向けた生徒の主体的・対話的で深い学びの実現に資する学習及び指導ができるよう適切な配慮がされていること。</Sentence>
+                </Subitem1Sentence>
+              </Subitem1>
+              <Subitem1 Num="2">
+                <Subitem1Title>（２）</Subitem1Title>
+                <Subitem1Sentence>
+                  <Sentence Num="1" >話題や題材が他の教科及び科目にわたる場合には、十分な配慮なく専門的な知識を扱っていないこと。</Sentence>
+                </Subitem1Sentence>
+              </Subitem1>
+              <Subitem1 Num="3">
+                <Subitem1Title>（３）</Subitem1Title>
+                <Subitem1Sentence>
+                  <Sentence Num="1" >学習指導要領の内容及び学習指導要領の内容の取扱いに示す事項が、学習指導要領に示す標準単位数に対応する授業時数に照らして図書の内容に適切に配分されていること。</Sentence>
+                </Subitem1Sentence>
+              </Subitem1>
+            </Item>
+            <Item Num="2">
+              <ItemTitle></ItemTitle>
+              <ItemSentence>
+                <Sentence Num="1" >（政治・宗教の扱い）</Sentence>
+              </ItemSentence>
+              <Subitem1 Num="1">
+                <Subitem1Title>（４）</Subitem1Title>
+                <Subitem1Sentence>
+                  <Sentence Num="1" >政治や宗教の扱いは、教育基本法第１４条（政治教育）及び第１５条（宗教教育）の規定に照らして適切かつ公正であり、特定の政党や宗派又はその主義や信条に偏っていたり、それらを非難していたりするところはないこと。</Sentence>
+                </Subitem1Sentence>
+              </Subitem1>
+            </Item>
+            <Item Num="3">
+              <ItemTitle></ItemTitle>
+              <ItemSentence>
+                <Sentence Num="1" >（選択・扱いの公正）</Sentence>
+              </ItemSentence>
+              <Subitem1 Num="1">
+                <Subitem1Title>（５）</Subitem1Title>
+                <Subitem1Sentence>
+                  <Sentence Num="1" >話題や題材の選択及び扱いは、生徒が学習内容を理解する上に支障を生ずるおそれがないよう、特定の事項、事象、分野などに偏ることなく、全体として調和がとれていること。</Sentence>
+                </Subitem1Sentence>
+              </Subitem1>
+              <Subitem1 Num="2">
+                <Subitem1Title>（６）</Subitem1Title>
+                <Subitem1Sentence>
+                  <Sentence Num="1" >図書の内容に、生徒が学習内容を理解する上に支障を生ずるおそれがないよう、特定の事柄を特別に強調し過ぎていたり、一面的な見解を十分な配慮なく取り上げていたりするところはないこと。</Sentence>
+                </Subitem1Sentence>
+              </Subitem1>
+            </Item>
+            <Item Num="4">
+              <ItemTitle></ItemTitle>
+              <ItemSentence>
+                <Sentence Num="1" >（特定の企業、個人、団体の扱い）</Sentence>
+              </ItemSentence>
+              <Subitem1 Num="1">
+                <Subitem1Title>（７）</Subitem1Title>
+                <Subitem1Sentence>
+                  <Sentence Num="1" >図書の内容に、特定の営利企業、商品などの宣伝や非難になるおそれのあるところはないこと。</Sentence>
+                </Subitem1Sentence>
+              </Subitem1>
+              <Subitem1 Num="2">
+                <Subitem1Title>（８）</Subitem1Title>
+                <Subitem1Sentence>
+                  <Sentence Num="1" >図書の内容に、特定の個人、団体などについて、その活動に対する政治的又は宗教的な援助や助長となるおそれのあるところはなく、また、その権利や利益を侵害するおそれのあるところはないこと。</Sentence>
+                </Subitem1Sentence>
+              </Subitem1>
+            </Item>
+            <Item Num="5">
+              <ItemTitle></ItemTitle>
+              <ItemSentence>
+                <Sentence Num="1" >（引用資料）</Sentence>
+              </ItemSentence>
+              <Subitem1 Num="1">
+                <Subitem1Title>（９）</Subitem1Title>
+                <Subitem1Sentence>
+                  <Sentence Num="1" >引用、掲載された教材、写真、挿絵、統計資料などは、信頼性のある適切なものが選ばれており、その扱いは公正であること。</Sentence>
+                </Subitem1Sentence>
+              </Subitem1>
+              <Subitem1 Num="2">
+                <Subitem1Title>（１０）</Subitem1Title>
+                <Subitem1Sentence>
+                  <Sentence Num="1" >引用、掲載された教材、写真、挿絵などについては、著作権法上必要な出所や著作者名その他必要に応じて出典、年次など学習上必要な事項が示されていること。また、生徒がそれらの教材、写真、挿絵などの読み取りや活用を的確に行うことができるよう適切な配慮がされていること。</Sentence>
+                </Subitem1Sentence>
+              </Subitem1>
+              <Subitem1 Num="3">
+                <Subitem1Title>（１１）</Subitem1Title>
+                <Subitem1Sentence>
+                  <Sentence Num="1" >統計資料については、原則として、最新のものを用いており、生徒が学習する上に支障を生ずるおそれのあることはなく、出典、年次など学習上必要な事項が示されていること。</Sentence>
+                </Subitem1Sentence>
+              </Subitem1>
+            </Item>
+            <Item Num="6">
+              <ItemTitle></ItemTitle>
+              <ItemSentence>
+                <Sentence Num="1" >（構成・排列）</Sentence>
+              </ItemSentence>
+              <Subitem1 Num="1">
+                <Subitem1Title>（１２）</Subitem1Title>
+                <Subitem1Sentence>
+                  <Sentence Num="1" >図書の内容は、全体として系統的、発展的に構成されており、網羅的、羅列的になっているところはなく、その組織及び相互の関連は適切であること。</Sentence>
+                </Subitem1Sentence>
+              </Subitem1>
+            </Item>
+            <Item Num="7">
+              <ItemTitle></ItemTitle>
+              <ItemSentence>
+                <Sentence Num="1" >（説明文、注、資料などの扱い）</Sentence>
+              </ItemSentence>
+              <Subitem1 Num="1">
+                <Subitem1Title>（１３）</Subitem1Title>
+                <Subitem1Sentence>
+                  <Sentence Num="1" >図書の内容のうち、説明文、注、資料などは、主たる記述と適切に関連付けて扱われていること。</Sentence>
+                </Subitem1Sentence>
+              </Subitem1>
+              <Subitem1 Num="2">
+                <Subitem1Title>（１４）</Subitem1Title>
+                <Subitem1Sentence>
+                  <Sentence Num="1" >図書の内容において、記号、用語などは、生徒が学習する上に支障を生ずるおそれのあることはなく、適切に扱われていること。</Sentence>
+                </Subitem1Sentence>
+              </Subitem1>
+            </Item>
+            <Item Num="8">
+              <ItemTitle></ItemTitle>
+              <ItemSentence>
+                <Sentence Num="1" >（発展的な学習内容）</Sentence>
+              </ItemSentence>
+              <Subitem1 Num="1">
+                <Subitem1Title>（１５）</Subitem1Title>
+                <Subitem1Sentence>
+                  <Sentence Num="1" >１の（４）にかかわらず、生徒の理解や習熟の程度に応じ、学習内容を確実に身に付けることができるよう、学習指導要領に示す内容及び学習指導要領に示す内容の取扱いに示す事項を超えた事項（以下「発展的な学習内容」という。）を取り上げることができること。</Sentence>
+                </Subitem1Sentence>
+              </Subitem1>
+              <Subitem1 Num="2">
+                <Subitem1Title>（１６）</Subitem1Title>
+                <Subitem1Sentence>
+                  <Sentence Num="1" >発展的な学習内容を取り上げる場合には、学習指導要領に示す内容や学習指導要領に示す内容の取扱いに示す事項との適切な関連の下、学習指導要領の総則、学習指導要領に示す目標や学習指導要領に示す内容の趣旨を逸脱せず、生徒の負担過重とならないものとし、その内容の選択及び扱いには、これらの趣旨に照らして不適切なところその他生徒が学習する上に支障を生ずるおそれのあるところはないこと。</Sentence>
+                </Subitem1Sentence>
+              </Subitem1>
+              <Subitem1 Num="3">
+                <Subitem1Title>（１７）</Subitem1Title>
+                <Subitem1Sentence>
+                  <Sentence Num="1" >発展的な学習内容を取り上げる場合には、それ以外の内容と客観的に区別され、発展的な学習内容であることが明示されていること。その際、原則として当該内容を学習すべき科目などの学習指導要領上の位置付けを明示すること。</Sentence>
+                </Subitem1Sentence>
+              </Subitem1>
+            </Item>
+            <Item Num="9">
+              <ItemTitle></ItemTitle>
+              <ItemSentence>
+                <Sentence Num="1" >（ウェブページのアドレス等）</Sentence>
+              </ItemSentence>
+              <Subitem1 Num="1">
+                <Subitem1Title>（１８）</Subitem1Title>
+                <Subitem1Sentence>
+                  <Sentence Num="1" >学習上の参考に供するために真に必要であり、図書中にウェブページのアドレス又は二次元コードその他のこれに代わるものを掲載する場合は、当該ウェブページのアドレス等が参照させるものは図書の内容と密接な関連を有するとともに、生徒に不適切であることが客観的に明白な情報を参照させるものではなく、情報の扱いは公正であること。なお、図書中に掲載するウェブページのアドレス等は発行者の責任において管理できるものを参照させていること。</Sentence>
+                </Subitem1Sentence>
+              </Subitem1>
+            </Item>
+          </Paragraph>
+          <Paragraph Num="3">
+            <ParagraphNum>３</ParagraphNum>
+            <ParagraphSentence>
+              <Sentence Num="1" >正確性及び表記・表現</Sentence>
+            </ParagraphSentence>
+            <Item Num="1">
+              <ItemTitle>（１）</ItemTitle>
+              <ItemSentence>
+                <Sentence Num="1" >図書の内容に、誤りや不正確なところ、相互に矛盾しているところはないこと（（２）の場合を除く。）。</Sentence>
+              </ItemSentence>
+            </Item>
+            <Item Num="2">
+              <ItemTitle>（２）</ItemTitle>
+              <ItemSentence>
+                <Sentence Num="1" >図書の内容に、客観的に明白な誤記、誤植又は脱字がないこと。</Sentence>
+              </ItemSentence>
+            </Item>
+            <Item Num="3">
+              <ItemTitle>（３）</ItemTitle>
+              <ItemSentence>
+                <Sentence Num="1" >図書の内容に、生徒がその意味を理解し難い表現や、誤解するおそれのある表現はないこと。</Sentence>
+              </ItemSentence>
+            </Item>
+            <Item Num="4">
+              <ItemTitle>（４）</ItemTitle>
+              <ItemSentence>
+                <Sentence Num="1" >漢字、仮名遣い、送り仮名、ローマ字つづり、用語、記号、計量単位などの表記は適切であって不統一はなく、別表に掲げる表記の基準によっていること。</Sentence>
+              </ItemSentence>
+            </Item>
+          </Paragraph>
+        </Article>
+      </Chapter>
+      <Chapter Num="3">
+        <ChapterTitle>第３章 各教科固有の条件</ChapterTitle>
+        <Article Num="1">
+          <ArticleCaption></ArticleCaption>
+          <ArticleTitle></ArticleTitle>
+          <Paragraph Num="1">
+            <ParagraphNum/>
+            <ParagraphSentence>
+              <Sentence Num="1" >［国語科］</Sentence>
+            </ParagraphSentence>
+            <List>
+              <ListSentence>
+                <Column Num="1">
+                  <Sentence Num="1" >１</Sentence>
+                </Column>
+                <Column Num="2">
+                  <Sentence Num="1" >選択・扱い及び構成・排列</Sentence>
+                </Column>
+              </ListSentence>
+            </List>
+            <List>
+              <ListSentence>
+                <Column Num="1">
+                  <Sentence Num="1" >（１）</Sentence>
+                </Column>
+                <Column Num="2">
+                  <Sentence Num="1" >学習する上の配慮による表現内容の改変は最小限にとどめ、原作を尊重していること。</Sentence>
+                </Column>
+              </ListSentence>
+            </List>
+            <List>
+              <ListSentence>
+                <Column Num="1">
+                  <Sentence Num="1" >（２）</Sentence>
+                </Column>
+                <Column Num="2">
+                  <Sentence Num="1" >異本や異版のある作品については、適切な配慮がされていること。</Sentence>
+                </Column>
+              </ListSentence>
+            </List>
+            <List>
+              <ListSentence>
+                <Column Num="1">
+                  <Sentence Num="1" >（３）</Sentence>
+                </Column>
+                <Column Num="2">
+                  <Sentence Num="1" >教材については、学習指導要領第２章第１節第３款「各科目にわたる指導計画の作成と内容の取扱い」の３に基づき、適切な配慮がされていること。特に国語科の各科目における２「内容」の〔知識及び技能〕に示す事項を学習することができるよう、適切な配慮がされていること。</Sentence>
+                </Column>
+              </ListSentence>
+            </List>
+          </Paragraph>
+          <Paragraph Num="2">
+            <ParagraphNum></ParagraphNum>
+            <ParagraphSentence>
+              <Sentence Num="1" >［地理歴史科（「地図」を除く。）］</Sentence>
+            </ParagraphSentence>
+            <List>
+              <ListSentence>
+                <Column Num="1">
+                  <Sentence Num="1" >１</Sentence>
+                </Column>
+                <Column Num="2">
+                  <Sentence Num="1" >選択・扱い及び構成・排列</Sentence>
+                </Column>
+              </ListSentence>
+            </List>
+            <List>
+              <ListSentence>
+                <Column Num="1">
+                  <Sentence Num="1" >（１）</Sentence>
+                </Column>
+                <Column Num="2">
+                  <Sentence Num="1" >図書の内容全体を通じて、多様な見解のある社会的事象の取り上げ方に不適切なところはなく、考えが深まるよう様々な見解を提示するなど生徒が当該事象について多面的・多角的に考えられるよう適切な配慮がされていること。</Sentence>
+                </Column>
+              </ListSentence>
+            </List>
+            <List>
+              <ListSentence>
+                <Column Num="1">
+                  <Sentence Num="1" >（２）</Sentence>
+                </Column>
+                <Column Num="2">
+                  <Sentence Num="1" >学習指導要領第２章第２款第３「歴史総合」の２「内容」のＢの（１）、Ｃの（１）及びＤの（１）それぞれに示す内容の資料については、全てを取り上げ、Ｂの（２）から（４）、Ｃの（２）から（４）及びＤの（２）から（４）において活用できるよう配慮がされていること。</Sentence>
+                </Column>
+              </ListSentence>
+            </List>
+            <List>
+              <ListSentence>
+                <Column Num="1">
+                  <Sentence Num="1" >（３）</Sentence>
+                </Column>
+                <Column Num="2">
+                  <Sentence Num="1" >未確定な時事的事象について断定的に記述していたり、特定の事柄を強調し過ぎていたり、一面的な見解を十分な配慮なく取り上げていたりするところはないこと。</Sentence>
+                </Column>
+              </ListSentence>
+            </List>
+            <List>
+              <ListSentence>
+                <Column Num="1">
+                  <Sentence Num="1" >（４）</Sentence>
+                </Column>
+                <Column Num="2">
+                  <Sentence Num="1" >近現代の歴史的事象のうち、通説的な見解がない数字などの事項について記述する場合には、通説的な見解がないことが明示されているとともに、生徒が誤解するおそれのある表現がないこと。</Sentence>
+                </Column>
+              </ListSentence>
+            </List>
+            <List>
+              <ListSentence>
+                <Column Num="1">
+                  <Sentence Num="1" >（５）</Sentence>
+                </Column>
+                <Column Num="2">
+                  <Sentence Num="1" >閣議決定その他の方法により示された政府の統一的な見解又は最高裁判所の判例が存在する場合には、それらに基づいた記述がされていること。</Sentence>
+                </Column>
+              </ListSentence>
+            </List>
+            <List>
+              <ListSentence>
+                <Column Num="1">
+                  <Sentence Num="1" >（６）</Sentence>
+                </Column>
+                <Column Num="2">
+                  <Sentence Num="1" >近隣のアジア諸国との間の近現代の歴史的事象の扱いに国際理解と国際協調の見地から必要な配慮がされていること。</Sentence>
+                </Column>
+              </ListSentence>
+            </List>
+            <List>
+              <ListSentence>
+                <Column Num="1">
+                  <Sentence Num="1" >（７）</Sentence>
+                </Column>
+                <Column Num="2">
+                  <Sentence Num="1" >著作物、史料などを引用する場合には、評価の定まったものや信頼度の高いものを用いており、その扱いは公正であること。また、史料及び法文を引用する場合には、原典の表記を尊重していること。</Sentence>
+                </Column>
+              </ListSentence>
+            </List>
+            <List>
+              <ListSentence>
+                <Column Num="1">
+                  <Sentence Num="1" >（８）</Sentence>
+                </Column>
+                <Column Num="2">
+                  <Sentence Num="1" >日本の歴史の紀年について、重要なものには元号及び西暦を併記していること。</Sentence>
+                </Column>
+              </ListSentence>
+            </List>
+            <List>
+              <ListSentence>
+                <Column Num="1">
+                  <Sentence Num="1" >２</Sentence>
+                </Column>
+                <Column Num="2">
+                  <Sentence Num="1" >正確性及び表記・表現</Sentence>
+                </Column>
+              </ListSentence>
+            </List>
+            <List>
+              <ListSentence>
+                <Column Num="1">
+                  <Sentence Num="1" >（１）</Sentence>
+                </Column>
+                <Column Num="2">
+                  <Sentence Num="1" >図、表、グラフ、地図などは、通常の約束、方法に従って記載されていること。</Sentence>
+                </Column>
+              </ListSentence>
+            </List>
+          </Paragraph>
+          <Paragraph Num="3">
+            <ParagraphNum></ParagraphNum>
+            <ParagraphSentence>
+              <Sentence Num="1" >［地理歴史科「地図」］</Sentence>
+            </ParagraphSentence>
+            <List>
+              <ListSentence>
+                <Column Num="1">
+                  <Sentence Num="1" >１</Sentence>
+                </Column>
+                <Column Num="2">
+                  <Sentence Num="1" >基本的条件</Sentence>
+                </Column>
+              </ListSentence>
+            </List>
+            <List>
+              <ListSentence>
+                <Column Num="1">
+                  <Sentence Num="1" >（１）</Sentence>
+                </Column>
+                <Column Num="2">
+                  <Sentence Num="1" >基本として次のような地図を取り上げていること。</Sentence>
+                </Column>
+              </ListSentence>
+            </List>
+            <List>
+              <ListSentence>
+                <Sentence Num="1" >日本全図、日本地域別詳細図、世界全図、世界大陸別図、世界主要地域詳細図及び両極を中心とした広域図その他の学習指導要領第２章第２節第２款「各科目」において取り扱うこととされている地理的範囲に応じた一般図</Sentence>
+              </ListSentence>
+            </List>
+            <List>
+              <ListSentence>
+                <Column Num="1">
+                  <Sentence Num="1" >（２）</Sentence>
+                </Column>
+                <Column Num="2">
+                  <Sentence Num="1" >（１）の一般図に関連して、学習上必要な各種の主題図を取り上げていることは差し支えないこと。</Sentence>
+                </Column>
+              </ListSentence>
+            </List>
+            <List>
+              <ListSentence>
+                <Column Num="1">
+                  <Sentence Num="1" >２</Sentence>
+                </Column>
+                <Column Num="2">
+                  <Sentence Num="1" >正確性及び表記・表現</Sentence>
+                </Column>
+              </ListSentence>
+            </List>
+            <List>
+              <ListSentence>
+                <Column Num="1">
+                  <Sentence Num="1" >（１）</Sentence>
+                </Column>
+                <Column Num="2">
+                  <Sentence Num="1" >図、表、グラフ、地図などは、通常の約束、方法に従って記載されていること。</Sentence>
+                </Column>
+              </ListSentence>
+            </List>
+          </Paragraph>
+          <Paragraph Num="4">
+            <ParagraphNum></ParagraphNum>
+            <ParagraphSentence>
+              <Sentence Num="1" >［公民科］</Sentence>
+            </ParagraphSentence>
+            <List>
+              <ListSentence>
+                <Column Num="1">
+                  <Sentence Num="1" >１</Sentence>
+                </Column>
+                <Column Num="2">
+                  <Sentence Num="1" >選択・扱い及び構成・排列</Sentence>
+                </Column>
+              </ListSentence>
+            </List>
+            <List>
+              <ListSentence>
+                <Column Num="1">
+                  <Sentence Num="1" >（１）</Sentence>
+                </Column>
+                <Column Num="2">
+                  <Sentence Num="1" >図書の内容全体を通じて、多様な見解のある社会的事象の取り上げ方に不適切なところはなく、考えが深まるよう様々な見解を提示するなど生徒が当該事象について多面的・多角的に考えられるよう適切な配慮がされていること。</Sentence>
+                </Column>
+              </ListSentence>
+            </List>
+            <List>
+              <ListSentence>
+                <Column Num="1">
+                  <Sentence Num="1" >（２）</Sentence>
+                </Column>
+                <Column Num="2">
+                  <Sentence Num="1" >学習指導要領第２章第３節第２款第１「公共」の２「内容」のＢのイについては、アの（ア）から（ウ）それぞれに示す現実社会の事柄や課題全てを取り上げ、資料から必要な情報を読み取らせて解釈させることができるよう配慮がされていること。</Sentence>
+                </Column>
+              </ListSentence>
+            </List>
+            <List>
+              <ListSentence>
+                <Column Num="1">
+                  <Sentence Num="1" >（３）</Sentence>
+                </Column>
+                <Column Num="2">
+                  <Sentence Num="1" >学習指導要領第２章第３節第２款第２「倫理」の２「内容」のＢの（１）のア及び（２）のアそれぞれに示す倫理的課題については、全てを取り上げ、選択して学習することができるよう配慮がされていること。</Sentence>
+                </Column>
+              </ListSentence>
+            </List>
+            <List>
+              <ListSentence>
+                <Column Num="1">
+                  <Sentence Num="1" >（４）</Sentence>
+                </Column>
+                <Column Num="2">
+                  <Sentence Num="1" >学習指導要領第２章第３節第２款第３「政治・経済」の２「内容」のＡの（２）のア及びＢの（２）のアそれぞれに示す課題については、全てを取り上げ、選択して学習することができるよう配慮がされていること。</Sentence>
+                </Column>
+              </ListSentence>
+            </List>
+            <List>
+              <ListSentence>
+                <Column Num="1">
+                  <Sentence Num="1" >（５）</Sentence>
+                </Column>
+                <Column Num="2">
+                  <Sentence Num="1" >未確定な時事的事象について断定的に記述していたり、特定の事柄を強調し過ぎていたり、一面的な見解を十分な配慮なく取り上げていたりするところはないこと。</Sentence>
+                </Column>
+              </ListSentence>
+            </List>
+            <List>
+              <ListSentence>
+                <Column Num="1">
+                  <Sentence Num="1" >（６）</Sentence>
+                </Column>
+                <Column Num="2">
+                  <Sentence Num="1" >近現代の歴史的事象のうち、通説的な見解がない数字などの事項について記述する場合には、通説的な見解がないことが明示されているとともに、生徒が誤解するおそれのある表現がないこと。</Sentence>
+                </Column>
+              </ListSentence>
+            </List>
+            <List>
+              <ListSentence>
+                <Column Num="1">
+                  <Sentence Num="1" >（７）</Sentence>
+                </Column>
+                <Column Num="2">
+                  <Sentence Num="1" >閣議決定その他の方法により示された政府の統一的な見解又は最高裁判所の判例が存在する場合には、それらに基づいた記述がされていること。</Sentence>
+                </Column>
+              </ListSentence>
+            </List>
+            <List>
+              <ListSentence>
+                <Column Num="1">
+                  <Sentence Num="1" >（８）</Sentence>
+                </Column>
+                <Column Num="2">
+                  <Sentence Num="1" >近隣のアジア諸国との間の近現代の歴史的事象の扱いに国際理解と国際協調の見地から必要な配慮がされていること。</Sentence>
+                </Column>
+              </ListSentence>
+            </List>
+            <List>
+              <ListSentence>
+                <Column Num="1">
+                  <Sentence Num="1" >（９）</Sentence>
+                </Column>
+                <Column Num="2">
+                  <Sentence Num="1" >著作物、資料などを引用する場合には、評価の定まったものや信頼度の高いものを用いており、その扱いは公正であること。また、史料及び法文を引用する場合には、原典の表記を尊重していること。</Sentence>
+                </Column>
+              </ListSentence>
+            </List>
+            <List>
+              <ListSentence>
+                <Column Num="1">
+                  <Sentence Num="1" >（１０）</Sentence>
+                </Column>
+                <Column Num="2">
+                  <Sentence Num="1" >日本の歴史の紀年について、重要なものには元号及び西暦を併記していること。</Sentence>
+                </Column>
+              </ListSentence>
+            </List>
+            <List>
+              <ListSentence>
+                <Column Num="1">
+                  <Sentence Num="1" >２</Sentence>
+                </Column>
+                <Column Num="2">
+                  <Sentence Num="1" >正確性及び表記・表現</Sentence>
+                </Column>
+              </ListSentence>
+            </List>
+            <List>
+              <ListSentence>
+                <Column Num="1">
+                  <Sentence Num="1" >（１）</Sentence>
+                </Column>
+                <Column Num="2">
+                  <Sentence Num="1" >図、表、グラフ、地図などは、通常の約束、方法に従って記載されていること。</Sentence>
+                </Column>
+              </ListSentence>
+            </List>
+          </Paragraph>
+          <Paragraph Num="5">
+            <ParagraphNum></ParagraphNum>
+            <ParagraphSentence>
+              <Sentence Num="1" >［数学科］</Sentence>
+            </ParagraphSentence>
+            <List>
+              <ListSentence>
+                <Column Num="1">
+                  <Sentence Num="1" >１</Sentence>
+                </Column>
+                <Column Num="2">
+                  <Sentence Num="1" >基本的条件</Sentence>
+                </Column>
+              </ListSentence>
+            </List>
+            <List>
+              <ListSentence>
+                <Column Num="1">
+                  <Sentence Num="1" >（１）</Sentence>
+                </Column>
+                <Column Num="2">
+                  <Sentence Num="1" >「数学Ａ」、「数学Ｂ」及び「数学Ｃ」においては、学習指導要領の内容に示す項目の全てを取り上げていること。</Sentence>
+                </Column>
+              </ListSentence>
+            </List>
+            <List>
+              <ListSentence>
+                <Column Num="1">
+                  <Sentence Num="1" >（２）</Sentence>
+                </Column>
+                <Column Num="2">
+                  <Sentence Num="1" >発展的な学習内容を取り上げる場合のほか、「数学Ⅱ」、「数学Ⅲ」、「数学Ａ」、「数学Ｂ」及び「数学Ｃ」においては、必要な限りにおいて数学科の他の科目の内容を関連付けて扱っても差し支えないこと。その場合には、他の科目の内容を関連付けて扱っていることが明示されていること。</Sentence>
+                </Column>
+              </ListSentence>
+            </List>
+            <List>
+              <ListSentence>
+                <Column Num="1">
+                  <Sentence Num="1" >２</Sentence>
+                </Column>
+                <Column Num="2">
+                  <Sentence Num="1" >選択・扱い及び構成・排列</Sentence>
+                </Column>
+              </ListSentence>
+            </List>
+            <List>
+              <ListSentence>
+                <Column Num="1">
+                  <Sentence Num="1" >（１）</Sentence>
+                </Column>
+                <Column Num="2">
+                  <Sentence Num="1" >定理、公式等の知識や計算技能の習得に偏ることなく、各学習内容について、そのねらい、有用性及び前後の学習内容との関連が明らかになるよう配慮されていること。</Sentence>
+                </Column>
+              </ListSentence>
+            </List>
+          </Paragraph>
+          <Paragraph Num="6">
+            <ParagraphNum></ParagraphNum>
+            <ParagraphSentence>
+              <Sentence Num="1" >［理科］</Sentence>
+            </ParagraphSentence>
+            <List>
+              <ListSentence>
+                <Column Num="1">
+                  <Sentence Num="1" >１</Sentence>
+                </Column>
+                <Column Num="2">
+                  <Sentence Num="1" >基本的条件</Sentence>
+                </Column>
+              </ListSentence>
+            </List>
+            <List>
+              <ListSentence>
+                <Column Num="1">
+                  <Sentence Num="1" >（１）</Sentence>
+                </Column>
+                <Column Num="2">
+                  <Sentence Num="1" >「科学と人間生活」においては、学習指導要領第２章第５節第２款第１の２「内容」に示す項目の全てを取り上げていること。</Sentence>
+                </Column>
+              </ListSentence>
+            </List>
+            <List>
+              <ListSentence>
+                <Column Num="1">
+                  <Sentence Num="1" >（２）</Sentence>
+                </Column>
+                <Column Num="2">
+                  <Sentence Num="1" >実験及び観察における作業の安全について適切な配慮がされていること。</Sentence>
+                </Column>
+              </ListSentence>
+            </List>
+            <List>
+              <ListSentence>
+                <Column Num="1">
+                  <Sentence Num="1" >２</Sentence>
+                </Column>
+                <Column Num="2">
+                  <Sentence Num="1" >選択・扱い及び構成・排列</Sentence>
+                </Column>
+              </ListSentence>
+            </List>
+            <List>
+              <ListSentence>
+                <Column Num="1">
+                  <Sentence Num="1" >（１）</Sentence>
+                </Column>
+                <Column Num="2">
+                  <Sentence Num="1" >学習指導要領第２章第５節第２款第１の２「内容」の（２）のアの（ア）から（エ）までについては、それぞれ（（ア））又は（（イ））のいずれかを選択して学習することができるよう配慮がされていること。</Sentence>
+                </Column>
+              </ListSentence>
+            </List>
+            <List>
+              <ListSentence>
+                <Column Num="1">
+                  <Sentence Num="1" >（２）</Sentence>
+                </Column>
+                <Column Num="2">
+                  <Sentence Num="1" >学習指導要領第２章第５節第３款「各科目にわたる指導計画の作成と内容の取扱い」の２の（６）に示されている内容が指導できるよう配慮がされていること。</Sentence>
+                </Column>
+              </ListSentence>
+            </List>
+            <List>
+              <ListSentence>
+                <Column Num="1">
+                  <Sentence Num="1" >（３）</Sentence>
+                </Column>
+                <Column Num="2">
+                  <Sentence Num="1" >実験及び観察などについては、学習指導要領に示す目標、学習指導要領に示す内容及び学習指導要領に示す内容の取扱いに基づき、主たる記述と適切に関連付けて扱われていること。</Sentence>
+                </Column>
+              </ListSentence>
+            </List>
+            <List>
+              <ListSentence>
+                <Column Num="1">
+                  <Sentence Num="1" >３</Sentence>
+                </Column>
+                <Column Num="2">
+                  <Sentence Num="1" >正確性及び表記・表現</Sentence>
+                </Column>
+              </ListSentence>
+            </List>
+            <List>
+              <ListSentence>
+                <Column Num="1">
+                  <Sentence Num="1" >（１）</Sentence>
+                </Column>
+                <Column Num="2">
+                  <Sentence Num="1" >図、表、グラフなどは、通常の約束、方法に従って記載されていること。</Sentence>
+                </Column>
+              </ListSentence>
+            </List>
+          </Paragraph>
+          <Paragraph Num="7">
+            <ParagraphNum></ParagraphNum>
+            <ParagraphSentence>
+              <Sentence Num="1" >［保健体育科］</Sentence>
+            </ParagraphSentence>
+            <List>
+              <ListSentence>
+                <Column Num="1">
+                  <Sentence Num="1" >１</Sentence>
+                </Column>
+                <Column Num="2">
+                  <Sentence Num="1" >基本的条件</Sentence>
+                </Column>
+              </ListSentence>
+            </List>
+            <List>
+              <ListSentence>
+                <Column Num="1">
+                  <Sentence Num="1" >（１）</Sentence>
+                </Column>
+                <Column Num="2">
+                  <Sentence Num="1" >「体育」においては、学習指導要領第２章第６節第２款第１の２「内容」のうち「Ｈ 体育理論」のみを取り上げていること。</Sentence>
+                </Column>
+              </ListSentence>
+            </List>
+            <List>
+              <ListSentence>
+                <Column Num="1">
+                  <Sentence Num="1" >２</Sentence>
+                </Column>
+                <Column Num="2">
+                  <Sentence Num="1" >正確性及び表記・表現</Sentence>
+                </Column>
+              </ListSentence>
+            </List>
+            <List>
+              <ListSentence>
+                <Column Num="1">
+                  <Sentence Num="1" >（１）</Sentence>
+                </Column>
+                <Column Num="2">
+                  <Sentence Num="1" >図、表、グラフなどは、通常の約束、方法に従って記載されていること。</Sentence>
+                </Column>
+              </ListSentence>
+            </List>
+          </Paragraph>
+          <Paragraph Num="8">
+            <ParagraphNum></ParagraphNum>
+            <ParagraphSentence>
+              <Sentence Num="1" >［芸術科「音楽」］</Sentence>
+            </ParagraphSentence>
+            <List>
+              <ListSentence>
+                <Column Num="1">
+                  <Sentence Num="1" >１</Sentence>
+                </Column>
+                <Column Num="2">
+                  <Sentence Num="1" >基本的条件</Sentence>
+                </Column>
+              </ListSentence>
+            </List>
+            <List>
+              <ListSentence>
+                <Column Num="1">
+                  <Sentence Num="1" >（１）</Sentence>
+                </Column>
+                <Column Num="2">
+                  <Sentence Num="1" >「音楽Ⅰ」、「音楽Ⅱ」及び「音楽Ⅲ」においては、学習指導要領の内容に示す項目の全てを取り上げていること。</Sentence>
+                </Column>
+              </ListSentence>
+            </List>
+            <List>
+              <ListSentence>
+                <Column Num="1">
+                  <Sentence Num="1" >２</Sentence>
+                </Column>
+                <Column Num="2">
+                  <Sentence Num="1" >選択・扱い及び構成・排列</Sentence>
+                </Column>
+              </ListSentence>
+            </List>
+            <List>
+              <ListSentence>
+                <Column Num="1">
+                  <Sentence Num="1" >（１）</Sentence>
+                </Column>
+                <Column Num="2">
+                  <Sentence Num="1" >歌唱教材には、必要に応じて、漢字交じりの歌詞を別記していること。</Sentence>
+                </Column>
+              </ListSentence>
+            </List>
+            <List>
+              <ListSentence>
+                <Column Num="1">
+                  <Sentence Num="1" >（２）</Sentence>
+                </Column>
+                <Column Num="2">
+                  <Sentence Num="1" >表現教材における調の選択に当たっては、生徒の声域並びに楽器の特性などを十分考慮していること。</Sentence>
+                </Column>
+              </ListSentence>
+            </List>
+            <List>
+              <ListSentence>
+                <Column Num="1">
+                  <Sentence Num="1" >（３）</Sentence>
+                </Column>
+                <Column Num="2">
+                  <Sentence Num="1" >表現教材における調を改編する場合には、原調名又は原調号を記載していること。</Sentence>
+                </Column>
+              </ListSentence>
+            </List>
+            <List>
+              <ListSentence>
+                <Column Num="1">
+                  <Sentence Num="1" >（４）</Sentence>
+                </Column>
+                <Column Num="2">
+                  <Sentence Num="1" >音楽の構造等及び文化的・歴史的背景に関するものは、単なる知識や理論の習得に偏ることなく、楽曲と関連付けて扱われていること。</Sentence>
+                </Column>
+              </ListSentence>
+            </List>
+            <List>
+              <ListSentence>
+                <Column Num="1">
+                  <Sentence Num="1" >（５）</Sentence>
+                </Column>
+                <Column Num="2">
+                  <Sentence Num="1" >楽曲には、作曲者名、作詞者名、編曲者名、採譜者名などが示されていること。</Sentence>
+                </Column>
+              </ListSentence>
+            </List>
+            <List>
+              <ListSentence>
+                <Column Num="1">
+                  <Sentence Num="1" >３</Sentence>
+                </Column>
+                <Column Num="2">
+                  <Sentence Num="1" >正確性及び表記・表現</Sentence>
+                </Column>
+              </ListSentence>
+            </List>
+            <List>
+              <ListSentence>
+                <Column Num="1">
+                  <Sentence Num="1" >（１）</Sentence>
+                </Column>
+                <Column Num="2">
+                  <Sentence Num="1" >楽譜の表記は適切であり、不統一はないこと。また、楽譜の大きさは適切であること。</Sentence>
+                </Column>
+              </ListSentence>
+            </List>
+          </Paragraph>
+          <Paragraph Num="9">
+            <ParagraphNum></ParagraphNum>
+            <ParagraphSentence>
+              <Sentence Num="1" >［芸術科「美術」及び「工芸」］</Sentence>
+            </ParagraphSentence>
+            <List>
+              <ListSentence>
+                <Column Num="1">
+                  <Sentence Num="1" >１</Sentence>
+                </Column>
+                <Column Num="2">
+                  <Sentence Num="1" >基本的条件</Sentence>
+                </Column>
+              </ListSentence>
+            </List>
+            <List>
+              <ListSentence>
+                <Column Num="1">
+                  <Sentence Num="1" >（１）</Sentence>
+                </Column>
+                <Column Num="2">
+                  <Sentence Num="1" >「美術Ⅰ」、「美術Ⅱ」及び「美術Ⅲ」並びに「工芸Ⅱ」及び「工芸Ⅲ」においては、学習指導要領の内容に示す項目の全てを取り上げていること。</Sentence>
+                </Column>
+              </ListSentence>
+            </List>
+            <List>
+              <ListSentence>
+                <Column Num="1">
+                  <Sentence Num="1" >２</Sentence>
+                </Column>
+                <Column Num="2">
+                  <Sentence Num="1" >選択・扱い及び構成・排列</Sentence>
+                </Column>
+              </ListSentence>
+            </List>
+            <List>
+              <ListSentence>
+                <Column Num="1">
+                  <Sentence Num="1" >（１）</Sentence>
+                </Column>
+                <Column Num="2">
+                  <Sentence Num="1" >材料及び用具の選択及び扱いには、学習を進める上で不適切なところはないこと。</Sentence>
+                </Column>
+              </ListSentence>
+            </List>
+            <List>
+              <ListSentence>
+                <Column Num="1">
+                  <Sentence Num="1" >（２）</Sentence>
+                </Column>
+                <Column Num="2">
+                  <Sentence Num="1" >色、図法に関する学習は、単なる知識や理論の学習に偏ることのないよう配慮されていること。</Sentence>
+                </Column>
+              </ListSentence>
+            </List>
+            <List>
+              <ListSentence>
+                <Column Num="1">
+                  <Sentence Num="1" >（３）</Sentence>
+                </Column>
+                <Column Num="2">
+                  <Sentence Num="1" >参考作品及び鑑賞作品の図版には、作者名のほか原則として、年代、国名、大きさ及び材質などが付記されていること。また、美術館などに所蔵されているものについては、必要に応じて所在を示すよう配慮されていること。</Sentence>
+                </Column>
+              </ListSentence>
+            </List>
+            <List>
+              <ListSentence>
+                <Column Num="1">
+                  <Sentence Num="1" >３</Sentence>
+                </Column>
+                <Column Num="2">
+                  <Sentence Num="1" >正確性及び表記・表現</Sentence>
+                </Column>
+              </ListSentence>
+            </List>
+            <List>
+              <ListSentence>
+                <Column Num="1">
+                  <Sentence Num="1" >（１）</Sentence>
+                </Column>
+                <Column Num="2">
+                  <Sentence Num="1" >作品、参考作品、鑑賞作品及び説明図の印刷は正確・鮮明であること。</Sentence>
+                </Column>
+              </ListSentence>
+            </List>
+              </Paragraph>
+            <Paragraph Num="10">
+              <ParagraphNum></ParagraphNum>
+              <ParagraphSentence>
+                <Sentence Num="1" >［芸術科「書道」］</Sentence>
+              </ParagraphSentence>
+              <List>
+                <ListSentence>
+                  <Column Num="1">
+                    <Sentence Num="1" >１</Sentence>
+                  </Column>
+                  <Column Num="2">
+                    <Sentence Num="1" >基本的条件</Sentence>
+                  </Column>
+                </ListSentence>
+              </List>
+              <List>
+                <ListSentence>
+                  <Column Num="1">
+                    <Sentence Num="1" >（１）</Sentence>
+                  </Column>
+                  <Column Num="2">
+                    <Sentence Num="1" >「書道Ⅱ」及び「書道Ⅲ」においては、学習指導要領の内容に示す項目の全てを取り上げていること。</Sentence>
+                  </Column>
+                </ListSentence>
+              </List>
+              <List>
+                <ListSentence>
+                  <Column Num="1">
+                    <Sentence Num="1" >２</Sentence>
+                  </Column>
+                  <Column Num="2">
+                    <Sentence Num="1" >選択・扱い及び構成・排列</Sentence>
+                  </Column>
+                </ListSentence>
+              </List>
+              <List>
+                <ListSentence>
+                  <Column Num="1">
+                    <Sentence Num="1" >（１）</Sentence>
+                  </Column>
+                  <Column Num="2">
+                    <Sentence Num="1" >手本の字は、使用する用具に適したものであること。また、手本、作例などに、偏った用筆や字形をもつものなどの不適切なものは取り上げていないこと。</Sentence>
+                  </Column>
+                </ListSentence>
+              </List>
+              <List>
+                <ListSentence>
+                  <Column Num="1">
+                    <Sentence Num="1" >（２）</Sentence>
+                  </Column>
+                  <Column Num="2">
+                    <Sentence Num="1" >漢字の筆順は、原則として一般に通用している常識的なものによっていること。なお、法<Ruby>帖<Rt>じよう</Rt></Ruby>や碑文などの文字を扱う場合における特殊な筆順については、適切な説明を加えていること。</Sentence>
+                  </Column>
+                </ListSentence>
+              </List>
+              <List>
+                <ListSentence>
+                  <Column Num="1">
+                    <Sentence Num="1" >（３）</Sentence>
+                  </Column>
+                  <Column Num="2">
+                    <Sentence Num="1" >教材の選択及び扱いは適切であり、その時代や書風に偏りがあったり、特定の個人や流派などの宣伝になるおそれのあったりするところはないこと。</Sentence>
+                  </Column>
+                </ListSentence>
+              </List>
+              <List>
+                <ListSentence>
+                  <Column Num="1">
+                    <Sentence Num="1" >（４）</Sentence>
+                  </Column>
+                  <Column Num="2">
+                    <Sentence Num="1" >鑑賞作品は、原則として歴史的に評価の定まったものであること。</Sentence>
+                  </Column>
+                </ListSentence>
+              </List>
+              <List>
+                <ListSentence>
+                  <Column Num="1">
+                    <Sentence Num="1" >（５）</Sentence>
+                  </Column>
+                  <Column Num="2">
+                    <Sentence Num="1" >鑑賞作品などには、必要に応じて元号及び西暦を併記していること。</Sentence>
+                  </Column>
+                </ListSentence>
+              </List>
+              <List>
+                <ListSentence>
+                  <Column Num="1">
+                    <Sentence Num="1" >（６）</Sentence>
+                  </Column>
+                  <Column Num="2">
+                    <Sentence Num="1" >碑、墓誌などの出土地又は所在地については、生徒がその位置を理解できるよう適切な説明を加えるなどの配慮がされていること。また、美術館などに所蔵されているものについては、必要に応じて所在を示すよう配慮されていること。</Sentence>
+                  </Column>
+                </ListSentence>
+              </List>
+              <List>
+                <ListSentence>
+                  <Column Num="1">
+                    <Sentence Num="1" >３</Sentence>
+                  </Column>
+                  <Column Num="2">
+                    <Sentence Num="1" >正確性及び表記・表現</Sentence>
+                  </Column>
+                </ListSentence>
+              </List>
+              <List>
+                <ListSentence>
+                  <Column Num="1">
+                    <Sentence Num="1" >（１）</Sentence>
+                  </Column>
+                  <Column Num="2">
+                    <Sentence Num="1" >手本、作例、鑑賞作品などの印刷は正確であること。</Sentence>
+                  </Column>
+                </ListSentence>
+              </List>
+            </Paragraph>
+            <Paragraph Num="10">
+              <ParagraphNum></ParagraphNum>
+              <ParagraphSentence>
+                <Sentence Num="1" >［外国語科］</Sentence>
+              </ParagraphSentence>
+              <List>
+                <ListSentence>
+                  <Column Num="1">
+                    <Sentence Num="1" >１</Sentence>
+                  </Column>
+                  <Column Num="2">
+                    <Sentence Num="1" >選択・扱い及び構成・排列</Sentence>
+                  </Column>
+                </ListSentence>
+              </List>
+              <List>
+                <ListSentence>
+                  <Column Num="1">
+                    <Sentence Num="1" >（１）</Sentence>
+                  </Column>
+                  <Column Num="2">
+                    <Sentence Num="1" >教材については、外国語を通じてコミュニケーション能力を総合的に育成する上に適切な配慮がされているとともに、学習指導要領第２章第８節第３款「英語に関する各科目にわたる指導計画の作成と内容の取扱い」の３に基づき、適切な配慮がされていること。特に、図書の内容と「聞くこと」、「読むこと」、「話すこと［やり取り］」、「話すこと［発表］」、「書くこと」の五つの領域別の目標との関係が明示されていること。</Sentence>
+                  </Column>
+                </ListSentence>
+              </List>
+              <List>
+                <ListSentence>
+                  <Column Num="1">
+                    <Sentence Num="1" >（２）</Sentence>
+                  </Column>
+                  <Column Num="2">
+                    <Sentence Num="1" >学習指導要領第２章第８節第２款の第１「英語コミュニケーションⅠ」の２「内容」の（１）のウの（ア）、第２「英語コミュニケーションⅡ」及び第３「英語コミュニケーションⅢ」の２「内容」の（１）については、「聞くこと」、「読むこと」、「話すこと［やり取り］」、「話すこと［発表］」、「書くこと」の五つの領域別の目標を達成するために必要となる語を言語活動と効果的に関連付けて取り上げており、実際のコミュニケーションにおいて活用できるよう適切な配慮がされていること。</Sentence>
+                  </Column>
+                </ListSentence>
+              </List>
+              <List>
+                <ListSentence>
+                  <Column Num="1">
+                    <Sentence Num="1" >（３）</Sentence>
+                  </Column>
+                  <Column Num="2">
+                    <Sentence Num="1" >外国語科の各科目において、学習指導要領第２章第８節第２款の第１「英語コミュニケーションⅠ」の２「内容」の（１）のエ「文構造及び文法事項」については、言語活動と効果的に関連付けて取り上げており、用語や用法の指導に偏ることのないよう適切な配慮がされていること。</Sentence>
+                  </Column>
+                </ListSentence>
+              </List>
+              <List>
+                <ListSentence>
+                  <Column Num="1">
+                    <Sentence Num="1" >（４）</Sentence>
+                  </Column>
+                  <Column Num="2">
+                    <Sentence Num="1" >外国語科の各科目において、図書の内容と一体のものとして、視聴覚教材などが必要とされる場合（図書の内容を音声化したものを参照させるためウェブページのアドレス又は二次元コードその他のこれに代わるものを掲載する場合を含む。）は、相互に適切な関連が図られていること。なお、図書中にウェブページのアドレス等を掲載する場合は、当該アドレス等は発行者の責任において管理できるものを参照させていること。</Sentence>
+                  </Column>
+                </ListSentence>
+              </List>
+              <List>
+                <ListSentence>
+                  <Column Num="1">
+                    <Sentence Num="1" >２</Sentence>
+                  </Column>
+                  <Column Num="2">
+                    <Sentence Num="1" >正確性及び表記・表現</Sentence>
+                  </Column>
+                </ListSentence>
+              </List>
+              <List>
+                <ListSentence>
+                  <Column Num="1">
+                    <Sentence Num="1" >（１）</Sentence>
+                  </Column>
+                  <Column Num="2">
+                    <Sentence Num="1" >言語表現は、原則としてその外国語の現代慣用によっていること。</Sentence>
+                  </Column>
+                </ListSentence>
+              </List>
+            </Paragraph>
+            <Paragraph Num="11">
+              <ParagraphNum></ParagraphNum>
+              <ParagraphSentence>
+                <Sentence Num="1" >［家庭科（各学科に共通する教科）］</Sentence>
+              </ParagraphSentence>
+              <List>
+                <ListSentence>
+                  <Column Num="1">
+                    <Sentence Num="1" >１</Sentence>
+                  </Column>
+                  <Column Num="2">
+                    <Sentence Num="1" >基本的条件</Sentence>
+                  </Column>
+                </ListSentence>
+              </List>
+              <List>
+                <ListSentence>
+                  <Column Num="1">
+                    <Sentence Num="1" >（１）</Sentence>
+                  </Column>
+                  <Column Num="2">
+                    <Sentence Num="1" >実験及び実習における作業の安全について適切な配慮がされていること。</Sentence>
+                  </Column>
+                </ListSentence>
+              </List>
+              <List>
+                <ListSentence>
+                  <Column Num="1">
+                    <Sentence Num="1" >２</Sentence>
+                  </Column>
+                  <Column Num="2">
+                    <Sentence Num="1" >選択・扱い及び構成・排列</Sentence>
+                  </Column>
+                </ListSentence>
+              </List>
+              <List>
+                <ListSentence>
+                  <Column Num="1">
+                    <Sentence Num="1" >（１）</Sentence>
+                  </Column>
+                  <Column Num="2">
+                    <Sentence Num="1" >実験及び実習といわゆる座学との組織及び分量の配分は適切であること。</Sentence>
+                  </Column>
+                </ListSentence>
+              </List>
+              <List>
+                <ListSentence>
+                  <Column Num="1">
+                    <Sentence Num="1" >３</Sentence>
+                  </Column>
+                  <Column Num="2">
+                    <Sentence Num="1" >正確性及び表記・表現</Sentence>
+                  </Column>
+                </ListSentence>
+              </List>
+              <List>
+                <ListSentence>
+                  <Column Num="1">
+                    <Sentence Num="1" >（１）</Sentence>
+                  </Column>
+                  <Column Num="2">
+                    <Sentence Num="1" >図、表、グラフなどは、通常の約束、方法に従って記載されていること。</Sentence>
+                  </Column>
+                </ListSentence>
+              </List>
+          </Paragraph>
+        <Paragraph Num="12">
+          <ParagraphNum></ParagraphNum>
+          <ParagraphSentence>
+            <Sentence Num="1" >［情報科（各学科に共通する教科）］</Sentence>
+          </ParagraphSentence>
+          <List>
+            <ListSentence>
+              <Column Num="1">
+                <Sentence Num="1" >１</Sentence>
+              </Column>
+              <Column Num="2">
+                <Sentence Num="1" >選択・扱い及び構成・排列</Sentence>
+              </Column>
+            </ListSentence>
+            </List>
+            <List>
+              <ListSentence>
+                <Column Num="1">
+                  <Sentence Num="1" >（１）</Sentence>
+                </Column>
+                <Column Num="2">
+                  <Sentence Num="1" >未確定な時事的事象について断定的に記述していたり、一面的な見解を十分な配慮なく取り上げていたりするところはないこと。</Sentence>
+                </Column>
+              </ListSentence>
+            </List>
+            <List>
+              <ListSentence>
+                <Column Num="1">
+                  <Sentence Num="1" >（２）</Sentence>
+                </Column>
+                <Column Num="2">
+                  <Sentence Num="1" >実習といわゆる座学との組織及び分量の配分は適切であること。</Sentence>
+                </Column>
+              </ListSentence>
+            </List>
+            <List>
+              <ListSentence>
+                <Column Num="1">
+                  <Sentence Num="1" >（３）</Sentence>
+                </Column>
+                <Column Num="2">
+                  <Sentence Num="1" >図書の内容は、他の関係する教科の内容との関連が配慮されており、矛盾するところはないこと。</Sentence>
+                </Column>
+              </ListSentence>
+            </List>
+            <List>
+              <ListSentence>
+                <Column Num="1">
+                  <Sentence Num="1" >（４）</Sentence>
+                </Column>
+                <Column Num="2">
+                  <Sentence Num="1" >コンピュータに関するハードウェア、機器の操作、プログラムの作成、ソフトウェアの利用などに関する内容は、一般的な例を扱い、その際、必要に応じて異なる例への適切な配慮がされていること。</Sentence>
+                </Column>
+              </ListSentence>
+            </List>
+            <List>
+              <ListSentence>
+                <Column Num="1">
+                  <Sentence Num="1" >２</Sentence>
+                </Column>
+                <Column Num="2">
+                  <Sentence Num="1" >正確性及び表記・表現</Sentence>
+                </Column>
+              </ListSentence>
+            </List>
+            <List>
+              <ListSentence>
+                <Column Num="1">
+                  <Sentence Num="1" >（１）</Sentence>
+                </Column>
+                <Column Num="2">
+                  <Sentence Num="1" >図、表、グラフなどは、通常の約束、方法に従って記載されていること。</Sentence>
+                </Column>
+              </ListSentence>
+            </List>
+        </Paragraph>
+        <Paragraph Num="13">
+          <ParagraphNum></ParagraphNum>
+          <ParagraphSentence>
+            <Sentence Num="1" >［理数科（各学科に共通する教科）］</Sentence>
+          </ParagraphSentence>
+          <List>
+            <ListSentence>
+              <Column Num="1">
+                <Sentence Num="1" >１</Sentence>
+              </Column>
+              <Column Num="2">
+                <Sentence Num="1" >基本的条件</Sentence>
+              </Column>
+            </ListSentence>
+          </List>
+          <List>
+            <ListSentence>
+              <Column Num="1">
+                <Sentence Num="1" >（１）</Sentence>
+              </Column>
+              <Column Num="2">
+                <Sentence Num="1" >必要に応じて数学科及び理科の科目の内容を関連付けて扱っても差し支えないこと。その場合には、数学科及び理科の科目の内容を関連付けて扱っていることが明示されていること。</Sentence>
+              </Column>
+            </ListSentence>
+          </List>
+          <List>
+            <ListSentence>
+              <Column Num="1">
+                <Sentence Num="1" >（２）</Sentence>
+              </Column>
+              <Column Num="2">
+                <Sentence Num="1" >実験及び観察における作業の安全について適切な配慮がされていること。</Sentence>
+              </Column>
+            </ListSentence>
+          </List>
+          <List>
+            <ListSentence>
+              <Column Num="1">
+                <Sentence Num="1" >２</Sentence>
+              </Column>
+              <Column Num="2">
+                <Sentence Num="1" >正確性及び表記・表現</Sentence>
+              </Column>
+            </ListSentence>
+          </List>
+          <List>
+            <ListSentence>
+              <Column Num="1">
+                <Sentence Num="1" >（１）</Sentence>
+              </Column>
+              <Column Num="2">
+                <Sentence Num="1" >図、表、グラフなどは、通常の約束、方法に従って記載されていること。</Sentence>
+              </Column>
+            </ListSentence>
+          </List>
+        </Paragraph>
+        <Paragraph Num="14">
+          <ParagraphNum></ParagraphNum>
+          <ParagraphSentence>
+            <Sentence Num="1" >［農業科］</Sentence>
+          </ParagraphSentence>
+          <List>
+            <ListSentence>
+              <Column Num="1">
+                <Sentence Num="1" >１</Sentence>
+              </Column>
+              <Column Num="2">
+                <Sentence Num="1" >基本的条件</Sentence>
+              </Column>
+            </ListSentence>
+          </List>
+          <List>
+            <ListSentence>
+              <Column Num="1">
+                <Sentence Num="1" >（１）</Sentence>
+              </Column>
+              <Column Num="2">
+                <Sentence Num="1" >実験及び実習における作業の安全について適切な配慮がされていること。</Sentence>
+              </Column>
+            </ListSentence>
+          </List>
+          <List>
+            <ListSentence>
+              <Column Num="1">
+                <Sentence Num="1" >２</Sentence>
+              </Column>
+              <Column Num="2">
+                <Sentence Num="1" >選択・扱い及び構成・排列</Sentence>
+              </Column>
+            </ListSentence>
+          </List>
+          <List>
+            <ListSentence>
+              <Column Num="1">
+                <Sentence Num="1" >（１）</Sentence>
+              </Column>
+              <Column Num="2">
+                <Sentence Num="1" >適切な題材を選定する内容については、原則として、一般的なものを取り上げていること。</Sentence>
+              </Column>
+            </ListSentence>
+          </List>
+          <List>
+            <ListSentence>
+              <Column Num="1">
+                <Sentence Num="1" >（２）</Sentence>
+              </Column>
+              <Column Num="2">
+                <Sentence Num="1" >各種の機器・装置類や試験・検査法、施工法などは、その代表的なものを取り上げていること。</Sentence>
+              </Column>
+            </ListSentence>
+          </List>
+          <List>
+            <ListSentence>
+              <Column Num="1">
+                <Sentence Num="1" >（３）</Sentence>
+              </Column>
+              <Column Num="2">
+                <Sentence Num="1" >実験及び実習といわゆる座学との組織及び分量の配分は適切であること。</Sentence>
+              </Column>
+            </ListSentence>
+          </List>
+          <List>
+            <ListSentence>
+              <Column Num="1">
+                <Sentence Num="1" >（４）</Sentence>
+              </Column>
+              <Column Num="2">
+                <Sentence Num="1" >図書の内容は、農業科の他の科目の内容との関連が配慮されており、矛盾するところはないこと。</Sentence>
+              </Column>
+            </ListSentence>
+          </List>
+          <List>
+            <ListSentence>
+              <Column Num="1">
+                <Sentence Num="1" >（５）</Sentence>
+              </Column>
+              <Column Num="2">
+                <Sentence Num="1" >コンピュータに関するハードウェア、機器の操作、プログラムの作成、ソフトウェアの利用などに関する内容は、一般的な例を扱い、その際、必要に応じて異なる例への適切な配慮がされていること。</Sentence>
+              </Column>
+            </ListSentence>
+          </List>
+          <List>
+            <ListSentence>
+              <Column Num="1">
+                <Sentence Num="1" >３</Sentence>
+              </Column>
+              <Column Num="2">
+                <Sentence Num="1" >正確性及び表記・表現</Sentence>
+              </Column>
+            </ListSentence>
+          </List>
+          <List>
+            <ListSentence>
+              <Column Num="1">
+                <Sentence Num="1" >（１）</Sentence>
+              </Column>
+              <Column Num="2">
+                <Sentence Num="1" >図、表、グラフなどは、通常の約束、方法に従って記載されていること。</Sentence>
+              </Column>
+            </ListSentence>
+          </List>
+        </Paragraph>
+        <Paragraph Num="15">
+          <ParagraphNum></ParagraphNum>
+          <ParagraphSentence>
+            <Sentence Num="1" >［工業科］</Sentence>
+          </ParagraphSentence>
+          <List>
+            <ListSentence>
+              <Column Num="1">
+                <Sentence Num="1" >１</Sentence>
+              </Column>
+              <Column Num="2">
+                <Sentence Num="1" >基本的条件</Sentence>
+              </Column>
+            </ListSentence>
+          </List>
+          <List>
+            <ListSentence>
+              <Column Num="1">
+                <Sentence Num="1" >（１）</Sentence>
+              </Column>
+              <Column Num="2">
+                <Sentence Num="1" >「製図」、「工業情報数理」、「機械設計」、「船舶工学」、「電力技術」、「ハードウェア技術」、「ソフトウェア技術」、「設備計画」、「空気調和設備」、「衛生・防災設備」、「測量」、「土木構造設計」、「社会基盤工学」、「セラミック工業」、「繊維製品」、「インテリアエレメント生産」及び「デザイン実践」においては、学習指導要領の内容に示す項目の全てを取り上げていること。</Sentence>
+              </Column>
+            </ListSentence>
+          </List>
+          <List>
+            <ListSentence>
+              <Column Num="1">
+                <Sentence Num="1" >（２）</Sentence>
+              </Column>
+              <Column Num="2">
+                <Sentence Num="1" >実験及び実習における作業の安全について適切な配慮がされていること。</Sentence>
+              </Column>
+            </ListSentence>
+          </List>
+          <List>
+            <ListSentence>
+              <Column Num="1">
+                <Sentence Num="1" >２</Sentence>
+              </Column>
+              <Column Num="2">
+                <Sentence Num="1" >選択・扱い及び構成・排列</Sentence>
+              </Column>
+            </ListSentence>
+          </List>
+          <List>
+            <ListSentence>
+              <Column Num="1">
+                <Sentence Num="1" >（１）</Sentence>
+              </Column>
+              <Column Num="2">
+                <Sentence Num="1" >適切な題材を選定する内容については、原則として、一般的なものを取り上げていること。</Sentence>
+              </Column>
+            </ListSentence>
+          </List>
+          <List>
+            <ListSentence>
+              <Column Num="1">
+                <Sentence Num="1" >（２）</Sentence>
+              </Column>
+              <Column Num="2">
+                <Sentence Num="1" >各種の機器・装置類や工作法、試験・検査法、施工法などは、その代表的なものを取り上げていること。</Sentence>
+              </Column>
+            </ListSentence>
+          </List>
+          <List>
+            <ListSentence>
+              <Column Num="1">
+                <Sentence Num="1" >（３）</Sentence>
+              </Column>
+              <Column Num="2">
+                <Sentence Num="1" >実験及び実習といわゆる座学との組織及び分量の配分は適切であること。</Sentence>
+              </Column>
+            </ListSentence>
+          </List>
+          <List>
+            <ListSentence>
+              <Column Num="1">
+                <Sentence Num="1" >（４）</Sentence>
+              </Column>
+              <Column Num="2">
+                <Sentence Num="1" >図書の内容は、工業科の他の科目の内容との関連が配慮されており、矛盾するところはないこと。</Sentence>
+              </Column>
+            </ListSentence>
+          </List>
+          <List>
+            <ListSentence>
+              <Column Num="1">
+                <Sentence Num="1" >（５）</Sentence>
+              </Column>
+              <Column Num="2">
+                <Sentence Num="1" >コンピュータに関するハードウェア、機器の操作、プログラムの作成、ソフトウェアの利用などに関する内容は、一般的な例を扱い、その際、必要に応じて異なる例への適切な配慮がされていること。</Sentence>
+              </Column>
+            </ListSentence>
+          </List>
+          <List>
+            <ListSentence>
+              <Column Num="1">
+                <Sentence Num="1" >３</Sentence>
+              </Column>
+              <Column Num="2">
+                <Sentence Num="1" >正確性及び表記・表現</Sentence>
+              </Column>
+            </ListSentence>
+          </List>
+          <List>
+            <ListSentence>
+              <Column Num="1">
+                <Sentence Num="1" >（１）</Sentence>
+              </Column>
+              <Column Num="2">
+                <Sentence Num="1" >図、表、グラフなどは、通常の約束、方法に従って記載されていること。</Sentence>
+              </Column>
+            </ListSentence>
+          </List>
+        </Paragraph>
+        <Paragraph Num="16">
+          <ParagraphNum></ParagraphNum>
+          <ParagraphSentence>
+            <Sentence Num="1" >［商業科］</Sentence>
+          </ParagraphSentence>
+          <List>
+            <ListSentence>
+              <Column Num="1">
+                <Sentence Num="1" >１</Sentence>
+              </Column>
+              <Column Num="2">
+                <Sentence Num="1" >基本的条件</Sentence>
+              </Column>
+            </ListSentence>
+          </List>
+          <List>
+            <ListSentence>
+              <Column Num="1">
+                <Sentence Num="1" >（１）</Sentence>
+              </Column>
+              <Column Num="2">
+                <Sentence Num="1" >「ソフトウェア活用」及び「プログラミング」においては、学習指導要領の内容に示す項目の全てを取り上げていること。</Sentence>
+              </Column>
+            </ListSentence>
+          </List>
+          <List>
+            <ListSentence>
+              <Column Num="1">
+                <Sentence Num="1" >（２）</Sentence>
+              </Column>
+              <Column Num="2">
+                <Sentence Num="1" >実験及び実習における作業の安全について適切な配慮がされていること。</Sentence>
+              </Column>
+            </ListSentence>
+          </List>
+          <List>
+            <ListSentence>
+              <Column Num="1">
+                <Sentence Num="1" >２</Sentence>
+              </Column>
+              <Column Num="2">
+                <Sentence Num="1" >選択・扱い及び構成・排列</Sentence>
+              </Column>
+            </ListSentence>
+          </List>
+          <List>
+            <ListSentence>
+              <Column Num="1">
+                <Sentence Num="1" >（１）</Sentence>
+              </Column>
+              <Column Num="2">
+                <Sentence Num="1" >各種の機器・装置類などは、その代表的なものを取り上げていること。</Sentence>
+              </Column>
+            </ListSentence>
+          </List>
+          <List>
+            <ListSentence>
+              <Column Num="1">
+                <Sentence Num="1" >（２）</Sentence>
+              </Column>
+              <Column Num="2">
+                <Sentence Num="1" >実験及び実習といわゆる座学との組織及び分量の配分は適切であること。</Sentence>
+              </Column>
+            </ListSentence>
+          </List>
+          <List>
+            <ListSentence>
+              <Column Num="1">
+                <Sentence Num="1" >（３）</Sentence>
+              </Column>
+              <Column Num="2">
+                <Sentence Num="1" >図書の内容は、商業科の他の科目の内容との関連が配慮されており、矛盾するところはないこと。</Sentence>
+              </Column>
+            </ListSentence>
+          </List>
+          <List>
+            <ListSentence>
+              <Column Num="1">
+                <Sentence Num="1" >（４）</Sentence>
+              </Column>
+              <Column Num="2">
+                <Sentence Num="1" >コンピュータに関するハードウェア、機器の操作、プログラムの作成、ソフトウェアの利用などに関する内容は、一般的な例を扱い、その際、必要に応じて異なる例への適切な配慮がされていること。</Sentence>
+              </Column>
+            </ListSentence>
+          </List>
+          <List>
+            <ListSentence>
+              <Column Num="1">
+                <Sentence Num="1" >３</Sentence>
+              </Column>
+              <Column Num="2">
+                <Sentence Num="1" >正確性及び表記・表現</Sentence>
+              </Column>
+            </ListSentence>
+          </List>
+          <List>
+            <ListSentence>
+              <Column Num="1">
+                <Sentence Num="1" >（１）</Sentence>
+              </Column>
+              <Column Num="2">
+                <Sentence Num="1" >図、表、グラフなどは、通常の約束、方法に従って記載されていること。</Sentence>
+              </Column>
+            </ListSentence>
+          </List>
+        </Paragraph>
+        <Paragraph Num="17">
+          <ParagraphNum></ParagraphNum>
+          <ParagraphSentence>
+            <Sentence Num="1" >［水産科］</Sentence>
+          </ParagraphSentence>
+          <List>
+            <ListSentence>
+              <Column Num="1">
+                <Sentence Num="1" >１</Sentence>
+              </Column>
+              <Column Num="2">
+                <Sentence Num="1" >基本的条件</Sentence>
+              </Column>
+            </ListSentence>
+          </List>
+          <List>
+            <ListSentence>
+              <Column Num="1">
+                <Sentence Num="1" >（１）</Sentence>
+              </Column>
+              <Column Num="2">
+                <Sentence Num="1" >「海洋情報技術」、「船用機関」、「機械設計工作」、「電気理論」、「海洋通信技術」及び「マリンスポーツ」においては、学習指導要領の内容に示す項目の全てを取り上げていること。</Sentence>
+              </Column>
+            </ListSentence>
+          </List>
+          <List>
+            <ListSentence>
+              <Column Num="1">
+                <Sentence Num="1" >（２）</Sentence>
+              </Column>
+              <Column Num="2">
+                <Sentence Num="1" >実験及び実習における作業の安全について適切な配慮がされていること。</Sentence>
+              </Column>
+            </ListSentence>
+          </List>
+          <List>
+            <ListSentence>
+              <Column Num="1">
+                <Sentence Num="1" >２</Sentence>
+              </Column>
+              <Column Num="2">
+                <Sentence Num="1" >選択・扱い及び構成・排列</Sentence>
+              </Column>
+            </ListSentence>
+          </List>
+          <List>
+            <ListSentence>
+              <Column Num="1">
+                <Sentence Num="1" >（１）</Sentence>
+              </Column>
+              <Column Num="2">
+                <Sentence Num="1" >各種の機器・装置類や工作法、試験・検査法などは、その代表的なものを取り上げていること。</Sentence>
+              </Column>
+            </ListSentence>
+          </List>
+          <List>
+            <ListSentence>
+              <Column Num="1">
+                <Sentence Num="1" >（２）</Sentence>
+              </Column>
+              <Column Num="2">
+                <Sentence Num="1" >実験及び実習といわゆる座学との組織及び分量の配分は適切であること。</Sentence>
+              </Column>
+            </ListSentence>
+          </List>
+          <List>
+            <ListSentence>
+              <Column Num="1">
+                <Sentence Num="1" >（３）</Sentence>
+              </Column>
+              <Column Num="2">
+                <Sentence Num="1" >図書の内容は、水産科の他の科目の内容との関連が配慮されており、矛盾するところはないこと。</Sentence>
+              </Column>
+            </ListSentence>
+          </List>
+          <List>
+            <ListSentence>
+              <Column Num="1">
+                <Sentence Num="1" >（４）</Sentence>
+              </Column>
+              <Column Num="2">
+                <Sentence Num="1" >コンピュータに関するハードウェア、機器の操作、プログラムの作成、ソフトウェアの利用などに関する内容は、一般的な例を扱い、その際、必要に応じて異なる例への適切な配慮がされていること。</Sentence>
+              </Column>
+            </ListSentence>
+          </List>
+          <List>
+            <ListSentence>
+              <Column Num="1">
+                <Sentence Num="1" >３</Sentence>
+              </Column>
+              <Column Num="2">
+                <Sentence Num="1" >正確性及び表記・表現</Sentence>
+              </Column>
+            </ListSentence>
+          </List>
+          <List>
+            <ListSentence>
+              <Column Num="1">
+                <Sentence Num="1" >（１）</Sentence>
+              </Column>
+              <Column Num="2">
+                <Sentence Num="1" >図、表、グラフなどは、通常の約束、方法に従って記載されていること。</Sentence>
+              </Column>
+            </ListSentence>
+          </List>
+        </Paragraph>
+        <Paragraph Num="18">
+          <ParagraphNum></ParagraphNum>
+          <ParagraphSentence>
+            <Sentence Num="1" >［家庭科（主として専門学科において開設される教科）］</Sentence>
+          </ParagraphSentence>
+          <List>
+            <ListSentence>
+              <Column Num="1">
+                <Sentence Num="1" >１</Sentence>
+              </Column>
+              <Column Num="2">
+                <Sentence Num="1" >基本的条件</Sentence>
+              </Column>
+            </ListSentence>
+          </List>
+          <List>
+            <ListSentence>
+              <Column Num="1">
+                <Sentence Num="1" >（１）</Sentence>
+              </Column>
+              <Column Num="2">
+                <Sentence Num="1" >「生活産業基礎」、「ファッション造形基礎」、「ファッション造形」、「ファッションデザイン」、「公衆衛生」及び「総合調理実習」においては、学習指導要領の内容に示す項目の全てを取り上げていること。</Sentence>
+              </Column>
+            </ListSentence>
+          </List>
+          <List>
+            <ListSentence>
+              <Column Num="1">
+                <Sentence Num="1" >（２）</Sentence>
+              </Column>
+              <Column Num="2">
+                <Sentence Num="1" >実験及び実習における作業の安全について適切な配慮がされていること。</Sentence>
+              </Column>
+            </ListSentence>
+          </List>
+          <List>
+            <ListSentence>
+              <Column Num="1">
+                <Sentence Num="1" >２</Sentence>
+              </Column>
+              <Column Num="2">
+                <Sentence Num="1" >選択・扱い及び構成・排列</Sentence>
+              </Column>
+            </ListSentence>
+          </List>
+          <List>
+            <ListSentence>
+              <Column Num="1">
+                <Sentence Num="1" >（１）</Sentence>
+              </Column>
+              <Column Num="2">
+                <Sentence Num="1" >各種の機器・装置類などは、その代表的なものを取り上げていること。</Sentence>
+              </Column>
+            </ListSentence>
+          </List>
+          <List>
+            <ListSentence>
+              <Column Num="1">
+                <Sentence Num="1" >（２）</Sentence>
+              </Column>
+              <Column Num="2">
+                <Sentence Num="1" >実験及び実習といわゆる座学との組織及び分量の配分は適切であること。</Sentence>
+              </Column>
+            </ListSentence>
+          </List>
+          <List>
+            <ListSentence>
+              <Column Num="1">
+                <Sentence Num="1" >（３）</Sentence>
+              </Column>
+              <Column Num="2">
+                <Sentence Num="1" >図書の内容は、家庭科の他の科目の内容との関連が配慮されており、矛盾するところはないこと。</Sentence>
+              </Column>
+            </ListSentence>
+          </List>
+          <List>
+            <ListSentence>
+              <Column Num="1">
+                <Sentence Num="1" >（４）</Sentence>
+              </Column>
+              <Column Num="2">
+                <Sentence Num="1" >コンピュータに関するハードウェア、機器の操作、プログラムの作成、ソフトウェアの利用などに関する内容は、一般的な例を扱い、その際、必要に応じて異なる例への適切な配慮がされていること。</Sentence>
+              </Column>
+            </ListSentence>
+          </List>
+          <List>
+            <ListSentence>
+              <Column Num="1">
+                <Sentence Num="1" >３</Sentence>
+              </Column>
+              <Column Num="2">
+                <Sentence Num="1" >正確性及び表記・表現</Sentence>
+              </Column>
+            </ListSentence>
+          </List>
+          <List>
+            <ListSentence>
+              <Column Num="1">
+                <Sentence Num="1" >（１）</Sentence>
+              </Column>
+              <Column Num="2">
+                <Sentence Num="1" >図、表、グラフなどは、通常の約束、方法に従って記載されていること。</Sentence>
+              </Column>
+            </ListSentence>
+          </List>
+        </Paragraph>
+        <Paragraph Num="19">
+          <ParagraphNum></ParagraphNum>
+          <ParagraphSentence>
+            <Sentence Num="1" >［看護科］</Sentence>
+          </ParagraphSentence>
+          <List>
+            <ListSentence>
+              <Column Num="1">
+                <Sentence Num="1" >１</Sentence>
+              </Column>
+              <Column Num="2">
+                <Sentence Num="1" >基本的条件</Sentence>
+              </Column>
+            </ListSentence>
+          </List>
+          <List>
+            <ListSentence>
+              <Column Num="1">
+                <Sentence Num="1" >（１）</Sentence>
+              </Column>
+              <Column Num="2">
+                <Sentence Num="1" >「小児看護」、「母性看護」、「精神看護」及び「在宅看護」においては、学習指導要領の内容に示す項目の全てを取り上げていること。</Sentence>
+              </Column>
+            </ListSentence>
+          </List>
+          <List>
+            <ListSentence>
+              <Column Num="1">
+                <Sentence Num="1" >（２）</Sentence>
+              </Column>
+              <Column Num="2">
+                <Sentence Num="1" >実験及び実習における作業の安全について適切な配慮がされていること。</Sentence>
+              </Column>
+            </ListSentence>
+          </List>
+          <List>
+            <ListSentence>
+              <Column Num="1">
+                <Sentence Num="1" >２</Sentence>
+              </Column>
+              <Column Num="2">
+                <Sentence Num="1" >選択・扱い及び構成・排列</Sentence>
+              </Column>
+            </ListSentence>
+          </List>
+          <List>
+            <ListSentence>
+              <Column Num="1">
+                <Sentence Num="1" >（１）</Sentence>
+              </Column>
+              <Column Num="2">
+                <Sentence Num="1" >各種の機器・装置類や試験・検査法などは、その代表的なものを取り上げていること。</Sentence>
+              </Column>
+            </ListSentence>
+          </List>
+          <List>
+            <ListSentence>
+              <Column Num="1">
+                <Sentence Num="1" >（２）</Sentence>
+              </Column>
+              <Column Num="2">
+                <Sentence Num="1" >実験及び実習といわゆる座学との組織及び分量の配分は適切であること。</Sentence>
+              </Column>
+            </ListSentence>
+          </List>
+          <List>
+            <ListSentence>
+              <Column Num="1">
+                <Sentence Num="1" >（３）</Sentence>
+              </Column>
+              <Column Num="2">
+                <Sentence Num="1" >図書の内容は、看護科の他の科目の内容との関連が配慮されており、矛盾するところはないこと。</Sentence>
+              </Column>
+            </ListSentence>
+          </List>
+          <List>
+            <ListSentence>
+              <Column Num="1">
+                <Sentence Num="1" >（４）</Sentence>
+              </Column>
+              <Column Num="2">
+                <Sentence Num="1" >コンピュータに関するハードウェア、機器の操作、プログラムの作成、ソフトウェアの利用などに関する内容は、一般的な例を扱い、その際、必要に応じて異なる例への適切な配慮がされていること。</Sentence>
+              </Column>
+            </ListSentence>
+          </List>
+          <List>
+            <ListSentence>
+              <Column Num="1">
+                <Sentence Num="1" >３</Sentence>
+              </Column>
+              <Column Num="2">
+                <Sentence Num="1" >正確性及び表記・表現</Sentence>
+              </Column>
+            </ListSentence>
+          </List>
+          <List>
+            <ListSentence>
+              <Column Num="1">
+                <Sentence Num="1" >（１）</Sentence>
+              </Column>
+              <Column Num="2">
+                <Sentence Num="1" >図、表、グラフなどは、通常の約束、方法に従って記載されていること。</Sentence>
+              </Column>
+            </ListSentence>
+          </List>
+        </Paragraph>
+        <Paragraph Num="20">
+          <ParagraphNum></ParagraphNum>
+          <ParagraphSentence>
+            <Sentence Num="1" >［情報科（主として専門学科において開設される教科）］</Sentence>
+          </ParagraphSentence>
+          <List>
+            <ListSentence>
+              <Column Num="1">
+                <Sentence Num="1" >１</Sentence>
+              </Column>
+              <Column Num="2">
+                <Sentence Num="1" >基本的条件</Sentence>
+              </Column>
+            </ListSentence>
+          </List>
+          <List>
+            <ListSentence>
+              <Column Num="1">
+                <Sentence Num="1" >（１）</Sentence>
+              </Column>
+              <Column Num="2">
+                <Sentence Num="1" >「コンテンツの制作と発信」においては、学習指導要領の内容に示す項目の全てを取り上げていること。</Sentence>
+              </Column>
+            </ListSentence>
+          </List>
+          <List>
+            <ListSentence>
+              <Column Num="1">
+                <Sentence Num="1" >（２）</Sentence>
+              </Column>
+              <Column Num="2">
+                <Sentence Num="1" >実験及び実習における作業の安全について適切な配慮がされていること。</Sentence>
+              </Column>
+            </ListSentence>
+          </List>
+          <List>
+            <ListSentence>
+              <Column Num="1">
+                <Sentence Num="1" >２</Sentence>
+              </Column>
+              <Column Num="2">
+                <Sentence Num="1" >選択・扱い及び構成・排列</Sentence>
+              </Column>
+            </ListSentence>
+          </List>
+          <List>
+            <ListSentence>
+              <Column Num="1">
+                <Sentence Num="1" >（１）</Sentence>
+              </Column>
+              <Column Num="2">
+                <Sentence Num="1" >未確定な時事的事象について断定的に記述していたり、一面的な見解を十分な配慮なく取り上げていたりするところはないこと。</Sentence>
+              </Column>
+            </ListSentence>
+          </List>
+          <List>
+            <ListSentence>
+              <Column Num="1">
+                <Sentence Num="1" >（２）</Sentence>
+              </Column>
+              <Column Num="2">
+                <Sentence Num="1" >各種の機器・装置類などは、その代表的なものを取り上げていること。</Sentence>
+              </Column>
+            </ListSentence>
+          </List>
+          <List>
+            <ListSentence>
+              <Column Num="1">
+                <Sentence Num="1" >（３）</Sentence>
+              </Column>
+              <Column Num="2">
+                <Sentence Num="1" >実験及び実習といわゆる座学との組織及び分量の配分は適切であること。</Sentence>
+              </Column>
+            </ListSentence>
+          </List>
+          <List>
+            <ListSentence>
+              <Column Num="1">
+                <Sentence Num="1" >（４）</Sentence>
+              </Column>
+              <Column Num="2">
+                <Sentence Num="1" >図書の内容は、情報科の他の科目の内容との関連が配慮されており、矛盾するところはないこと。</Sentence>
+              </Column>
+            </ListSentence>
+          </List>
+          <List>
+            <ListSentence>
+              <Column Num="1">
+                <Sentence Num="1" >（５）</Sentence>
+              </Column>
+              <Column Num="2">
+                <Sentence Num="1" >コンピュータに関するハードウェア、機器の操作、プログラムの作成、ソフトウェアの利用などに関する内容は、一般的な例を扱い、その際、必要に応じて異なる例への適切な配慮がされていること。</Sentence>
+              </Column>
+            </ListSentence>
+          </List>
+          <List>
+            <ListSentence>
+              <Column Num="1">
+                <Sentence Num="1" >３</Sentence>
+              </Column>
+              <Column Num="2">
+                <Sentence Num="1" >正確性及び表記・表現</Sentence>
+              </Column>
+            </ListSentence>
+          </List>
+          <List>
+            <ListSentence>
+              <Column Num="1">
+                <Sentence Num="1" >（１）</Sentence>
+              </Column>
+              <Column Num="2">
+                <Sentence Num="1" >図、表、グラフなどは、通常の約束、方法に従って記載されていること。</Sentence>
+              </Column>
+            </ListSentence>
+          </List>
+        </Paragraph>
+        <Paragraph Num="21">
+          <ParagraphNum></ParagraphNum>
+          <ParagraphSentence>
+            <Sentence Num="1" >［福祉科］</Sentence>
+          </ParagraphSentence>
+          <List>
+            <ListSentence>
+              <Column Num="1">
+                <Sentence Num="1" >１</Sentence>
+              </Column>
+              <Column Num="2">
+                <Sentence Num="1" >基本的条件</Sentence>
+              </Column>
+            </ListSentence>
+          </List>
+          <List>
+            <ListSentence>
+              <Column Num="1">
+                <Sentence Num="1" >（１）</Sentence>
+              </Column>
+              <Column Num="2">
+                <Sentence Num="1" >「コミュニケーション技術」、「生活支援技術」及び「こころとからだの理解」においては、学習指導要領の内容に示す項目の全てを取り上げていること。</Sentence>
+              </Column>
+            </ListSentence>
+          </List>
+          <List>
+            <ListSentence>
+              <Column Num="1">
+                <Sentence Num="1" >（２）</Sentence>
+              </Column>
+              <Column Num="2">
+                <Sentence Num="1" >実験及び実習における作業の安全について適切な配慮がされていること。</Sentence>
+              </Column>
+            </ListSentence>
+          </List>
+          <List>
+            <ListSentence>
+              <Column Num="1">
+                <Sentence Num="1" >２</Sentence>
+              </Column>
+              <Column Num="2">
+                <Sentence Num="1" >選択・扱い及び構成・排列</Sentence>
+              </Column>
+            </ListSentence>
+          </List>
+          <List>
+            <ListSentence>
+              <Column Num="1">
+                <Sentence Num="1" >（１）</Sentence>
+              </Column>
+              <Column Num="2">
+                <Sentence Num="1" >各種の機器・装置類などは、その代表的なものを取り上げていること。</Sentence>
+              </Column>
+            </ListSentence>
+          </List>
+          <List>
+            <ListSentence>
+              <Column Num="1">
+                <Sentence Num="1" >（２）</Sentence>
+              </Column>
+              <Column Num="2">
+                <Sentence Num="1" >実験及び実習といわゆる座学との組織及び分量の配分は適切であること。</Sentence>
+              </Column>
+            </ListSentence>
+          </List>
+          <List>
+            <ListSentence>
+              <Column Num="1">
+                <Sentence Num="1" >（３）</Sentence>
+              </Column>
+              <Column Num="2">
+                <Sentence Num="1" >図書の内容は、福祉科の他の科目の内容との関連が配慮されており、矛盾するところはないこと。</Sentence>
+              </Column>
+            </ListSentence>
+          </List>
+          <List>
+            <ListSentence>
+              <Column Num="1">
+                <Sentence Num="1" >（４）</Sentence>
+              </Column>
+              <Column Num="2">
+                <Sentence Num="1" >コンピュータに関するハードウェア、機器の操作、プログラムの作成、ソフトウェアの利用などに関する内容は、一般的な例を扱い、その際、必要に応じて異なる例への適切な配慮がされていること。</Sentence>
+              </Column>
+            </ListSentence>
+          </List>
+          <List>
+            <ListSentence>
+              <Column Num="1">
+                <Sentence Num="1" >３</Sentence>
+              </Column>
+              <Column Num="2">
+                <Sentence Num="1" >正確性及び表記・表現</Sentence>
+              </Column>
+            </ListSentence>
+          </List>
+          <List>
+            <ListSentence>
+              <Column Num="1">
+                <Sentence Num="1" >（１）</Sentence>
+              </Column>
+              <Column Num="2">
+                <Sentence Num="1" >図、表、グラフなどは、通常の約束、方法に従って記載されていること。</Sentence>
+              </Column>
+            </ListSentence>
+          </List>
+        </Paragraph>
+        </Article>
+      </Chapter>
+    </MainProvision>
+    <SupplProvision>
+      <SupplProvisionLabel>附　則</SupplProvisionLabel>
+      <Paragraph Num="1">
+        <ParagraphNum>１</ParagraphNum>
+        <ParagraphSentence>
+          <Sentence Num="1" >この告示は平成３１年４月１日から施行し、平成３４年４月１日以降高等学校の第１学年に入学した生徒（学校教育法施行規則（昭和２２年文部省令第１１号）第１０３条第１項に規定する学年による教育課程の区分を設けない場合にあっては、同日以降に入学した生徒（学校教育法施行規則第９１条の規定により入学した生徒で同日前に入学した生徒に係る教育課程により履修するものを除く。））及び中等教育学校の第４学年に進級した生徒の使用に係る教科用図書の検定から適用する</Sentence>
+        </ParagraphSentence>
+      </Paragraph>
+      <Paragraph Num="2">
+        <ParagraphNum>２</ParagraphNum>
+        <ParagraphSentence>
+          <Sentence Function="main" Num="1" >高等学校教科用図書検定基準（平成２１年文部科学省告示第１６６号）は、廃止する。</Sentence>
+          <Sentence Function="proviso" Num="2" >ただし、平成３３年３月３１日までに検定の申請が受理される改正前の高等学校学習指導要領（平成２１年文部科学省告示第３４号）に基づく高等学校の教科用図書の検定については、なお、従前の例による。</Sentence>
+        </ParagraphSentence>
+      </Paragraph>
+    </SupplProvision>
+    <SupplProvision AmendLawNum="令和元年七月一日文部科学省告示第一八号" Extract="true">
+      <SupplProvisionLabel>附　則</SupplProvisionLabel>
+      <Paragraph Num="1">
+        <ParagraphCaption>（施行期日等）</ParagraphCaption>
+        <ParagraphNum>１</ParagraphNum>
+        <ParagraphSentence>
+          <Sentence Num="1" >この告示は、公布の日から施行する。</Sentence>
+        </ParagraphSentence>
+      </Paragraph>
+      <Paragraph Num="2">
+        <ParagraphNum>２</ParagraphNum>
+        <ParagraphSentence>
+          <Sentence Num="1" >第十条及び第十二条の規定は、令和四年度以降の使用に係る教科用図書の検定から適用する。</Sentence>
+        </ParagraphSentence>
+      </Paragraph>
+    </SupplProvision>
+    <SupplProvision AmendLawNum="令和三年一二月二七日文部科学省告示第一九九号">
+      <SupplProvisionLabel>附　則</SupplProvisionLabel>
+      <Paragraph Num="1">
+        <ParagraphNum/>
+        <ParagraphSentence>
+          <Sentence Num="1" >この告示は、公布の日から施行し、令和六年度以降の使用に係る教科用図書の検定から適用する。</Sentence>
+        </ParagraphSentence>
+      </Paragraph>
+    </SupplProvision>
+    <AppdxTable>
+      <AppdxTableTitle >別表</AppdxTableTitle>
+      <TableStruct>
+        <Table >
+          <TableRow>
+            <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
+              <Sentence Num="1" >区分</Sentence>
+            </TableColumn>
+            <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
+              <Sentence Num="1" >表記の基準</Sentence>
+            </TableColumn>
+          </TableRow>
+          <TableRow>
+            <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
+              <Sentence Num="1" >漢字</Sentence>
+            </TableColumn>
+            <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
+              <Sentence Num="1" >（１）　使用する漢字の範囲及びその使用法については「常用漢字表」（平成２２年内閣告示第２号）によること。</Sentence>
+              <Sentence Num="2" >（２）　原典をそのまま載せる必要のある場合、固有名詞又は専門的な用語を用いる必要のある場合などで、（１）によらない場合には、少なくとも各冊ごとの初出の際に読み方を示すこと。</Sentence>
+              <Sentence Num="3" >（３）　常用漢字の字体については、原則として「常用漢字表」によること。</Sentence>
+              <Sentence Num="4" >（４）　常用漢字以外の漢字の字体については、慣用を尊重すること。</Sentence>
+            </TableColumn>
+          </TableRow>
+          <TableRow>
+            <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
+              <Sentence Num="1" >仮名</Sentence>
+            </TableColumn>
+            <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
+              <Sentence Num="1" >平仮名を用いること。ただし、外来語、擬声語、生物名などを表記する場合、原典をそのまま載せる必要のある場合及び地図の地名に振り仮名を付ける場合などは、この限りでないこと。この場合において、片仮名を用いる場合には、原則として、「外来語の表記」（平成３年内閣告示第２号）第１表及び第２表によること。</Sentence>
+            </TableColumn>
+          </TableRow>
+          <TableRow>
+            <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
+              <Sentence Num="1" >文体</Sentence>
+            </TableColumn>
+            <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
+              <Sentence Num="1" >特に学習上必要な場合及び原典をそのまま載せる必要のある場合を除き、現代口語文を用いること。</Sentence>
+            </TableColumn>
+          </TableRow>
+          <TableRow>
+            <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
+              <Sentence Num="1" >仮名遣い</Sentence>
+            </TableColumn>
+            <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
+              <Sentence Num="1" >（１）　現代口語文においては、「現代仮名遣い」（昭和６１年内閣告示第１号）を用いること。ただし、近代詩歌などの原典をそのまま載せる必要がある場合には、この限りでないこと。</Sentence>
+              <Sentence Num="2" >（２）　文語文においては、原則として歴史的仮名遣いを用いるものとし、必要に応じて、適切な配慮をすること。ただし、芸術科「音楽」の歌詞については、歌詞が文語文の場合でも、「現代仮名遣い」を用いるか又は併記すること。</Sentence>
+            </TableColumn>
+          </TableRow>
+          <TableRow>
+            <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
+              <Sentence Num="1" >送り仮名</Sentence>
+            </TableColumn>
+            <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
+              <Sentence Num="1" >（１）　「送り仮名の付け方」（昭和４８年内閣告示第２号）の通則１から通則６までの「本則」及び「例外」、通則７並びに「付表の語」（１のなお書きの部分を除く。）によること。</Sentence>
+            </TableColumn>
+          </TableRow>
+          <TableRow>
+            <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
+              <Sentence Num="1" >ローマ字つづり</Sentence>
+            </TableColumn>
+            <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
+              <Sentence Num="1" >「ローマ字のつづり方」（昭和２９年内閣告示第１号）の第１表又は第２表（「そえがき」を含む。）によること。</Sentence>
+            </TableColumn>
+          </TableRow>
+          <TableRow>
+            <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
+              <Sentence Num="1" >地名・人名</Sentence>
+            </TableColumn>
+            <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
+              <Sentence Num="1" >（１）　我が国の地名の表記は、法令などの官報に記載されたものによるが、不備のものについては、国土交通省国土地理院発行地形図及び海上保安庁発行海図に記載されたものによること。</Sentence>
+              <Sentence Num="2" >（２）　外国の国名の表記は、原則として外務省公表資料等信頼性の高い資料によること。</Sentence>
+              <Sentence Num="3" >（３）　外国の地名及び人名の表記については、慣用を尊重すること。</Sentence>
+              <Sentence Num="4" >（４）　地名・人名のうち、通常、漢字で表記されるものについては、常用漢字の範囲内に限定しないでそのまま表記すること。</Sentence>
+            </TableColumn>
+          </TableRow>
+          <TableRow>
+            <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
+              <Sentence Num="1" >用語・記号</Sentence>
+            </TableColumn>
+            <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
+              <Sentence Num="1" >（１）　学習指導要領に示す用語及び記号で生徒用として適当なものは、これによること。</Sentence>
+              <Sentence Num="2" >（２）　地図記号は、特殊なものを除き、国土地理院発行地形図記載の地図記号によること。</Sentence>
+              <Sentence Num="3" >（３）　（１）及び（２）以外の用語及び記号で日本産業規格（ＪＩＳ）、日本農林規格（ＪＡＳ）又は文部科学省著作「教育用音楽用語」に示すものについてはこれらによることとし、各教科に関連する学術用語集に示す用語及び記号のうち学術上一般的に使用されているものについてはこれによること。ただし、生徒に理解が困難であると認められる場合及び生活の中に定着している用語・記号によることが適当である場合などは、これらによらないことができること。</Sentence>
+            </TableColumn>
+          </TableRow>
+          <TableRow>
+            <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
+              <Sentence Num="1" >計量単位</Sentence>
+            </TableColumn>
+            <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
+              <Sentence Num="1" >（１）　計量単位及びその記号は、「計量法」（平成４年法律第５１号）によること。ただし、当該計量単位の中に国際単位系（ＳＩ）の単位又はＳＩと併用される単位がある場合には、原則としてこれによること。</Sentence>
+              <Sentence Num="2" >（２）　特定の目的に慣用上又は学術上認められる単位で、計量法の規定に抵触していないと認められるものは用いることができること。</Sentence>
+            </TableColumn>
+          </TableRow>
+        </Table>
+      </TableStruct>
+    </AppdxTable>
+  </LawBody>
+</Law>

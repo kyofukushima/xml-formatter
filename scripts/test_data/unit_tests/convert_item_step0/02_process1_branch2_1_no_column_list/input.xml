@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Law>
+  <LawBody>
+    <Paragraph Num="1">
+      <ParagraphNum>1</ParagraphNum>
+      <ParagraphSentence>
+        <Sentence Num="1">Paragraphの内容</Sentence>
+      </ParagraphSentence>
+      <List>
+        <ListSentence>
+          <Sentence Num="1">ColumnなしListの内容</Sentence>
+        </ListSentence>
+      </List>
+    </Paragraph>
+  </LawBody>
+</Law>

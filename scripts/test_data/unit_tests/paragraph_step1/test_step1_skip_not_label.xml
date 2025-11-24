@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Law>
+  <LawBody>
+    <MainProvision>
+      <Paragraph Num="1">
+        <ParagraphSentence>
+          <Sentence>ただの文章　これは変換されない。</Sentence>
+        </ParagraphSentence>
+      </Paragraph>
+    </MainProvision>
+  </LawBody>
+</Law>

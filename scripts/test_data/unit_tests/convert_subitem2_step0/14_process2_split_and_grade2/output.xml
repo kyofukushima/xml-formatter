@@ -1,0 +1,77 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<Law>
+  <LawBody>
+    <Paragraph Num="1">
+      <ParagraphNum>1</ParagraphNum>
+      <ParagraphSentence>
+        <Sentence Num="1">Paragraphの内容</Sentence>
+      </ParagraphSentence>
+      <Item Num="1">
+        <ItemTitle/>
+        <ItemSentence>
+          <Sentence Num="1">itemの項目名</Sentence>
+        </ItemSentence>
+        <Subitem1 Num="1">
+          <Subitem1Title/>
+          <Subitem1Sentence>
+            <Sentence Num="1">subitem1の項目名</Sentence>
+          </Subitem1Sentence>
+          <Subitem2 Num="1">
+            <Subitem2Title/>
+            <Subitem2Sentence>
+              <Sentence Num="1">〔第１学年及び第２学年〕</Sentence>
+            </Subitem2Sentence>
+            <List>
+              <ListSentence>
+                <Sentence Num="1">
+                  <Column>
+                    <Sentence Num="1">a</Sentence>
+                  </Column>
+                  <Column>
+                    <Sentence Num="1">内容1</Sentence>
+                  </Column>
+                </Sentence>
+              </ListSentence>
+            </List>
+            <List>
+              <ListSentence>
+                <Sentence Num="1">ColumnなしList1 - 取り込まれる</Sentence>
+              </ListSentence>
+            </List>
+            <List>
+              <ListSentence>
+                <Sentence Num="1">ColumnなしList2 - 取り込まれる</Sentence>
+              </ListSentence>
+            </List>
+            <List>
+              <ListSentence>
+                <Sentence Num="1">〔算数・理科〕</Sentence>
+              </ListSentence>
+            </List>
+            <List>
+              <ListSentence>
+                <Sentence Num="1">〔指導項目〕</Sentence>
+              </ListSentence>
+            </List>
+            <List>
+              <ListSentence>
+                <Sentence Num="1">〔第１学年〕</Sentence>
+              </ListSentence>
+            </List>
+          </Subitem2>
+          <Subitem2 Num="2">
+            <Subitem2Title/>
+            <Subitem2Sentence>
+              <Sentence Num="1">〔第３学年及び第４学年〕</Sentence>
+            </Subitem2Sentence>
+            <List>
+              <ListSentence>
+                <Sentence Num="1">ColumnなしList3 - 取り込まれる</Sentence>
+              </ListSentence>
+            </List>
+          </Subitem2>
+        </Subitem1>
+      </Item>
+    </Paragraph>
+  </LawBody>
+</Law>

@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<Law>
+  <LawBody>
+    <Item Num="1">
+      <ItemTitle>第一</ItemTitle>
+      <ItemSentence>
+        <Sentence Num="1">これはテストです。</Sentence>
+      </ItemSentence>
+      <Subitem1 Num="1">
+        <Subitem1Title>（１）</Subitem1Title>
+        <Subitem1Sentence>
+          <Sentence Num="1">通常のSubitem1です。</Sentence>
+        </Subitem1Sentence>
+      </Subitem1>
+    </Item>
+  </LawBody>
+</Law>

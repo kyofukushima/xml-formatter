@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Law>
+  <LawBody>
+    <Paragraph Num="1">
+      <ParagraphNum>1</ParagraphNum>
+      <ParagraphSentence>
+        <Sentence Num="1">Paragraphの内容</Sentence>
+      </ParagraphSentence>
+      <Item Num="1">
+        <ItemTitle/>
+        <ItemSentence>
+          <Sentence Num="1">〔第１学年〕</Sentence>
+        </ItemSentence>
+        <List>
+          <ListSentence>
+            <Sentence Num="1">〔第３学年及び第４学年〕</Sentence>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Sentence Num="1">〔医療と社会〕</Sentence>
+          </ListSentence>
+        </List>
+      </Item>
+    </Paragraph>
+  </LawBody>
+</Law>

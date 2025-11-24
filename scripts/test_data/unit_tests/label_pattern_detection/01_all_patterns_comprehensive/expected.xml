@@ -1,0 +1,312 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<Law>
+  <LawBody>
+    <Paragraph Num="1">
+      <ParagraphNum>1</ParagraphNum>
+      <ParagraphSentence>
+        <Sentence Num="1">ラベルパターン検証テスト</Sentence>
+      </ParagraphSentence>
+    </Paragraph>
+    <!-- &#25968;&#23383;&#31995;&#65288;&#25324;&#24359;&#12394;&#12375;&#65289; -->
+    <Paragraph Num="2">
+      <ParagraphNum>2</ParagraphNum>
+      <ParagraphSentence>
+        <Sentence Num="1">数字系（括弧なし）のテスト</Sentence>
+      </ParagraphSentence>
+      <Item Num="1">
+        <ItemTitle>０</ItemTitle>
+        <ItemSentence>
+          <Sentence Num="1">全角数字０の内容</Sentence>
+        </ItemSentence>
+      </Item>
+      <Item Num="2">
+        <ItemTitle>１</ItemTitle>
+        <ItemSentence>
+          <Sentence Num="1">全角数字１の内容</Sentence>
+        </ItemSentence>
+        <Subitem1 Num="1">
+          <Subitem1Title>1</Subitem1Title>
+          <Subitem1Sentence>
+            <Sentence Num="1">半角数字1の内容</Sentence>
+          </Subitem1Sentence>
+        </Subitem1>
+        <Subitem1 Num="2">
+          <Subitem1Title>2</Subitem1Title>
+          <Subitem1Sentence>
+            <Sentence Num="1">半角数字2の内容</Sentence>
+          </Subitem1Sentence>
+          <Subitem2 Num="1">
+            <Subitem2Title>一</Subitem2Title>
+            <Subitem2Sentence>
+              <Sentence Num="1">漢数字一の内容</Sentence>
+            </Subitem2Sentence>
+          </Subitem2>
+          <Subitem2 Num="2">
+            <Subitem2Title>二</Subitem2Title>
+            <Subitem2Sentence>
+              <Sentence Num="1">漢数字二の内容</Sentence>
+            </Subitem2Sentence>
+          </Subitem2>
+        </Subitem1>
+      </Item>
+    </Paragraph>
+    <!-- &#25324;&#24359;&#20184;&#12365;&#25968;&#23383;&#31995; -->
+    <Paragraph Num="3">
+      <ParagraphNum>3</ParagraphNum>
+      <ParagraphSentence>
+        <Sentence Num="1">括弧付き数字系のテスト</Sentence>
+      </ParagraphSentence>
+      <Item Num="1">
+        <ItemTitle>（０）</ItemTitle>
+        <ItemSentence>
+          <Sentence Num="1">括弧付き全角数字（０）の内容</Sentence>
+        </ItemSentence>
+      </Item>
+      <Item Num="2">
+        <ItemTitle>（１）</ItemTitle>
+        <ItemSentence>
+          <Sentence Num="1">括弧付き全角数字（１）の内容</Sentence>
+        </ItemSentence>
+        <Subitem1 Num="1">
+          <Subitem1Title>(1)</Subitem1Title>
+          <Subitem1Sentence>
+            <Sentence Num="1">括弧付き半角数字(1)の内容</Sentence>
+          </Subitem1Sentence>
+        </Subitem1>
+        <Subitem1 Num="2">
+          <Subitem1Title>(2)</Subitem1Title>
+          <Subitem1Sentence>
+            <Sentence Num="1">括弧付き半角数字(2)の内容</Sentence>
+          </Subitem1Sentence>
+          <Subitem2 Num="1">
+            <Subitem2Title>（一）</Subitem2Title>
+            <Subitem2Sentence>
+              <Sentence Num="1">括弧付き漢数字（一）の内容</Sentence>
+            </Subitem2Sentence>
+          </Subitem2>
+          <Subitem2 Num="2">
+            <Subitem2Title>（二）</Subitem2Title>
+            <Subitem2Sentence>
+              <Sentence Num="1">括弧付き漢数字（二）の内容</Sentence>
+            </Subitem2Sentence>
+          </Subitem2>
+        </Subitem1>
+      </Item>
+    </Paragraph>
+    <!-- &#12450;&#12523;&#12501;&#12449;&#12505;&#12483;&#12488;&#31995;&#65288;&#25324;&#24359;&#12394;&#12375;&#65289; -->
+    <Paragraph Num="4">
+      <ParagraphNum>4</ParagraphNum>
+      <ParagraphSentence>
+        <Sentence Num="1">アルファベット系（括弧なし）のテスト</Sentence>
+      </ParagraphSentence>
+      <Item Num="1">
+        <ItemTitle>A</ItemTitle>
+        <ItemSentence>
+          <Sentence Num="1">大文字アルファベットAの内容</Sentence>
+        </ItemSentence>
+      </Item>
+      <Item Num="2">
+        <ItemTitle>B</ItemTitle>
+        <ItemSentence>
+          <Sentence Num="1">大文字アルファベットBの内容</Sentence>
+        </ItemSentence>
+        <Subitem1 Num="1">
+          <Subitem1Title>a</Subitem1Title>
+          <Subitem1Sentence>
+            <Sentence Num="1">小文字アルファベットaの内容</Sentence>
+          </Subitem1Sentence>
+        </Subitem1>
+        <Subitem1 Num="2">
+          <Subitem1Title>b</Subitem1Title>
+          <Subitem1Sentence>
+            <Sentence Num="1">小文字アルファベットbの内容</Sentence>
+          </Subitem1Sentence>
+          <Subitem2 Num="1">
+            <Subitem2Title>Ａ</Subitem2Title>
+            <Subitem2Sentence>
+              <Sentence Num="1">全角大文字アルファベットＡの内容</Sentence>
+            </Subitem2Sentence>
+          </Subitem2>
+          <Subitem2 Num="2">
+            <Subitem2Title>Ｂ</Subitem2Title>
+            <Subitem2Sentence>
+              <Sentence Num="1">全角大文字アルファベットＢの内容</Sentence>
+            </Subitem2Sentence>
+          </Subitem2>
+        </Subitem1>
+      </Item>
+    </Paragraph>
+    <!-- &#25324;&#24359;&#20184;&#12365;&#12450;&#12523;&#12501;&#12449;&#12505;&#12483;&#12488;&#31995; -->
+    <Paragraph Num="5">
+      <ParagraphNum>5</ParagraphNum>
+      <ParagraphSentence>
+        <Sentence Num="1">括弧付きアルファベット系のテスト</Sentence>
+      </ParagraphSentence>
+      <Item Num="1">
+        <ItemTitle>（A）</ItemTitle>
+        <ItemSentence>
+          <Sentence Num="1">括弧付き大文字アルファベット（A）の内容</Sentence>
+        </ItemSentence>
+      </Item>
+      <Item Num="2">
+        <ItemTitle>（B）</ItemTitle>
+        <ItemSentence>
+          <Sentence Num="1">括弧付き大文字アルファベット（B）の内容</Sentence>
+        </ItemSentence>
+        <Subitem1 Num="1">
+          <Subitem1Title>(a)</Subitem1Title>
+          <Subitem1Sentence>
+            <Sentence Num="1">括弧付き小文字アルファベット(a)の内容</Sentence>
+          </Subitem1Sentence>
+        </Subitem1>
+        <Subitem1 Num="2">
+          <Subitem1Title>(b)</Subitem1Title>
+          <Subitem1Sentence>
+            <Sentence Num="1">括弧付き小文字アルファベット(b)の内容</Sentence>
+          </Subitem1Sentence>
+        </Subitem1>
+      </Item>
+      <Item Num="3">
+        <ItemTitle>（Ａ）</ItemTitle>
+        <ItemSentence>
+          <Sentence Num="1">括弧付き全角大文字アルファベット（Ａ）の内容</Sentence>
+        </ItemSentence>
+      </Item>
+      <Item Num="4">
+        <ItemTitle>（Ｂ）</ItemTitle>
+        <ItemSentence>
+          <Sentence Num="1">括弧付き全角大文字アルファベット（Ｂ）の内容</Sentence>
+        </ItemSentence>
+      </Item>
+    </Paragraph>
+    <!-- &#20108;&#37325;&#25324;&#24359;&#20184;&#12365;&#25968;&#23383;&#31995; -->
+    <Paragraph Num="6">
+      <ParagraphNum>6</ParagraphNum>
+      <ParagraphSentence>
+        <Sentence Num="1">二重括弧付き数字系のテスト</Sentence>
+      </ParagraphSentence>
+      <Item Num="1">
+        <ItemTitle>（（０））</ItemTitle>
+        <ItemSentence>
+          <Sentence Num="1">二重括弧付き全角数字（（０））の内容</Sentence>
+        </ItemSentence>
+      </Item>
+      <Item Num="2">
+        <ItemTitle>（（１））</ItemTitle>
+        <ItemSentence>
+          <Sentence Num="1">二重括弧付き全角数字（（１））の内容</Sentence>
+        </ItemSentence>
+        <Subitem1 Num="1">
+          <Subitem1Title>((1))</Subitem1Title>
+          <Subitem1Sentence>
+            <Sentence Num="1">二重括弧付き半角数字((1))の内容</Sentence>
+          </Subitem1Sentence>
+        </Subitem1>
+        <Subitem1 Num="2">
+          <Subitem1Title>((2))</Subitem1Title>
+          <Subitem1Sentence>
+            <Sentence Num="1">二重括弧付き半角数字((2))の内容</Sentence>
+          </Subitem1Sentence>
+          <Subitem2 Num="1">
+            <Subitem2Title>（（一））</Subitem2Title>
+            <Subitem2Sentence>
+              <Sentence Num="1">二重括弧付き漢数字（（一））の内容</Sentence>
+            </Subitem2Sentence>
+          </Subitem2>
+          <Subitem2 Num="2">
+            <Subitem2Title>（（二））</Subitem2Title>
+            <Subitem2Sentence>
+              <Sentence Num="1">二重括弧付き漢数字（（二））の内容</Sentence>
+            </Subitem2Sentence>
+          </Subitem2>
+        </Subitem1>
+      </Item>
+    </Paragraph>
+    <!-- &#20108;&#37325;&#25324;&#24359;&#20184;&#12365;&#12450;&#12523;&#12501;&#12449;&#12505;&#12483;&#12488;&#31995; -->
+    <Paragraph Num="7">
+      <ParagraphNum>7</ParagraphNum>
+      <ParagraphSentence>
+        <Sentence Num="1">二重括弧付きアルファベット系のテスト</Sentence>
+      </ParagraphSentence>
+      <Item Num="1">
+        <ItemTitle>（（A））</ItemTitle>
+        <ItemSentence>
+          <Sentence Num="1">二重括弧付き大文字アルファベット（（A））の内容</Sentence>
+        </ItemSentence>
+      </Item>
+      <Item Num="2">
+        <ItemTitle>（（B））</ItemTitle>
+        <ItemSentence>
+          <Sentence Num="1">二重括弧付き大文字アルファベット（（B））の内容</Sentence>
+        </ItemSentence>
+        <Subitem1 Num="1">
+          <Subitem1Title>((a))</Subitem1Title>
+          <Subitem1Sentence>
+            <Sentence Num="1">二重括弧付き小文字アルファベット((a))の内容</Sentence>
+          </Subitem1Sentence>
+        </Subitem1>
+        <Subitem1 Num="2">
+          <Subitem1Title>((b))</Subitem1Title>
+          <Subitem1Sentence>
+            <Sentence Num="1">二重括弧付き小文字アルファベット((b))の内容</Sentence>
+          </Subitem1Sentence>
+        </Subitem1>
+      </Item>
+      <Item Num="3">
+        <ItemTitle>（（Ａ））</ItemTitle>
+        <ItemSentence>
+          <Sentence Num="1">二重括弧付き全角大文字アルファベット（（Ａ））の内容</Sentence>
+        </ItemSentence>
+      </Item>
+      <Item Num="4">
+        <ItemTitle>（（Ｂ））</ItemTitle>
+        <ItemSentence>
+          <Sentence Num="1">二重括弧付き全角大文字アルファベット（（Ｂ））の内容</Sentence>
+        </ItemSentence>
+      </Item>
+    </Paragraph>
+    <!-- &#12459;&#12479;&#12459;&#12490;&#31995; -->
+    <Paragraph Num="8">
+      <ParagraphNum>8</ParagraphNum>
+      <ParagraphSentence>
+        <Sentence Num="1">カタカナ系のテスト</Sentence>
+      </ParagraphSentence>
+      <Item Num="1">
+        <ItemTitle>ア</ItemTitle>
+        <ItemSentence>
+          <Sentence Num="1">カタカナアの内容</Sentence>
+        </ItemSentence>
+      </Item>
+      <Item Num="2">
+        <ItemTitle>イ</ItemTitle>
+        <ItemSentence>
+          <Sentence Num="1">カタカナイの内容</Sentence>
+        </ItemSentence>
+        <Subitem1 Num="1">
+          <Subitem1Title>（ア）</Subitem1Title>
+          <Subitem1Sentence>
+            <Sentence Num="1">括弧付きカタカナ（ア）の内容</Sentence>
+          </Subitem1Sentence>
+        </Subitem1>
+        <Subitem1 Num="2">
+          <Subitem1Title>（イ）</Subitem1Title>
+          <Subitem1Sentence>
+            <Sentence Num="1">括弧付きカタカナ（イ）の内容</Sentence>
+          </Subitem1Sentence>
+          <Subitem2 Num="1">
+            <Subitem2Title>（（ア））</Subitem2Title>
+            <Subitem2Sentence>
+              <Sentence Num="1">二重括弧付きカタカナ（（ア））の内容</Sentence>
+            </Subitem2Sentence>
+          </Subitem2>
+          <Subitem2 Num="2">
+            <Subitem2Title>（（イ））</Subitem2Title>
+            <Subitem2Sentence>
+              <Sentence Num="1">二重括弧付きカタカナ（（イ））の内容</Sentence>
+            </Subitem2Sentence>
+          </Subitem2>
+        </Subitem1>
+      </Item>
+    </Paragraph>
+  </LawBody>
+</Law>

@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<Law>
+  <LawBody>
+    <Paragraph Num="1">
+      <ParagraphTitle>第一</ParagraphTitle>
+      <ParagraphSentence>
+        <Sentence Num="1">これはテストです。</Sentence>
+      </ParagraphSentence>
+      <Item Num="1">
+        <ItemTitle>（１）</ItemTitle>
+        <ItemSentence>
+          <Sentence Num="1">通常のItemです。</Sentence>
+        </ItemSentence>
+      </Item>
+    </Paragraph>
+  </LawBody>
+</Law>

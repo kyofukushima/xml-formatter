@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Law>
+  <LawBody>
+    <Paragraph Num="1">
+      <ParagraphNum>1</ParagraphNum>
+      <ParagraphSentence>
+        <Sentence Num="1">paragraphsentenceの値</Sentence>
+      </ParagraphSentence>
+      <Item Num="1">
+        <ItemTitle/>
+        <ItemSentence>
+          <Sentence Num="1"/>
+        </ItemSentence>
+        <List>
+          <ListSentence>
+            <Sentence Num="1">分割前の内容1</Sentence>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Sentence Num="1">分割前の内容2</Sentence>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1">（１）</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1">分割後の内容</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+      </Item>
+    </Paragraph>
+  </LawBody>
+</Law>

@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<Law>
+  <LawBody>
+    <Subitem1 Num="1">
+      <Subitem1Title/>
+      <Subitem1Sentence>
+        <Sentence Num="1">Subitem1Sentenceの内容</Sentence>
+      </Subitem1Sentence>
+      <Subitem2 Num="1">
+        <Subitem2Title/>
+        <Subitem2Sentence>
+          <Sentence Num="1"/>
+        </Subitem2Sentence>
+        <List>
+          <ListSentence>
+            <Sentence Num="1">ColumnなしListの内容1</Sentence>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Sentence Num="1">ColumnなしListの内容2</Sentence>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Sentence Num="1">ColumnなしListの内容3</Sentence>
+          </ListSentence>
+        </List>
+      </Subitem2>
+    </Subitem1>
+  </LawBody>
+</Law>

@@ -1,0 +1,32 @@
+
+<Law>
+  <LawBody>
+    <Item Num="1">
+      <ItemTitle></ItemTitle>
+      <ItemSentence>
+        <Sentence Num="1"></Sentence>
+      </ItemSentence>
+      <Subitem1 Num="1">
+        <Subitem1Title></Subitem1Title>
+        <Subitem1Sentence>
+          <Sentence Num="1"></Sentence>
+        </Subitem1Sentence>
+        <List>
+          <ListSentence>
+            <Sentence Num="1">分割前の内容</Sentence>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1">（２）</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1">分割対象の内容</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+      </Subitem1>
+    </Item>
+  </LawBody>
+</Law>
