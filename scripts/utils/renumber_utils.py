@@ -23,7 +23,7 @@ stats = renumber_nums_in_file('input.xml', 'output.xml', [('Article', None)])
 ```
 """
 
-import xml.etree.ElementTree as ET
+from lxml import etree as ET
 import re
 from pathlib import Path
 from typing import List, Tuple, Optional, Dict, Set, Union
@@ -132,11 +132,13 @@ def renumber_nums_in_file(
         return stats
     else:
         # ElementTreeベース処理: 推奨
-        tree = ET.parse(input_path)
+        input_path_str = str(input_path) if isinstance(input_path, Path) else input_path
+        tree = ET.parse(input_path_str)
         stats = renumber_nums_in_tree(tree, mappings, start_num)
         
         # 保存（インデント整形は別途 save_xml_with_indent を使用）
-        tree.write(output_path, encoding='utf-8', xml_declaration=True)
+        output_path_str = str(output_path) if isinstance(output_path, Path) else output_path
+        tree.write(output_path_str, encoding='utf-8', xml_declaration=True)
         
         return stats
 
@@ -319,7 +321,7 @@ if __name__ == '__main__':
     
     # 処理実行
     if args.dry_run:
-        tree = ET.parse(args.input)
+        tree = ET.parse(str(args.input))
         stats = renumber_nums_in_tree(tree, mappings, args.start)
         
         print("Dry-run: 以下のNum属性を振り直します:")

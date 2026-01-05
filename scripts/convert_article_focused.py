@@ -18,15 +18,16 @@ Article処理内容.md のロジックを実装
 - Article内のList要素（Item特化処理に委譲）
 """
 
-import xml.etree.ElementTree as ET
+from lxml import etree as ET
 import re
 import sys
 from pathlib import Path
 from typing import List, Tuple, Optional
 import copy
 
-# utilsディレクトリをインポートパスに追加（親ディレクトリのutils/を参照）
-sys.path.insert(0, str(Path(__file__).parent.parent))
+# scripts/utils/をインポートパスに追加
+script_dir = Path(__file__).resolve().parent
+sys.path.insert(0, str(script_dir))
 
 # 共通XMLユーティリティをインポート
 from utils import save_xml_with_indent, renumber_nums_in_tree
@@ -103,12 +104,12 @@ class ArticleFocusedConverter:
             return None
         
         # Article内の全List要素を走査
-        for paragraph in article.findall('.//Paragraph'):
-            list_elements = list(paragraph.findall('List'))
+        for paragraph in article.xpath('.//Paragraph'):
+            list_elements = list(paragraph.xpath('List'))
             
             for i, list_elem in enumerate(list_elements):
                 # Column構造を確認
-                columns = list_elem.findall('.//Column')
+                columns = list_elem.xpath('.//Column')
                 
                 if len(columns) >= 2:
                     # 最初のColumnからラベルを取得
@@ -326,31 +327,34 @@ class ArticleFocusedConverter:
             output_path: 出力XMLファイルのパス
             renumber: Num属性を振り直すかどうか（デフォルト: True）
         """
-        tree = ET.parse(input_path)
+        tree = ET.parse(str(input_path))
         root = tree.getroot()
 
-        # Pre-processing step: Wrap direct child Lists of an Article in a new Paragraph
-        # This normalizes the structure to ensure the split logic can find them.
-        for article in root.findall('.//Article'):
+        # 前処理: Articleの直接子要素としてListがある場合、新しいParagraphでラップする
+        # これにより構造を正規化し、分割ロジックが正しく動作するようにする
+        for article in root.xpath('.//Article'):
             direct_lists = [child for child in article if child.tag == 'List']
             if not direct_lists:
                 continue
 
-            # Find the insertion point (after the last existing Paragraph, or after ArticleTitle/Caption)
+            # 挿入位置を決定（既存のParagraphの後、またはArticleTitle/Captionの後）
             insert_pos = -1
             for i, child in enumerate(list(article)):
                 if child.tag in ['ArticleTitle', 'ArticleCaption', 'Paragraph']:
                     insert_pos = i
             
-            # Create a new Paragraph to hold these lists
-            new_para = ET.Element('Paragraph', attrib={'Num': '0'}) # Dummy Num, will be renumbered later if needed
+            # これらのList要素を保持する新しいParagraphを作成
+            new_para = ET.Element('Paragraph', attrib={'Num': '0'}) # ダミーのNum、後で振り直される
 
-            # Move the lists from the article to the new paragraph
+            # スキーマ準拠のため、空のParagraphNumを追加
+            ET.SubElement(new_para, 'ParagraphNum')
+
+            # ArticleからList要素を移動して新しいParagraphに追加
             for l in direct_lists:
                 article.remove(l)
                 new_para.append(l)
             
-            # Insert the new paragraph into the article
+            # 新しいParagraphをArticleに挿入
             article.insert(insert_pos + 1, new_para)
         
         print("="*80)
@@ -358,7 +362,7 @@ class ArticleFocusedConverter:
         print("="*80)
         
         # 処理前の統計
-        articles_before = len(root.findall('.//Article'))
+        articles_before = len(root.xpath('.//Article'))
         
         print(f"\n処理前:")
         print(f"  - Article要素: {articles_before}個")
@@ -385,7 +389,7 @@ class ArticleFocusedConverter:
                     parent.insert(index + i, new_article)
         
         # 処理後の統計
-        articles_after = len(root.findall('.//Article'))
+        articles_after = len(root.xpath('.//Article'))
         
         print(f"\n処理後:")
         print(f"  - Article要素: {articles_after}個 ({articles_after - articles_before:+d})")

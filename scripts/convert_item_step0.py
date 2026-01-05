@@ -49,7 +49,7 @@ def main():
         column_condition_min=2,  # Itemは col_count == 2
         supported_types=['labeled', 'subject_name', 'instruction', 'grade'],
         script_name='convert_item_step0',
-        skip_empty_parent=True  # skip_empty_parentをTrueに設定
+        skip_empty_parent=False  # Item作成では親要素チェックをスキップ（空ParagraphでもItem作成）
     )
 
     return process_xml_file(input_path, output_path, config)

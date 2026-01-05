@@ -47,9 +47,9 @@ def main():
         title_tag='Subitem3Title',
         sentence_tag='Subitem3Sentence',
         column_condition_min=2,  # Subitem3は col_count == 2
-        supported_types=['labeled', 'subject_name', 'instruction', 'grade_single', 'grade_double'],
+        supported_types=['labeled', 'subject_name', 'instruction', 'grade_single', 'grade_double', 'circled_number'],
         script_name='convert_subitem3_step0',
-        skip_empty_parent=True  # Subitem3変換では親要素チェックを行う
+        skip_empty_parent=False  # Subitem3変換では親要素が空でも変換を実行
     )
 
     return process_xml_file(input_path, output_path, config)

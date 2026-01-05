@@ -49,7 +49,7 @@ def main():
         column_condition_min=2,  # Subitem5は col_count == 2
         supported_types=['labeled', 'subject_name', 'instruction', 'grade_single', 'grade_double'],
         script_name='convert_subitem5_step0',
-        skip_empty_parent=True  # Subitem5変換では親要素チェックを行う
+        skip_empty_parent=False  # Subitem5変換では親要素が空でも変換を実行
     )
 
     return process_xml_file(input_path, output_path, config)

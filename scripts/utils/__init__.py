@@ -24,7 +24,6 @@ from .label_utils import (
     LabelPattern,
     detect_label_pattern,
     is_label,
-    get_hierarchy_level,
     split_label_and_content,
     is_paragraph_label,
     is_item_label
@@ -48,7 +47,6 @@ __all__ = [
     'LabelPattern',
     'detect_label_pattern',
     'is_label',
-    'get_hierarchy_level',
     'split_label_and_content',
     'is_paragraph_label',
     'is_item_label'

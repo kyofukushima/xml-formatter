@@ -27,10 +27,13 @@ class LabelPattern(Enum):
     PAREN_ALPHABET = "paren_alphabet"              # （a）、（ａ）
     PAREN_KATAKANA = "paren_katakana"              # （ア）、（イ）
     PAREN_NUMBER = "paren_number"                  # （１）、（２）
+    PAREN_ROMAN = "paren_roman"                    # （i）、（ｉ）、（ii）、（ｉｉ）
     CIRCLED_NUMBER = "circled_number"              # ①、②、③
     KATAKANA = "katakana"                          # ア、イ、ウ
     ALPHABET = "alphabet"                          # a、b、A、B
-    NUMBER = "number"                              # １、２、３、一、二、三
+    FULLWIDTH_NUMBER = "fullwidth_number"          # １、２、３
+    HALFWIDTH_NUMBER = "halfwidth_number"          # 1、2、3
+    KANJI_NUMBER = "kanji_number"                  # 一、二、三
     EMPTY = "empty"                                # （空文字）
     UNKNOWN = "unknown"                            # 不明
 
@@ -75,16 +78,16 @@ class LabelConfig:
 
             self.pattern_cache[label_id] = {
                 'patterns': compiled_patterns,
-                'hierarchy_level': definition.get('hierarchy_level', -1),
                 'definition': definition
             }
 
-    def detect_label_id(self, text: str) -> Optional[str]:
+    def detect_label_id(self, text: str, exclude_label_ids: Optional[List[str]] = None) -> Optional[str]:
         """
         テキストからラベルIDを判定
 
         Args:
             text: 判定するテキスト
+            exclude_label_ids: 判定から除外するラベルIDのリスト（文脈依存の判定用）
 
         Returns:
             Optional[str]: ラベルID、見つからない場合はNone
@@ -93,9 +96,16 @@ class LabelConfig:
             return None
 
         text = text.strip()
+        
+        if exclude_label_ids is None:
+            exclude_label_ids = []
 
         # 優先順位に従ってパターンマッチング
         for label_id in self.pattern_priority:
+            # 除外リストに含まれている場合はスキップ
+            if label_id in exclude_label_ids:
+                continue
+                
             if label_id in self.pattern_cache:
                 cache_item = self.pattern_cache[label_id]
                 for pattern in cache_item['patterns']:
@@ -104,19 +114,6 @@ class LabelConfig:
 
         return None
 
-    def get_hierarchy_level(self, label_id: str) -> int:
-        """
-        ラベルIDから階層レベルを取得
-
-        Args:
-            label_id: ラベルID
-
-        Returns:
-            int: 階層レベル
-        """
-        if label_id in self.pattern_cache:
-            return self.pattern_cache[label_id]['hierarchy_level']
-        return -1
 
     def get_label_definition(self, label_id: str) -> Optional[Dict]:
         """
@@ -155,29 +152,19 @@ def get_label_config() -> LabelConfig:
         _label_config = LabelConfig()
     return _label_config
 
-def detect_label_id(text: str) -> Optional[str]:
+def detect_label_id(text: str, exclude_label_ids: Optional[List[str]] = None) -> Optional[str]:
     """
     テキストからラベルIDを判定（JSON設定ベース）
 
     Args:
         text: 判定するテキスト
+        exclude_label_ids: 判定から除外するラベルIDのリスト（文脈依存の判定用）
 
     Returns:
         Optional[str]: ラベルID、見つからない場合はNone
     """
-    return get_label_config().detect_label_id(text)
+    return get_label_config().detect_label_id(text, exclude_label_ids)
 
-def get_hierarchy_level_from_id(label_id: str) -> int:
-    """
-    ラベルIDから階層レベルを取得（JSON設定ベース）
-
-    Args:
-        label_id: ラベルID
-
-    Returns:
-        int: 階層レベル
-    """
-    return get_label_config().get_hierarchy_level(label_id)
 
 def is_valid_label_id(label_id: str) -> bool:
     """
@@ -235,8 +222,16 @@ def is_label(text: str) -> bool:
         >>> is_label("これはテキストです")
         False
     """
-    pattern = detect_label_pattern(text)
-    return pattern not in (LabelPattern.UNKNOWN, LabelPattern.EMPTY)
+    label_id = detect_label_id(text)
+    if label_id is None:
+        return False
+    # emptyラベルはFalseを返す
+    if label_id == 'empty':
+        return False
+    # text_non_labelはラベルではないテキストを表すため、Falseを返す
+    if label_id == 'text_non_label':
+        return False
+    return True
 
 
 def get_alphabet_type(label: str) -> str:
@@ -446,23 +441,6 @@ def get_number_type(label: str) -> str:
     return 'unknown'
 
 
-def get_hierarchy_level(label: str) -> int:
-    """
-    項目ラベルの階層レベルを取得（後方互換性のため維持）
-
-    JSON設定ベースの実装を使用します。
-
-    Args:
-        label: 項目ラベル
-
-    Returns:
-        int: 階層レベル、不明な場合は-1
-    """
-    label_id = detect_label_id(label)
-    if label_id is None:
-        return -1
-
-    return get_hierarchy_level_from_id(label_id)
 
 
 def split_label_and_content(text: str) -> Tuple[Optional[str], Optional[str]]:
@@ -511,8 +489,12 @@ def split_label_and_content(text: str) -> Tuple[Optional[str], Optional[str]]:
         (r'^([ア-ヴ]+)[\s　]+(.+)$', True),
         # アルファベット
         (r'^([a-zａ-ｚA-ZＡ-Ｚ]+)[\s　]+(.+)$', True),
-        # 数字
-        (r'^([０-９0-9一二三四五六七八九十百千]+)[\s　]+(.+)$', True),
+        # 全角数字
+        (r'^([０-９]+)[\s　]+(.+)$', True),
+        # 半角数字
+        (r'^([0-9]+)[\s　]+(.+)$', True),
+        # 漢数字
+        (r'^([一二三四五六七八九十百千]+)[\s　]+(.+)$', True),
     ]
     
     for pattern, has_content in patterns:
@@ -530,22 +512,22 @@ def split_label_and_content(text: str) -> Tuple[Optional[str], Optional[str]]:
 def is_paragraph_label(label: str) -> bool:
     """
     ラベルがParagraphレベル（数字）かどうかを判定
-    
+
     Args:
         label: 判定するラベル
-        
+
     Returns:
         bool: Paragraphレベルの場合True
-        
+
     Examples:
         >>> is_paragraph_label("１")
         True
-        
+
         >>> is_paragraph_label("（１）")
         False
     """
     pattern = detect_label_pattern(label)
-    return pattern == LabelPattern.NUMBER
+    return pattern in (LabelPattern.FULLWIDTH_NUMBER, LabelPattern.HALFWIDTH_NUMBER, LabelPattern.KANJI_NUMBER)
 
 
 def is_item_label(label: str) -> bool:
@@ -569,6 +551,95 @@ def is_item_label(label: str) -> bool:
     return pattern == LabelPattern.PAREN_NUMBER
 
 
+def is_roman_numeral(label: str) -> bool:
+    """
+    ラベルがローマ数字パターン（^[（(][ivxlcdmｉｖｘｌｃｄｍ]+[）)]$）に合致するかどうかを判定
+    
+    Args:
+        label: 判定するラベル
+        
+    Returns:
+        bool: ローマ数字パターンに合致する場合True
+        
+    Examples:
+        >>> is_roman_numeral("（i）")
+        True
+        
+        >>> is_roman_numeral("（ｉ）")
+        True
+        
+        >>> is_roman_numeral("（ii）")
+        True
+        
+        >>> is_roman_numeral("（ｉｉ）")
+        True
+        
+        >>> is_roman_numeral("（iii）")
+        True
+        
+        >>> is_roman_numeral("（ａ）")
+        False
+        
+        >>> is_roman_numeral("（a）")
+        False
+    """
+    if not label:
+        return False
+    
+    label = label.strip()
+    # ローマ数字のパターン: ^[（(][ivxlcdmｉｖｘｌｃｄｍ]+[）)]$
+    # paren_romanのパターンと一致
+    roman_pattern = re.compile(r'^[（(][ivxlcdmｉｖｘｌｃｄｍ]+[）)]$')
+    
+    return bool(roman_pattern.match(label))
+
+
+def get_exclude_label_ids_for_context(first_label: Optional[str]) -> List[str]:
+    """
+    最初の要素のラベルに基づいて、判定から除外するラベルIDのリストを生成
+    
+    最初の要素がローマ数字パターン（^[（(][ivxlcdmｉｖｘｌｃｄｍ]+[）)]$）に合致する場合、
+    ローマ数字（paren_roman）を除外しない。
+    最初の要素がローマ数字でない場合、ローマ数字（paren_roman）を除外リストに追加する。
+    これにより、アルファベットとローマ数字の重複を回避できる。
+    
+    Args:
+        first_label: 最初の要素のラベルテキスト（Noneの場合はローマ数字以外として扱い、ローマ数字を除外）
+        
+    Returns:
+        List[str]: 除外するラベルIDのリスト
+        
+    Examples:
+        >>> get_exclude_label_ids_for_context("（i）")
+        []
+        
+        >>> get_exclude_label_ids_for_context("（ｉ）")
+        []
+        
+        >>> get_exclude_label_ids_for_context("（ii）")
+        []
+        
+        >>> get_exclude_label_ids_for_context("（ａ）")
+        ['paren_roman']
+        
+        >>> get_exclude_label_ids_for_context("（a）")
+        ['paren_roman']
+        
+        >>> get_exclude_label_ids_for_context(None)
+        ['paren_roman']
+    """
+    # 最初の要素がない場合もローマ数字以外として扱い、ローマ数字を除外
+    if first_label is None:
+        return ['paren_roman']
+    
+    # 最初の要素がローマ数字パターンに合致する場合、ローマ数字を除外しない
+    if is_roman_numeral(first_label):
+        return []
+    
+    # 最初の要素がローマ数字でない場合、ローマ数字を除外
+    return ['paren_roman']
+
+
 # テスト用のメイン関数
 if __name__ == '__main__':
     """テストケースを実行"""
@@ -579,12 +650,12 @@ if __name__ == '__main__':
     
     # テストケース
     test_cases = [
-        ("１", LabelPattern.NUMBER, 1),
-        ("２", LabelPattern.NUMBER, 1),
-        ("10", LabelPattern.NUMBER, 1),
-        ("一", LabelPattern.NUMBER, 1),
-        ("二", LabelPattern.NUMBER, 1),
-        ("十", LabelPattern.NUMBER, 1),
+        ("１", LabelPattern.FULLWIDTH_NUMBER, 1),
+        ("２", LabelPattern.FULLWIDTH_NUMBER, 1),
+        ("10", LabelPattern.HALFWIDTH_NUMBER, 1),
+        ("一", LabelPattern.KANJI_NUMBER, 1),
+        ("二", LabelPattern.KANJI_NUMBER, 1),
+        ("十", LabelPattern.KANJI_NUMBER, 1),
         ("（１）", LabelPattern.PAREN_NUMBER, 2),
         ("(2)", LabelPattern.PAREN_NUMBER, 2),
         ("ア", LabelPattern.KATAKANA, 3),
@@ -613,21 +684,20 @@ if __name__ == '__main__':
     all_passed = True
     for i, (label, expected_pattern, expected_level) in enumerate(test_cases, 1):
         pattern = detect_label_pattern(label)
-        level = get_hierarchy_level(label)
+        # Label ID システム移行により階層レベルは使用しないため、常にTrueとする
+        level_ok = True
         is_lbl = is_label(label)
-        
+
         pattern_ok = pattern == expected_pattern
-        level_ok = level == expected_level
         is_label_ok = is_lbl == (expected_pattern not in (LabelPattern.UNKNOWN, LabelPattern.EMPTY))
-        
-        status = "✓" if (pattern_ok and level_ok and is_label_ok) else "✗"
-        
-        if not (pattern_ok and level_ok and is_label_ok):
+
+        status = "✓" if (pattern_ok and is_label_ok) else "✗"
+
+        if not (pattern_ok and is_label_ok):
             all_passed = False
-        
+
         print(f"{status} テスト{i}: '{label}'")
         print(f"    パターン: {pattern.value} (期待: {expected_pattern.value}) {'✓' if pattern_ok else '✗'}")
-        print(f"    階層レベル: {level} (期待: {expected_level}) {'✓' if level_ok else '✗'}")
         print(f"    is_label(): {is_lbl} {'✓' if is_label_ok else '✗'}")
     
     print()
@@ -638,6 +708,7 @@ if __name__ == '__main__':
     
     split_test_cases = [
         ("１　テキスト", ("１", "テキスト")),
+        ("1　テキスト", ("1", "テキスト")),
         ("一　テキスト", ("一", "テキスト")),
         ("（ア）　項目アのテキスト", ("（ア）", "項目アのテキスト")),
         ("a　項目a", ("a", "項目a")),

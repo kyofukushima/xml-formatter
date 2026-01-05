@@ -21,10 +21,11 @@ import re
 from pathlib import Path
 from lxml import etree
 
-# 親ディレクトリのutils/をインポートパスに追加
-sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+# scripts/utils/をインポートパスに追加
+script_dir = Path(__file__).resolve().parent
+sys.path.insert(0, str(script_dir))
 
-from utils.label_utils import get_hierarchy_level, is_label
+from utils.label_utils import detect_label_id, is_label
 
 def format_xml_lxml(tree, output_path):
     """
@@ -66,8 +67,8 @@ def find_split_point(paragraph):
 
     para_num_elem = paragraph.find('ParagraphNum')
     para_num_text = para_num_elem.text.strip() if para_num_elem is not None and para_num_elem.text else ""
-    para_level = get_hierarchy_level(para_num_text)
-    if para_level is None:
+    para_label_id = detect_label_id(para_num_text)
+    if para_label_id is None:
         return None
 
     children = list(paragraph)
@@ -81,8 +82,8 @@ def find_split_point(paragraph):
         if elem.tag == 'List':
             label_text, _, col_num = get_list_info(elem)
             if col_num == 2 and label_text and is_label(label_text):
-                list_level = get_hierarchy_level(label_text)
-                if list_level == para_level:
+                list_label_id = detect_label_id(label_text)
+                if list_label_id == para_label_id:
                     return elem
     return None
 

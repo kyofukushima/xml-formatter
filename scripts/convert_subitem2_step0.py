@@ -46,10 +46,10 @@ def main():
         child_tag='Subitem2',
         title_tag='Subitem2Title',
         sentence_tag='Subitem2Sentence',
-        column_condition_min=2,  # Subitem2は col_count == 2
+        column_condition_min=0,  # Subitem2は col_count >= 0
         supported_types=['labeled', 'subject_name', 'instruction', 'grade_single', 'grade_double'],
         script_name='convert_subitem2_step0',
-        skip_empty_parent=True  # Subitem2変換では親要素チェックを行う
+        skip_empty_parent=False  # Subitem2変換では親要素が空でも変換を実行
     )
 
     return process_xml_file(input_path, output_path, config)

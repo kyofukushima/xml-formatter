@@ -6,7 +6,7 @@ XML処理のための共通ユーティリティモジュール
 XML処理関数を提供します。
 """
 
-import xml.etree.ElementTree as ET
+from lxml import etree as ET
 import sys
 from pathlib import Path
 from typing import Union
@@ -77,31 +77,32 @@ def indent_xml(elem: ET.Element, level: int = 0, indent_str: str = "  ") -> None
 
 
 def indent_xml_native(elem: ET.Element, space: str = "  ") -> None:
-    """Python 3.9以降のET.indent()を使用したインデント整形
+    """lxmlのpretty_print機能を使用したインデント整形
     
-    Python 3.9以降でのみ使用可能。
+    lxmlでは、tree.write()のpretty_printオプションを使用するため、
+    この関数は非推奨です。save_xml_with_indent()を使用してください。
     
     Args:
         elem: 整形対象のElement
         space: インデント文字列（デフォルト: 2スペース）
     
-    Raises:
-        AttributeError: Python 3.9未満の場合
+    Note:
+        lxmlでは、tree.write(pretty_print=True)を使用することを推奨します。
     """
-    if hasattr(ET, 'indent'):
-        ET.indent(elem, space=space)
-    else:
-        raise AttributeError("ET.indent() is not available. Use indent_xml() instead.")
+    # lxmlでは、tree.write()のpretty_printオプションを使用
+    # この関数は後方互換性のため残していますが、indent_xml()を使用してください
+    indent_xml(elem, indent_str=space)
 
 
 def save_xml_with_indent(tree: ET.ElementTree, output_path: Union[str, Path], 
                          indent_str: str = "  ") -> None:
     """XML Treeをインデント整形して保存
     
-    Pythonのバージョンに応じて、最適な方法でインデント整形を行います。
+    lxmlを使用してインデント整形を行います。
+    動的に要素を追加・削除した場合でも、正しくインデントを再設定します。
     
     Args:
-        tree: 保存するElementTree
+        tree: 保存するElementTree（lxml.etree.ElementTree）
         output_path: 出力ファイルパス
         indent_str: インデント文字列（デフォルト: 2スペース）
     
@@ -113,17 +114,20 @@ def save_xml_with_indent(tree: ET.ElementTree, output_path: Union[str, Path],
     """
     root = tree.getroot()
     
-    # Python 3.9以降ならET.indent()を使用、それ以外なら独自実装
-    python_version = sys.version_info
-    if python_version.major == 3 and python_version.minor >= 9:
-        # Python 3.9以降
-        ET.indent(root, space=indent_str)
-    else:
-        # Python 3.8以前
-        indent_xml(root, indent_str=indent_str)
+    # 動的に要素を追加・削除した場合、pretty_printだけでは不十分なため
+    # 手動でインデントを再設定
+    indent_xml(root, indent_str=indent_str)
     
-    # XML宣言付きで保存
-    tree.write(output_path, encoding='utf-8', xml_declaration=True)
+    # Pathオブジェクトの場合は文字列に変換
+    output_path_str = str(output_path) if isinstance(output_path, Path) else output_path
+    
+    # XML宣言付きで保存（pretty_print=Trueでインデント整形）
+    tree.write(
+        output_path_str,
+        encoding='utf-8',
+        xml_declaration=True,
+        pretty_print=True
+    )
 
 
 def pretty_print_xml(input_path: Union[str, Path], output_path: Union[str, Path], 
@@ -136,11 +140,14 @@ def pretty_print_xml(input_path: Union[str, Path], output_path: Union[str, Path]
         input_path: 入力XMLファイルパス
         output_path: 出力XMLファイルパス
         indent_str: インデント文字列（デフォルト: 2スペース）
+                   lxmlではpretty_print=Trueを使用するため、この引数は後方互換性のため残しています
     
     Usage:
         pretty_print_xml('input.xml', 'output_formatted.xml')
     """
-    tree = ET.parse(input_path)
+    # Pathオブジェクトの場合は文字列に変換（lxmlの要求）
+    input_path_str = str(input_path) if isinstance(input_path, Path) else input_path
+    tree = ET.parse(input_path_str)
     save_xml_with_indent(tree, output_path, indent_str)
 
 

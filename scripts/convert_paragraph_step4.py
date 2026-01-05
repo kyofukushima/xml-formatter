@@ -24,8 +24,9 @@ from pathlib import Path
 from lxml import etree
 import xml.etree.ElementTree as ET
 
-# utilsディレクトリをインポートパスに追加（親ディレクトリのutils/を参照）
-sys.path.insert(0, str(Path(__file__).parent.parent))
+# scripts/utils/をインポートパスに追加
+script_dir = Path(__file__).resolve().parent
+sys.path.insert(0, str(script_dir))
 
 from utils.label_utils import is_label, is_paragraph_label
 
