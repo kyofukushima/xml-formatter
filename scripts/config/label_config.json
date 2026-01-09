@@ -539,19 +539,6 @@
       ],
       "description": "全角数字 + ）（新規パターン）"
     },
-    "dot_separated_number_double": {
-      "id": "dot_separated_number_double",
-      "name": "ドット区切り数字（ドット2つ）",
-      "patterns": [
-        "^[０-９]+[．.][０-９]+[．.][０-９]+$"
-      ],
-      "examples": [
-        "４．３．２",
-        "４．３．３",
-        "１．２．３"
-      ],
-      "description": "ドット区切り数字（ドット2つ）（新規パターン）"
-    },
     "dot_separated_number_triple": {
       "id": "dot_separated_number_triple",
       "name": "ドット区切り数字（ドット3つ）",
@@ -564,6 +551,19 @@
         "１．２．３．４"
       ],
       "description": "ドット区切り数字（ドット3つ）（新規パターン）"
+    },
+    "dot_separated_number_double": {
+      "id": "dot_separated_number_double",
+      "name": "ドット区切り数字（ドット2つ）",
+      "patterns": [
+        "^[０-９]+[．.][０-９]+[．.][０-９]+$"
+      ],
+      "examples": [
+        "４．３．２",
+        "４．３．３",
+        "１．２．３"
+      ],
+      "description": "ドット区切り数字（ドット2つ）（新規パターン）"
     },
     "dot_separated_number_single": {
       "id": "dot_separated_number_single",
@@ -590,6 +590,19 @@
         "注記１０"
       ],
       "description": "注記 + 数字（新規パターン）"
+    },
+    "number_range_hyphen": {
+      "id": "number_range_hyphen",
+      "name": "数字範囲（ハイフン区切り）",
+      "patterns": [
+        "^[０-９]+[―-][０-９]+$"
+      ],
+      "examples": [
+        "１―３",
+        "１-３",
+        "１０―２０"
+      ],
+      "description": "数字範囲を表すハイフン区切りパターン"
     },
     "empty": {
       "id": "empty",
@@ -651,6 +664,7 @@
     "dot_separated_number_double",
     "dot_separated_number_single",
     "note_with_number",
+    "number_range_hyphen",
     "subject_label_square",
     "subject_label_double_square",
     "subject_label_corner",
@@ -669,6 +683,19 @@
     "empty",
     "text_non_label"
   ],
+  "hierarchy_rules": {
+    "same_pattern_same_hierarchy": true,
+    "allow_cross_hierarchy_split": false,
+    "special_patterns": {
+      "grade_patterns": [
+        "grade_double",
+        "grade_single"
+      ],
+      "subject_patterns": [
+        "subject_label"
+      ]
+    }
+  },
   "conversion_behaviors": {
     "column_list_text_first_column": {
       "enabled": true,
@@ -680,5 +707,11 @@
       "description": "no_column_textタイプのItemの後、カラムなしリストを並列分割するかどうか。false: List要素のまま取り込む（モード1）、true: 並列分割して別々のItem要素に変換（モード2）",
       "target_levels": ["Item", "Subitem1", "Subitem2", "Subitem3", "Subitem4", "Subitem5", "Subitem6", "Subitem7", "Subitem8", "Subitem9", "Subitem10"]
     }
+  },
+  "metadata": {
+    "description": "XML文書変換用ラベルパターン設定ファイル",
+    "created": "2025-01-01",
+    "last_updated": "2025-01-01",
+    "author": "XML Processing Pipeline"
   }
 }
