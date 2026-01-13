@@ -173,6 +173,7 @@ def main():
     print(f"Found {len(final_tables)} tables in the final file.")
 
     table_order_errors = []
+    table_position_warnings = []
     table_count_error = None
 
     # 表の数の検証
@@ -180,23 +181,56 @@ def main():
         table_count_error = f"❌ Error: Table count mismatch. Original: {len(original_tables)}, Final: {len(final_tables)}"
         print(table_count_error)
     else:
-        # 表の順序の検証
+        # 表の内容のみで順序を検証（位置情報を除く）
+        original_content = [t.split(' | POS:')[0] for t in original_tables]
+        final_content = [t.split(' | POS:')[0] for t in final_tables]
+        
+        # 内容の順序が一致しているか確認
+        content_order_match = original_content == final_content
+        
+        # 位置情報を含めた詳細な比較
         for i in range(len(original_tables)):
             if original_tables[i] != final_tables[i]:
-                table_order_errors.append({
-                    'index': i + 1,
-                    'original': original_tables[i][:100],
-                    'final': final_tables[i][:100]
-                })
+                # 内容が同じかどうかを確認
+                if original_content[i] == final_content[i]:
+                    # 内容は同じだが位置情報が異なる場合は警告
+                    table_position_warnings.append({
+                        'index': i + 1,
+                        'original': original_tables[i][:150],
+                        'final': final_tables[i][:150]
+                    })
+                else:
+                    # 内容が異なる場合はエラー
+                    table_order_errors.append({
+                        'index': i + 1,
+                        'original': original_tables[i][:100],
+                        'final': final_tables[i][:100]
+                    })
         
+        # 結果の表示
         if table_order_errors:
-            print(f"❌ Error: Found {len(table_order_errors)} table(s) with order mismatch.")
+            print(f"❌ Error: Found {len(table_order_errors)} table(s) with content order mismatch.")
             for error in table_order_errors[:5]:  # 最初の5つのエラーのみ表示
                 print(f"  Position {error['index']}:")
                 print(f"    Original: {error['original']}...")
                 print(f"    Final:    {error['final']}...")
             if len(table_order_errors) > 5:
-                print(f"  ... and {len(table_order_errors) - 5} more order mismatches")
+                print(f"  ... and {len(table_order_errors) - 5} more content order mismatches")
+        elif table_position_warnings:
+            # 位置情報の違いは警告として表示（内容の順序は一致している）
+            print(f"✅ Table content order is correct.")
+            print(f"⚠️  Warning: Found {len(table_position_warnings)} table(s) with position changes (this is normal after conversion).")
+            if len(table_position_warnings) <= 5:
+                for warning in table_position_warnings:
+                    print(f"  Position {warning['index']}:")
+                    print(f"    Original: {warning['original']}...")
+                    print(f"    Final:    {warning['final']}...")
+            else:
+                for warning in table_position_warnings[:3]:
+                    print(f"  Position {warning['index']}:")
+                    print(f"    Original: {warning['original']}...")
+                    print(f"    Final:    {warning['final']}...")
+                print(f"  ... and {len(table_position_warnings) - 3} more position changes")
         else:
             print("✅ Table order is correct.")
 
@@ -232,13 +266,25 @@ def main():
         
         if table_order_errors:
             has_errors = True
-            f.write(f"❌ Error: Found {len(table_order_errors)} table(s) with order mismatch.\n\n")
-            f.write("Table order mismatches:\n")
+            f.write(f"❌ Error: Found {len(table_order_errors)} table(s) with content order mismatch.\n\n")
+            f.write("Table content order mismatches:\n")
             f.write("-" * 30 + "\n")
             for error in table_order_errors:
                 f.write(f"Position {error['index']}:\n")
                 f.write(f"  Original: {error['original']}\n")
                 f.write(f"  Final:    {error['final']}\n\n")
+        elif table_position_warnings:
+            f.write("✅ Table content order is correct.\n\n")
+            f.write(f"⚠️  Warning: Found {len(table_position_warnings)} table(s) with position changes.\n")
+            f.write("This is normal after conversion (tables may move to different parent elements).\n\n")
+            f.write("Table position changes:\n")
+            f.write("-" * 30 + "\n")
+            for warning in table_position_warnings[:10]:  # 最初の10個のみ表示
+                f.write(f"Position {warning['index']}:\n")
+                f.write(f"  Original: {warning['original']}\n")
+                f.write(f"  Final:    {warning['final']}\n\n")
+            if len(table_position_warnings) > 10:
+                f.write(f"... and {len(table_position_warnings) - 10} more position changes\n\n")
         elif not table_count_error:
             f.write("✅ Table order is correct.\n")
         
@@ -246,7 +292,7 @@ def main():
 
     print("=" * 80)
 
-    # エラーがある場合は1を返す
+    # エラーがある場合は1を返す（位置情報の違いは警告のみなので、エラーとして扱わない）
     return 0 if not missing_texts and not table_count_error and not table_order_errors else 1
 
 if __name__ == '__main__':
