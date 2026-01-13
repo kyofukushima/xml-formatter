@@ -1855,7 +1855,10 @@ def process_elements_recursive(parent_elem, config: ConversionConfig, stats) -> 
                 if process_normal_mode_list_element(child, child_idx, children_to_process, state, config, stats, parent_elem):
                     continue
             elif child.tag in STRUCT_ELEMENT_TAGS:
-                state.append_to_last_child(child)
+                # TableStruct, FigStruct, StyleStructは元の位置を保持するため、
+                # append_to_last_childではなくappend_childを使用
+                # これにより、文書内での順序が維持される
+                state.append_child(child)
             elif hasattr(child, 'tag') and isinstance(child.tag, str) and config.child_tag in child.tag:  # 既存の子要素
                 state.set_last_child(child)
             else:
