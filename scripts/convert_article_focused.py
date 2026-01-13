@@ -185,9 +185,22 @@ class ArticleFocusedConverter:
                     if i < split_index:
                         new_para.append(copy.deepcopy(list_elem))
                 
-                # 他の要素（Item, TableStructなど）もコピー
+                # split_indexより前のTableStruct要素をコピー
+                # List要素の実際の位置に基づいてTableStructを分割
+                all_children = list(child)
+                list_indices = [i for i, c in enumerate(all_children) if c.tag == 'List']
+                
+                # split_indexに対応するList要素の実際のインデックスを取得
+                if split_index < len(list_indices):
+                    split_list_index = list_indices[split_index]
+                    # split_list_indexより前のTableStructをコピー
+                    for i, sub_child in enumerate(all_children):
+                        if sub_child.tag == 'TableStruct' and i < split_list_index:
+                            new_para.append(copy.deepcopy(sub_child))
+                
+                # 他の要素（Itemなど）もコピー（TableStructは既に処理済み）
                 for sub_child in child:
-                    if sub_child.tag not in ['ParagraphNum', 'ParagraphSentence', 'ParagraphCaption', 'List']:
+                    if sub_child.tag not in ['ParagraphNum', 'ParagraphSentence', 'ParagraphCaption', 'List', 'TableStruct']:
                         new_para.append(copy.deepcopy(sub_child))
                 
                 # Only append the paragraph if it has meaningful content
@@ -224,16 +237,29 @@ class ArticleFocusedConverter:
                 sentence = ET.SubElement(para_sentence, 'Sentence')
                 sentence.text = new_content
                 
-                # split_index以降のList要素をコピー
-                list_children = [c for c in child if c.tag == 'List']
-                for i, list_elem in enumerate(list_children):
-                    if i > split_index:  # split_index自体はスキップ（既にArticleTitleになっている）
-                        new_para.append(copy.deepcopy(list_elem))
+                # split_index以降の要素を元の順序を保持してコピー
+                # List要素の実際の位置に基づいて分割
+                all_children = list(child)
+                list_indices = [i for i, c in enumerate(all_children) if c.tag == 'List']
                 
-                # 他の要素もコピー
-                for sub_child in child:
-                    if sub_child.tag not in ['ParagraphNum', 'ParagraphSentence', 'ParagraphCaption', 'List']:
-                        new_para.append(copy.deepcopy(sub_child))
+                # split_indexに対応するList要素の実際のインデックスを取得
+                if split_index < len(list_indices):
+                    split_list_index = list_indices[split_index]
+                    # split_list_indexより後の要素を元の順序でコピー
+                    for i, sub_child in enumerate(all_children):
+                        if i > split_list_index:
+                            # List要素の場合、split_indexより後のもののみ
+                            if sub_child.tag == 'List':
+                                list_children = [c for c in child if c.tag == 'List']
+                                list_index = list_children.index(sub_child)
+                                if list_index > split_index:
+                                    new_para.append(copy.deepcopy(sub_child))
+                            # TableStruct要素の場合、すべてコピー
+                            elif sub_child.tag == 'TableStruct':
+                                new_para.append(copy.deepcopy(sub_child))
+                            # その他の要素もコピー
+                            elif sub_child.tag not in ['ParagraphNum', 'ParagraphSentence', 'ParagraphCaption']:
+                                new_para.append(copy.deepcopy(sub_child))
                 
                 second_article.append(new_para)
             

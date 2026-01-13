@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Law>
+  <LawBody>
+    <MainProvision>
+      <Article Num="1">
+        <ArticleTitle>第１</ArticleTitle>
+        <Paragraph Num="1">
+          <ParagraphNum/>
+          <ParagraphSentence>
+            <Sentence Num="1">Paragraphの内容</Sentence>
+          </ParagraphSentence>
+          <List>
+            <ListSentence>
+              <Sentence Num="1">最初のカラムなしリスト</Sentence>
+            </ListSentence>
+          </List>
+          <TableStruct>
+            <TableStructTitle>表１</TableStructTitle>
+            <Table>
+              <TableRow>
+                <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
+                  <Sentence Num="1">項目1</Sentence>
+                </TableColumn>
+                <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
+                  <Sentence Num="1">項目2</Sentence>
+                </TableColumn>
+              </TableRow>
+            </Table>
+          </TableStruct>
+        </Paragraph>
+      </Article>
+      <Article Num="2">
+        <ArticleTitle>第２</ArticleTitle>
+        <Paragraph Num="1">
+          <ParagraphNum/>
+          <ParagraphSentence>
+            <Sentence>2つ目のカラムありリスト</Sentence>
+          </ParagraphSentence>
+          <TableStruct>
+            <TableStructTitle>表２</TableStructTitle>
+            <Table>
+              <TableRow>
+                <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
+                  <Sentence Num="1">項目A</Sentence>
+                </TableColumn>
+                <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
+                  <Sentence Num="1">項目B</Sentence>
+                </TableColumn>
+              </TableRow>
+            </Table>
+          </TableStruct>
+          <List>
+            <ListSentence>
+              <Sentence Num="1">3つ目のカラムなしリスト</Sentence>
+            </ListSentence>
+          </List>
+        </Paragraph>
+      </Article>
+    </MainProvision>
+  </LawBody>
+</Law>
