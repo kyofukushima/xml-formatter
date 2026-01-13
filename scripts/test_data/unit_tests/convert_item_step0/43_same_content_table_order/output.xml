@@ -1,0 +1,73 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<Law>
+  <LawBody>
+    <MainProvision>
+      <Article Num="1">
+        <ArticleTitle>第１</ArticleTitle>
+        <Paragraph Num="1">
+          <ParagraphNum>1</ParagraphNum>
+          <ParagraphSentence>
+            <Sentence Num="1">Paragraphの内容</Sentence>
+          </ParagraphSentence>
+          <Item Num="1">
+            <ItemTitle>（１）</ItemTitle>
+            <ItemSentence>
+              <Sentence Num="1">Itemに変換されるべき内容</Sentence>
+            </ItemSentence>
+            <TableStruct>
+              <Table>
+                <TableRow>
+                  <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
+                    <Sentence Num="1">（い）</Sentence>
+                  </TableColumn>
+                  <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
+                    <Sentence Num="1">（ろ）</Sentence>
+                  </TableColumn>
+                </TableRow>
+                <TableRow>
+                  <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
+                    <Sentence Num="1">等級</Sentence>
+                  </TableColumn>
+                  <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
+                    <Sentence Num="1">倍率</Sentence>
+                  </TableColumn>
+                </TableRow>
+              </Table>
+            </TableStruct>
+          </Item>
+          <Item Num="2">
+            <ItemTitle>（２）</ItemTitle>
+            <ItemSentence>
+              <Sentence Num="1">Itemに変換されるべき内容</Sentence>
+            </ItemSentence>
+            <TableStruct>
+              <Table>
+                <TableRow>
+                  <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
+                    <Sentence Num="1">（い）</Sentence>
+                  </TableColumn>
+                  <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
+                    <Sentence Num="1">（ろ）</Sentence>
+                  </TableColumn>
+                </TableRow>
+                <TableRow>
+                  <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
+                    <Sentence Num="1">等級</Sentence>
+                  </TableColumn>
+                  <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
+                    <Sentence Num="1">倍率</Sentence>
+                  </TableColumn>
+                </TableRow>
+              </Table>
+            </TableStruct>
+            <List>
+              <ListSentence>
+                <Sentence Num="1">カラムなしリスト</Sentence>
+              </ListSentence>
+            </List>
+          </Item>
+        </Paragraph>
+      </Article>
+    </MainProvision>
+  </LawBody>
+</Law>

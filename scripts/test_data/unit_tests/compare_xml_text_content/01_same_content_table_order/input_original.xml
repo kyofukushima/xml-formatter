@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Law>
+  <LawBody>
+    <MainProvision>
+      <Article Num="1">
+        <ArticleTitle>第１</ArticleTitle>
+        <Paragraph Num="1">
+          <ParagraphNum>１</ParagraphNum>
+          <ParagraphSentence>
+            <Sentence Num="1">Paragraphの内容</Sentence>
+          </ParagraphSentence>
+          <List>
+            <ListSentence>
+              <Sentence Num="1">最初のリスト</Sentence>
+            </ListSentence>
+          </List>
+          <TableStruct>
+            <TableStructTitle>表１</TableStructTitle>
+            <Table>
+              <TableRow>
+                <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
+                  <Sentence Num="1">（い）</Sentence>
+                </TableColumn>
+                <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
+                  <Sentence Num="1">（ろ）</Sentence>
+                </TableColumn>
+              </TableRow>
+              <TableRow>
+                <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
+                  <Sentence Num="1">等級</Sentence>
+                </TableColumn>
+                <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
+                  <Sentence Num="1">倍率</Sentence>
+                </TableColumn>
+              </TableRow>
+            </Table>
+          </TableStruct>
+          <List>
+            <ListSentence>
+              <Sentence Num="1">2つ目のリスト</Sentence>
+            </ListSentence>
+          </List>
+          <TableStruct>
+            <TableStructTitle>表２</TableStructTitle>
+            <Table>
+              <TableRow>
+                <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
+                  <Sentence Num="1">（い）</Sentence>
+                </TableColumn>
+                <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
+                  <Sentence Num="1">（ろ）</Sentence>
+                </TableColumn>
+              </TableRow>
+              <TableRow>
+                <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
+                  <Sentence Num="1">等級</Sentence>
+                </TableColumn>
+                <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
+                  <Sentence Num="1">倍率</Sentence>
+                </TableColumn>
+              </TableRow>
+            </Table>
+          </TableStruct>
+          <List>
+            <ListSentence>
+              <Sentence Num="1">3つ目のリスト</Sentence>
+            </ListSentence>
+          </List>
+        </Paragraph>
+      </Article>
+    </MainProvision>
+  </LawBody>
+</Law>

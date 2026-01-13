@@ -120,7 +120,7 @@ def main():
     # テストケースの収集（01_, 02_, ... で始まるディレクトリ）
     test_dirs = []
     for item in test_root.iterdir():
-        if item.is_dir() and item.name.startswith(('01_', '02_', '03_', '04_', '05_', '06_', '07_', '08_', '09_', '10_', '11_', '12_', '13_')):
+        if item.is_dir() and item.name.startswith(('01_', '02_', '03_', '04_', '05_', '06_', '07_', '08_', '09_', '10_', '11_', '12_', '13_', '14_')):
             test_dirs.append(item)
 
     test_dirs.sort()

@@ -24,12 +24,37 @@ def get_all_texts(tree: etree._ElementTree) -> set:
                 texts.add(text)
     return texts
 
+def get_element_context_text(elem: etree._Element, max_length: int = 50) -> str:
+    """
+    要素のコンテキスト（テキスト）を取得する
+    
+    Args:
+        elem: 要素
+        max_length: 最大文字数
+    
+    Returns:
+        要素のテキスト（最初のSentence要素のテキスト、または要素のテキスト）
+    """
+    # Sentence要素を探す
+    sentence = elem.find('.//Sentence')
+    if sentence is not None and sentence.text:
+        text = sentence.text.strip()
+        return text[:max_length] if len(text) > max_length else text
+    
+    # 要素自体のテキスト
+    if elem.text:
+        text = elem.text.strip()
+        return text[:max_length] if len(text) > max_length else text
+    
+    return ""
+
 def get_table_sequence(tree: etree._ElementTree) -> list:
     """
     XMLツリーからTableStruct要素を文書順序で取得し、表の識別子のリストとして返す。
+    同じ内容のTableStructが複数ある場合でも、位置情報を含めることで区別できるようにする。
     
     Returns:
-        表の識別子（最初の10個のテキストを結合した文字列）のリスト
+        表の識別子（内容 + 位置情報）のリスト
     """
     tables = []
     # 文書順序でTableStructを取得
@@ -40,10 +65,60 @@ def get_table_sequence(tree: etree._ElementTree) -> list:
             for sub in elem.iter():
                 if sub.text and sub.text.strip():
                     texts.append(sub.text.strip())
-            # 表の識別用に最初の10個のテキストを使用
-            if texts:
-                table_id = ' | '.join(texts[:10])
-                tables.append(table_id)
+            
+            # 表の内容識別用に最初の10個のテキストを使用
+            content_id = ' | '.join(texts[:10]) if texts else ""
+            
+            # 位置情報を取得
+            parent = elem.getparent()
+            if parent is not None:
+                siblings = list(parent)
+                table_index = siblings.index(elem)
+                
+                # 親要素の情報
+                parent_tag = parent.tag
+                parent_info = parent_tag
+                
+                # 親要素のタイトルやNum属性を取得
+                if parent_tag == 'Paragraph':
+                    para_num = parent.find('ParagraphNum')
+                    if para_num is not None and para_num.text:
+                        parent_info = f"{parent_tag}[{para_num.text.strip()}]"
+                elif parent_tag.startswith('Subitem') or parent_tag == 'Item':
+                    title_elem = parent.find(f'{parent_tag}Title')
+                    if title_elem is not None and title_elem.text:
+                        parent_info = f"{parent_tag}[{title_elem.text.strip()[:20]}]"
+                    elif parent.get('Num'):
+                        parent_info = f"{parent_tag}[Num={parent.get('Num')}]"
+                
+                # 前後の要素の情報を取得
+                context_parts = []
+                
+                # 前の要素
+                if table_index > 0:
+                    prev_elem = siblings[table_index - 1]
+                    prev_text = get_element_context_text(prev_elem, max_length=30)
+                    if prev_text:
+                        context_parts.append(f"prev:{prev_elem.tag}[{prev_text}]")
+                
+                # 次の要素
+                if table_index < len(siblings) - 1:
+                    next_elem = siblings[table_index + 1]
+                    next_text = get_element_context_text(next_elem, max_length=30)
+                    if next_text:
+                        context_parts.append(f"next:{next_elem.tag}[{next_text}]")
+                
+                # 位置情報を含めた識別子を作成
+                context_str = ' | '.join(context_parts) if context_parts else ""
+                if context_str:
+                    table_id = f"{content_id} | POS:{parent_info}[{table_index}] | {context_str}"
+                else:
+                    table_id = f"{content_id} | POS:{parent_info}[{table_index}]"
+            else:
+                # 親要素がない場合（通常は発生しない）
+                table_id = content_id if content_id else "EMPTY_TABLE"
+            
+            tables.append(table_id)
     return tables
 
 def main():
