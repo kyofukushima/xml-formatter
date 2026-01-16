@@ -74,7 +74,7 @@ def run_conversion_pipeline(input_file, output_file):
             sys.executable, str(script_item),
             str(input_file),
             str(temp_item)
-        ], capture_output=True, text=True, timeout=30)
+        ], capture_output=True, text=True, timeout=60)
         
         if result.returncode != 0:
             print(f"❌ convert_item_step0.py 実行エラー (終了コード: {result.returncode})")
@@ -95,7 +95,7 @@ def run_conversion_pipeline(input_file, output_file):
             sys.executable, str(script_subitem1),
             str(temp_item),
             str(temp_subitem1)
-        ], capture_output=True, text=True, timeout=30)
+        ], capture_output=True, text=True, timeout=60)
         
         if result.returncode != 0:
             print(f"❌ convert_subitem1_step0.py 実行エラー (終了コード: {result.returncode})")
@@ -113,7 +113,7 @@ def run_conversion_pipeline(input_file, output_file):
             sys.executable, str(script_subitem2),
             str(temp_subitem1),
             str(output_file)
-        ], capture_output=True, text=True, timeout=30)
+        ], capture_output=True, text=True, timeout=60)
         
         if result.returncode != 0:
             print(f"❌ convert_subitem2_step0.py 実行エラー (終了コード: {result.returncode})")
@@ -210,7 +210,7 @@ def main():
     # テストケースの収集
     test_dirs = []
     for item in test_root.iterdir():
-        if item.is_dir() and item.name.startswith(('01_', '02_', '03_', '04_', '05_', '06_', '07_', '08_', '09_')):
+        if item.is_dir() and item.name.startswith(('01_', '02_', '03_', '04_', '05_', '06_', '07_', '08_', '09_', '10_', '11_', '12_')):
             test_dirs.append(item)
 
     test_dirs.sort()

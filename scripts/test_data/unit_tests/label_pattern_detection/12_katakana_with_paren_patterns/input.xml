@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Law>
+  <LawBody>
+    <Paragraph Num="1">
+      <ParagraphNum>1</ParagraphNum>
+      <ParagraphSentence>
+        <Sentence Num="1">カタカナ + ）パターンのテスト</Sentence>
+      </ParagraphSentence>
+      <List>
+        <ListSentence>
+          <Column Num="1">
+            <Sentence Num="1" WritingMode="vertical">カ）</Sentence>
+          </Column>
+          <Column Num="2">
+            <Sentence Num="1" WritingMode="vertical">空ぶかしの排除</Sentence>
+          </Column>
+        </ListSentence>
+      </List>
+      <List>
+        <ListSentence>
+          <Column Num="1">
+            <Sentence Num="1">キ）</Sentence>
+          </Column>
+          <Column Num="2">
+            <Sentence Num="1">カタカナ + ）パターンキ）の内容</Sentence>
+          </Column>
+        </ListSentence>
+      </List>
+      <List>
+        <ListSentence>
+          <Column Num="1">
+            <Sentence Num="1">ク）</Sentence>
+          </Column>
+          <Column Num="2">
+            <Sentence Num="1">カタカナ + ）パターンク）の内容</Sentence>
+          </Column>
+        </ListSentence>
+      </List>
+      <List>
+        <ListSentence>
+          <Column Num="1">
+            <Sentence Num="1">ケ）</Sentence>
+          </Column>
+          <Column Num="2">
+            <Sentence Num="1">カタカナ + ）パターンケ）の内容</Sentence>
+          </Column>
+        </ListSentence>
+      </List>
+    </Paragraph>
+  </LawBody>
+</Law>
