@@ -55,7 +55,7 @@ def normalize_xml(xml_content):
 def run_conversion_pipeline(input_file, output_file):
     """
     変換パイプラインを実行
-    List -> Item -> Subitem1 -> Subitem2 の順に変換
+    List -> Item -> Subitem1 -> Subitem2 -> Subitem3 の順に変換
     """
     scripts_dir = Path(__file__).resolve().parent.parent.parent.parent
     temp_files = []
@@ -104,6 +104,9 @@ def run_conversion_pipeline(input_file, output_file):
             return False
         
         # Step 3: Subitem1内のList -> Subitem2 (convert_subitem2_step0.py)
+        temp_subitem2 = Path(output_file).parent / f"temp_subitem2_{Path(output_file).stem}.xml"
+        temp_files.append(temp_subitem2)
+        
         script_subitem2 = scripts_dir / "convert_subitem2_step0.py"
         if not script_subitem2.exists():
             print(f"❌ スクリプトが見つかりません: {script_subitem2}")
@@ -112,11 +115,29 @@ def run_conversion_pipeline(input_file, output_file):
         result = subprocess.run([
             sys.executable, str(script_subitem2),
             str(temp_subitem1),
-            str(output_file)
+            str(temp_subitem2)
         ], capture_output=True, text=True, timeout=60)
         
         if result.returncode != 0:
             print(f"❌ convert_subitem2_step0.py 実行エラー (終了コード: {result.returncode})")
+            print("STDOUT:", result.stdout)
+            print("STDERR:", result.stderr)
+            return False
+        
+        # Step 4: Subitem2内のList -> Subitem3 (convert_subitem3_step0.py)
+        script_subitem3 = scripts_dir / "convert_subitem3_step0.py"
+        if not script_subitem3.exists():
+            print(f"❌ スクリプトが見つかりません: {script_subitem3}")
+            return False
+        
+        result = subprocess.run([
+            sys.executable, str(script_subitem3),
+            str(temp_subitem2),
+            str(output_file)
+        ], capture_output=True, text=True, timeout=60)
+        
+        if result.returncode != 0:
+            print(f"❌ convert_subitem3_step0.py 実行エラー (終了コード: {result.returncode})")
             print("STDOUT:", result.stdout)
             print("STDERR:", result.stderr)
             return False

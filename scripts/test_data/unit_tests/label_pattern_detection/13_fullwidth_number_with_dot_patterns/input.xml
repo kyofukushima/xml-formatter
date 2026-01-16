@@ -36,14 +36,14 @@
           </Column>
         </ListSentence>
       </List>
-      <!-- ドット区切り数字パターンとの区別テスト -->
+      <!-- ドット区切り数字パターンとの区別テスト（ドット数が少ない順） -->
       <List>
         <ListSentence>
           <Column Num="1">
-            <Sentence Num="1">４．３．２．１</Sentence>
+            <Sentence Num="1">４．１</Sentence>
           </Column>
           <Column Num="2">
-            <Sentence Num="1">ドット区切り数字（ドット3つ）の内容</Sentence>
+            <Sentence Num="1">ドット区切り数字（ドット1つ）の内容</Sentence>
           </Column>
         </ListSentence>
       </List>
@@ -60,10 +60,10 @@
       <List>
         <ListSentence>
           <Column Num="1">
-            <Sentence Num="1">４．１</Sentence>
+            <Sentence Num="1">４．３．２．１</Sentence>
           </Column>
           <Column Num="2">
-            <Sentence Num="1">ドット区切り数字（ドット1つ）の内容</Sentence>
+            <Sentence Num="1">ドット区切り数字（ドット3つ）の内容</Sentence>
           </Column>
         </ListSentence>
       </List>

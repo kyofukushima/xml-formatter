@@ -7,7 +7,7 @@
 ## 含まれるパターン
 
 - **全角数字 + ．**: `２．`, `１．`, `１０．` (各1個)
-- **ドット区切り数字パターンとの区別**: `４．３．２．１`, `４．３．２`, `４．１` (各1個)
+- **ドット区切り数字パターンとの区別**: `４．１`, `４．３．２`, `４．３．２．１` (各1個、ドット数が少ない順)
 
 ## 期待される動作
 
@@ -21,9 +21,9 @@
 Item Num="1": ２．
 Item Num="2": １．
 Item Num="3": １０．
-Item Num="4": ４．３．２．１ (dot_separated_number_triple)
-Item Num="5": ４．３．２ (dot_separated_number_double)
-Item Num="6": ４．１ (dot_separated_number_single)
+  └─ Subitem1 Num="1": ４．１ (dot_separated_number_single)
+      └─ Subitem2 Num="1": ４．３．２ (dot_separated_number_double)
+          └─ Subitem3 Num="1": ４．３．２．１ (dot_separated_number_triple)
 ```
 
 ## 優先順位の確認

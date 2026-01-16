@@ -24,25 +24,21 @@
           <Sentence Num="1">全角数字 + ．パターン１０．の内容</Sentence>
         </ItemSentence>
         <Subitem1 Num="1">
-          <Subitem1Title>４．３．２．１</Subitem1Title>
+          <Subitem1Title>４．１</Subitem1Title>
           <Subitem1Sentence>
-            <Sentence Num="1">ドット区切り数字（ドット3つ）の内容</Sentence>
+            <Sentence Num="1">ドット区切り数字（ドット1つ）の内容</Sentence>
           </Subitem1Sentence>
           <Subitem2 Num="1">
             <Subitem2Title>４．３．２</Subitem2Title>
             <Subitem2Sentence>
               <Sentence Num="1">ドット区切り数字（ドット2つ）の内容</Sentence>
             </Subitem2Sentence>
-            <List>
-              <ListSentence>
-                <Column Num="1">
-                  <Sentence Num="1">４．１</Sentence>
-                </Column>
-                <Column Num="2">
-                  <Sentence Num="1">ドット区切り数字（ドット1つ）の内容</Sentence>
-                </Column>
-              </ListSentence>
-            </List>
+            <Subitem3 Num="1">
+              <Subitem3Title>４．３．２．１</Subitem3Title>
+              <Subitem3Sentence>
+                <Sentence Num="1">ドット区切り数字（ドット3つ）の内容</Sentence>
+              </Subitem3Sentence>
+            </Subitem3>
           </Subitem2>
         </Subitem1>
       </Item>
