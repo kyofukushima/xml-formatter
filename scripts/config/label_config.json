@@ -591,6 +591,19 @@
       ],
       "description": "ドット区切り数字（ドット1つ）（新規パターン）"
     },
+    "fullwidth_number_with_dot": {
+      "id": "fullwidth_number_with_dot",
+      "name": "全角数字 + ．",
+      "patterns": [
+        "^[０-９]+[．.]$"
+      ],
+      "examples": [
+        "２．",
+        "１．",
+        "１０．"
+      ],
+      "description": "全角数字 + 全角ドット（終端）（新規パターン）"
+    },
     "note_with_number": {
       "id": "note_with_number",
       "name": "注記 + 数字",
@@ -677,6 +690,7 @@
     "dot_separated_number_triple",
     "dot_separated_number_double",
     "dot_separated_number_single",
+    "fullwidth_number_with_dot",
     "note_with_number",
     "number_range_hyphen",
     "subject_label_square",

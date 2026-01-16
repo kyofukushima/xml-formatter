@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Law>
+  <LawBody>
+    <Paragraph Num="1">
+      <ParagraphNum>1</ParagraphNum>
+      <ParagraphSentence>
+        <Sentence Num="1">全角数字 + ．パターンのテスト</Sentence>
+      </ParagraphSentence>
+      <List>
+        <ListSentence>
+          <Column Num="1">
+            <Sentence Num="1">２．</Sentence>
+          </Column>
+          <Column Num="2">
+            <Sentence Num="1">貨客輸送連携省エネルギー措置の内容及び実施期間に関する事項</Sentence>
+          </Column>
+        </ListSentence>
+      </List>
+      <List>
+        <ListSentence>
+          <Column Num="1">
+            <Sentence Num="1">１．</Sentence>
+          </Column>
+          <Column Num="2">
+            <Sentence Num="1">全角数字 + ．パターン１．の内容</Sentence>
+          </Column>
+        </ListSentence>
+      </List>
+      <List>
+        <ListSentence>
+          <Column Num="1">
+            <Sentence Num="1">１０．</Sentence>
+          </Column>
+          <Column Num="2">
+            <Sentence Num="1">全角数字 + ．パターン１０．の内容</Sentence>
+          </Column>
+        </ListSentence>
+      </List>
+      <!-- ドット区切り数字パターンとの区別テスト -->
+      <List>
+        <ListSentence>
+          <Column Num="1">
+            <Sentence Num="1">４．３．２．１</Sentence>
+          </Column>
+          <Column Num="2">
+            <Sentence Num="1">ドット区切り数字（ドット3つ）の内容</Sentence>
+          </Column>
+        </ListSentence>
+      </List>
+      <List>
+        <ListSentence>
+          <Column Num="1">
+            <Sentence Num="1">４．３．２</Sentence>
+          </Column>
+          <Column Num="2">
+            <Sentence Num="1">ドット区切り数字（ドット2つ）の内容</Sentence>
+          </Column>
+        </ListSentence>
+      </List>
+      <List>
+        <ListSentence>
+          <Column Num="1">
+            <Sentence Num="1">４．１</Sentence>
+          </Column>
+          <Column Num="2">
+            <Sentence Num="1">ドット区切り数字（ドット1つ）の内容</Sentence>
+          </Column>
+        </ListSentence>
+      </List>
+    </Paragraph>
+  </LawBody>
+</Law>
