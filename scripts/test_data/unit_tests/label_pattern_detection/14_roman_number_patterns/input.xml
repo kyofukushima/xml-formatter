@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Law>
+  <LawBody>
+    <Paragraph Num="1">
+      <ParagraphNum>1</ParagraphNum>
+      <ParagraphSentence>
+        <Sentence Num="1">全角ローマ数字パターンのテスト</Sentence>
+      </ParagraphSentence>
+      <List>
+        <ListSentence>
+          <Column Num="1">
+            <Sentence Num="1" WritingMode="vertical">Ⅰ</Sentence>
+          </Column>
+          <Column Num="2">
+            <Sentence Num="1" WritingMode="vertical">旅客の輸送に際し消費されるエネルギーの量に占める非化石エネルギーの割合が増加する輸送方法の選択に関する事項</Sentence>
+          </Column>
+        </ListSentence>
+      </List>
+      <List>
+        <ListSentence>
+          <Column Num="1">
+            <Sentence Num="1">Ⅱ</Sentence>
+          </Column>
+          <Column Num="2">
+            <Sentence Num="1">全角ローマ数字Ⅱの内容</Sentence>
+          </Column>
+        </ListSentence>
+      </List>
+      <List>
+        <ListSentence>
+          <Column Num="1">
+            <Sentence Num="1">Ⅲ</Sentence>
+          </Column>
+          <Column Num="2">
+            <Sentence Num="1">全角ローマ数字Ⅲの内容</Sentence>
+          </Column>
+        </ListSentence>
+      </List>
+      <List>
+        <ListSentence>
+          <Column Num="1">
+            <Sentence Num="1">ⅰ</Sentence>
+          </Column>
+          <Column Num="2">
+            <Sentence Num="1">全角ローマ数字（小文字）ⅰの内容</Sentence>
+          </Column>
+        </ListSentence>
+      </List>
+      <List>
+        <ListSentence>
+          <Column Num="1">
+            <Sentence Num="1">ⅱ</Sentence>
+          </Column>
+          <Column Num="2">
+            <Sentence Num="1">全角ローマ数字（小文字）ⅱの内容</Sentence>
+          </Column>
+        </ListSentence>
+      </List>
+      <!-- 全角アルファベットとの区別テスト -->
+      <List>
+        <ListSentence>
+          <Column Num="1">
+            <Sentence Num="1">Ａ</Sentence>
+          </Column>
+          <Column Num="2">
+            <Sentence Num="1">全角アルファベットＡの内容（ローマ数字ではない）</Sentence>
+          </Column>
+        </ListSentence>
+      </List>
+      <List>
+        <ListSentence>
+          <Column Num="1">
+            <Sentence Num="1">Ｂ</Sentence>
+          </Column>
+          <Column Num="2">
+            <Sentence Num="1">全角アルファベットＢの内容（ローマ数字ではない）</Sentence>
+          </Column>
+        </ListSentence>
+      </List>
+    </Paragraph>
+  </LawBody>
+</Law>

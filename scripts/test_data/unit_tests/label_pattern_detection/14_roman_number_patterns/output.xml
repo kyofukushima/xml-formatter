@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<Law>
+  <LawBody>
+    <Paragraph Num="1">
+      <ParagraphNum>1</ParagraphNum>
+      <ParagraphSentence>
+        <Sentence Num="1">全角ローマ数字パターンのテスト</Sentence>
+      </ParagraphSentence>
+      <Item Num="1">
+        <ItemTitle>Ⅰ</ItemTitle>
+        <ItemSentence>
+          <Sentence Num="1" WritingMode="vertical">旅客の輸送に際し消費されるエネルギーの量に占める非化石エネルギーの割合が増加する輸送方法の選択に関する事項</Sentence>
+        </ItemSentence>
+      </Item>
+      <Item Num="2">
+        <ItemTitle>Ⅱ</ItemTitle>
+        <ItemSentence>
+          <Sentence Num="1">全角ローマ数字Ⅱの内容</Sentence>
+        </ItemSentence>
+      </Item>
+      <Item Num="3">
+        <ItemTitle>Ⅲ</ItemTitle>
+        <ItemSentence>
+          <Sentence Num="1">全角ローマ数字Ⅲの内容</Sentence>
+        </ItemSentence>
+        <Subitem1 Num="1">
+          <Subitem1Title>ⅰ</Subitem1Title>
+          <Subitem1Sentence>
+            <Sentence Num="1">全角ローマ数字（小文字）ⅰの内容</Sentence>
+          </Subitem1Sentence>
+        </Subitem1>
+        <Subitem1 Num="2">
+          <Subitem1Title>ⅱ</Subitem1Title>
+          <Subitem1Sentence>
+            <Sentence Num="1">全角ローマ数字（小文字）ⅱの内容</Sentence>
+          </Subitem1Sentence>
+          <Subitem2 Num="1">
+            <Subitem2Title>Ａ</Subitem2Title>
+            <Subitem2Sentence>
+              <Sentence Num="1">全角アルファベットＡの内容（ローマ数字ではない）</Sentence>
+            </Subitem2Sentence>
+          </Subitem2>
+          <Subitem2 Num="2">
+            <Subitem2Title>Ｂ</Subitem2Title>
+            <Subitem2Sentence>
+              <Sentence Num="1">全角アルファベットＢの内容（ローマ数字ではない）</Sentence>
+            </Subitem2Sentence>
+          </Subitem2>
+        </Subitem1>
+      </Item>
+      <!-- &#20840;&#35282;&#12450;&#12523;&#12501;&#12449;&#12505;&#12483;&#12488;&#12392;&#12398;&#21306;&#21029;&#12486;&#12473;&#12488; -->
+    </Paragraph>
+  </LawBody>
+</Law>

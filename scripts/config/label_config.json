@@ -394,6 +394,38 @@
       ],
       "description": "Subitem3以降"
     },
+    "roman_number_uppercase": {
+      "id": "roman_number_uppercase",
+      "name": "ローマ数字（大文字）",
+      "patterns": [
+        "^[Ⅰ-Ⅿ]+$"
+      ],
+      "examples": [
+        "Ⅰ",
+        "Ⅱ",
+        "Ⅲ",
+        "Ⅳ",
+        "Ⅴ",
+        "Ⅹ"
+      ],
+      "description": "全角ローマ数字（大文字、括弧なし）"
+    },
+    "roman_number_lowercase": {
+      "id": "roman_number_lowercase",
+      "name": "ローマ数字（小文字）",
+      "patterns": [
+        "^[ⅰ-ⅿ]+$"
+      ],
+      "examples": [
+        "ⅰ",
+        "ⅱ",
+        "ⅲ",
+        "ⅳ",
+        "ⅴ",
+        "ⅹ"
+      ],
+      "description": "全角ローマ数字（小文字、括弧なし）"
+    },
     "uppercase_alphabet": {
       "id": "uppercase_alphabet",
       "name": "大文字アルファベット",
@@ -700,6 +732,8 @@
     "subject_label",
     "circled_number",
     "katakana",
+    "roman_number_uppercase",
+    "roman_number_lowercase",
     "uppercase_alphabet",
     "lowercase_alphabet",
     "fullwidth_uppercase_alphabet",
