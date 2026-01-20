@@ -31,25 +31,19 @@
                 <Subitem4Sentence>
                   <Sentence Num="1">Subitem4の内容</Sentence>
                 </Subitem4Sentence>
-                <Subitem5 Num="1">
-                  <Subitem5Title></Subitem5Title>
-                  <Subitem5Sentence>
-                    <Sentence Num="1"></Sentence>
-                  </Subitem5Sentence>
-                  <List>
-                    <ListSentence>
-                      <Column>
-                        <Sentence Num="1">ハ</Sentence>
-                      </Column>
-                      <Column>
-                        <Sentence Num="1">内容1</Sentence>
-                      </Column>
-                      <Column>
-                        <Sentence Num="1">内容2（3列目）</Sentence>
-                      </Column>
-                    </ListSentence>
-                  </List>
-                </Subitem5>
+                <List>
+                  <ListSentence>
+                    <Column>
+                      <Sentence Num="1">ハ</Sentence>
+                    </Column>
+                    <Column>
+                      <Sentence Num="1">内容1</Sentence>
+                    </Column>
+                    <Column>
+                      <Sentence Num="1">内容2（3列目）</Sentence>
+                    </Column>
+                  </ListSentence>
+                </List>
               </Subitem4>
             </Subitem3>
           </Subitem2>

@@ -6,16 +6,10 @@
       <ParagraphSentence>
         <Sentence Num="1">Paragraphの内容</Sentence>
       </ParagraphSentence>
-      <Item Num="1">
-        <ItemTitle/>
-        <ItemSentence>
-          <Sentence Num="1"/>
-        </ItemSentence>
-        <TableStruct>
-          <TableTitle>表のタイトル</TableTitle>
-          <TableContent>表の内容</TableContent>
-        </TableStruct>
-      </Item>
+      <TableStruct>
+        <TableTitle>表のタイトル</TableTitle>
+        <TableContent>表の内容</TableContent>
+      </TableStruct>
     </Paragraph>
   </LawBody>
 </Law>

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Law>
+  <LawBody>
+    <Paragraph Num="1">
+      <ParagraphNum>1</ParagraphNum>
+      <ParagraphSentence>
+        <Sentence Num="1">Paragraphの内容</Sentence>
+      </ParagraphSentence>
+      <Subitem1 Num="1">
+        <Subitem1Title>1</Subitem1Title>
+        <Subitem1Sentence>
+          <Sentence Num="1">itemの内容</Sentence>
+        </Subitem1Sentence>
+        <Subitem2 Num="1">
+          <Subitem2Title>ａ）</Subitem2Title>
+          <Subitem2Sentence>
+            <Sentence Num="1">内容A1</Sentence>
+          </Subitem2Sentence>
+        </Subitem2>
+        <Subitem2 Num="2">
+          <Subitem2Title>ｂ）</Subitem2Title>
+          <Subitem2Sentence>
+            <Sentence Num="1">内容B1</Sentence>
+          </Subitem2Sentence>
+        </Subitem2>
+        <Subitem2 Num="3">
+          <Subitem2Title>ｃ）</Subitem2Title>
+          <Subitem2Sentence>
+            <Sentence Num="1">内容C1</Sentence>
+          </Subitem2Sentence>
+        </Subitem2>
+        <Subitem2 Num="4">
+          <Subitem2Title>ｄ）</Subitem2Title>
+          <Subitem2Sentence>
+            <Sentence Num="1">内容D1</Sentence>
+          </Subitem2Sentence>
+          <List>
+            <ListSentence>
+              <Column Num="1">
+                <Sentence Num="1">ａ）</Sentence>
+              </Column>
+              <Column Num="2">
+                <Sentence Num="1">内容A2</Sentence>
+              </Column>
+            </ListSentence>
+          </List>
+          <List>
+            <ListSentence>
+              <Column Num="1">
+                <Sentence Num="1">ｂ）</Sentence>
+              </Column>
+              <Column Num="2">
+                <Sentence Num="1">内容B2</Sentence>
+              </Column>
+            </ListSentence>
+          </List>
+          <List>
+            <ListSentence>
+              <Column Num="1">
+                <Sentence Num="1">ｃ）</Sentence>
+              </Column>
+              <Column Num="2">
+                <Sentence Num="1">内容C2</Sentence>
+              </Column>
+            </ListSentence>
+          </List>
+        </Subitem2>
+        <Subitem2 Num="5">
+          <Subitem2Title>ｅ）</Subitem2Title>
+          <Subitem2Sentence>
+            <Sentence Num="1">内容E1</Sentence>
+          </Subitem2Sentence>
+        </Subitem2>
+        <Subitem2 Num="6">
+          <Subitem2Title>ｆ）</Subitem2Title>
+          <Subitem2Sentence>
+            <Sentence Num="1">内容F1</Sentence>
+          </Subitem2Sentence>
+        </Subitem2>
+      </Subitem1>
+    </Paragraph>
+  </LawBody>
+</Law>

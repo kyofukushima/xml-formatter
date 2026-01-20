@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<Law>
+  <LawBody>
+    <Paragraph Num="1">
+      <ParagraphNum>1</ParagraphNum>
+      <ParagraphSentence>
+        <Sentence Num="1">Paragraphの内容</Sentence>
+      </ParagraphSentence>
+      <Item Num="1">
+        <ItemTitle>（１）</ItemTitle>
+        <ItemSentence>
+          <Sentence Num="1">Itemの内容</Sentence>
+        </ItemSentence>
+        <Subitem1 Num="1">
+          <Subitem1Title>ア</Subitem1Title>
+          <Subitem1Sentence>
+            <Sentence Num="1">Subitem1の内容</Sentence>
+          </Subitem1Sentence>
+          <Subitem6 Num="1">
+            <Subitem6Title>a</Subitem6Title>
+            <Subitem6Sentence>
+              <Sentence Num="1">Subitem2の内容</Sentence>
+            </Subitem6Sentence>
+            <Subitem7 Num="1">
+              <Subitem7Title/>
+              <Subitem7Sentence>
+                <Sentence Num="1">この基準で用いる主な用語及び定義は，ＪＡＳ</Sentence>
+                <Sentence Num="2">００２６による。</Sentence>
+              </Subitem7Sentence>
+            </Subitem7>
+            <Subitem7 Num="2">
+              <Subitem7Title/>
+              <Subitem7Sentence>
+                <Sentence Num="1">取扱い（ＪＡＳ</Sentence>
+                <Sentence Num="2">００２６の箇条４及び箇条５に規定する事項。以下同じ。）の管理を行う者（以下"取扱管理担当者"という。）及び取扱いの管理を統括し，４．２の職務を行う責任者は，次の事項を満たさなければならない。</Sentence>
+              </Subitem7Sentence>
+              <List>
+                <ListSentence>
+                  <Column Num="1">
+                    <Sentence Num="1">イ</Sentence>
+                  </Column>
+                  <Column Num="2">
+                    <Sentence Num="1">ラベル要素のColumnありListの内容</Sentence>
+                  </Column>
+                </ListSentence>
+              </List>
+            </Subitem7>
+          </Subitem6>
+        </Subitem1>
+      </Item>
+    </Paragraph>
+  </LawBody>
+</Law>

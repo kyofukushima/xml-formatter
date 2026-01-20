@@ -6,21 +6,22 @@
       <ParagraphSentence>
         <Sentence Num="1"></Sentence>
       </ParagraphSentence>
-      <List>
-        <ListSentence>
+      <Item Num="1">
+        <ItemTitle/>
+        <ItemSentence>
           <Sentence Num="1">ColumnなしListの内容1</Sentence>
-        </ListSentence>
-      </List>
-      <List>
-        <ListSentence>
-          <Sentence Num="1">ColumnなしListの内容2</Sentence>
-        </ListSentence>
-      </List>
-      <List>
-        <ListSentence>
-          <Sentence Num="1">ColumnなしListの内容3</Sentence>
-        </ListSentence>
-      </List>
+        </ItemSentence>
+        <List>
+          <ListSentence>
+            <Sentence Num="1">ColumnなしListの内容2</Sentence>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Sentence Num="1">ColumnなしListの内容3</Sentence>
+          </ListSentence>
+        </List>
+      </Item>
     </Paragraph>
   </LawBody>
 </Law>

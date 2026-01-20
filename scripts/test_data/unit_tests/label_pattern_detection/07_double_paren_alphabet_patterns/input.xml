@@ -6,8 +6,6 @@
       <ParagraphSentence>
         <Sentence Num="1">二重括弧付きアルファベットパターンのテスト</Sentence>
       </ParagraphSentence>
-      
-      <!-- 二重括弧付き大文字アルファベット -->
       <List>
         <ListSentence>
           <Column Num="1">
@@ -28,7 +26,6 @@
           </Column>
         </ListSentence>
       </List>
-      <!-- 二重括弧付き小文字アルファベット -->
       <List>
         <ListSentence>
           <Column Num="1">
@@ -49,7 +46,6 @@
           </Column>
         </ListSentence>
       </List>
-      <!-- 二重括弧付き全角大文字アルファベット -->
       <List>
         <ListSentence>
           <Column Num="1">
@@ -70,7 +66,6 @@
           </Column>
         </ListSentence>
       </List>
-      
     </Paragraph>
   </LawBody>
 </Law>

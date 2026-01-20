@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<Law xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" DataInfo="test250828e81k80m01" Era="Heisei" Lang="ja" LawType="Misc" Num="34" Year="30" xsi:noNamespaceSchemaLocation="../../schema/kokuji20250320_asukoe.xsd">
+  <LawNum>テスト法令</LawNum>
+  <LawBody>
+    <LawTitle>テスト法令タイトル</LawTitle>
+    <MainProvision>
+      <Chapter Num="1">
+        <ChapterTitle>第一章　総則</ChapterTitle>
+        <Article Num="1">
+          <ArticleTitle/>
+          <Paragraph Num="1">
+            <ParagraphNum>一</ParagraphNum>
+            <ParagraphSentence>
+              <Sentence Num="1">テスト段落</Sentence>
+            </ParagraphSentence>
+            <Item Num="1">
+              <ItemTitle/>
+              <ItemSentence>
+                <Sentence Num="1"/>
+              </ItemSentence>
+              <Subitem1 Num="1">
+                <Subitem1Title/>
+                <Subitem1Sentence>
+                  <Sentence Num="1"/>
+                </Subitem1Sentence>
+                <TableStruct>
+                  <Table>
+                    <TableRow>
+                      <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
+                        <Sentence Num="1">項目1</Sentence>
+                      </TableColumn>
+                      <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
+                        <Sentence Num="1">値1</Sentence>
+                      </TableColumn>
+                    </TableRow>
+                    <TableRow>
+                      <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
+                        <Sentence Num="1">項目2</Sentence>
+                      </TableColumn>
+                      <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
+                        <Sentence Num="1">値2</Sentence>
+                      </TableColumn>
+                    </TableRow>
+                  </Table>
+                </TableStruct>
+              </Subitem1>
+            </Item>
+          </Paragraph>
+        </Article>
+      </Chapter>
+    </MainProvision>
+  </LawBody>
+</Law>

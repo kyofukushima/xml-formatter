@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<Law>
+  <LawBody>
+    <Paragraph Num="1">
+      <ParagraphNum>1</ParagraphNum>
+      <ParagraphSentence>
+        <Sentence Num="1">Paragraphの内容</Sentence>
+      </ParagraphSentence>
+      <Item Num="1">
+        <ItemTitle>（１）</ItemTitle>
+        <ItemSentence>
+          <Sentence Num="1" WritingMode="vertical">ウトロゲスタン<Ruby>膣<Rt>ちつ</Rt>
+            </Ruby>用カプセル二〇〇ｍｇ、ルティナス<Ruby>膣<Rt>ちつ</Rt>
+            </Ruby>錠一〇〇ｍｇ、ルテウム<Ruby>膣<Rt>ちつ</Rt>
+            </Ruby>用<Ruby>坐<Rt>ざ</Rt>
+            </Ruby>剤四〇〇ｍｇ</Sentence>
+        </ItemSentence>
+      </Item>
+    </Paragraph>
+  </LawBody>
+</Law>

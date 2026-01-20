@@ -16,15 +16,9 @@
           <Subitem1Sentence>
             <Sentence Num="1">Subitem1の内容</Sentence>
           </Subitem1Sentence>
-          <Subitem2 Num="1">
-            <Subitem2Title/>
-            <Subitem2Sentence>
-              <Sentence Num="1"/>
-            </Subitem2Sentence>
-            <TableStruct>
-              <TableCaption>表の内容</TableCaption>
-            </TableStruct>
-          </Subitem2>
+          <TableStruct>
+            <TableCaption>表の内容</TableCaption>
+          </TableStruct>
         </Subitem1>
       </Item>
     </Paragraph>

@@ -1,55 +1,60 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <Law>
   <LawBody>
-    <Paragraph Num="1">
-      <ParagraphNum>1</ParagraphNum>
-      <ParagraphSentence>
-        <Sentence Num="1">Paragraphの内容</Sentence>
-      </ParagraphSentence>
-      <Item Num="1">
-        <ItemTitle/>
-        <ItemSentence>
-          <Sentence Num="1">最初のカラムなしリスト</Sentence>
-        </ItemSentence>
-      </Item>
-      <TableStruct>
-        <TableStructTitle>表１</TableStructTitle>
-        <Table>
-          <TableRow>
-            <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
-              <Sentence Num="1">項目1</Sentence>
-            </TableColumn>
-            <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
-              <Sentence Num="1">項目2</Sentence>
-            </TableColumn>
-          </TableRow>
-        </Table>
-      </TableStruct>
-      <Item Num="2">
-        <ItemTitle/>
-        <ItemSentence>
-          <Sentence Num="1">2つ目のカラムなしリスト</Sentence>
-        </ItemSentence>
-      </Item>
-      <TableStruct>
-        <TableStructTitle>表２</TableStructTitle>
-        <Table>
-          <TableRow>
-            <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
-              <Sentence Num="1">項目A</Sentence>
-            </TableColumn>
-            <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
-              <Sentence Num="1">項目B</Sentence>
-            </TableColumn>
-          </TableRow>
-        </Table>
-      </TableStruct>
-      <Item Num="3">
-        <ItemTitle/>
-        <ItemSentence>
-          <Sentence Num="1">3つ目のカラムなしリスト</Sentence>
-        </ItemSentence>
-      </Item>
-    </Paragraph>
+    <MainProvision>
+      <Article Num="1">
+        <ArticleTitle>第１</ArticleTitle>
+        <Paragraph Num="1">
+          <ParagraphNum>1</ParagraphNum>
+          <ParagraphSentence>
+            <Sentence Num="1">Paragraphの内容</Sentence>
+          </ParagraphSentence>
+          <Item Num="1">
+            <ItemTitle/>
+            <ItemSentence>
+              <Sentence Num="1">最初のカラムなしリスト</Sentence>
+            </ItemSentence>
+            <TableStruct>
+              <TableStructTitle>表１</TableStructTitle>
+              <Table>
+                <TableRow>
+                  <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
+                    <Sentence Num="1">項目1</Sentence>
+                  </TableColumn>
+                  <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
+                    <Sentence Num="1">項目2</Sentence>
+                  </TableColumn>
+                </TableRow>
+              </Table>
+            </TableStruct>
+          </Item>
+          <Item Num="2">
+            <ItemTitle/>
+            <ItemSentence>
+              <Sentence Num="1">2つ目のカラムなしリスト</Sentence>
+            </ItemSentence>
+            <TableStruct>
+              <TableStructTitle>表２</TableStructTitle>
+              <Table>
+                <TableRow>
+                  <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
+                    <Sentence Num="1">項目A</Sentence>
+                  </TableColumn>
+                  <TableColumn BorderBottom="solid" BorderLeft="solid" BorderRight="solid" BorderTop="solid">
+                    <Sentence Num="1">項目B</Sentence>
+                  </TableColumn>
+                </TableRow>
+              </Table>
+            </TableStruct>
+          </Item>
+          <Item Num="3">
+            <ItemTitle/>
+            <ItemSentence>
+              <Sentence Num="1">3つ目のカラムなしリスト</Sentence>
+            </ItemSentence>
+          </Item>
+        </Paragraph>
+      </Article>
+    </MainProvision>
   </LawBody>
 </Law>

@@ -6,7 +6,6 @@
       <ParagraphSentence>
         <Sentence Num="1">括弧付き全角小文字アルファベットパターンのテスト</Sentence>
       </ParagraphSentence>
-      <!-- 括弧付き全角小文字アルファベット -->
       <Item Num="1">
         <ItemTitle>(ａ)</ItemTitle>
         <ItemSentence>
@@ -18,19 +17,18 @@
         <ItemSentence>
           <Sentence Num="1">括弧付き全角小文字アルファベット(ｂ)の内容</Sentence>
         </ItemSentence>
-        <!-- 括弧付き全角小文字アルファベット（全角括弧） -->
-        <Subitem1 Num="1">
-          <Subitem1Title>（ａ）</Subitem1Title>
-          <Subitem1Sentence>
-            <Sentence Num="1">括弧付き全角小文字アルファベット（ａ）の内容</Sentence>
-          </Subitem1Sentence>
-        </Subitem1>
-        <Subitem1 Num="2">
-          <Subitem1Title>（ｂ）</Subitem1Title>
-          <Subitem1Sentence>
-            <Sentence Num="1">括弧付き全角小文字アルファベット（ｂ）の内容</Sentence>
-          </Subitem1Sentence>
-        </Subitem1>
+      </Item>
+      <Item Num="3">
+        <ItemTitle>（ａ）</ItemTitle>
+        <ItemSentence>
+          <Sentence Num="1">括弧付き全角小文字アルファベット（ａ）の内容</Sentence>
+        </ItemSentence>
+      </Item>
+      <Item Num="4">
+        <ItemTitle>（ｂ）</ItemTitle>
+        <ItemSentence>
+          <Sentence Num="1">括弧付き全角小文字アルファベット（ｂ）の内容</Sentence>
+        </ItemSentence>
       </Item>
     </Paragraph>
   </LawBody>

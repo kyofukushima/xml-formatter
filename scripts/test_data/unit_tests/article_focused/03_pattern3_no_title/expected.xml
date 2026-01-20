@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Law Era="Reiwa" Year="5" Num="1" LawType="MinisterialOrdinance" Lang="ja">
+  <LawNum>テスト告示</LawNum>
+  <LawBody>
+    <MainProvision>
+      <Article Num="1">
+        <ArticleTitle />
+        <Paragraph Num="1">
+          <ParagraphNum />
+          <List>
+            <ListSentence>
+              <Sentence Num="1">ArticleTitleがない例です。</Sentence>
+            </ListSentence>
+          </List>
+        </Paragraph>
+      </Article>
+    </MainProvision>
+  </LawBody>
+</Law>

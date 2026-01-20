@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<Law>
+  <LawBody>
+    <Paragraph Num="1">
+      <ParagraphNum>1</ParagraphNum>
+      <ParagraphSentence>
+        <Sentence Num="1">括弧付きアルファベットパターンのテスト</Sentence>
+      </ParagraphSentence>
+      <Item Num="1">
+        <ItemTitle>（A）</ItemTitle>
+        <ItemSentence>
+          <Sentence Num="1">括弧付き大文字アルファベット（A）の内容</Sentence>
+        </ItemSentence>
+      </Item>
+      <Item Num="2">
+        <ItemTitle>（B）</ItemTitle>
+        <ItemSentence>
+          <Sentence Num="1">括弧付き大文字アルファベット（B）の内容</Sentence>
+        </ItemSentence>
+        <Subitem1 Num="1">
+          <Subitem1Title>(a)</Subitem1Title>
+          <Subitem1Sentence>
+            <Sentence Num="1">括弧付き小文字アルファベット(a)の内容</Sentence>
+          </Subitem1Sentence>
+        </Subitem1>
+        <Subitem1 Num="2">
+          <Subitem1Title>(b)</Subitem1Title>
+          <Subitem1Sentence>
+            <Sentence Num="1">括弧付き小文字アルファベット(b)の内容</Sentence>
+          </Subitem1Sentence>
+          <Subitem2 Num="1">
+            <Subitem2Title>（Ａ）</Subitem2Title>
+            <Subitem2Sentence>
+              <Sentence Num="1">括弧付き全角大文字アルファベット（Ａ）の内容</Sentence>
+            </Subitem2Sentence>
+          </Subitem2>
+          <Subitem2 Num="2">
+            <Subitem2Title>（Ｂ）</Subitem2Title>
+            <Subitem2Sentence>
+              <Sentence Num="1">括弧付き全角大文字アルファベット（Ｂ）の内容</Sentence>
+            </Subitem2Sentence>
+          </Subitem2>
+        </Subitem1>
+      </Item>
+    </Paragraph>
+  </LawBody>
+</Law>

@@ -1,0 +1,670 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Law DataInfo="250815e81k80m01" Era="Reiwa" Lang="ja" LawType="Misc" Num="1400" Year="4" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../schema/kokuji20250320_asukoe.xsd">
+  <LawNum>令和四年農林水産省告示第千四百号</LawNum>
+  <LawBody>
+    <LawTitle>ベジタリアン又はヴィーガン料理を提供する飲食店等の管理方法についての取扱業者の認証の技術的基準</LawTitle>
+    <EnactStatement>日本農林規格等に関する法律施行規則（昭和二十五年農林省令第六十二号）第三十八条の三（同令第五十八条の三において準用する場合を含む。）の規定に基づき、ベジタリアン又はヴィーガン料理を提供する飲食店等の管理方法についての取扱業者の認証の技術的基準を次のように定め、令和四年十月六日から施行する。</EnactStatement>
+    <MainProvision>
+      <Paragraph Num="1">
+        <ParagraphNum>1</ParagraphNum>
+        <ParagraphSentence>
+          <Sentence Num="1">適用範囲</Sentence>
+        </ParagraphSentence>
+        <List>
+          <ListSentence>
+            <Sentence Num="1">この基準は，登録認証機関及び登録外国認証機関（以下“認証機関”という。）が日本農林規格等に関する法律（昭和２５年法律第１７５号）第１３条第１項及び第３３条第１項の規定に基づき行うベジタリアン又はヴィーガン料理を提供する飲食店等の管理方法についての取扱業者及び外国取扱業者の認証の技術的基準を規定する。</Sentence>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1">２</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1">引用規格</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Sentence Num="1">次に掲げる引用規格は，この基準に引用されることによって，その一部又は全部がこの基準の要求事項を構成している。この引用規格は，その最新版を適用する。</Sentence>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1">ＪＡＳ</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1">００２６</Sentence>
+            </Column>
+            <Column Num="3">
+              <Sentence Num="1">ベジタリアン又はヴィーガン料理を提供する飲食店等の管理方法</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1">３</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1">用語及び定義</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1">この基準で用いる主な用語及び定義は，ＪＡＳ</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1">００２６による。</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1">４</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1">取扱いの管理の実施方法</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1">４．１</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1">取扱いの管理を担当する者の能力及び人数</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1">取扱い（ＪＡＳ</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1">００２６の箇条４及び箇条５に規定する事項。以下同じ。）の管理を行う者（以下“取扱管理担当者”という。）及び取扱いの管理を統括し，４．２の職務を行う責任者は，次の事項を満たさなければならない。</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1">ａ）</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1">取扱管理担当者</Sentence>
+            </Column>
+            <Column Num="3">
+              <Sentence Num="1">取扱管理担当者として，ベジタリアン又はヴィーガン料理を提供する飲食店等の管理方法に関する知識及び能力を有する者を１人以上（当該施設の数，規模等に応じて適正な取扱いの管理又は把握を行うのに必要な人数以上）置かれていなければならない。</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1">ｂ）</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1">取扱管理責任者</Sentence>
+            </Column>
+            <Column Num="3">
+              <Sentence Num="1">取扱管理責任者として，取扱管理担当者の中から認証機関が指定する講習会（以下“講習会”という。）においてベジタリアン又はヴィーガン料理の取扱いに関する過程を修了した者が１人選任されていなければならない。</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1">ｃ）</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1">調理責任者</Sentence>
+            </Column>
+            <Column Num="3">
+              <Sentence Num="1">調理責任者として，取扱管理担当者の中から１人選任されていなければならない。</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1">ｄ）</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1">顧客対応責任者</Sentence>
+            </Column>
+            <Column Num="3">
+              <Sentence Num="1">顧客対応責任者として，取扱管理担当者の中から１人選任されていなければならない。</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1">４．２</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1">責任者の職務</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1">４．２．１</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1">取扱管理責任者の職務</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Sentence Num="1">取扱管理責任者に対して，次の職務を行わせなければならない。</Sentence>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1">ａ）</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1">取扱いの管理［外注管理（管理の一部を外部の者に委託して行わせることをいう。以下同じ。）を含む。以下同じ。］及び適合の表示に関する計画の立案及び推進</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1">ｂ）</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1">取扱いの管理において外注管理を行う場合にあっては，外注先の選定基準，外注内容，外注手続等当該外注に関する管理に関する計画の立案及び推進</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1">ｃ）</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1">内部規程の確立，維持及び継続的な改善についての統括</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1">ｄ）</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1">取扱いに生じた異常等に関する処置又は指導</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1">４．２．２</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1">調理責任者の職務</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1">調理責任者に対して，ＪＡＳ</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1">００２６の５．４及び５．５に関する管理を行わせなければならない。</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1">４．２．３</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1">顧客対応責任者の職務</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1">顧客対応責任者に対して，ＪＡＳ</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1">００２６の５．６に関する管理を行わせなければならない。</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1">４．３</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1">内部規程</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1">４．３．１</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1">内部規程の整備</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Sentence Num="1">次の事項について，内部規程を具体的かつ体系的に整備し，内部規程に従って管理しなければならない。</Sentence>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1">ａ）</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1">ＪＡＳ</Sentence>
+            </Column>
+            <Column Num="3">
+              <Sentence Num="1">００２６の箇条４に規定するベジタリアン又はヴィーガンに適した料理に関する事項</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Sentence Num="1">ベジタリアン又はヴィーガンに適した料理に関する事項には，次の事項が含まれる。</Sentence>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1">１）</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1">使用する原材料の確認に関する事項</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1">２）</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1">動物試験を行っていないことの確認に関する事項</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1">ｂ）</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1">ＪＡＳ</Sentence>
+            </Column>
+            <Column Num="3">
+              <Sentence Num="1">００２６の５．２に規定するベジタリアン又はヴィーガンに適した料理の数に関する事項</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1">ｃ）</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1">ＪＡＳ</Sentence>
+            </Column>
+            <Column Num="3">
+              <Sentence Num="1">００２６の５．３に規定する１次原料の受入れ及び保管に関する事項</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1">ｄ）</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1">ＪＡＳ</Sentence>
+            </Column>
+            <Column Num="3">
+              <Sentence Num="1">００２６の５．４に規定する料理の配合計画の作成および承認に関する事項</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1">ｅ）</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1">ＪＡＳ</Sentence>
+            </Column>
+            <Column Num="3">
+              <Sentence Num="1">００２６の５．５に規定する調理に関する事項</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1">ｆ）</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1">ＪＡＳ</Sentence>
+            </Column>
+            <Column Num="3">
+              <Sentence Num="1">００２６の５．６に規定する情報提供に関する事項</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1">ｇ）</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1">苦情処理に関する事項</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1">ｈ）</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1">内部監査に関する事項</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1">ｉ）</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1">マネジメントレビューに関する事項</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1">ｊ）</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1">改善に関する事項</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1">ｋ）</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1">適合の表示に関する事項</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1">ｌ）</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1">記録の作成及び保存に関する事項</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1">ｍ）</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1">年間の取扱いの管理の計画の策定及び当該計画の認証機関への通知に関する事項</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1">ｎ）</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1">取扱いの管理及び適合の表示の実施状況についての認証機関による確認等の業務の適切な実施に関し必要な事項</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1">４．３．２</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1">内部規程に沿った業務の実施</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Sentence Num="1">内部規程に従い業務を適切に行わなければならない。</Sentence>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1">４．３．３</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1">内部規程の見直し及び周知</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Sentence Num="1">内部規程の適切な見直しを定期的に行い，かつ，従業員に十分周知しなければならない。</Sentence>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1">４．４</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1">記録等の保存</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1">４．４．１</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1">箇条５のａ）～ｆ）に係る記録及び当該記録の根拠となる書類は，当該料理を提供した日から少なくとも２年間保存しなければならない。</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1">４．４．２</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1">箇条５のｇ）～ｈ）に係る記録及び当該記録の根拠となる書類は，記録の作成の日から少なくとも２年間保存しなければならない。</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1">５</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1">記録の作成</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Sentence Num="1">次の事項を記録し，保存しなければならない。</Sentence>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1">ａ）</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1">ベジタリアン又はヴィーガンに適した料理に関する事項（ＪＡＳ</Sentence>
+            </Column>
+            <Column Num="3">
+              <Sentence Num="1">００２６の箇条４参照）</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1">ｂ）</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1">ベジタリアン又はヴィーガンに適した料理の数に関する事項（ＪＡＳ</Sentence>
+            </Column>
+            <Column Num="3">
+              <Sentence Num="1">００２６の５．２参照）</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1">ｃ）</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1">１次原料の受入れ及び保管に関する事項（ＪＡＳ</Sentence>
+            </Column>
+            <Column Num="3">
+              <Sentence Num="1">００２６の５．３参照）</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1">注記１</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1">１次原料の受入れに係る記録の根拠となる文書には，例えば，ＪＡＳ</Sentence>
+            </Column>
+            <Column Num="3">
+              <Sentence Num="1">００２５に適した食品であることがわかるＪＡＳマーク，製品規格書，原材料表示等がある。</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1">ｄ）</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1">料理の配合計画の作成及び承認に関する事項（ＪＡＳ</Sentence>
+            </Column>
+            <Column Num="3">
+              <Sentence Num="1">００２６の５．４参照）</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1">ｅ）</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1">調理に関する事項（ＪＡＳ</Sentence>
+            </Column>
+            <Column Num="3">
+              <Sentence Num="1">００２６の５．５参照）</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1">ｆ）</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1">情報提供に関する事項（ＪＡＳ</Sentence>
+            </Column>
+            <Column Num="3">
+              <Sentence Num="1">００２６の５．６参照）</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1">注記２</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1">情報提供の記録の内容には，例えば，“調理器具は，動物性食品の調理と共用しています。”等が考えられる。</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1">ｇ）</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1">苦情処理に関する事項</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1">ｈ）</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1">適合の表示に関する事項</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1">注記３</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1">適合の表示の記録の内容には，例えば，適合の表示を付した期間，広告等の種類等が考えられる。</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+      </Paragraph>
+    </MainProvision>
+  </LawBody>
+</Law>

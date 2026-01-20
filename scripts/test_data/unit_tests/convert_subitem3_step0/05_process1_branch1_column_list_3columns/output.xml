@@ -22,23 +22,11 @@
               <Sentence Num="1">Subitem2の内容</Sentence>
             </Subitem2Sentence>
             <Subitem3 Num="1">
-              <Subitem3Title/>
+              <Subitem3Title>イ</Subitem3Title>
               <Subitem3Sentence>
-                <Sentence Num="1"/>
+                <Sentence Num="1">内容1</Sentence>
+                <Sentence Num="2">内容2（3列目）</Sentence>
               </Subitem3Sentence>
-              <List>
-                <ListSentence>
-                  <Column>
-                    <Sentence Num="1">イ</Sentence>
-                  </Column>
-                  <Column>
-                    <Sentence Num="1">内容1</Sentence>
-                  </Column>
-                  <Column>
-                    <Sentence Num="1">内容2（3列目）</Sentence>
-                  </Column>
-                </ListSentence>
-              </List>
             </Subitem3>
           </Subitem2>
         </Subitem1>

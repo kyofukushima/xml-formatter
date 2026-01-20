@@ -6,7 +6,6 @@
       <ParagraphSentence>
         <Sentence Num="1">アルファベットパターンのテスト</Sentence>
       </ParagraphSentence>
-      <!-- 大文字アルファベット -->
       <Item Num="1">
         <ItemTitle>A</ItemTitle>
         <ItemSentence>

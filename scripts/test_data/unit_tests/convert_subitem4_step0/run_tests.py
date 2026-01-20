@@ -38,7 +38,9 @@ def run_test(test_dir):
         return False
 
     # convert_subitem4_step0.py を実行（出力を標準出力にリダイレクト）
-    script_path = Path("/Users/fukushima/Documents/xml_anken/education_xml/scripts/convert_subitem4_step0.py")
+    # スクリプトのパスを現在のワークスペースに合わせて設定
+    script_dir = Path(__file__).parent.parent.parent.parent
+    script_path = script_dir / "convert_subitem4_step0.py"
 
     try:
         # テストディレクトリ内にoutput.xmlを作成
@@ -117,7 +119,7 @@ def main():
     # テストケースの収集
     test_dirs = []
     for item in test_root.iterdir():
-        if item.is_dir() and item.name.startswith(('01_', '02_', '03_', '04_', '05_', '06_', '07_', '08_', '09_', '10_', '11_', '12_', '13_', '14_', '15_','16_','17_','18_')):
+        if item.is_dir() and item.name.startswith(('01_', '27_', '28_', '29_', '02_', '03_', '04_', '05_', '06_', '07_', '08_', '09_', '10_', '11_', '12_', '13_', '14_', '15_','16_','17_','18_','19_','20_','21_','22_','23_','24_','25_', '26_', '26_')):
             test_dirs.append(item)
 
     test_dirs.sort()

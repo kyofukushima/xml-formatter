@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Law DataInfo="250815e81k80m01" Era="Reiwa" Lang="ja" LawType="Misc" Num="744" Year="5" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../schema/kokuji20250320_asukoe.xsd">
+  <LawNum>令和五年農林水産省告示第七百四十四号</LawNum>
+  <LawBody>
+    <LawTitle>木質ペレット燃料についての検査方法</LawTitle>
+    <EnactStatement>日本農林規格等に関する法律施行規則（令和四年財務省・農林水産省令第三号）第二十二条（同令第六十条において準用する場合を含む。）の規定に基づき、木質ペレット燃料についての検査方法を次のように定め、令和五年七月十五日から施行する。</EnactStatement>
+    <MainProvision>
+      <Paragraph Num="1">
+        <ParagraphNum>１</ParagraphNum>
+        <ParagraphSentence>
+          <Sentence Num="1">適用範囲</Sentence>
+        </ParagraphSentence>
+        <List>
+          <ListSentence>
+            <Sentence Num="1">この検査方法は，日本農林規格等に関する法律（昭和２５年法律第１７５号）第１０条第１項及び同法第３０条第１項の規定による認証を受けた取扱業者及び外国取扱業者が行う木質ペレット燃料についての検査方法を規定する。</Sentence>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1">２</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1">検査の種類</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Sentence Num="1">検査は，次のいずれかの方法によって行わなければならない。</Sentence>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1">ａ）</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1">最終製品における検査</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1">１）</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1">理化学検査は，抽出して行う。</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1">２）</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1">最終製品における検査は，箇条３に定めるところによる。</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1">ｂ）</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1">製造工程における検査</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Sentence Num="1">製造工程における検査は，箇条４に定めるところによる。</Sentence>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1">３</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1">最終製品における検査</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1">３．１</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1">第１種検査方法</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1">３．１．１</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1">抽出の割合等</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1">製造条件が同一と認められ，かつ，同一等級に適合させようとする１０日分以内の製造荷口を検査荷口とし，その検査荷口からＪＡＳ</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1">００３０のＢ．５に定める数量を抽出する。</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1">３．１．２</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1">検査に係る格付の基準</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1">ＪＡＳあとで消す</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1">００３０の６．１，６．２，６．４，６．５及び６．７によって試験を行い，その結果，ＪＡＳ</Sentence>
+            </Column>
+            <Column Num="3">
+              <Sentence Num="1">００３０の５．１によって合格又は不合格を判定する。</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1">３．２</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1">第２種検査方法への移行</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Sentence Num="1">３．１に定めるところによって検査を行った結果，その検査荷口のものが連続して５回合格に格付されたときは，その検査荷口に係る工場の製品については，それ以後の抽出の割合等及び検査に係る格付の基準は，３．３に定めるところによる。</Sentence>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1">３．３</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1">第２種検査方法</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1">３．３．１</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1">抽出の割合等</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Sentence Num="1">３．１．１の規定を準用する。この場合において，３．１．１中“製造条件”とあるのは“３．２の規定によって検査が３．３に定めるところによることとなった木質ペレット燃料の製造条件”と，“１０日分”とあるのは“３０日分”と読み替えるものとする。</Sentence>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1">３．３．２</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1">検査に係る格付の基準</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Sentence Num="1">３．１．２の基準を準用する。</Sentence>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1">３．４</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1">第１種検査方法への移行</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Sentence Num="1">３．３に定めるところによって検査を行った結果，その検査荷口のものがその格付しようとする等級に合格されない場合が生じたときは，その検査荷口に係る工場の製品については，それ以後の抽出の割合等及び検査に係る格付の基準は，３．１に定めるところによる。</Sentence>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1">４</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1">製造工程における検査</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1">４．１</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1">抽出の割合等</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1">樹種及び製造条件が同一と認められ，かつ，同一等級に格付しようとする原則として１日分以内の製造荷口を検査荷口とし，その抽出の割合及び方法は，品質管理内部規程［木質ペレット燃料についての取扱業者の認証の技術的基準（令和５年６月１５日農林水産省告示第７４５号）の２．２．２</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1">ｄ）に規定する内部規程をいう。以下同じ。］に定めるところによる。</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1">４．２</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1">検査に係る格付の基準</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Sentence Num="1">品質管理内部規程に基づいて検査を行い，その結果，品質管理内部規程に基づく品質管理の基準に達したときは，当該検査荷口を合格に格付する。</Sentence>
+          </ListSentence>
+        </List>
+      </Paragraph>
+    </MainProvision>
+  </LawBody>
+</Law>

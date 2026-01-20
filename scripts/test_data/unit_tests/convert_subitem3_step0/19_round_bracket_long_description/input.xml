@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Law>
+  <LawBody>
+    <Paragraph Num="1">
+      <ParagraphNum>1</ParagraphNum>
+      <ParagraphSentence>
+        <Sentence Num="1">Paragraphの内容</Sentence>
+      </ParagraphSentence>
+      <Subitem2 Num="1">
+        <Subitem2Title>（１）</Subitem2Title>
+        <Subitem2Sentence>
+          <Sentence Num="1">Itemの内容</Sentence>
+        </Subitem2Sentence>
+        <List>
+          <ListSentence>
+            <Sentence Num="1">（丸括弧見出し）</Sentence>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Sentence Num="1">テキスト</Sentence>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Sentence Num="1">〔科目名〕</Sentence>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Sentence Num="1">テキスト</Sentence>
+          </ListSentence>
+        </List>
+      </Subitem2>
+    </Paragraph>
+  </LawBody>
+</Law>

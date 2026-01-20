@@ -1,0 +1,111 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Law>
+  <LawBody>
+    <MainProvision>
+      <Paragraph Num="1">
+        <ParagraphNum>４．１</ParagraphNum>
+        <ParagraphSentence>
+          <Sentence Num="1">取扱いの管理の実施方法</Sentence>
+        </ParagraphSentence>
+        <Item Num="1">
+          <ItemTitle>（１）</ItemTitle>
+          <ItemSentence>
+            <Sentence Num="1">Itemの内容</Sentence>
+          </ItemSentence>
+          <Subitem1 Num="1">
+            <Subitem1Title>ア</Subitem1Title>
+            <Subitem1Sentence>
+              <Sentence Num="1">Subitem1の内容</Sentence>
+            </Subitem1Sentence>
+            <Subitem2 Num="1">
+              <Subitem2Title>a</Subitem2Title>
+              <Subitem2Sentence>
+                <Sentence Num="1">Subitem2の内容</Sentence>
+              </Subitem2Sentence>
+              <Subitem3 Num="1">
+                <Subitem3Title>（a）</Subitem3Title>
+                <Subitem3Sentence>
+                  <Sentence Num="1">Subitem3の内容</Sentence>
+                </Subitem3Sentence>
+                <Subitem4 Num="1">
+                  <Subitem4Title>（イ）</Subitem4Title>
+                  <Subitem4Sentence>
+                    <Sentence Num="1">Subitem4の内容</Sentence>
+                  </Subitem4Sentence>
+                  <Subitem5 Num="1">
+                    <Subitem5Title>b</Subitem5Title>
+                    <Subitem5Sentence>
+                      <Sentence Num="1">Subitem5の内容</Sentence>
+                    </Subitem5Sentence>
+                    <List>
+                      <ListSentence>
+                        <Column Num="1">
+                          <Sentence Num="1">取扱い（ＪＡＳ</Sentence>
+                        </Column>
+                        <Column Num="2">
+                          <Sentence Num="1">００２６の箇条４及び箇条５に規定する事項。以下同じ。）の管理を行う者（以下“取扱管理担当者”という。）及び取扱いの管理を統括し，４．２の職務を行う責任者は，次の事項を満たさなければならない。</Sentence>
+                        </Column>
+                      </ListSentence>
+                    </List>
+                    <List>
+                      <ListSentence>
+                        <Column Num="1">
+                          <Sentence Num="1">ａ）</Sentence>
+                        </Column>
+                        <Column Num="2">
+                          <Sentence Num="1">取扱管理担当者</Sentence>
+                        </Column>
+                        <Column Num="3">
+                          <Sentence Num="1">取扱管理担当者として，ベジタリアン又はヴィーガン料理を提供する飲食店等の管理方法に関する知識及び能力を有する者を１人以上（当該施設の数，規模等に応じて適正な取扱いの管理又は把握を行うのに必要な人数以上）置かれていなければならない。</Sentence>
+                        </Column>
+                      </ListSentence>
+                    </List>
+                    <List>
+                      <ListSentence>
+                        <Column Num="1">
+                          <Sentence Num="1">ｂ）</Sentence>
+                        </Column>
+                        <Column Num="2">
+                          <Sentence Num="1">取扱管理責任者</Sentence>
+                        </Column>
+                        <Column Num="3">
+                          <Sentence Num="1">取扱管理責任者として，取扱管理担当者の中から認証機関が指定する講習会（以下“講習会”という。）においてベジタリアン又はヴィーガン料理の取扱いに関する過程を修了した者が１人選任されていなければならない。</Sentence>
+                        </Column>
+                      </ListSentence>
+                    </List>
+                    <List>
+                      <ListSentence>
+                        <Column Num="1">
+                          <Sentence Num="1">ｃ）</Sentence>
+                        </Column>
+                        <Column Num="2">
+                          <Sentence Num="1">調理責任者</Sentence>
+                        </Column>
+                        <Column Num="3">
+                          <Sentence Num="1">調理責任者として，取扱管理担当者の中から１人選任されていなければならない。</Sentence>
+                        </Column>
+                      </ListSentence>
+                    </List>
+                    <List>
+                      <ListSentence>
+                        <Column Num="1">
+                          <Sentence Num="1">ｄ）</Sentence>
+                        </Column>
+                        <Column Num="2">
+                          <Sentence Num="1">顧客対応責任者</Sentence>
+                        </Column>
+                        <Column Num="3">
+                          <Sentence Num="1">顧客対応責任者として，取扱管理担当者の中から１人選任されていなければならない。</Sentence>
+                        </Column>
+                      </ListSentence>
+                    </List>
+                  </Subitem5>
+                </Subitem4>
+              </Subitem3>
+            </Subitem2>
+          </Subitem1>
+        </Item>
+      </Paragraph>
+    </MainProvision>
+  </LawBody>
+</Law>

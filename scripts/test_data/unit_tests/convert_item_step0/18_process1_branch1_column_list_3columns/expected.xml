@@ -7,23 +7,15 @@
         <Sentence Num="1">Paragraphの内容</Sentence>
       </ParagraphSentence>
       <Item Num="1">
-        <ItemTitle></ItemTitle>
+        <ItemTitle>（１）</ItemTitle>
         <ItemSentence>
-          <Sentence Num="1"></Sentence>
+          <Column Num="1">
+            <Sentence Num="1">内容1</Sentence>
+          </Column>
+          <Column Num="2">
+            <Sentence Num="1">内容2（3列目）</Sentence>
+          </Column>
         </ItemSentence>
-        <List>
-          <ListSentence>
-            <Column>
-              <Sentence Num="1">（１）</Sentence>
-            </Column>
-            <Column>
-              <Sentence Num="1">内容1</Sentence>
-            </Column>
-            <Column>
-              <Sentence Num="1">内容2（3列目）</Sentence>
-            </Column>
-          </ListSentence>
-        </List>
       </Item>
     </Paragraph>
   </LawBody>

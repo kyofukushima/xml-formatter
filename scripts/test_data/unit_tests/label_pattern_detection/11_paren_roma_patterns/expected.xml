@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<Law>
+  <LawBody>
+    <Paragraph Num="1">
+      <ParagraphNum>1</ParagraphNum>
+      <ParagraphSentence>
+        <Sentence Num="1">括弧付きローマ数字パターンのテスト</Sentence>
+      </ParagraphSentence>
+      <Item Num="1">
+        <ItemTitle>（ｉ）</ItemTitle>
+        <ItemSentence>
+          <Sentence Num="1">括弧付きローマ数字（ｉ）の内容</Sentence>
+        </ItemSentence>
+      </Item>
+      <Item Num="2">
+        <ItemTitle>（ｉｉ）</ItemTitle>
+        <ItemSentence>
+          <Sentence Num="1">括弧付きローマ数字（ｉｉ）の内容</Sentence>
+        </ItemSentence>
+        <Subitem1 Num="1">
+          <Subitem1Title>（１）</Subitem1Title>
+          <Subitem1Sentence>
+            <Sentence Num="1">括弧付き数字（１）の内容</Sentence>
+          </Subitem1Sentence>
+        </Subitem1>
+        <Subitem1 Num="2">
+          <Subitem1Title>（２）</Subitem1Title>
+          <Subitem1Sentence>
+            <Sentence Num="1">括弧付き数字（２）の内容</Sentence>
+          </Subitem1Sentence>
+          <Subitem2 Num="1">
+            <Subitem2Title>①</Subitem2Title>
+            <Subitem2Sentence>
+              <Sentence Num="1">丸数字①の内容</Sentence>
+            </Subitem2Sentence>
+          </Subitem2>
+          <Subitem2 Num="2">
+            <Subitem2Title>②</Subitem2Title>
+            <Subitem2Sentence>
+              <Sentence Num="1">丸数字②の内容</Sentence>
+            </Subitem2Sentence>
+          </Subitem2>
+        </Subitem1>
+      </Item>
+    </Paragraph>
+  </LawBody>
+</Law>

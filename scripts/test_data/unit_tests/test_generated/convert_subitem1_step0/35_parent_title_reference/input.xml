@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Law>
+  <LawBody>
+    <Paragraph Num="1">
+      <ParagraphNum>1</ParagraphNum>
+      <ParagraphSentence>
+        <Sentence Num="1">Paragraphの内容</Sentence>
+      </ParagraphSentence>
+      <Item Num="1">
+        <ItemTitle>（１）</ItemTitle>
+        <ItemSentence>
+          <Sentence Num="1">Itemの内容</Sentence>
+        </ItemSentence>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1">４．２</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1">内部規程</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Sentence Num="1">次の事項について，内部規程を具体的かつ体系的に整備しなければならない。</Sentence>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1">４．３</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1">別の項目</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+      </Item>
+    </Paragraph>
+  </LawBody>
+</Law>

@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<Law>
+  <LawBody>
+    <Item Num="1">
+      <ItemTitle/>
+      <ItemSentence>
+        <Sentence Num="1"/>
+      </ItemSentence>
+      <Subitem1 Num="1">
+        <Subitem1Title/>
+        <Subitem1Sentence>
+          <Sentence Num="1">ColumnなしListの内容（親要素が空の場合）</Sentence>
+        </Subitem1Sentence>
+      </Subitem1>
+    </Item>
+  </LawBody>
+</Law>

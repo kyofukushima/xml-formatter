@@ -19,13 +19,8 @@
           <Subitem2 Num="1">
             <Subitem2Title/>
             <Subitem2Sentence>
-              <Sentence Num="1"/>
+              <Sentence Num="1">Columnなしの内容</Sentence>
             </Subitem2Sentence>
-            <List>
-              <ListSentence>
-                <Sentence Num="1">Columnなしの内容</Sentence>
-              </ListSentence>
-            </List>
           </Subitem2>
         </Subitem1>
       </Item>

@@ -1,0 +1,1 @@
+ERROR: File not found at '/Users/fukushima/Documents/xml_anken/kouzou1_xml/sample/temp_input/R04null[2450]1400_R04null[2450]1400_R041006_1'.

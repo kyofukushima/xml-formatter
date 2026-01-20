@@ -6,8 +6,6 @@
       <ParagraphSentence>
         <Sentence Num="1">括弧付き全角小文字アルファベットパターンのテスト</Sentence>
       </ParagraphSentence>
-      
-      <!-- 括弧付き全角小文字アルファベット -->
       <List>
         <ListSentence>
           <Column Num="1">
@@ -47,8 +45,7 @@
             <Sentence Num="1">括弧付き全角小文字アルファベット（ｂ）の内容</Sentence>
           </Column>
         </ListSentence>
-      </List>
-      
+      </List>      
     </Paragraph>
   </LawBody>
 </Law>

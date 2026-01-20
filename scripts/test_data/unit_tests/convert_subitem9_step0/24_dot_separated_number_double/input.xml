@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Law>
+  <LawBody>
+    <Paragraph Num="1">
+      <ParagraphNum>1</ParagraphNum>
+      <ParagraphSentence>
+        <Sentence Num="1">Paragraphの内容</Sentence>
+      </ParagraphSentence>
+      <Item Num="1">
+        <ItemTitle>（１）</ItemTitle>
+        <ItemSentence>
+          <Sentence Num="1">Itemの内容</Sentence>
+        </ItemSentence>
+        <Subitem1 Num="1">
+          <Subitem1Title>ア</Subitem1Title>
+          <Subitem1Sentence>
+            <Sentence Num="1">Subitem1の内容</Sentence>
+          </Subitem1Sentence>
+          <Subitem8 Num="1">
+            <Subitem8Title>a</Subitem8Title>
+            <Subitem8Sentence>
+              <Sentence Num="1">Subitem2の内容</Sentence>
+            </Subitem8Sentence>
+            <List>
+              <ListSentence>
+                <Column Num="1">
+                  <Sentence Num="1">４．３．２</Sentence>
+                </Column>
+                <Column Num="2">
+                  <Sentence Num="1">ドット区切り数字（ドット2つ）のラベルを持つ項目の内容</Sentence>
+                </Column>
+              </ListSentence>
+            </List>
+            <List>
+              <ListSentence>
+                <Column Num="1">
+                  <Sentence Num="1">４．１</Sentence>
+                </Column>
+                <Column Num="2">
+                  <Sentence Num="1">ドット区切り数字（ドット1つ）（誤認識されないように）</Sentence>
+                </Column>
+              </ListSentence>
+            </List>
+            <List>
+              <ListSentence>
+                <Column Num="1">
+                  <Sentence Num="1">４．３．３</Sentence>
+                </Column>
+                <Column Num="2">
+                  <Sentence Num="1">2つ目のドット区切り数字（ドット2つ）の項目</Sentence>
+                </Column>
+              </ListSentence>
+            </List>
+            <List>
+              <ListSentence>
+                <Column Num="1">
+                  <Sentence Num="1">４</Sentence>
+                </Column>
+                <Column Num="2">
+                  <Sentence Num="1">単一の全角数字（誤認識されないように）</Sentence>
+                </Column>
+              </ListSentence>
+            </List>
+            <List>
+              <ListSentence>
+                <Column Num="1">
+                  <Sentence Num="1">４．３</Sentence>
+                </Column>
+                <Column Num="2">
+                  <Sentence Num="1">ドット1つだが異なる数字（誤認識されないように）</Sentence>
+                </Column>
+              </ListSentence>
+            </List>
+            <List>
+              <ListSentence>
+                <Sentence Num="1">ColumnなしListの内容（Subitem9の後に追加される）</Sentence>
+              </ListSentence>
+            </List>
+          </Subitem8>
+        </Subitem1>
+      </Item>
+    </Paragraph>
+  </LawBody>
+</Law>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Law Era="Reiwa" Year="5" Num="1" LawType="MinisterialOrdinance" Lang="ja">
+  <LawNum>テスト告示</LawNum>
+  <LawBody>
+    <MainProvision>
+      <Article Num="1">
+        <ArticleTitle/>
+        <Paragraph Num="1">
+          <ParagraphNum/>
+          <Item Num="1">
+            <ItemTitle/>
+            <ItemSentence>
+              <Sentence Num="1">これはItemTitleの直後のItemSentenceです。変換されません。</Sentence>
+            </ItemSentence>
+            <ItemSentence>
+              <Sentence Num="1">（ア）　2個目のItemSentenceの内容</Sentence>
+            </ItemSentence>
+            <ItemSentence>
+              <Sentence Num="1">（イ）　3個目のItemSentenceの内容</Sentence>
+            </ItemSentence>
+          </Item>
+        </Paragraph>
+      </Article>
+    </MainProvision>
+  </LawBody>
+</Law>
+

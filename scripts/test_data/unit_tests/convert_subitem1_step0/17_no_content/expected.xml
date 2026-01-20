@@ -1,26 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Law>
   <LawBody>
-    <Item Num="1">
-      <ItemTitle></ItemTitle>
-      <ItemSentence>
+    <Paragraph Num="1">
+      <ParagraphNum></ParagraphNum>
+      <ParagraphSentence>
         <Sentence Num="1"></Sentence>
-      </ItemSentence>
-      <List>
-        <ListSentence>
-          <Sentence Num="1">ColumnなしListの内容1</Sentence>
-        </ListSentence>
-      </List>
-      <List>
-        <ListSentence>
-          <Sentence Num="1">ColumnなしListの内容2</Sentence>
-        </ListSentence>
-      </List>
-      <List>
-        <ListSentence>
-          <Sentence Num="1">ColumnなしListの内容3</Sentence>
-        </ListSentence>
-      </List>
-    </Item>
+      </ParagraphSentence>
+      <Item Num="1">
+        <ItemTitle>（１）</ItemTitle>
+        <ItemSentence>
+          <Sentence Num="1"></Sentence>
+        </ItemSentence>
+        <Subitem1 Num="1">
+          <Subitem1Title></Subitem1Title>
+          <Subitem1Sentence>
+            <Sentence Num="1">ColumnなしListの内容1</Sentence>
+          </Subitem1Sentence>
+        </Subitem1>
+        <Subitem1 Num="2">
+          <Subitem1Title></Subitem1Title>
+          <Subitem1Sentence>
+            <Sentence Num="1">ColumnなしListの内容2</Sentence>
+          </Subitem1Sentence>
+        </Subitem1>
+        <Subitem1 Num="3">
+          <Subitem1Title></Subitem1Title>
+          <Subitem1Sentence>
+            <Sentence Num="1">ColumnなしListの内容3</Sentence>
+          </Subitem1Sentence>
+        </Subitem1>
+      </Item>
+    </Paragraph>
   </LawBody>
 </Law>

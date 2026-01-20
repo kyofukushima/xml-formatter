@@ -1,0 +1,154 @@
+{
+  "new_label_definitions": {
+    "closing_paren_fullwidth_lowercase_alphabet": {
+      "id": "closing_paren_fullwidth_lowercase_alphabet",
+      "name": "閉じ括弧全角小文字アルファベット",
+      "patterns": [
+        "^[ａ-ｚ]+[）)]$"
+      ],
+      "examples": [
+        "ａ）",
+        "ｂ）",
+        "ｃ）",
+        "ｄ）",
+        "ｅ）",
+        "ｆ）",
+        "ｇ）",
+        "ｈ）",
+        "ｉ）",
+        "ｊ）",
+        "ｋ）",
+        "ｌ）",
+        "ｍ）",
+        "ｎ）"
+      ],
+      "description": "閉じ括弧のみの全角小文字アルファベット（開き括弧なし）"
+    },
+    "closing_paren_fullwidth_number": {
+      "id": "closing_paren_fullwidth_number",
+      "name": "閉じ括弧全角数字",
+      "patterns": [
+        "^[０-９]+[）)]$"
+      ],
+      "examples": [
+        "１）",
+        "２）",
+        "３）"
+      ],
+      "description": "閉じ括弧のみの全角数字（開き括弧なし）"
+    },
+    "hierarchical_number": {
+      "id": "hierarchical_number",
+      "name": "階層番号",
+      "patterns": [
+        "^[０-９]+[．.][０-９]+([．.][０-９]+)*$"
+      ],
+      "examples": [
+        "４．１",
+        "４．２",
+        "４．２．１",
+        "４．２．２",
+        "４．２．３",
+        "４．３",
+        "４．３．１",
+        "４．３．２",
+        "４．３．３",
+        "４．４",
+        "４．４．１",
+        "４．４．２"
+      ],
+      "description": "階層的な番号付け（数字+ピリオドの組み合わせ）"
+    },
+    "note_label": {
+      "id": "note_label",
+      "name": "注記ラベル",
+      "patterns": [
+        "^注記[０-９]+$"
+      ],
+      "examples": [
+        "注記１",
+        "注記２",
+        "注記３"
+      ],
+      "description": "注記ラベル（注記+数字）"
+    }
+  },
+  "pattern_priority_insertion_points": {
+    "closing_paren_fullwidth_lowercase_alphabet": {
+      "insert_after": "paren_fullwidth_lowercase_alphabet",
+      "reason": "既存の括弧付きパターンの後に配置（より具体的なパターンを優先）"
+    },
+    "closing_paren_fullwidth_number": {
+      "insert_after": "paren_fullwidth_number",
+      "reason": "既存の括弧付きパターンの後に配置（より具体的なパターンを優先）"
+    },
+    "hierarchical_number": {
+      "insert_after": "fullwidth_number",
+      "insert_before": "paren_fullwidth_number",
+      "reason": "数字パターンと括弧付き数字パターンの間に配置"
+    },
+    "note_label": {
+      "insert_after": "article_boundary",
+      "insert_before": "double_paren_uppercase_alphabet",
+      "reason": "特殊なラベルのため、article_boundaryの後に配置"
+    }
+  },
+  "updated_pattern_priority_example": [
+    "grade_double",
+    "grade_single",
+    "instruction",
+    "article_boundary",
+    "note_label",
+    "double_paren_uppercase_alphabet",
+    "double_paren_lowercase_alphabet",
+    "double_paren_fullwidth_uppercase_alphabet",
+    "double_paren_fullwidth_lowercase_alphabet",
+    "double_paren_alphabet",
+    "double_paren_halfwidth_number",
+    "double_paren_fullwidth_number",
+    "double_paren_kanji_number",
+    "double_paren_katakana",
+    "paren_uppercase_alphabet",
+    "paren_roman",
+    "paren_lowercase_alphabet",
+    "paren_fullwidth_uppercase_alphabet",
+    "paren_fullwidth_lowercase_alphabet",
+    "closing_paren_fullwidth_lowercase_alphabet",
+    "paren_alphabet",
+    "paren_katakana",
+    "paren_halfwidth_number",
+    "paren_fullwidth_number",
+    "closing_paren_fullwidth_number",
+    "paren_kanji_number",
+    "subject_label",
+    "subject_label_square",
+    "subject_label_double_square",
+    "subject_label_corner",
+    "subject_label_round",
+    "circled_number",
+    "katakana",
+    "uppercase_alphabet",
+    "lowercase_alphabet",
+    "fullwidth_uppercase_alphabet",
+    "fullwidth_lowercase_alphabet",
+    "alphabet",
+    "fullwidth_number",
+    "hierarchical_number",
+    "halfwidth_number",
+    "kanji_number",
+    "empty"
+  ]
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

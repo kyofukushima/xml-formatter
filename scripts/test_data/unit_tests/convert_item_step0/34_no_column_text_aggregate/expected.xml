@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Law>
+  <LawBody>
+    <Paragraph Num="1">
+      <ParagraphNum>1</ParagraphNum>
+      <ParagraphSentence>
+        <Sentence Num="1">Paragraphの内容</Sentence>
+      </ParagraphSentence>
+      <Item Num="1">
+        <ItemTitle></ItemTitle>
+        <ItemSentence>
+          <Sentence Num="1">次の事項について，内部規程を具体的かつ体系的に整備しなければならない。</Sentence>
+        </ItemSentence>
+        <List>
+          <ListSentence>
+            <Sentence Num="1">生産行程の管理に関する事項には，生産方法の確立，生産方法の定期的な検証及び修正が含まれる。</Sentence>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1">ａ）</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1">ＪＡＳ</Sentence>
+            </Column>
+            <Column Num="3">
+              <Sentence Num="1">００２７の４．１に規定する生産行程の管理に関する事項</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+      </Item>
+    </Paragraph>
+  </LawBody>
+</Law>

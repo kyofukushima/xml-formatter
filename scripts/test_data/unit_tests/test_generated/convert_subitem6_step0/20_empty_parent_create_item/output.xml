@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<Law>
+  <LawBody>
+    <Paragraph Num="1">
+      <ParagraphNum/>
+      <ParagraphSentence>
+        <Sentence Num="1"/>
+      </ParagraphSentence>
+      <Item Num="1">
+        <ItemTitle>（１）</ItemTitle>
+        <ItemSentence>
+          <Sentence Num="1">Itemの内容</Sentence>
+        </ItemSentence>
+        <Subitem1 Num="1">
+          <Subitem1Title>ア</Subitem1Title>
+          <Subitem1Sentence>
+            <Sentence Num="1">Subitem1の内容</Sentence>
+          </Subitem1Sentence>
+          <Subitem2 Num="1">
+            <Subitem2Title>a</Subitem2Title>
+            <Subitem2Sentence>
+              <Sentence Num="1">Subitem2の内容</Sentence>
+            </Subitem2Sentence>
+            <Subitem3 Num="1">
+              <Subitem3Title>（a）</Subitem3Title>
+              <Subitem3Sentence>
+                <Sentence Num="1">Subitem3の内容</Sentence>
+              </Subitem3Sentence>
+              <Subitem4 Num="1">
+                <Subitem4Title>（イ）</Subitem4Title>
+                <Subitem4Sentence>
+                  <Sentence Num="1">Subitem4の内容</Sentence>
+                </Subitem4Sentence>
+                <Subitem5 Num="1">
+                  <Subitem5Title>b</Subitem5Title>
+                  <Subitem5Sentence>
+                    <Sentence Num="1">Subitem5の内容</Sentence>
+                  </Subitem5Sentence>
+                  <Subitem6 Num="1">
+                    <Subitem6Title/>
+                    <Subitem6Sentence>
+                      <Sentence Num="1">親要素が空の場合のColumnなしListの内容</Sentence>
+                    </Subitem6Sentence>
+                  </Subitem6>
+                </Subitem5>
+              </Subitem4>
+            </Subitem3>
+          </Subitem2>
+        </Subitem1>
+      </Item>
+    </Paragraph>
+  </LawBody>
+</Law>

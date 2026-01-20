@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<Law>
+  <LawBody>
+    <Paragraph Num="1">
+      <ParagraphNum>1</ParagraphNum>
+      <ParagraphSentence>
+        <Sentence Num="1">Paragraphの内容</Sentence>
+      </ParagraphSentence>
+      <Item Num="1">
+        <ItemTitle>（１）</ItemTitle>
+        <ItemSentence>
+          <Sentence Num="1">Itemの内容</Sentence>
+        </ItemSentence>
+        <Subitem1 Num="1">
+          <Subitem1Title/>
+          <Subitem1Sentence>
+            <Sentence Num="1">ＪＡＳあとで消す</Sentence>
+            <Sentence Num="2">１６０８</Sentence>
+            <Sentence Num="3">有機畜産物</Sentence>
+          </Subitem1Sentence>
+          <List>
+            <ListSentence>
+              <Sentence Num="1">有機農産物及び有機飼料（調製又は選別の工程のみを経たものに限る。）についての生産行程管理者等の認証の技術的基準（平成１７年１１月２５日農林水産省告示第１８３０号）</Sentence>
+            </ListSentence>
+          </List>
+          <List>
+            <ListSentence>
+              <Sentence Num="1">有機畜産物についての生産行程管理者等の認証の技術的基準（平成１７年１１月２５日農林水産省告示第１８３２号）</Sentence>
+            </ListSentence>
+          </List>
+          <List>
+            <ListSentence>
+              <Sentence Num="1">有機飼料（調製又は選別の工程以外の工程を経たものに限る。）及び有機加工食品についての生産行程管理者等の認証の技術的基準（令和４年９月２８日財務省・農林水産省告示第２５号）</Sentence>
+            </ListSentence>
+          </List>
+        </Subitem1>
+      </Item>
+    </Paragraph>
+  </LawBody>
+</Law>

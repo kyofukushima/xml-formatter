@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Law Era="Reiwa" Year="5" Num="1" LawType="MinisterialOrdinance" Lang="ja">
+  <LawNum>テスト告示</LawNum>
+  <LawBody>
+    <MainProvision>
+      <Article Num="1">
+        <ArticleTitle/>
+        <Paragraph Num="1">
+          <ParagraphNum/>
+          <ParagraphSentence>
+            <Sentence Num="1">（１）　ParagraphNumの直後のParagraphSentenceは変換されません</Sentence>
+          </ParagraphSentence>
+          <TableStruct>
+            <Table>
+              <TableRow>
+                <TableCell>表の内容</TableCell>
+              </TableRow>
+            </Table>
+          </TableStruct>
+          <ParagraphSentence>
+            <Sentence Num="1">（２）　2個目のParagraphSentenceは変換されます</Sentence>
+          </ParagraphSentence>
+        </Paragraph>
+      </Article>
+    </MainProvision>
+  </LawBody>
+</Law>

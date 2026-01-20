@@ -1,0 +1,64 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Law>
+  <LawBody>
+    <Paragraph Num="1">
+      <ParagraphNum>1</ParagraphNum>
+      <ParagraphSentence>
+        <Sentence Num="1">Paragraphの内容</Sentence>
+      </ParagraphSentence>
+      <Item Num="1">
+        <ItemTitle>（１）</ItemTitle>
+        <ItemSentence>
+          <Sentence Num="1">Itemの内容</Sentence>
+        </ItemSentence>
+        <Subitem1 Num="1">
+          <Subitem1Title>１）</Subitem1Title>
+          <Subitem1Sentence>
+            <Sentence Num="1">全角数字 + ）のラベルを持つ項目の内容</Sentence>
+          </Subitem1Sentence>
+          <List>
+            <ListSentence>
+              <Column Num="1">
+                <Sentence Num="1">（１）</Sentence>
+              </Column>
+              <Column Num="2">
+                <Sentence Num="1">既存の括弧全角数字（誤認識されないように）</Sentence>
+              </Column>
+            </ListSentence>
+          </List>
+        </Subitem1>
+        <Subitem1 Num="2">
+          <Subitem1Title>２）</Subitem1Title>
+          <Subitem1Sentence>
+            <Sentence Num="1">2つ目の全角数字 + ）の項目</Sentence>
+          </Subitem1Sentence>
+          <List>
+            <ListSentence>
+              <Column Num="1">
+                <Sentence Num="1">１</Sentence>
+              </Column>
+              <Column Num="2">
+                <Sentence Num="1">括弧なしの全角数字（誤認識されないように）</Sentence>
+              </Column>
+            </ListSentence>
+          </List>
+          <List>
+            <ListSentence>
+              <Column Num="1">
+                <Sentence Num="1">４．１</Sentence>
+              </Column>
+              <Column Num="2">
+                <Sentence Num="1">ドット区切り数字（誤認識されないように）</Sentence>
+              </Column>
+            </ListSentence>
+          </List>
+          <List>
+            <ListSentence>
+              <Sentence Num="1">ColumnなしListの内容（Itemの後に追加される）</Sentence>
+            </ListSentence>
+          </List>
+        </Subitem1>
+      </Item>
+    </Paragraph>
+  </LawBody>
+</Law>

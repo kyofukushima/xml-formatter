@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Law>
+  <LawBody>
+    <Paragraph Num="1">
+      <ParagraphNum>1</ParagraphNum>
+      <ParagraphSentence>
+        <Sentence Num="1">Paragraphの内容</Sentence>
+      </ParagraphSentence>
+      <Item Num="1">
+        <ItemTitle>（１）</ItemTitle>
+        <ItemSentence>
+          <Sentence Num="1">Itemの内容</Sentence>
+        </ItemSentence>
+        <Subitem1 Num="1">
+          <Subitem1Title>ア</Subitem1Title>
+          <Subitem1Sentence>
+            <Sentence Num="1">Subitem1の内容</Sentence>
+          </Subitem1Sentence>
+          <List>
+            <ListSentence>
+              <Column Num="1">
+                <Sentence Num="1">テキスト1（ラベルではない）</Sentence>
+              </Column>
+              <Column Num="2">
+                <Sentence Num="1">内容1</Sentence>
+              </Column>
+              <Column Num="3">
+                <Sentence Num="1">内容2</Sentence>
+              </Column>
+            </ListSentence>
+          </List>
+          <List>
+            <ListSentence>
+              <Column Num="1">
+                <Sentence Num="1">テキスト2（ラベルではない）</Sentence>
+              </Column>
+              <Column Num="2">
+                <Sentence Num="1">内容3</Sentence>
+              </Column>
+              <Column Num="3">
+                <Sentence Num="1">内容4</Sentence>
+              </Column>
+            </ListSentence>
+          </List>
+          <List>
+            <ListSentence>
+              <Column Num="1">
+                <Sentence Num="1">（１）</Sentence>
+              </Column>
+              <Column Num="2">
+                <Sentence Num="1">ラベル要素のColumnありListの内容</Sentence>
+              </Column>
+            </ListSentence>
+          </List>
+        </Subitem1>
+      </Item>
+    </Paragraph>
+  </LawBody>
+</Law>

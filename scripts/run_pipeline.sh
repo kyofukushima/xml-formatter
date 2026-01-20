@@ -39,23 +39,21 @@ NC='\033[0m'  # No Color
 
 # 変換スクリプトのリスト（実行順序が重要）
 CONVERTERS=(
+  "preprocess_non_first_sentence_to_list.py"  # 前処理: 2個目以降のSentence要素をList要素に変換
   "convert_article_focused.py"
-  "convert_paragraph_step1.py"
-  "convert_paragraph_step2.py"
   "convert_paragraph_step3.py"
   "convert_paragraph_step4.py"
   "convert_item_step0.py"
-  "convert_item_step1.py"
   "convert_subitem1_step0.py"
-  "convert_subitem1_step1.py"
   "convert_subitem2_step0.py"
-  "convert_subitem2_step1.py"
   "convert_subitem3_step0.py"
-  "convert_subitem3_step1.py"
   "convert_subitem4_step0.py"
-  "convert_subitem4_step1.py"
   "convert_subitem5_step0.py"
-  "convert_subitem5_step1.py"
+  "convert_subitem6_step0.py"
+  "convert_subitem7_step0.py"
+  "convert_subitem8_step0.py"
+  "convert_subitem9_step0.py"
+  "convert_subitem10_step0.py"
 )
 
 # 検証スクリプト

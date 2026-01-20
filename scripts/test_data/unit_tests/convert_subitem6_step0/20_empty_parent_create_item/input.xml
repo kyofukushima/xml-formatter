@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Law>
+  <LawBody>
+    <Paragraph Num="1">
+      <ParagraphNum></ParagraphNum>
+      <ParagraphSentence>
+        <Sentence Num="1"></Sentence>
+      </ParagraphSentence>
+      <Subitem5 Num="1">
+        <Subitem5Title></Subitem5Title>
+        <Subitem5Sentence>
+          <Sentence Num="1"></Sentence>
+        </Subitem5Sentence>
+        <List>
+          <ListSentence>
+            <Sentence Num="1">親要素が空の場合のColumnなしListの内容</Sentence>
+          </ListSentence>
+        </List>
+      </Subitem5>
+    </Paragraph>
+  </LawBody>
+</Law>

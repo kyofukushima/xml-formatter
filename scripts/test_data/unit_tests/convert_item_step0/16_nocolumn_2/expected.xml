@@ -7,15 +7,10 @@
         <Sentence Num="1">Paragraphの内容</Sentence>
       </ParagraphSentence>
       <Item Num="1">
-        <ItemTitle/>
+        <ItemTitle></ItemTitle>
         <ItemSentence>
-          <Sentence Num="1"/>
+          <Sentence Num="1">ColumnなしListの内容1</Sentence>
         </ItemSentence>
-        <List>
-          <ListSentence>
-            <Sentence Num="1">ColumnなしListの内容1</Sentence>
-          </ListSentence>
-        </List>
         <List>
           <ListSentence>
             <Sentence Num="1">ColumnなしListの内容2</Sentence>

@@ -584,6 +584,22 @@
       ],
       "description": "カタカナ + ）（新規パターン）"
     },
+    "katakana_with_dot": {
+      "id": "katakana_with_dot",
+      "name": "カタカナ + ．",
+      "patterns": [
+        "^[ア-ヴ]+[．.]$"
+      ],
+      "examples": [
+        "ア．",
+        "イ．",
+        "ウ．",
+        "ア.",
+        "イ.",
+        "ウ."
+      ],
+      "description": "カタカナ + 全角/半角ドット（終端）（新規パターン）"
+    },
     "dot_separated_number_triple": {
       "id": "dot_separated_number_triple",
       "name": "ドット区切り数字（ドット3つ）",
@@ -717,6 +733,7 @@
     "paren_halfwidth_number",
     "fullwidth_number_with_paren",
     "katakana_with_paren",
+    "katakana_with_dot",
     "paren_fullwidth_number",
     "paren_kanji_number",
     "dot_separated_number_triple",

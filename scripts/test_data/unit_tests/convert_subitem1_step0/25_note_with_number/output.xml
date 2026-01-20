@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<Law>
+  <LawBody>
+    <Paragraph Num="1">
+      <ParagraphNum>1</ParagraphNum>
+      <ParagraphSentence>
+        <Sentence Num="1">Paragraphの内容</Sentence>
+      </ParagraphSentence>
+      <Item Num="1">
+        <ItemTitle>（１）</ItemTitle>
+        <ItemSentence>
+          <Sentence Num="1">Itemの内容</Sentence>
+        </ItemSentence>
+        <Subitem1 Num="1">
+          <Subitem1Title>注記１</Subitem1Title>
+          <Subitem1Sentence>
+            <Sentence Num="1">注記 + 数字のラベルを持つ項目の内容</Sentence>
+          </Subitem1Sentence>
+          <List>
+            <ListSentence>
+              <Column Num="1">
+                <Sentence Num="1">注記</Sentence>
+              </Column>
+              <Column Num="2">
+                <Sentence Num="1">数字なしの注記（誤認識されないように）</Sentence>
+              </Column>
+            </ListSentence>
+          </List>
+        </Subitem1>
+        <Subitem1 Num="2">
+          <Subitem1Title>注記２</Subitem1Title>
+          <Subitem1Sentence>
+            <Sentence Num="1">2つ目の注記 + 数字の項目</Sentence>
+          </Subitem1Sentence>
+        </Subitem1>
+        <Subitem1 Num="3">
+          <Subitem1Title/>
+          <Subitem1Sentence>
+            <Sentence Num="1">注記（１）</Sentence>
+            <Sentence Num="2">注記 + 括弧付き数字（誤認識されないように）</Sentence>
+          </Subitem1Sentence>
+        </Subitem1>
+        <Subitem1 Num="4">
+          <Subitem1Title/>
+          <Subitem1Sentence>
+            <Sentence Num="1">注記１）</Sentence>
+            <Sentence Num="2">注記 + 数字 + ）（誤認識されないように）</Sentence>
+          </Subitem1Sentence>
+        </Subitem1>
+        <Subitem1 Num="5">
+          <Subitem1Title/>
+          <Subitem1Sentence>
+            <Sentence Num="1">ColumnなしListの内容（Subitem1の後に追加される）</Sentence>
+          </Subitem1Sentence>
+        </Subitem1>
+      </Item>
+    </Paragraph>
+  </LawBody>
+</Law>

@@ -8,54 +8,37 @@
 # Python バージョン確認
 python3 --version
 
-# lxml ライブラリのインストール（必要な場合）
+# lxml が未インストールなら追加
 pip install lxml
 ```
 
-### ステップ2: ディレクトリ構造の準備
+### ステップ2: ディレクトリ準備
 
 ```bash
-# プロジェクトディレクトリを作成
-mkdir xml_pipeline_project
-cd xml_pipeline_project
-
-# 必要なフォルダを作成
-mkdir input
-mkdir output
-
-# すべてのスクリプトをこのディレクトリに配置
-# ├── run_pipeline_fixed.sh
-# ├── convert_*.py (すべてのスクリプト)
-# ├── input/
-# └── output/
+mkdir -p input output
+chmod +x scripts/run_pipeline.sh
 ```
 
 ### ステップ3: 入力ファイルを配置
 
-処理対象のXMLファイルを `input/` フォルダに配置します。
+`input/` 配下に処理したい XML を置きます（複数可）。
 
 ```bash
 cp your_file.xml input/
-ls input/  # 確認
+ls input/
 ```
 
-### ステップ4: パイプラインスクリプトに実行権限を付与
+### ステップ4: パイプラインを実行
 
 ```bash
-chmod +x run_pipeline_fixed.sh
+# 連続実行（デフォルト）
+./scripts/run_pipeline.sh ./input ./output
+
+# ステップごとに確認
+./scripts/run_pipeline.sh ./input ./output step
 ```
 
-### ステップ5: パイプラインを実行
-
-```bash
-# 基本的な実行
-./run_pipeline_fixed.sh ./input ./output
-
-# または明示的にモードを指定
-./run_pipeline_fixed.sh ./input ./output all
-```
-
-### ステップ6: 結果を確認
+### ステップ5: 結果を確認
 
 ```bash
 ls -lh output/
@@ -66,63 +49,39 @@ cat output/your_file-final.xml
 
 ## よくある質問と回答
 
-### Q1: 複数のXMLファイルを一度に処理できますか？
+### Q1: 複数のXMLを一度に処理できますか？
 
-はい。`input/` フォルダ内のすべてのXMLファイルが自動的に処理されます。
+はい。`input/` 直下の `*.xml` をすべて順次処理します。
 
-```bash
-# input/ フォルダに複数のXMLファイルを配置
-cp file1.xml input/
-cp file2.xml input/
-cp file3.xml input/
+### Q2: ステップごとに確認したい
 
-# すべて一度に処理
-./run_pipeline_fixed.sh ./input ./output all
-
-# 結果は output/ フォルダに保存されます
-ls output/
-```
-
-### Q2: ステップバイステップで確認しながら実行したいのですが？
-
-`step` モードを使用してください。各ステップ実行後に一時停止します。
+`step` モードを指定してください。各ステップ終了後に一時停止します。
 
 ```bash
-./run_pipeline_fixed.sh ./input ./output step
+./scripts/run_pipeline.sh ./input ./output step
 ```
 
-### Q3: 処理が失敗した場合はどうすればよいですか？
+### Q3: 処理が失敗した場合は？
 
-エラーメッセージを確認してください。以下の確認項目があります：
-
-1. **XMLファイル形式が正しいか**
+1. XML構文チェック  
    ```bash
    xmllint --noout input/your_file.xml
    ```
-
-2. **Pythonスクリプトがすべて存在するか**
+2. 変換スクリプトの存在確認  
    ```bash
-   ls -la *.py
+   ls scripts/*.py
    ```
-
-3. **lxml がインストールされているか**
+3. lxml の確認  
    ```bash
    python3 -c "import lxml; print(lxml.__version__)"
    ```
+4. 検証レポート確認  
+   `output/intermediate_files/<入力名>/<入力名>-parse_validation.txt`  
+   `output/intermediate_files/<入力名>/<入力名>-validation_report.txt`
 
-### Q4: 元のファイルは上書きされていませんか？
+### Q4: 元ファイルは上書きされますか？
 
-いいえ。元のXMLファイルは保護されており、処理結果は `output/` フォルダに別ファイルとして保存されます。
-
-### Q5: 中間ファイルを保存したいのですが？
-
-デフォルトでは中間ファイルは一時ディレクトリに保存され、最終結果のみ出力されます。中間ファイルも保存したい場合は、以下のようにスクリプトを修正できます：
-
-```bash
-# スクリプトの "temp_dir=$(mktemp -d)" の部分を以下に変更：
-# temp_dir="$OUTPUT_FOLDER/_intermediate_${filename_no_ext}"
-# mkdir -p "$temp_dir"
-```
+されません。最終結果は `output/<入力名>-final.xml` に保存され、元のXMLはそのまま残ります。
 
 ---
 
@@ -130,47 +89,43 @@ ls output/
 
 | 問題 | 原因 | 解決方法 |
 |-----|------|---------|
-| `No such file or directory` | スクリプトが見つからない | スクリプトが全てディレクトリに存在するか確認 |
-| `Permission denied` | 実行権限がない | `chmod +x run_pipeline_fixed.sh` を実行 |
-| `ModuleNotFoundError: lxml` | lxml がインストールされていない | `pip install lxml` を実行 |
-| `Input folder not found` | 入力フォルダが存在しない | `mkdir input` でフォルダを作成 |
-| `No XML files found` | XMLファイルがない | `cp your_file.xml input/` でファイルを配置 |
-| Python スクリプト実行エラー | XMLファイル形式が異なる | XMLファイルが法令XML形式であるか確認 |
+| `No such file or directory` | スクリプトが見つからない | `scripts/` に全変換スクリプトがあるか確認 |
+| `Permission denied` | 実行権限がない | `chmod +x scripts/run_pipeline.sh` |
+| `ModuleNotFoundError: lxml` | lxml 未インストール | `pip install lxml` |
+| `Input folder not found` | 入力フォルダなし | `mkdir input` |
+| `No XML files found` | XMLが無い | `cp your_file.xml input/` |
+| パース検証失敗 | XML構文エラー | `...-parse_validation.txt` を確認 |
+| テキスト検証差分 | 内容差異 | `...-validation_report.txt` を確認 |
 
 ---
 
-## パイプライン処理の詳細
+## パイプライン処理の概要
 
-### 各ステップの役割
+実行順（`scripts/run_pipeline.sh` が呼び出すスクリプト）:
 
-```
-原始XML
-   ↓
-[1] convert_article_focused.py
-   記事（Article）要素の解析と整形
-   ↓
-[2-5] convert_paragraph_step*.py
-   段落（Paragraph）の分割と整形（4ステップ）
-   ↓
-[6-7] convert_item_step*.py
-   項目（Item）への変換と修正（2ステップ）
-   ↓
-[8] convert_subject_item.py
-   主題項目（Subject Item）への変換
-   ↓
-[9-10] convert_subitem1_step*.py
-   副項目1（Subitem1）への変換と修正（2ステップ）
-   ↓
-[11-12] convert_subitem2_step*.py
-   副項目2（Subitem2）への変換と修正（2ステップ）
-   ↓
-整形済みXML（最終出力）
-```
+1. `preprocess_non_first_sentence_to_list.py`
+2. `convert_article_focused.py`
+3. `convert_paragraph_step3.py`
+4. `convert_paragraph_step4.py`
+5. `convert_item_step0.py`
+6. `convert_subitem1_step0.py`
+7. `convert_subitem2_step0.py`
+8. `convert_subitem3_step0.py`
+9. `convert_subitem4_step0.py`
+10. `convert_subitem5_step0.py`
+11. `convert_subitem6_step0.py`
+12. `convert_subitem7_step0.py`
+13. `convert_subitem8_step0.py`
+14. `convert_subitem9_step0.py`
+15. `convert_subitem10_step0.py`
 
-### 出力ファイル名の規則
+検証:
+- 構文検証: `validate_xml.py`
+- テキスト内容検証: `compare_xml_text_content.py`
 
-入力: `law_article.xml`
-出力: `law_article-final.xml`
+出力:
+- 最終ファイル: `output/<入力名>-final.xml`
+- 中間・レポート: `output/intermediate_files/<入力名>/...`
 
 ---
 
@@ -179,12 +134,10 @@ ls output/
 ### カスタムディレクトリでの実行
 
 ```bash
-./run_pipeline_fixed.sh /path/to/input /path/to/output all
+./scripts/run_pipeline.sh /path/to/input /path/to/output all
 ```
 
-### シェルスクリプトでの自動処理
-
-`process_all.sh` を作成：
+### シェルスクリプトでの一括処理例
 
 ```bash
 #!/bin/bash
@@ -193,42 +146,17 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 INPUT_DIR="./input"
 OUTPUT_DIR="./output"
 
-# 入力ディレクトリが存在しなければ作成
 mkdir -p "$INPUT_DIR" "$OUTPUT_DIR"
-
-# パイプラインを実行
-"$SCRIPT_DIR/run_pipeline_fixed.sh" "$INPUT_DIR" "$OUTPUT_DIR" all
-
-# ログファイルに結果を記録（オプション）
+"$SCRIPT_DIR/run_pipeline.sh" "$INPUT_DIR" "$OUTPUT_DIR" all
 echo "処理完了: $(date)" >> process.log
-```
-
-実行：
-
-```bash
-chmod +x process_all.sh
-./process_all.sh
 ```
 
 ---
 
-## パフォーマンス最適化
+## パフォーマンスのヒント
 
-### 大量ファイルの処理
-
-大量のXMLファイルを処理する場合、メモリ効率を考慮してください：
-
-```bash
-# 同時実行数を制限する場合
-for file in input/*.xml; do
-  ./run_pipeline_fixed.sh ./input ./output all &
-  # 最大3プロセスまで同時実行
-  if [ $(jobs -r -p | wc -l) -ge 3 ]; then
-    wait -n
-  fi
-done
-wait
-```
+- 大量ファイル時は同時実行数を絞るか、ファイルを分割して順次実行してください。
+- 中間ファイルは `output/intermediate_files/` に集約されるため、ディスク残量を確認してください。
 
 ---
 
@@ -236,18 +164,14 @@ wait
 
 ### ログ出力付き実行
 
-Bashスクリプトのデバッグモードを有効にして実行：
-
 ```bash
-bash -x run_pipeline_fixed.sh ./input ./output all
+bash -x scripts/run_pipeline.sh ./input ./output all
 ```
 
-### Pythonスクリプトの詳細出力
-
-各Pythonスクリプトのエラー出力を確認：
+### 個別スクリプトの確認
 
 ```bash
-python3 convert_article_focused.py input/your_file.xml output/test.xml 2>&1
+python3 scripts/convert_article_focused.py input/your_file.xml /tmp/out.xml 2>&1
 ```
 
 ---
@@ -268,4 +192,4 @@ python3 convert_article_focused.py input/your_file.xml output/test.xml 2>&1
 
 ---
 
-**最終更新**: 2025年11月11日
+**最終更新**: 2025年12月

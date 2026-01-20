@@ -2,17 +2,61 @@
 
 ## 目次
 
-1. [概要](#概要)
-2. [共通の処理フロー](#共通の処理フロー)
-3. [各階層の処理詳細](#各階層の処理詳細)
-   - [Item要素変換（convert_item_step0.py）](#item要素変換convert_item_step0py)
-   - [Subitem1要素変換（convert_subitem1_step0.py）](#subitem1要素変換convert_subitem1_step0py)
-   - [Subitem2要素変換（convert_subitem2_step0.py）](#subitem2要素変換convert_subitem2_step0py)
-   - [Subitem3要素変換（convert_subitem3_step0.py）](#subitem3要素変換convert_subitem3_step0py)
-   - [Subitem4要素変換（convert_subitem4_step0.py）](#subitem4要素変換convert_subitem4_step0py)
-   - [Subitem5要素変換（convert_subitem5_step0.py）](#subitem5要素変換convert_subitem5_step0py)
-4. [各階層の設定比較](#各階層の設定比較)
-5. [補足事項](#補足事項)
+- [Item以降のstep0スクリプト統合仕様書](#item以降のstep0スクリプト統合仕様書)
+  - [目次](#目次)
+  - [概要](#概要)
+    - [処理の目的](#処理の目的)
+  - [共通の処理フロー](#共通の処理フロー)
+    - [処理1の分岐条件（共通）](#処理1の分岐条件共通)
+    - [処理2の分岐条件（共通）](#処理2の分岐条件共通)
+  - [各階層の処理詳細](#各階層の処理詳細)
+    - [Item要素変換（convert\_item\_step0.py）](#item要素変換convert_item_step0py)
+      - [概要](#概要-1)
+      - [設定](#設定)
+      - [処理の特徴](#処理の特徴)
+      - [入力例](#入力例)
+      - [出力例](#出力例)
+    - [Subitem1要素変換（convert\_subitem1\_step0.py）](#subitem1要素変換convert_subitem1_step0py)
+      - [概要](#概要-2)
+      - [設定](#設定-1)
+      - [処理の特徴](#処理の特徴-1)
+      - [入力例](#入力例-1)
+      - [出力例](#出力例-1)
+    - [Subitem2要素変換（convert\_subitem2\_step0.py）](#subitem2要素変換convert_subitem2_step0py)
+      - [概要](#概要-3)
+      - [設定](#設定-2)
+      - [処理の特徴](#処理の特徴-2)
+      - [入力例](#入力例-2)
+      - [出力例](#出力例-2)
+    - [Subitem3要素変換（convert\_subitem3\_step0.py）](#subitem3要素変換convert_subitem3_step0py)
+      - [概要](#概要-4)
+      - [設定](#設定-3)
+      - [処理の特徴](#処理の特徴-3)
+      - [入力例](#入力例-3)
+      - [出力例](#出力例-3)
+    - [Subitem4要素変換（convert\_subitem4\_step0.py）](#subitem4要素変換convert_subitem4_step0py)
+      - [概要](#概要-5)
+      - [設定](#設定-4)
+      - [処理の特徴](#処理の特徴-4)
+      - [入力例](#入力例-4)
+      - [出力例](#出力例-4)
+    - [Subitem5要素変換（convert\_subitem5\_step0.py）](#subitem5要素変換convert_subitem5_step0py)
+      - [概要](#概要-6)
+      - [設定](#設定-5)
+      - [処理の特徴](#処理の特徴-5)
+      - [入力例](#入力例-5)
+      - [出力例](#出力例-5)
+  - [各階層の設定比較](#各階層の設定比較)
+    - [主な違い](#主な違い)
+  - [補足事項](#補足事項)
+    - [用語定義](#用語定義)
+      - [空の要素](#空の要素)
+      - [括弧付き科目名](#括弧付き科目名)
+      - [括弧付き指導項目](#括弧付き指導項目)
+    - [階層判定の基準](#階層判定の基準)
+    - [処理の繰り返し](#処理の繰り返し)
+    - [実装上の注意点](#実装上の注意点)
+    - [共通モジュールの使用](#共通モジュールの使用)
 
 ---
 
@@ -58,8 +102,8 @@
 | 分岐2-1 | （親要素が空の場合）弟要素がColumnを含まないList要素 | 処理をスキップ（Itemのみ適用されない） |
 | 分岐2-2 | 弟要素がColumnを含まないList要素（括弧付き科目名） | 空の子要素を作成し、Sentenceの値を子要素Sentenceに設定 |
 | 分岐2-3 | 弟要素がColumnを含まないList要素（括弧付き指導項目） | 空の子要素を作成し、Sentenceの値を子要素Sentenceに設定 |
-| 分岐2-4 | 弟要素がColumnを含まないList要素（上記以外） | 空の子要素を作成し、List要素を子要素内に配置 |
-| 分岐3 | 弟要素がList要素以外（TableStruct、FigStruct等） | 空の子要素を作成し、該当要素を子要素内に配置 |
+| 分岐2-4 | 弟要素がColumnを含まないList要素（上記以外） | 空の子要素を作成し、Sentenceの値を子要素Sentenceに設定 |
+| 分岐3 | 弟要素がList要素以外（TableStruct、FigStruct等） | そのまま配置（取り込み） |
 
 ### 処理2の分岐条件（共通）
 

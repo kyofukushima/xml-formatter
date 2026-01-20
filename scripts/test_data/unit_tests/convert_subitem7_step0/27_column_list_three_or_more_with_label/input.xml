@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Law>
+  <LawBody>
+    <Paragraph Num="1">
+      <ParagraphNum>1</ParagraphNum>
+      <ParagraphSentence>
+        <Sentence Num="1">Paragraphの内容</Sentence>
+      </ParagraphSentence>
+      <Subitem6 Num="1">
+        <Subitem6Title>1</Subitem6Title>
+        <Subitem6Sentence>
+          <Sentence Num="1">itemの内容</Sentence>
+        </Subitem6Sentence>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1">ａ）</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1">ＪＡＳ</Sentence>
+            </Column>
+            <Column Num="3">
+              <Sentence Num="1">００２６の箇条４に規定するベジタリアン又はヴィーガンに適した料理に関する事項</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1">（１）</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1">テキスト1</Sentence>
+            </Column>
+            <Column Num="3">
+              <Sentence Num="1">テキスト2</Sentence>
+            </Column>
+            <Column Num="4">
+              <Sentence Num="1">テキスト3</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1">テキスト（ラベルではない）</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1">テキスト2</Sentence>
+            </Column>
+            <Column Num="3">
+              <Sentence Num="1">テキスト3</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1">ｂ）</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1">ＪＡＳ</Sentence>
+            </Column>
+            <Column Num="3">
+              <Sentence Num="1">００２６の箇条４に規定するベジタリアン又はヴィーガンに適した料理に関する事項</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+      </Subitem6>
+    </Paragraph>
+  </LawBody>
+</Law>

@@ -8,7 +8,7 @@
       </ParagraphSentence>
       <List>
         <ListSentence>
-          <Sentence Num="1">ColumnなしListの内容</Sentence>
+          <Sentence Num="1" >ColumnなしListの内容</Sentence>
         </ListSentence>
       </List>
     </Paragraph>

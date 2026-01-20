@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<Law>
+  <LawBody>
+    <Item Num="1">
+      <ItemTitle>1</ItemTitle>
+      <ItemSentence>
+        <Sentence Num="1">item要素の内容</Sentence>
+      </ItemSentence>
+      <Subitem1 Num="1">
+        <Subitem1Title>（１）</Subitem1Title>
+        <Subitem1Sentence>
+          <Sentence Num="1">通常のSubitem1です。</Sentence>
+        </Subitem1Sentence>
+        <Subitem2 Num="1">
+          <Subitem2Title/>
+          <Subitem2Sentence>
+            <Sentence Num="1"/>
+          </Subitem2Sentence>
+          <List>
+            <ListSentence>
+              <Sentence Num="1">〔医療と社会〕</Sentence>
+            </ListSentence>
+          </List>
+          <List>
+            <ListSentence>
+              <Sentence Num="1">分割後の内容</Sentence>
+            </ListSentence>
+          </List>
+        </Subitem2>
+      </Subitem1>
+    </Item>
+  </LawBody>
+</Law>

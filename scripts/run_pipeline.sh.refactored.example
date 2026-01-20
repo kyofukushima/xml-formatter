@@ -1,0 +1,178 @@
+#!/bin/bash
+
+###############################################################################
+# XML パイプライン処理スクリプト - 検証機能付き（リファクタリング版）
+#
+# 用途: 入力フォルダ内のXMLファイルを複数のステップで順次処理し、
+#       出力フォルダに整形されたXMLを保存します
+#       また、処理前後のテキスト内容の整合性を検証します
+#
+# 使用方法:
+#   ./run_pipeline.sh input_folder output_folder [mode]
+#
+# 引数:
+#   input_folder  : 処理対象のXMLファイルを格納するフォルダ
+#   output_folder : 処理結果を保存するフォルダ
+#   mode          : 実行モード (all=連続実行 [デフォルト], step=確認しながら実行)
+#
+###############################################################################
+
+set -e
+
+# スクリプトディレクトリを取得
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
+
+# 共通ライブラリを読み込み
+source "$SCRIPT_DIR/lib/pipeline_common.sh"
+
+###############################################################################
+# 設定
+###############################################################################
+
+# 変換スクリプトのリスト（実行順序が重要）
+CONVERTERS=(
+  "preprocess_non_first_sentence_to_list.py"
+  "convert_article_focused.py"
+  "convert_paragraph_step3.py"
+  "convert_paragraph_step4.py"
+  "convert_item_step0.py"
+  "convert_subitem1_step0.py"
+  "convert_subitem2_step0.py"
+  "convert_subitem3_step0.py"
+  "convert_subitem4_step0.py"
+  "convert_subitem5_step0.py"
+  "convert_subitem6_step0.py"
+  "convert_subitem7_step0.py"
+  "convert_subitem8_step0.py"
+  "convert_subitem9_step0.py"
+  "convert_subitem10_step0.py"
+)
+
+# 検証スクリプト
+VALIDATION_SCRIPT="compare_xml_text_content.py"
+PARSE_VALIDATION_SCRIPT="validate_xml.py"
+
+###############################################################################
+# メイン処理
+###############################################################################
+
+# 引数チェック
+if ! validate_argument_count $# 2; then
+  print_usage "$0" "XML パイプライン処理スクリプト" "<input_folder> <output_folder> [mode]"
+  exit 1
+fi
+
+INPUT_FOLDER="$1"
+OUTPUT_FOLDER="$2"
+MODE="${3:-all}"
+
+# モード値の検証
+if ! validate_mode "$MODE"; then
+  print_error "無効なモード: '$MODE'. 'all' または 'step' を指定してください。"
+  print_usage "$0" "XML パイプライン処理スクリプト" "<input_folder> <output_folder> [mode]"
+  exit 1
+fi
+
+# 入力フォルダの存在確認
+if ! validate_directory "$INPUT_FOLDER"; then
+  print_error "入力フォルダが見つかりません: $INPUT_FOLDER"
+  exit 1
+fi
+
+# 入力フォルダ内にXMLファイルがあるか確認
+if ! validate_xml_files "$INPUT_FOLDER"; then
+  print_error "入力フォルダにXMLファイルが見つかりません: $INPUT_FOLDER"
+  exit 1
+fi
+
+# 出力フォルダを作成
+create_output_directory "$OUTPUT_FOLDER"
+
+# パスを絶対パスに変換
+INPUT_FOLDER=$(normalize_path "$INPUT_FOLDER")
+OUTPUT_FOLDER=$(normalize_path "$OUTPUT_FOLDER")
+
+print_step "パイプライン処理を開始します"
+echo "入力フォルダ: $INPUT_FOLDER"
+echo "出力フォルダ: $OUTPUT_FOLDER"
+echo "実行モード: $MODE"
+
+# 処理対象のXMLファイル一覧を取得
+xml_files=($(get_xml_files "$INPUT_FOLDER"))
+file_count=${#xml_files[@]}
+
+echo ""
+print_info "処理対象ファイル数: $file_count"
+for file in "${xml_files[@]}"; do
+  echo "  - $(basename "$file")"
+done
+
+###############################################################################
+# ファイルごとのパイプライン処理
+###############################################################################
+
+# 中間ファイル保存用のベースディレクトリ
+INTERMEDIATE_FOLDER="$OUTPUT_FOLDER/intermediate_files"
+create_intermediate_directory "$INTERMEDIATE_FOLDER"
+
+file_index=0
+for xml_file in "${xml_files[@]}"; do
+  file_index=$((file_index + 1))
+  filename=$(basename "$xml_file")
+  filename_no_ext=$(get_filename_without_extension "$filename")
+  
+  print_step "ファイル $file_index/$file_count: $filename を処理中"
+  
+  # 各ファイルの中間ファイル保存用ディレクトリを作成
+  intermediate_dir="$INTERMEDIATE_FOLDER/$filename_no_ext"
+  mkdir -p "$intermediate_dir"
+  print_info "中間ファイルは $intermediate_dir に保存されます"
+
+  # パース検証を実行
+  parse_validation_script_path="$SCRIPT_DIR/$PARSE_VALIDATION_SCRIPT"
+  parse_report="$intermediate_dir/${filename_no_ext}-parse_validation.txt"
+
+  if ! run_parse_validation "$parse_validation_script_path" "$xml_file" "$parse_report"; then
+    echo "このファイルの処理をスキップします。"
+    echo ""
+    continue
+  fi
+
+  # パイプラインを実行
+  current_input="$xml_file"
+  final_output=$(run_pipeline "$SCRIPT_DIR" "CONVERTERS" "$current_input" "$intermediate_dir" "$filename_no_ext" "$MODE")
+  
+  if [ $? -ne 0 ] || [ -z "$final_output" ]; then
+    print_error "パイプライン処理中にエラーが発生しました"
+    exit 1
+  fi
+  
+  # 最終出力ファイルを出力フォルダにコピー
+  if [ -f "$final_output" ]; then
+    output_filename="${filename_no_ext}-final.xml"
+    final_destination="$OUTPUT_FOLDER/$output_filename"
+
+    cp "$final_output" "$final_destination"
+    print_success "最終結果を保存しました: $final_destination"
+
+    # 検証ステップ
+    validation_script_path="$SCRIPT_DIR/$VALIDATION_SCRIPT"
+    validation_report="$intermediate_dir/${filename_no_ext}-validation_report.txt"
+
+    run_validation "$validation_script_path" "$xml_file" "$final_destination" "$validation_report"
+  else
+    print_error "最終出力ファイルが見つかりません"
+    exit 1
+  fi
+
+  echo ""
+done
+
+###############################################################################
+# 完了メッセージ
+###############################################################################
+
+print_completion_message "$OUTPUT_FOLDER" "$INTERMEDIATE_FOLDER"
+
+
+

@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<Law>
+  <LawBody>
+    <Paragraph Num="1">
+      <ParagraphNum>1</ParagraphNum>
+      <ParagraphSentence>
+        <Sentence Num="1">Paragraphの内容</Sentence>
+      </ParagraphSentence>
+      <Subitem2 Num="1">
+        <Subitem2Title>1</Subitem2Title>
+        <Subitem2Sentence>
+          <Sentence Num="1">itemの内容</Sentence>
+        </Subitem2Sentence>
+        <Subitem3 Num="1">
+          <Subitem3Title/>
+          <Subitem3Sentence>
+            <Sentence Num="1">〔指導項目〕</Sentence>
+          </Subitem3Sentence>
+        </Subitem3>
+        <Subitem3 Num="2">
+          <Subitem3Title/>
+          <Subitem3Sentence>
+            <Sentence Num="1">〔指導項目〕</Sentence>
+          </Subitem3Sentence>
+        </Subitem3>
+        <Subitem3 Num="3">
+          <Subitem3Title/>
+          <Subitem3Sentence>
+            <Sentence Num="1">〔指導項目〕</Sentence>
+          </Subitem3Sentence>
+        </Subitem3>
+      </Subitem2>
+    </Paragraph>
+  </LawBody>
+</Law>

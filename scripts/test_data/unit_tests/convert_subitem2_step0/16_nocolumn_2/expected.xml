@@ -9,23 +9,20 @@
       <Subitem2 Num="1">
         <Subitem2Title/>
         <Subitem2Sentence>
-          <Sentence Num="1"/>
+          <Sentence Num="1">ColumnなしListの内容1</Sentence>
         </Subitem2Sentence>
-        <List>
-          <ListSentence>
-            <Sentence Num="1">ColumnなしListの内容1</Sentence>
-          </ListSentence>
-        </List>
-        <List>
-          <ListSentence>
-            <Sentence Num="1">ColumnなしListの内容2</Sentence>
-          </ListSentence>
-        </List>
-        <List>
-          <ListSentence>
-            <Sentence Num="1">ColumnなしListの内容3</Sentence>
-          </ListSentence>
-        </List>
+      </Subitem2>
+      <Subitem2 Num="2">
+        <Subitem2Title/>
+        <Subitem2Sentence>
+          <Sentence Num="1">ColumnなしListの内容2</Sentence>
+        </Subitem2Sentence>
+      </Subitem2>
+      <Subitem2 Num="3">
+        <Subitem2Title/>
+        <Subitem2Sentence>
+          <Sentence Num="1">ColumnなしListの内容3</Sentence>
+        </Subitem2Sentence>
       </Subitem2>
     </Subitem1>
   </LawBody>

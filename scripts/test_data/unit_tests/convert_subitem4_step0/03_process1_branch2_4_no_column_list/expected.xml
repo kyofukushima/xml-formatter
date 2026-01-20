@@ -27,15 +27,10 @@
                 <Sentence Num="1">Subitem3の内容</Sentence>
               </Subitem3Sentence>
               <Subitem4 Num="1">
-                <Subitem4Title></Subitem4Title>
+                <Subitem4Title/>
                 <Subitem4Sentence>
-                  <Sentence Num="1"></Sentence>
+                  <Sentence Num="1">通常のList内容</Sentence>
                 </Subitem4Sentence>
-                <List>
-                  <ListSentence>
-                    <Sentence Num="1">通常のList内容</Sentence>
-                  </ListSentence>
-                </List>
               </Subitem4>
             </Subitem3>
           </Subitem2>

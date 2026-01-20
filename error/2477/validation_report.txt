@@ -1,0 +1,55 @@
+✅ Success: All text content from the original file is present in the final file.
+
+================================================================================
+Table Validation Results
+================================================================================
+
+✅ Table content order is correct.
+
+⚠️  Warning: Found 101 table(s) with position changes.
+This is normal after conversion (tables may move to different parent elements).
+
+Table position changes:
+------------------------------
+Position 1:
+  Original: （い） | （ろ） | 等級 | 倍率 | ３ | １．５０ | ２ | １．２５ | １ | １．００ | POS:Paragraph[52] | prev:List[②] | next:List[③]
+  Final:    （い） | （ろ） | 等級 | 倍率 | ３ | １．５０ | ２ | １．２５ | １ | １．００ | POS:Subitem4[②][2] | prev:Subitem4Sentence[新築住宅に係る各等級に要求される水準は、極めて稀に発生する地]
+
+Position 2:
+  Original: （い） | （ろ） | 等級 | 倍率 | ３ | １．５０ | ２ | １．２５ | １ | １．００ | POS:Paragraph[54] | prev:List[③] | next:List[（３）]
+  Final:    （い） | （ろ） | 等級 | 倍率 | ３ | １．５０ | ２ | １．２５ | １ | １．００ | POS:Subitem4[③][2] | prev:Subitem4Sentence[既存住宅に係る各等級に要求される水準は、等級０の場合を除き構]
+
+Position 3:
+  Original: （い） | （ろ） | 床組等の構造方法 | 存在床倍率 | （１） | 厚さ１２ｍｍ以上の構造用合板又は構造用パネル（１級又は２級のものに限る。）を、根太（根太相互の間隔が３４０ｍｍ以下の場合に限る。）に対し、鉄丸釘Ｎ５０を用いて１５０ｍｍ以下の間隔で打ち付けた床組等 | １ | （２） | 厚さ
+  Final:    （い） | （ろ） | 床組等の構造方法 | 存在床倍率 | （１） | 厚さ１２ｍｍ以上の構造用合板又は構造用パネル（１級又は２級のものに限る。）を、根太（根太相互の間隔が３４０ｍｍ以下の場合に限る。）に対し、鉄丸釘Ｎ５０を用いて１５０ｍｍ以下の間隔で打ち付けた床組等 | １ | （２） | 厚さ
+
+Position 4:
+  Original: （い） | （ろ） | 継手及び仕口の構造方法 | 存在接合部倍率 | （１） | 長ほぞ差し込み栓打ち（込み栓にかた木を用いたものに限る。）としたもの又はこれと同等の接合方法としたもの | ０．７ | （２） | 厚さ２．３ｍｍのＴ字型の鋼板添え板を用い、双方の部材にそれぞれ長さ６．５ｃｍの太め鉄
+  Final:    （い） | （ろ） | 継手及び仕口の構造方法 | 存在接合部倍率 | （１） | 長ほぞ差し込み栓打ち（込み栓にかた木を用いたものに限る。）としたもの又はこれと同等の接合方法としたもの | ０．７ | （２） | 厚さ２．３ｍｍのＴ字型の鋼板添え板を用い、双方の部材にそれぞれ長さ６．５ｃｍの太め鉄
+
+Position 5:
+  Original: （い） | （ろ） | 等級 | 倍率 | ３ | １．５０ | ２ | １．２５ | １ | １．００ | POS:Paragraph[188] | prev:List[②] | next:List[③]
+  Final:    （い） | （ろ） | 等級 | 倍率 | ３ | １．５０ | ２ | １．２５ | １ | １．００ | POS:Subitem4[②][2] | prev:Subitem4Sentence[新築住宅に係る各等級に要求される水準は、稀に発生する地震によ]
+
+Position 6:
+  Original: （い） | （ろ） | 等級 | 倍率 | ３ | １．５０ | ２ | １．２５ | １ | １．００ | POS:Paragraph[190] | prev:List[③] | next:List[（３）]
+  Final:    （い） | （ろ） | 等級 | 倍率 | ３ | １．５０ | ２ | １．２５ | １ | １．００ | POS:Subitem4[③][2] | prev:Subitem4Sentence[既存住宅に係る各等級に要求される水準は、等級０の場合を除き構]
+
+Position 7:
+  Original: （い） | （ろ） | 等級 | 倍率 | ２ | １．２ | １ | １．０ | POS:Paragraph[255] | prev:List[②] | next:List[③]
+  Final:    （い） | （ろ） | 等級 | 倍率 | ２ | １．２ | １ | １．０ | POS:Subitem4[②][2] | prev:Subitem4Sentence[新築住宅に係る各等級に要求される水準は、極めて稀に発生する暴]
+
+Position 8:
+  Original: （い） | （ろ） | 等級 | 倍率 | ２ | １．２ | １ | １．０ | ０ | ０．０ | POS:Paragraph[257] | prev:List[③] | next:List[（３）]
+  Final:    （い） | （ろ） | 等級 | 倍率 | ２ | １．２ | １ | １．０ | ０ | ０．０ | POS:Subitem4[③][2] | prev:Subitem4Sentence[既存住宅に係る各等級に要求される水準は、等級０の場合を除き構]
+
+Position 9:
+  Original: 風速（令第８７条第２項に規定するＶ | ０ | ３０ | ３２ | ３４ | ３６ | ３８ | ４０ | ４２ | ４４ | POS:Paragraph[284] | prev:List[①] | next:List[②]
+  Final:    風速（令第８７条第２項に規定するＶ | ０ | ３０ | ３２ | ３４ | ３６ | ３８ | ４０ | ４２ | ４４ | POS:Subitem6[①][2] | prev:Subitem6Sentence[昭和５６年建設省告示第１１００号（以下この①において「告示」]
+
+Position 10:
+  Original: （い） | （ろ） | 等級 | 倍率 | ２ | １．２ | １ | １．０ | POS:Paragraph[335] | prev:List[②] | next:List[③]
+  Final:    （い） | （ろ） | 等級 | 倍率 | ２ | １．２ | １ | １．０ | POS:Subitem4[②][2] | prev:Subitem4Sentence[新築住宅に係る各等級に要求される水準は、極めて稀に発生する積]
+
+... and 91 more position changes
+

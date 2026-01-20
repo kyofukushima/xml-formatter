@@ -14,22 +14,10 @@
         <Subitem1 Num="1">
           <Subitem1Title/>
           <Subitem1Sentence>
-            <Sentence Num="1"/>
+            <Sentence Num="1">ColumnなしListの内容</Sentence>
           </Subitem1Sentence>
-          <List>
-            <ListSentence>
-              <Sentence Num="1">ColumnなしListの内容</Sentence>
-            </ListSentence>
-          </List>
         </Subitem1>
       </Item>
     </Paragraph>
   </LawBody>
 </Law>
-
-
-
-
-
-
-

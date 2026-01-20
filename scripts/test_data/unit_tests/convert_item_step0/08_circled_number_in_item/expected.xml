@@ -7,16 +7,16 @@
         <Sentence Num="1">Paragraphの内容</Sentence>
       </ParagraphSentence>
       <Item Num="1">
-        <ItemTitle>１</ItemTitle>
+        <ItemTitle>①</ItemTitle>
         <ItemSentence>
-          <Sentence Num="1">Itemの内容</Sentence>
+          <Sentence Num="1">丸数字ラベルの内容1</Sentence>
         </ItemSentence>
-        <Subitem1 Num="1">
-          <Subitem1Title>①</Subitem1Title>
-          <Subitem1Sentence>
-            <Sentence Num="1">丸数字ラベルの内容</Sentence>
-          </Subitem1Sentence>
-        </Subitem1>
+      </Item>
+      <Item Num="2">
+        <ItemTitle>②</ItemTitle>
+        <ItemSentence>
+          <Sentence Num="1">丸数字ラベルの内容2</Sentence>
+        </ItemSentence>
       </Item>
     </Paragraph>
   </LawBody>

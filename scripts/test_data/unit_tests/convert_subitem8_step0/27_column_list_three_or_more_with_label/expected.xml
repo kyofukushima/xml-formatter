@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Law>
+  <LawBody>
+    <Paragraph Num="1">
+      <ParagraphNum>1</ParagraphNum>
+      <ParagraphSentence>
+        <Sentence Num="1">Paragraphの内容</Sentence>
+      </ParagraphSentence>
+      <Subitem7 Num="1">
+        <Subitem7Title>1</Subitem7Title>
+        <Subitem7Sentence>
+          <Sentence Num="1">itemの内容</Sentence>
+        </Subitem7Sentence>
+        <Subitem8 Num="1">
+          <Subitem8Title>ａ）</Subitem8Title>
+          <Subitem8Sentence>
+            <Sentence Num="1">ＪＡＳ</Sentence>
+            <Sentence Num="2">００２６の箇条４に規定するベジタリアン又はヴィーガンに適した料理に関する事項</Sentence>
+          </Subitem8Sentence>
+          <List>
+            <ListSentence>
+              <Column Num="1">
+                <Sentence Num="1">（１）</Sentence>
+              </Column>
+              <Column Num="2">
+                <Sentence Num="1">テキスト1</Sentence>
+              </Column>
+              <Column Num="3">
+                <Sentence Num="1">テキスト2</Sentence>
+              </Column>
+              <Column Num="4">
+                <Sentence Num="1">テキスト3</Sentence>
+              </Column>
+            </ListSentence>
+          </List>
+          <List>
+            <ListSentence>
+              <Column Num="1">
+                <Sentence Num="1">テキスト（ラベルではない）</Sentence>
+              </Column>
+              <Column Num="2">
+                <Sentence Num="1">テキスト2</Sentence>
+              </Column>
+              <Column Num="3">
+                <Sentence Num="1">テキスト3</Sentence>
+              </Column>
+            </ListSentence>
+          </List>
+        </Subitem8>
+        <Subitem8 Num="2">
+          <Subitem8Title>ｂ）</Subitem8Title>
+          <Subitem8Sentence>
+            <Sentence Num="1">ＪＡＳ</Sentence>
+            <Sentence Num="2">００２６の箇条４に規定するベジタリアン又はヴィーガンに適した料理に関する事項</Sentence>
+          </Subitem8Sentence>
+        </Subitem8>
+      </Subitem7>
+    </Paragraph>
+  </LawBody>
+</Law>

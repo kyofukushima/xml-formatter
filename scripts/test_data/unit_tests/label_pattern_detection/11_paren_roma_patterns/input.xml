@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Law>
+  <LawBody>
+    <Paragraph Num="1">
+      <ParagraphNum>1</ParagraphNum>
+      <ParagraphSentence>
+        <Sentence Num="1">括弧付きローマ数字パターンのテスト</Sentence>
+      </ParagraphSentence>
+      <List>
+        <ListSentence>
+          <Column Num="1">
+            <Sentence Num="1">（ｉ）</Sentence>
+          </Column>
+          <Column Num="2">
+            <Sentence Num="1">括弧付きローマ数字（ｉ）の内容</Sentence>
+          </Column>
+        </ListSentence>
+      </List>
+      <List>
+        <ListSentence>
+          <Column Num="1">
+            <Sentence Num="1">（ｉｉ）</Sentence>
+          </Column>
+          <Column Num="2">
+            <Sentence Num="1">括弧付きローマ数字（ｉｉ）の内容</Sentence>
+          </Column>
+        </ListSentence>
+      </List>
+      <List>
+        <ListSentence>
+          <Column Num="1">
+            <Sentence Num="1">（１）</Sentence>
+          </Column>
+          <Column Num="2">
+            <Sentence Num="1">括弧付き数字（１）の内容</Sentence>
+          </Column>
+        </ListSentence>
+      </List>
+      <List>
+        <ListSentence>
+          <Column Num="1">
+            <Sentence Num="1">（２）</Sentence>
+          </Column>
+          <Column Num="2">
+            <Sentence Num="1">括弧付き数字（２）の内容</Sentence>
+          </Column>
+        </ListSentence>
+      </List>
+      <List>
+        <ListSentence>
+          <Column Num="1">
+            <Sentence Num="1">①</Sentence>
+          </Column>
+          <Column Num="2">
+            <Sentence Num="1">丸数字①の内容</Sentence>
+          </Column>
+        </ListSentence>
+      </List>
+      <List>
+        <ListSentence>
+          <Column Num="1">
+            <Sentence Num="1">②</Sentence>
+          </Column>
+          <Column Num="2">
+            <Sentence Num="1">丸数字②の内容</Sentence>
+          </Column>
+        </ListSentence>
+      </List>
+    </Paragraph>
+  </LawBody>
+</Law>

@@ -2,182 +2,188 @@ convert_item_step0.py 単体テスト実行
 ==================================================
 
 === テスト実行: 01_process1_branch1_column_list ===
-✅ スクリプト実行成功
-DEBUG: expected_file path: /Users/fukushima/Documents/xml_anken/education_xml/scripts/test_data/unit_tests/convert_item_step0/01_process1_branch1_column_list/expected.xml
-DEBUG: expected_content length: 430
-DEBUG: expected_content start: <?xml version="1.0" encoding="UTF-8"?>
-<Law>
-  <LawBody>
-    <Paragraph Num="1">
-      <ParagraphNum
-DEBUG: actual_normalized length: 391
-DEBUG: expected_normalized length: 391
-DEBUG: actual_normalized == expected_normalized: True
+✅ スクリプト実行成功 - 出力: /Users/fukushima/Documents/xml_anken/kouzou1_xml/scripts/test_data/unit_tests/convert_item_step0/01_process1_branch1_column_list/output.xml
 ✅ テスト成功: 出力が期待値と一致します
 
 === テスト実行: 02_process1_branch2_1_no_column_list ===
-✅ スクリプト実行成功
-DEBUG: expected_file path: /Users/fukushima/Documents/xml_anken/education_xml/scripts/test_data/unit_tests/convert_item_step0/02_process1_branch2_1_no_column_list/expected.xml
-DEBUG: expected_content length: 530
-DEBUG: expected_content start: <?xml version="1.0" encoding="UTF-8"?>
-<Law>
-  <LawBody>
-    <Paragraph Num="1">
-      <ParagraphNum
-DEBUG: actual_normalized length: 491
-DEBUG: expected_normalized length: 491
-DEBUG: actual_normalized == expected_normalized: True
+✅ スクリプト実行成功 - 出力: /Users/fukushima/Documents/xml_anken/kouzou1_xml/scripts/test_data/unit_tests/convert_item_step0/02_process1_branch2_1_no_column_list/output.xml
 ✅ テスト成功: 出力が期待値と一致します
 
 === テスト実行: 03_process1_branch2_2_subject_bracket ===
-✅ スクリプト実行成功
-DEBUG: expected_file path: /Users/fukushima/Documents/xml_anken/education_xml/scripts/test_data/unit_tests/convert_item_step0/03_process1_branch2_2_subject_bracket/expected.xml
-DEBUG: expected_content length: 405
-DEBUG: expected_content start: <?xml version="1.0" encoding="UTF-8"?>
-<Law>
-  <LawBody>
-    <Paragraph Num="1">
-      <ParagraphNum
-DEBUG: actual_normalized length: 366
-DEBUG: expected_normalized length: 366
-DEBUG: actual_normalized == expected_normalized: True
+✅ スクリプト実行成功 - 出力: /Users/fukushima/Documents/xml_anken/kouzou1_xml/scripts/test_data/unit_tests/convert_item_step0/03_process1_branch2_2_subject_bracket/output.xml
 ✅ テスト成功: 出力が期待値と一致します
 
 === テスト実行: 04_process1_branch2_3_instruction_bracket ===
-✅ スクリプト実行成功
-DEBUG: expected_file path: /Users/fukushima/Documents/xml_anken/education_xml/scripts/test_data/unit_tests/convert_item_step0/04_process1_branch2_3_instruction_bracket/expected.xml
-DEBUG: expected_content length: 407
-DEBUG: expected_content start: <?xml version="1.0" encoding="UTF-8"?>
-<Law>
-  <LawBody>
-    <Paragraph Num="1">
-      <ParagraphNum
-DEBUG: actual_normalized length: 368
-DEBUG: expected_normalized length: 368
-DEBUG: actual_normalized == expected_normalized: True
+✅ スクリプト実行成功 - 出力: /Users/fukushima/Documents/xml_anken/kouzou1_xml/scripts/test_data/unit_tests/convert_item_step0/04_process1_branch2_3_instruction_bracket/output.xml
 ✅ テスト成功: 出力が期待値と一致します
 
 === テスト実行: 05_process1_branch3_non_list ===
-✅ スクリプト実行成功
-DEBUG: expected_file path: /Users/fukushima/Documents/xml_anken/education_xml/scripts/test_data/unit_tests/convert_item_step0/05_process1_branch3_non_list/expected.xml
-DEBUG: expected_content length: 522
-DEBUG: expected_content start: <?xml version="1.0" encoding="UTF-8"?>
-<Law>
-  <LawBody>
-    <Paragraph Num="1">
-      <ParagraphNum
-DEBUG: actual_normalized length: 483
-DEBUG: expected_normalized length: 483
-DEBUG: actual_normalized == expected_normalized: True
+✅ スクリプト実行成功 - 出力: /Users/fukushima/Documents/xml_anken/kouzou1_xml/scripts/test_data/unit_tests/convert_item_step0/05_process1_branch3_non_list/output.xml
 ✅ テスト成功: 出力が期待値と一致します
 
 === テスト実行: 06_process2_split_and_aggregate ===
-✅ スクリプト実行成功
-DEBUG: expected_file path: /Users/fukushima/Documents/xml_anken/education_xml/scripts/test_data/unit_tests/convert_item_step0/06_process2_split_and_aggregate/expected.xml
-DEBUG: expected_content length: 744
-DEBUG: expected_content start: <?xml version="1.0" encoding="UTF-8"?>
-<Law>
-  <LawBody>
-    <Paragraph Num="1">
-      <ParagraphNum
-DEBUG: actual_normalized length: 705
-DEBUG: expected_normalized length: 705
-DEBUG: actual_normalized == expected_normalized: True
+✅ スクリプト実行成功 - 出力: /Users/fukushima/Documents/xml_anken/kouzou1_xml/scripts/test_data/unit_tests/convert_item_step0/06_process2_split_and_aggregate/output.xml
 ✅ テスト成功: 出力が期待値と一致します
 
 === テスト実行: 07_process1_branch2_1_2_grade_single_bracket ===
-✅ スクリプト実行成功
-DEBUG: expected_file path: /Users/fukushima/Documents/xml_anken/education_xml/scripts/test_data/unit_tests/convert_item_step0/07_process1_branch2_1_2_grade_single_bracket/expected.xml
-DEBUG: expected_content length: 407
-DEBUG: expected_content start: <?xml version="1.0" encoding="UTF-8"?>
-<Law>
-  <LawBody>
-    <Paragraph Num="1">
-      <ParagraphNum
-DEBUG: actual_normalized length: 368
-DEBUG: expected_normalized length: 368
-DEBUG: actual_normalized == expected_normalized: True
+✅ スクリプト実行成功 - 出力: /Users/fukushima/Documents/xml_anken/kouzou1_xml/scripts/test_data/unit_tests/convert_item_step0/07_process1_branch2_1_2_grade_single_bracket/output.xml
+✅ テスト成功: 出力が期待値と一致します
+
+=== テスト実行: 08_circled_number_in_item ===
+✅ スクリプト実行成功 - 出力: /Users/fukushima/Documents/xml_anken/kouzou1_xml/scripts/test_data/unit_tests/convert_item_step0/08_circled_number_in_item/output.xml
 ✅ テスト成功: 出力が期待値と一致します
 
 === テスト実行: 08_process1_branch2_1_1_grade_double_bracket ===
-✅ スクリプト実行成功
-DEBUG: expected_file path: /Users/fukushima/Documents/xml_anken/education_xml/scripts/test_data/unit_tests/convert_item_step0/08_process1_branch2_1_1_grade_double_bracket/expected.xml
-DEBUG: expected_content length: 413
-DEBUG: expected_content start: <?xml version="1.0" encoding="UTF-8"?>
-<Law>
-  <LawBody>
-    <Paragraph Num="1">
-      <ParagraphNum
-DEBUG: actual_normalized length: 374
-DEBUG: expected_normalized length: 374
-DEBUG: actual_normalized == expected_normalized: True
+✅ スクリプト実行成功 - 出力: /Users/fukushima/Documents/xml_anken/kouzou1_xml/scripts/test_data/unit_tests/convert_item_step0/08_process1_branch2_1_1_grade_double_bracket/output.xml
 ✅ テスト成功: 出力が期待値と一致します
 
 === テスト実行: 09_process2_split_grade_patterns ===
-✅ スクリプト実行成功
-DEBUG: expected_file path: /Users/fukushima/Documents/xml_anken/education_xml/scripts/test_data/unit_tests/convert_item_step0/09_process2_split_grade_patterns/expected.xml
-DEBUG: expected_content length: 693
-DEBUG: expected_content start: <?xml version="1.0" encoding="UTF-8"?>
-<Law>
-  <LawBody>
-    <Paragraph Num="1">
-      <ParagraphNum
-DEBUG: actual_normalized length: 635
-DEBUG: expected_normalized length: 654
-DEBUG: actual_normalized == expected_normalized: False
-❌ テスト失敗: 出力が期待値と一致しません
-
-差分:
---- expected.xml
-+++ output.xml
-@@ -15,12 +15,11 @@
-             <Sentence Num="1">〔第３学年及び第４学年〕</Sentence>
-           </ListSentence>
-         </List>
--      </Item>
--      <Item Num="2">
--        <ItemTitle/>
--        <ItemSentence>
--          <Sentence Num="1">〔医療と社会〕</Sentence>
--        </ItemSentence>
-+        <List>
-+          <ListSentence>
-+            <Sentence Num="1">〔医療と社会〕</Sentence>
-+          </ListSentence>
-+        </List>
-       </Item>
-     </Paragraph>
-   </LawBody>
-
+✅ スクリプト実行成功 - 出力: /Users/fukushima/Documents/xml_anken/kouzou1_xml/scripts/test_data/unit_tests/convert_item_step0/09_process2_split_grade_patterns/output.xml
+✅ テスト成功: 出力が期待値と一致します
 
 === テスト実行: 10_process_mixed_subject_instruction ===
-✅ スクリプト実行成功
-DEBUG: expected_file path: /Users/fukushima/Documents/xml_anken/education_xml/scripts/test_data/unit_tests/convert_item_step0/10_process_mixed_subject_instruction/expected.xml
-DEBUG: expected_content length: 673
-DEBUG: expected_content start: <?xml version="1.0" encoding="UTF-8"?>
-<Law>
-  <LawBody>
-    <Paragraph Num="1">
-      <ParagraphNum
-DEBUG: actual_normalized length: 632
-DEBUG: expected_normalized length: 634
-DEBUG: actual_normalized == expected_normalized: False
+✅ スクリプト実行成功 - 出力: /Users/fukushima/Documents/xml_anken/kouzou1_xml/scripts/test_data/unit_tests/convert_item_step0/10_process_mixed_subject_instruction/output.xml
+✅ テスト成功: 出力が期待値と一致します
+
+=== テスト実行: 12_process2_split_and_aggregate_subject_bracket ===
+✅ スクリプト実行成功 - 出力: /Users/fukushima/Documents/xml_anken/kouzou1_xml/scripts/test_data/unit_tests/convert_item_step0/12_process2_split_and_aggregate_subject_bracket/output.xml
+✅ テスト成功: 出力が期待値と一致します
+
+=== テスト実行: 13_process2_split_and_grade1 ===
+✅ スクリプト実行成功 - 出力: /Users/fukushima/Documents/xml_anken/kouzou1_xml/scripts/test_data/unit_tests/convert_item_step0/13_process2_split_and_grade1/output.xml
+✅ テスト成功: 出力が期待値と一致します
+
+=== テスト実行: 14_process2_split_and_grade2 ===
+✅ スクリプト実行成功 - 出力: /Users/fukushima/Documents/xml_anken/kouzou1_xml/scripts/test_data/unit_tests/convert_item_step0/14_process2_split_and_grade2/output.xml
+✅ テスト成功: 出力が期待値と一致します
+
+=== テスト実行: 15_process2_split_and_aggregate_instruction_bracket ===
+✅ スクリプト実行成功 - 出力: /Users/fukushima/Documents/xml_anken/kouzou1_xml/scripts/test_data/unit_tests/convert_item_step0/15_process2_split_and_aggregate_instruction_bracket/output.xml
+✅ テスト成功: 出力が期待値と一致します
+
+=== テスト実行: 16_nocolumn_2 ===
+✅ スクリプト実行成功 - 出力: /Users/fukushima/Documents/xml_anken/kouzou1_xml/scripts/test_data/unit_tests/convert_item_step0/16_nocolumn_2/output.xml
+✅ テスト成功: 出力が期待値と一致します
+
+=== テスト実行: 17_no_content ===
+✅ スクリプト実行成功 - 出力: /Users/fukushima/Documents/xml_anken/kouzou1_xml/scripts/test_data/unit_tests/convert_item_step0/17_no_content/output.xml
+✅ テスト成功: 出力が期待値と一致します
+
+=== テスト実行: 18_process1_branch1_column_list_3columns ===
+✅ スクリプト実行成功 - 出力: /Users/fukushima/Documents/xml_anken/kouzou1_xml/scripts/test_data/unit_tests/convert_item_step0/18_process1_branch1_column_list_3columns/output.xml
+✅ テスト成功: 出力が期待値と一致します
+
+=== テスト実行: 19_round_bracket_long_description ===
+✅ スクリプト実行成功 - 出力: /Users/fukushima/Documents/xml_anken/kouzou1_xml/scripts/test_data/unit_tests/convert_item_step0/19_round_bracket_long_description/output.xml
+✅ テスト成功: 出力が期待値と一致します
+
+=== テスト実行: 20_empty_parent_create_item ===
+✅ スクリプト実行成功 - 出力: /Users/fukushima/Documents/xml_anken/kouzou1_xml/scripts/test_data/unit_tests/convert_item_step0/20_empty_parent_create_item/output.xml
+✅ テスト成功: 出力が期待値と一致します
+
+=== テスト実行: 21_fullwidth_lowercase_alphabet_with_paren ===
+✅ スクリプト実行成功 - 出力: /Users/fukushima/Documents/xml_anken/kouzou1_xml/scripts/test_data/unit_tests/convert_item_step0/21_fullwidth_lowercase_alphabet_with_paren/output.xml
+✅ テスト成功: 出力が期待値と一致します
+
+=== テスト実行: 22_fullwidth_number_with_paren ===
+✅ スクリプト実行成功 - 出力: /Users/fukushima/Documents/xml_anken/kouzou1_xml/scripts/test_data/unit_tests/convert_item_step0/22_fullwidth_number_with_paren/output.xml
+✅ テスト成功: 出力が期待値と一致します
+
+=== テスト実行: 23_dot_separated_number_single ===
+✅ スクリプト実行成功 - 出力: /Users/fukushima/Documents/xml_anken/kouzou1_xml/scripts/test_data/unit_tests/convert_item_step0/23_dot_separated_number_single/output.xml
+✅ テスト成功: 出力が期待値と一致します
+
+=== テスト実行: 24_dot_separated_number_double ===
+✅ スクリプト実行成功 - 出力: /Users/fukushima/Documents/xml_anken/kouzou1_xml/scripts/test_data/unit_tests/convert_item_step0/24_dot_separated_number_double/output.xml
+✅ テスト成功: 出力が期待値と一致します
+
+=== テスト実行: 25_note_with_number ===
+✅ スクリプト実行成功 - 出力: /Users/fukushima/Documents/xml_anken/kouzou1_xml/scripts/test_data/unit_tests/convert_item_step0/25_note_with_number/output.xml
+✅ テスト成功: 出力が期待値と一致します
+
+=== テスト実行: 26_column_list_non_label_first_column ===
+✅ スクリプト実行成功 - 出力: /Users/fukushima/Documents/xml_anken/kouzou1_xml/scripts/test_data/unit_tests/convert_item_step0/26_column_list_non_label_first_column/output.xml
+✅ テスト成功: 出力が期待値と一致します
+
+=== テスト実行: 27_column_list_three_or_more_with_label ===
+✅ スクリプト実行成功 - 出力: /Users/fukushima/Documents/xml_anken/kouzou1_xml/scripts/test_data/unit_tests/convert_item_step0/27_column_list_three_or_more_with_label/output.xml
 ❌ テスト失敗: 出力が期待値と一致しません
 
 差分:
 --- expected.xml
 +++ output.xml
-@@ -17,7 +17,7 @@
-         </List>
-         <List>
-           <ListSentence>
--              <Sentence Num="1">〔国語〕</Sentence>
-+            <Sentence Num="1">〔国語〕</Sentence>
-           </ListSentence>
-         </List>
+@@ -11,36 +11,28 @@
+           <Sentence Num="1">ＪＡＳ</Sentence>
+           <Sentence Num="2">００２６の箇条４に規定するベジタリアン又はヴィーガンに適した料理に関する事項</Sentence>
+         </ItemSentence>
+-        <List>
+-          <ListSentence>
+-            <Column Num="1">
+-              <Sentence Num="1">（１）</Sentence>
+-            </Column>
+-            <Column Num="2">
+-              <Sentence Num="1">テキスト1</Sentence>
+-            </Column>
+-            <Column Num="3">
+-              <Sentence Num="1">テキスト2</Sentence>
+-            </Column>
+-            <Column Num="4">
+-              <Sentence Num="1">テキスト3</Sentence>
+-            </Column>
+-          </ListSentence>
+-        </List>
+-        <List>
+-          <ListSentence>
+-            <Column Num="1">
+-              <Sentence Num="1">テキスト（ラベルではない）</Sentence>
+-            </Column>
+-            <Column Num="2">
+-              <Sentence Num="1">テキスト2</Sentence>
+-            </Column>
+-            <Column Num="3">
+-              <Sentence Num="1">テキスト3</Sentence>
+-            </Column>
+-          </ListSentence>
+-        </List>
        </Item>
++      <Item Num="2">
++        <ItemTitle>（１）</ItemTitle>
++        <ItemSentence>
++          <Sentence Num="1">テキスト1</Sentence>
++          <Sentence Num="2">テキスト2</Sentence>
++          <Sentence Num="3">テキスト3</Sentence>
++        </ItemSentence>
++      </Item>
++      <List>
++        <ListSentence>
++          <Column Num="1">
++            <Sentence Num="1">テキスト（ラベルではない）</Sentence>
++          </Column>
++          <Column Num="2">
++            <Sentence Num="1">テキスト2</Sentence>
++          </Column>
++          <Column Num="3">
++            <Sentence Num="1">テキスト3</Sentence>
++          </Column>
++        </ListSentence>
++      </List>
+     </Paragraph>
+   </LawBody>
+ </Law>
 
+
+=== テスト実行: 28_duplicate_label_keep_as_list ===
+✅ スクリプト実行成功 - 出力: /Users/fukushima/Documents/xml_anken/kouzou1_xml/scripts/test_data/unit_tests/convert_item_step0/28_duplicate_label_keep_as_list/output.xml
+✅ テスト成功: 出力が期待値と一致します
+
+=== テスト実行: 29_instruction_bracket_duplicate ===
+✅ スクリプト実行成功 - 出力: /Users/fukushima/Documents/xml_anken/kouzou1_xml/scripts/test_data/unit_tests/convert_item_step0/29_instruction_bracket_duplicate/output.xml
+✅ テスト成功: 出力が期待値と一致します
+
+=== テスト実行: 30_dot_separated_number_with_alphabet_children ===
+✅ スクリプト実行成功 - 出力: /Users/fukushima/Documents/xml_anken/kouzou1_xml/scripts/test_data/unit_tests/convert_item_step0/30_dot_separated_number_with_alphabet_children/output.xml
+✅ テスト成功: 出力が期待値と一致します
 
 ==================================================
-テスト結果: 8/10 成功
+テスト結果: 29/30 成功
 ⚠️ 一部のテストが失敗しました。

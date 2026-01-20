@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Law DataInfo="250815e81k80m01" Era="Heisei" Lang="ja" LawType="Misc" Num="36" Year="9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../schema/kokuji20250320_asukoe.xsd">
+  <LawNum>平成九年運輸省告示第三十六号</LawNum>
+  <LawBody>
+    <LawTitle>平成九年運輸省告示第三十六号（船員法施行規則第七十八条の二第一項の規定に基づく国土交通大臣が告示で定める基準）</LawTitle>
+    <EnactStatement>船員法施行規則第七十八条の二第一項の規定に基づき、運輸大臣が告示で定める基準を次のように定め、平成九年二月一日から適用する。</EnactStatement>
+    <MainProvision>
+      <Paragraph Num="1">
+        <ParagraphNum>１</ParagraphNum>
+        <ParagraphSentence>
+          <Sentence Num="1">船員法施行規則（以下「規則」という。）第七十八条の二第一項の表第一号１に掲げる事項に関する同項の運輸大臣が告示で定める基準は、船舶の特性及び航行上の条件に応じた操船方法について教育訓練を行うものであることとする。</Sentence>
+        </ParagraphSentence>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1">２</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1">規則第七十八条の二第一項の表第一号２に掲げる事項に関する同項の運輸大臣が告示で定める基準は、操だ設備その他の船舶の航行のために必要な設備（機関を除く。）の操作方法について教育訓練を行うものであることとする。</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1">３</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1">規則第七十八条の二第一項の表第一号３に掲げる事項に関する同項の運輸大臣が告示で定める基準は、脱出設備、救命設備、排水設備及び消防設備の操作方法について教育訓練を行うものであることとする。</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1">４</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1">規則第七十八条の二第一項の表第一号４に掲げる事項に関する同項の運輸大臣が告示で定める基準は、次に掲げる事項について教育訓練を行うものであることとする。</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1">一</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1">旅客に対する明確な指示及び旅客の避難誘導</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1">二</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1">救命胴衣その他の非常時において旅客が使用する救命器具の使用方法の指示及び支援</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1">５</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1">規則第七十八条の二第一項の表第一号５に掲げる事項に関する同項の運輸大臣が告示で定める基準は、次に掲げる事項について教育訓練を行うものであることとする。</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1">一</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1">復原性に関する知識</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1">二</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1">復原性を確保するための設備の操作方法</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1">三</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1">復原性を確保するための貨物及び車両の積込み手順及び固定方法</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1">６</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1">規則第七十八条の二第一項の表第二号１に掲げる事項に関する同項の運輸大臣が告示で定める基準は、機関の操作方法について教育訓練を行うものであることとする。</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+      </Paragraph>
+    </MainProvision>
+  </LawBody>
+</Law>
