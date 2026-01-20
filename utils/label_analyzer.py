@@ -27,7 +27,7 @@ detect_label_id = label_utils.detect_label_id
 LabelConfigType = LabelConfig
 
 
-def extract_list_column1_values(xml_path: Path) -> Set[str]:
+def extract_list_column1_values(xml_path: Path) -> Tuple[Set[str], bool]:
     """
     XMLファイルからすべてのList要素のColumn要素の1つ目の値を抽出し、
     重複を排除してセットに格納
@@ -36,7 +36,7 @@ def extract_list_column1_values(xml_path: Path) -> Set[str]:
         xml_path: XMLファイルのパス
         
     Returns:
-        Set[str]: Column要素の1つ目の値のセット（重複排除済み）
+        Tuple[Set[str], bool]: (Column要素の1つ目の値のセット（重複排除済み）, ColumnありのList要素が存在するかどうか)
     """
     try:
         tree = etree.parse(str(xml_path))
@@ -45,6 +45,7 @@ def extract_list_column1_values(xml_path: Path) -> Set[str]:
         raise ValueError(f"XMLファイルの読み込みに失敗しました: {e}")
     
     column1_values = set()
+    has_column_list = False
     
     # すべてのList要素を検索
     for list_elem in root.iter('List'):
@@ -52,6 +53,7 @@ def extract_list_column1_values(xml_path: Path) -> Set[str]:
         columns = list_elem.findall('.//Column')
         
         if len(columns) >= 1:
+            has_column_list = True
             # 1つ目のColumn要素からSentence要素を取得
             col1 = columns[0]
             sentence = col1.find('.//Sentence')
@@ -62,7 +64,7 @@ def extract_list_column1_values(xml_path: Path) -> Set[str]:
                 if text:
                     column1_values.add(text)
     
-    return column1_values
+    return column1_values, has_column_list
 
 
 def analyze_label_types(column1_values: Set[str], label_config: Optional[LabelConfigType] = None) -> pd.DataFrame:
@@ -108,7 +110,7 @@ def analyze_label_types(column1_values: Set[str], label_config: Optional[LabelCo
     return df
 
 
-def analyze_xml_labels(xml_path: Path, label_config: Optional[LabelConfigType] = None) -> pd.DataFrame:
+def analyze_xml_labels(xml_path: Path, label_config: Optional[LabelConfigType] = None) -> Tuple[Optional[pd.DataFrame], bool]:
     """
     XMLファイルからList要素のColumn要素の1つ目を抽出し、
     ラベル種類を判定して表にまとめる
@@ -126,12 +128,17 @@ def analyze_xml_labels(xml_path: Path, label_config: Optional[LabelConfigType] =
         label_config: ラベル設定（Noneの場合はデフォルト設定を使用）
         
     Returns:
-        pd.DataFrame: 判定結果の表（ラベル要素、値の2列構成）
+        Tuple[Optional[pd.DataFrame], bool]: (判定結果の表（ラベル要素、値の2列構成）, ColumnありのList要素が存在するかどうか)
+        ColumnありのList要素がない場合は (None, False) を返す
     """
     # Column要素の1つ目の値を抽出（重複排除済み）
-    column1_values = extract_list_column1_values(xml_path)
+    column1_values, has_column_list = extract_list_column1_values(xml_path)
+    
+    # ColumnありのList要素がない場合
+    if not has_column_list:
+        return None, False
     
     # ラベル種類を判定して表にまとめる
     result_df = analyze_label_types(column1_values, label_config)
     
-    return result_df
+    return result_df, True

@@ -158,11 +158,17 @@ def main():
             # ラベル種類の判定を自動実行
             with st.spinner("ラベル種類を判定中..."):
                 try:
-                    result_df = analyze_xml_labels(tmp_path)
-                    st.session_state.label_analysis_result = result_df
+                    result_df, has_column_list = analyze_xml_labels(tmp_path)
+                    if has_column_list:
+                        st.session_state.label_analysis_result = result_df
+                        st.session_state.has_column_list = True
+                    else:
+                        st.session_state.label_analysis_result = None
+                        st.session_state.has_column_list = False
                 except Exception as e:
                     st.warning(f"⚠️ ラベル種類の判定中にエラーが発生しました: {e}")
                     st.session_state.label_analysis_result = None
+                    st.session_state.has_column_list = None
         else:
             st.error(f"❌ {error_msg}")
             cleanup_temp_files([tmp_path])
@@ -176,10 +182,15 @@ def main():
         # ラベル種類判定の結果をセッション状態に初期化
         if 'label_analysis_result' not in st.session_state:
             st.session_state.label_analysis_result = None
+        if 'has_column_list' not in st.session_state:
+            st.session_state.has_column_list = None
         
         # expanderで表示/非表示を切り替え
         with st.expander("🔍 ラベルの種類を確認する", expanded=False):
-            if st.session_state.label_analysis_result is not None:
+            # ColumnありのList要素がない場合
+            if st.session_state.has_column_list is False:
+                st.info("columnありのList要素なし")
+            elif st.session_state.label_analysis_result is not None:
                 result_df = st.session_state.label_analysis_result
                 
                 # 不明な値の件数をチェック
