@@ -29,6 +29,7 @@ from utils.validation import (
     validate_text_content,
     format_validation_report
 )
+from utils.label_analyzer import analyze_xml_labels
 from components.xml_preview import preview_xml_file
 
 # ページ設定
@@ -107,10 +108,11 @@ def main():
         st.markdown("---")
         st.header("ℹ️ 情報")
         st.markdown("""
-        **バージョン**: 1.2.0 (開発中)
+        **バージョン**: 1.3.0
         
         **機能**:
         - XMLファイルのアップロード
+        - ラベル種類の判定（自動実行）
         - 変換スクリプトの選択
         - パイプライン処理の実行
         - 検証機能
@@ -152,6 +154,15 @@ def main():
             # FR-010: XMLプレビュー
             with st.expander("📄 XMLファイルのプレビュー", expanded=False):
                 preview_xml_file(tmp_path, max_lines=500)
+            
+            # ラベル種類の判定を自動実行
+            with st.spinner("ラベル種類を判定中..."):
+                try:
+                    result_df = analyze_xml_labels(tmp_path)
+                    st.session_state.label_analysis_result = result_df
+                except Exception as e:
+                    st.warning(f"⚠️ ラベル種類の判定中にエラーが発生しました: {e}")
+                    st.session_state.label_analysis_result = None
         else:
             st.error(f"❌ {error_msg}")
             cleanup_temp_files([tmp_path])
@@ -159,6 +170,42 @@ def main():
     
     # ステップ2以降はファイルがアップロードされている場合のみ表示
     if st.session_state.uploaded_file_path is not None:
+        st.markdown("---")
+        
+        # ラベル種類判定セクション
+        # ラベル種類判定の結果をセッション状態に初期化
+        if 'label_analysis_result' not in st.session_state:
+            st.session_state.label_analysis_result = None
+        
+        # expanderで表示/非表示を切り替え
+        with st.expander("🔍 ラベルの種類を確認する", expanded=False):
+            if st.session_state.label_analysis_result is not None:
+                result_df = st.session_state.label_analysis_result
+                
+                # 不明な値の件数をチェック
+                unknown_count = len(result_df[result_df['ラベル要素'] == '不明'])
+                if unknown_count > 0:
+                    st.warning(f"⚠️ 不明な値が{unknown_count}個あります")
+                
+                # 結果テーブルの表示
+                st.subheader("判定結果")
+                st.dataframe(
+                    result_df,
+                    use_container_width=True,
+                    hide_index=True
+                )
+                
+                # CSVダウンロードボタン
+                csv = result_df.to_csv(index=False, encoding='utf-8-sig')
+                st.download_button(
+                    label="📥 結果をCSVでダウンロード",
+                    data=csv,
+                    file_name=f"{Path(st.session_state.uploaded_file_name).stem}_label_analysis.csv",
+                    mime="text/csv"
+                )
+            else:
+                st.info("ラベル種類の判定結果がありません。ファイルをアップロードしてください。")
+        
         st.markdown("---")
         
         # FR-003: パイプライン処理の実行
