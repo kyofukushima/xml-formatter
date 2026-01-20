@@ -394,6 +394,21 @@
       ],
       "description": "Subitem3以降"
     },
+    "roman_number_with_hyphen_number": {
+      "id": "roman_number_with_hyphen_number",
+      "name": "ローマ数字 + ハイフン + 数字",
+      "patterns": [
+        "^[Ⅰ-Ⅿⅰ-ⅿ]+[―-][０-９0-9]+$"
+      ],
+      "examples": [
+        "Ⅰ―１",
+        "Ⅰ-１",
+        "Ⅱ―２",
+        "ⅰ―１",
+        "ⅱ-２"
+      ],
+      "description": "ローマ数字（大文字/小文字）+ ハイフン + 数字の組み合わせ"
+    },
     "roman_number_uppercase": {
       "id": "roman_number_uppercase",
       "name": "ローマ数字（大文字）",
@@ -600,6 +615,22 @@
       ],
       "description": "カタカナ + 全角/半角ドット（終端）（新規パターン）"
     },
+    "fullwidth_lowercase_alphabet_with_dot": {
+      "id": "fullwidth_lowercase_alphabet_with_dot",
+      "name": "全角小文字アルファベット + ．",
+      "patterns": [
+        "^[ａ-ｚ]+[．.]$"
+      ],
+      "examples": [
+        "ａ．",
+        "ｂ．",
+        "ｃ．",
+        "a.",
+        "b.",
+        "c."
+      ],
+      "description": "全角小文字アルファベット + 全角/半角ドット（終端）（新規パターン）"
+    },
     "dot_separated_number_triple": {
       "id": "dot_separated_number_triple",
       "name": "ドット区切り数字（ドット3つ）",
@@ -734,6 +765,7 @@
     "fullwidth_number_with_paren",
     "katakana_with_paren",
     "katakana_with_dot",
+    "fullwidth_lowercase_alphabet_with_dot",
     "paren_fullwidth_number",
     "paren_kanji_number",
     "dot_separated_number_triple",
@@ -749,6 +781,7 @@
     "subject_label",
     "circled_number",
     "katakana",
+    "roman_number_with_hyphen_number",
     "roman_number_uppercase",
     "roman_number_lowercase",
     "uppercase_alphabet",
