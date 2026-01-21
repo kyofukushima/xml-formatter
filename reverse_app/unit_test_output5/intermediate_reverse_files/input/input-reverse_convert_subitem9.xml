@@ -1,0 +1,137 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<Law>
+  <LawBody>
+    <MainProvision>
+      <Article Num="1">
+        <ArticleTitle>第１条</ArticleTitle>
+        <Paragraph Num="1">
+          <ParagraphNum>第１</ParagraphNum>
+          <ParagraphSentence>
+            <Sentence Num="1">Paragraphの内容</Sentence>
+          </ParagraphSentence>
+          <Item Num="1">
+            <ItemTitle>１</ItemTitle>
+            <ItemSentence>
+              <Sentence Num="1">Itemの内容</Sentence>
+            </ItemSentence>
+            <Subitem1 Num="1">
+              <Subitem1Title>ア</Subitem1Title>
+              <Subitem1Sentence>
+                <Sentence Num="1">Subitem1の内容</Sentence>
+              </Subitem1Sentence>
+              <TableStruct>
+   
+                </TableStruct>
+              <Subitem2 Num="1">
+                <Subitem2Title>（ア）</Subitem2Title>
+                <Subitem2Sentence>
+                  <Sentence Num="1">Subitem2の内容</Sentence>
+                </Subitem2Sentence>
+                <Subitem3 Num="1">
+                  <Subitem3Title>（（ア））</Subitem3Title>
+                  <Subitem3Sentence>
+                    <Sentence Num="1">Subitem3の内容</Sentence>
+                  </Subitem3Sentence>
+                  <Subitem4 Num="1">
+                    <Subitem4Title>A</Subitem4Title>
+                    <Subitem4Sentence>
+                      <Sentence Num="1">Subitem4の内容</Sentence>
+                    </Subitem4Sentence>
+                    <Subitem5 Num="1">
+                      <Subitem5Title>a</Subitem5Title>
+                      <Subitem5Sentence>
+                        <Sentence Num="1">Subitem5の内容</Sentence>
+                      </Subitem5Sentence>
+                      <Subitem6 Num="1">
+                        <Subitem6Title>（a）</Subitem6Title>
+                        <Subitem6Sentence>
+                          <Sentence Num="1">Subitem6の内容</Sentence>
+                        </Subitem6Sentence>
+                        <Subitem7 Num="1">
+                          <Subitem7Title>（（a））</Subitem7Title>
+                          <Subitem7Sentence>
+                            <Sentence Num="1">Subitem7の内容</Sentence>
+                          </Subitem7Sentence>
+                          <Subitem8 Num="1">
+                            <Subitem8Title>（（a））</Subitem8Title>
+                            <Subitem8Sentence>
+                              <Sentence Num="1">Subitem8の内容</Sentence>
+                            </Subitem8Sentence>
+                            <List>
+                              <ListSentence>
+                                <Sentence Num="1"/>
+                              </ListSentence>
+                            </List>
+                          </Subitem8>
+                        </Subitem7>
+                      </Subitem6>
+                    </Subitem5>
+                  </Subitem4>
+                </Subitem3>
+              </Subitem2>
+            </Subitem1>
+          </Item>
+          <Item Num="2">
+            <ItemTitle/>
+            <ItemSentence>
+              <Sentence Num="1">Item2の内容</Sentence>
+            </ItemSentence>
+            <Subitem1 Num="1">
+              <Subitem1Title/>
+              <Subitem1Sentence>
+                <Sentence Num="1">Subitem1の内容</Sentence>
+              </Subitem1Sentence>
+              <Subitem2 Num="1">
+                <Subitem2Title/>
+                <Subitem2Sentence>
+                  <Sentence Num="1">Subitem2の内容</Sentence>
+                </Subitem2Sentence>
+                <Subitem3 Num="1">
+                  <Subitem3Title/>
+                  <Subitem3Sentence>
+                    <Sentence Num="1">Subitem3の内容</Sentence>
+                  </Subitem3Sentence>
+                  <Subitem4 Num="1">
+                    <Subitem4Title/>
+                    <Subitem4Sentence>
+                      <Sentence Num="1">Subitem4の内容</Sentence>
+                    </Subitem4Sentence>
+                    <Subitem5 Num="1">
+                      <Subitem5Title/>
+                      <Subitem5Sentence>
+                        <Sentence Num="1">Subitem5の内容</Sentence>
+                      </Subitem5Sentence>
+                      <Subitem6 Num="1">
+                        <Subitem6Title/>
+                        <Subitem6Sentence>
+                          <Sentence Num="1">Subitem6の内容</Sentence>
+                        </Subitem6Sentence>
+                        <Subitem7 Num="1">
+                          <Subitem7Title/>
+                          <Subitem7Sentence>
+                            <Sentence Num="1">Subitem7の内容</Sentence>
+                          </Subitem7Sentence>
+                          <Subitem8 Num="1">
+                            <Subitem8Title/>
+                            <Subitem8Sentence>
+                              <Sentence Num="1">Subitem8の内容</Sentence>
+                            </Subitem8Sentence>
+                            <List>
+                              <ListSentence>
+                                <Sentence Num="1"/>
+                              </ListSentence>
+                            </List>
+                          </Subitem8>
+                        </Subitem7>
+                      </Subitem6>
+                    </Subitem5>
+                  </Subitem4>
+                </Subitem3>
+              </Subitem2>
+            </Subitem1>
+          </Item>
+        </Paragraph>
+      </Article>
+    </MainProvision>
+  </LawBody>
+</Law>

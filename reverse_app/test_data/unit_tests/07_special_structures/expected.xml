@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Law>
+  <LawBody>
+    <MainProvision>
+      <Article Num="1">
+        <ArticleTitle>第１条</ArticleTitle>
+        <Paragraph Num="1">
+          <ParagraphNum>第１</ParagraphNum>
+          <ParagraphSentence>
+            <Sentence Num="1">Paragraphの内容</Sentence>
+          </ParagraphSentence>
+          <List>
+            <ListSentence>
+              <Column Num="1">
+                <Sentence Num="1">（１）</Sentence>
+              </Column>
+              <Column Num="2">
+                <Sentence Num="1">項目A</Sentence>
+              </Column>
+            </ListSentence>
+          </List>
+          <TableStruct>
+            <TableRow>
+              <TableCell>Itemテーブル内容</TableCell>
+            </TableRow>
+          </TableStruct>
+          <List>
+            <ListSentence>
+              <Column Num="1">
+                <Sentence Num="1">ア</Sentence>
+              </Column>
+              <Column Num="2">
+                <Sentence Num="1">項目B</Sentence>
+              </Column>
+            </ListSentence>
+          </List>
+          <TableStruct>
+            <TableRow>
+              <TableCell>Subitem1テーブル内容</TableCell>
+            </TableRow>
+          </TableStruct>
+          <List>
+            <ListSentence>
+              <Column Num="1">
+                <Sentence Num="1">（ア）</Sentence>
+              </Column>
+              <Column Num="2">
+                <Sentence Num="1">項目C</Sentence>
+              </Column>
+            </ListSentence>
+          </List>
+          <TableStruct>
+            <TableRow>
+              <TableCell>Subitem2テーブル内容</TableCell>
+            </TableRow>
+          </TableStruct>
+          <List>
+            <ListSentence>
+              <Column Num="1">
+                <Sentence Num="1">（（ア））</Sentence>
+              </Column>
+              <Column Num="2">
+                <Sentence Num="1">項目D</Sentence>
+              </Column>
+            </ListSentence>
+          </List>
+          <TableStruct>
+            <TableRow>
+              <TableCell>Subitem3テーブル内容</TableCell>
+            </TableRow>
+          </TableStruct>
+          <List>
+            <ListSentence>
+              <Column Num="1">
+                <Sentence Num="1">A</Sentence>
+              </Column>
+              <Column Num="2">
+                <Sentence Num="1">項目E</Sentence>
+              </Column>
+            </ListSentence>
+          </List>
+          <TableStruct>
+            <TableRow>
+              <TableCell>Subitem4テーブル内容</TableCell>
+            </TableRow>
+          </TableStruct>
+          <List>
+            <ListSentence>
+              <Column Num="1">
+                <Sentence Num="1">a</Sentence>
+              </Column>
+              <Column Num="2">
+                <Sentence Num="1">項目F</Sentence>
+              </Column>
+            </ListSentence>
+          </List>
+          <TableStruct>
+            <TableRow>
+              <TableCell>Subitem5テーブル内容</TableCell>
+            </TableRow>
+          </TableStruct>
+          <List>
+            <ListSentence>
+              <Column Num="1">
+                <Sentence Num="1">（a）</Sentence>
+              </Column>
+              <Column Num="2">
+                <Sentence Num="1">項目G</Sentence>
+              </Column>
+            </ListSentence>
+          </List>
+          <TableStruct>
+            <TableRow>
+              <TableCell>Subitem6テーブル内容</TableCell>
+            </TableRow>
+          </TableStruct>
+          <List>
+            <ListSentence>
+              <Column Num="1">
+                <Sentence Num="1">（（a））</Sentence>
+              </Column>
+              <Column Num="2">
+                <Sentence Num="1">項目H</Sentence>
+              </Column>
+            </ListSentence>
+          </List>
+          <TableStruct>
+            <TableRow>
+              <TableCell>Subitem7テーブル内容</TableCell>
+            </TableRow>
+          </TableStruct>
+          <List>
+            <ListSentence>
+              <Column Num="1">
+                <Sentence Num="1">（（一））</Sentence>
+              </Column>
+              <Column Num="2">
+                <Sentence Num="1">項目I</Sentence>
+              </Column>
+            </ListSentence>
+          </List>
+          <TableStruct>
+            <TableRow>
+              <TableCell>Subitem8テーブル内容</TableCell>
+            </TableRow>
+          </TableStruct>
+          <List>
+            <ListSentence>
+              <Column Num="1">
+                <Sentence Num="1">一</Sentence>
+              </Column>
+              <Column Num="2">
+                <Sentence Num="1">項目J</Sentence>
+              </Column>
+            </ListSentence>
+          </List>
+          <TableStruct>
+            <TableRow>
+              <TableCell>Subitem9テーブル内容</TableCell>
+            </TableRow>
+          </TableStruct>
+          <List>
+            <ListSentence>
+              <Column Num="1">
+                <Sentence Num="1">（一）</Sentence>
+              </Column>
+              <Column Num="2">
+                <Sentence Num="1">項目K</Sentence>
+              </Column>
+            </ListSentence>
+          </List>
+          <TableStruct>
+            <TableRow>
+              <TableCell>Subitem10テーブル内容</TableCell>
+            </TableRow>
+          </TableStruct>
+        </Paragraph>
+      </Article>
+    </MainProvision>
+  </LawBody>
+</Law>

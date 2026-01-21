@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<Law>
+  <LawBody>
+    <MainProvision>
+      <Article Num="1">
+        <ArticleTitle>第１条</ArticleTitle>
+        <Paragraph Num="1">
+          <ParagraphNum>第１</ParagraphNum>
+          <ParagraphSentence>
+            <Sentence Num="1">Paragraphの内容</Sentence>
+          </ParagraphSentence>
+          <List>
+            <ListSentence>
+              <Column Num="1">
+                <Sentence Num="1">１</Sentence>
+              </Column>
+              <Column Num="2">
+                <Sentence Num="1">Itemの内容</Sentence>
+              </Column>
+            </ListSentence>
+          </List>
+          <List>
+            <ListSentence>
+              <Sentence Num="1">Item2の内容</Sentence>
+            </ListSentence>
+          </List>
+        </Paragraph>
+      </Article>
+    </MainProvision>
+  </LawBody>
+</Law>

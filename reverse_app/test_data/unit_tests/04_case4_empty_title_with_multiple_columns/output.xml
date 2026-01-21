@@ -1,0 +1,159 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<Law>
+  <LawBody>
+    <MainProvision>
+      <Article Num="1">
+        <ArticleTitle>第１条</ArticleTitle>
+        <Paragraph Num="1">
+          <ParagraphNum>第１</ParagraphNum>
+          <ParagraphSentence>
+            <Sentence Num="1">Paragraphの内容</Sentence>
+          </ParagraphSentence>
+          <List>
+            <ListSentence>
+              <Column Num="1">
+                <Sentence Num="1">項目名</Sentence>
+              </Column>
+              <Column Num="2">
+                <Sentence Num="1">内容A</Sentence>
+              </Column>
+              <Column Num="3">
+                <Sentence Num="1">内容B</Sentence>
+              </Column>
+            </ListSentence>
+          </List>
+          <List>
+            <ListSentence>
+              <Column Num="1">
+                <Sentence Num="1">Subitem1項目名</Sentence>
+              </Column>
+              <Column Num="2">
+                <Sentence Num="1">Subitem1内容A</Sentence>
+              </Column>
+              <Column Num="3">
+                <Sentence Num="1">Subitem1内容B</Sentence>
+              </Column>
+            </ListSentence>
+          </List>
+          <List>
+            <ListSentence>
+              <Column Num="1">
+                <Sentence Num="1">Subitem2項目名</Sentence>
+              </Column>
+              <Column Num="2">
+                <Sentence Num="1">Subitem2内容A</Sentence>
+              </Column>
+              <Column Num="3">
+                <Sentence Num="1">Subitem2内容B</Sentence>
+              </Column>
+            </ListSentence>
+          </List>
+          <List>
+            <ListSentence>
+              <Column Num="1">
+                <Sentence Num="1">Subitem3項目名</Sentence>
+              </Column>
+              <Column Num="2">
+                <Sentence Num="1">Subitem3内容A</Sentence>
+              </Column>
+              <Column Num="3">
+                <Sentence Num="1">Subitem3内容B</Sentence>
+              </Column>
+            </ListSentence>
+          </List>
+          <List>
+            <ListSentence>
+              <Column Num="1">
+                <Sentence Num="1">Subitem4項目名</Sentence>
+              </Column>
+              <Column Num="2">
+                <Sentence Num="1">Subitem4内容A</Sentence>
+              </Column>
+              <Column Num="3">
+                <Sentence Num="1">Subitem4内容B</Sentence>
+              </Column>
+            </ListSentence>
+          </List>
+          <List>
+            <ListSentence>
+              <Column Num="1">
+                <Sentence Num="1">Subitem5項目名</Sentence>
+              </Column>
+              <Column Num="2">
+                <Sentence Num="1">Subitem5内容A</Sentence>
+              </Column>
+              <Column Num="3">
+                <Sentence Num="1">Subitem5内容B</Sentence>
+              </Column>
+            </ListSentence>
+          </List>
+          <List>
+            <ListSentence>
+              <Column Num="1">
+                <Sentence Num="1">Subitem6項目名</Sentence>
+              </Column>
+              <Column Num="2">
+                <Sentence Num="1">Subitem6内容A</Sentence>
+              </Column>
+              <Column Num="3">
+                <Sentence Num="1">Subitem6内容B</Sentence>
+              </Column>
+            </ListSentence>
+          </List>
+          <List>
+            <ListSentence>
+              <Column Num="1">
+                <Sentence Num="1">Subitem7項目名</Sentence>
+              </Column>
+              <Column Num="2">
+                <Sentence Num="1">Subitem7内容A</Sentence>
+              </Column>
+              <Column Num="3">
+                <Sentence Num="1">Subitem7内容B</Sentence>
+              </Column>
+            </ListSentence>
+          </List>
+          <List>
+            <ListSentence>
+              <Column Num="1">
+                <Sentence Num="1">Subitem8項目名</Sentence>
+              </Column>
+              <Column Num="2">
+                <Sentence Num="1">Subitem8内容A</Sentence>
+              </Column>
+              <Column Num="3">
+                <Sentence Num="1">Subitem8内容B</Sentence>
+              </Column>
+            </ListSentence>
+          </List>
+          <List>
+            <ListSentence>
+              <Column Num="1">
+                <Sentence Num="1">Subitem9項目名</Sentence>
+              </Column>
+              <Column Num="2">
+                <Sentence Num="1">Subitem9内容A</Sentence>
+              </Column>
+              <Column Num="3">
+                <Sentence Num="1">Subitem9内容B</Sentence>
+              </Column>
+            </ListSentence>
+          </List>
+          <List>
+            <ListSentence>
+              <Column Num="1">
+                <Sentence Num="1">Subitem10項目名</Sentence>
+              </Column>
+              <Column Num="2">
+                <Sentence Num="1">Subitem10内容A</Sentence>
+              </Column>
+              <Column Num="3">
+                <Sentence Num="1">Subitem10内容B</Sentence>
+              </Column>
+            </ListSentence>
+          </List>
+        </Paragraph>
+      </Article>
+    </MainProvision>
+  </LawBody>
+</Law>
