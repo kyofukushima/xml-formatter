@@ -4,7 +4,7 @@
 """
 Item要素をList要素に逆変換するスクリプト
 
-Paragraph要素内のItem要素をList要素に変換する。
+Paragraph, AppdxTable, その他の要素内のItem要素をList要素に変換する。
 - ItemTitleがある場合: 2カラムのList要素（Column1: ItemTitle, Column2: ItemSentence）
 - ItemTitleがない場合: ColumnなしのList要素
 """
