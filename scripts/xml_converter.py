@@ -410,7 +410,8 @@ def create_element_with_two_sentences(col1_sentence: Optional[etree.Element],
 
 def create_element_with_title_and_sentence(title_sentence_elem: Optional[etree.Element],
                                          content_sentence_elem: Optional[etree.Element],
-                                         config: ConversionConfig) -> etree.Element:
+                                         config: ConversionConfig,
+                                         list_elem: Optional[etree.Element] = None) -> etree.Element:
     """タイトルとセンテンスを持つ子要素を作成"""
     element = etree.Element(config.child_tag)
     title_elem = etree.SubElement(element, config.title_tag)
@@ -419,10 +420,30 @@ def create_element_with_title_and_sentence(title_sentence_elem: Optional[etree.E
         for child in title_sentence_elem:
             title_elem.append(deepcopy(child))
     sentence_elem = etree.SubElement(element, config.sentence_tag)
-    if content_sentence_elem is not None:
-        sentence_elem.append(deepcopy(content_sentence_elem))
+    
+    # Column要素全体をコピーする場合（Column内に複数のSentenceがある場合に対応）
+    if list_elem is not None:
+        all_columns = get_all_list_column_elements(list_elem)
+        if len(all_columns) >= 2:
+            # 2つ目のColumn要素内のすべてのSentence要素を抽出して追加
+            second_column = all_columns[1]
+            sentences_in_column = second_column.findall('Sentence')
+            for idx, sentence in enumerate(sentences_in_column, start=1):
+                new_sentence = deepcopy(sentence)
+                new_sentence.set('Num', str(idx))
+                sentence_elem.append(new_sentence)
+        elif len(all_columns) == 1:
+            # Columnが1つのみの場合（通常は発生しないが、念のため）
+            if content_sentence_elem is not None:
+                sentence_elem.append(deepcopy(content_sentence_elem))
+            else:
+                etree.SubElement(sentence_elem, 'Sentence', Num='1')
     else:
-        etree.SubElement(sentence_elem, 'Sentence', Num='1')
+        # フォールバック: Sentence要素として追加（後方互換性のため）
+        if content_sentence_elem is not None:
+            sentence_elem.append(deepcopy(content_sentence_elem))
+        else:
+            etree.SubElement(sentence_elem, 'Sentence', Num='1')
     return element
 
 
@@ -546,7 +567,7 @@ def create_element_from_list(element, config: ConversionConfig, stats, parent_el
             return child_elem, comment_text
         # Column条件はconfigによる（Columnが2つ以下の場合のみ）
         elif col_count >= config.column_condition_min and col1_text and (is_label(col1_text) or is_kanji_number_label(col1_text)):
-            child_elem = create_element_with_title_and_sentence(col1_sentence, col2_sentence, config)
+            child_elem = create_element_with_title_and_sentence(col1_sentence, col2_sentence, config, element)
             if is_kanji_number_label(col1_text):
                 comment_text = f"*** {config.script_name}: [処理1-分岐1] 漢数字ラベル Columnあり List -> {config.child_tag} ***"
                 stats[f'CONVERTED_KANJI_LABELED_LIST_TO_{config.child_tag.upper()}'] += 1
