@@ -408,6 +408,37 @@ def create_element_with_two_sentences(col1_sentence: Optional[etree.Element],
     return element
 
 
+def create_element_with_single_column(col_sentence: Optional[etree.Element],
+                                      config: ConversionConfig,
+                                      list_elem: Optional[etree.Element] = None) -> etree.Element:
+    """1つのColumn要素を持つ子要素を作成（Columnが1つでその中に複数のSentenceがある場合）"""
+    element = etree.Element(config.child_tag)
+    # Titleは空
+    etree.SubElement(element, config.title_tag)
+    sentence_elem = etree.SubElement(element, config.sentence_tag)
+
+    # Column要素を展開して、Column内のすべてのSentence要素を直接ItemSentence内に配置
+    if list_elem is not None:
+        all_columns = get_all_list_column_elements(list_elem)
+        if len(all_columns) >= 1:
+            # 最初のColumn要素内のすべてのSentence要素を抽出して追加
+            first_column = all_columns[0]
+            sentences_in_column = first_column.findall('Sentence')
+            for idx, sentence in enumerate(sentences_in_column, start=1):
+                new_sentence = deepcopy(sentence)
+                new_sentence.set('Num', str(idx))
+                sentence_elem.append(new_sentence)
+    else:
+        # フォールバック: Sentence要素として追加（後方互換性のため）
+        if col_sentence is not None:
+            sentence = etree.SubElement(sentence_elem, 'Sentence', Num='1')
+            sentence.text = col_sentence.text
+            for child in col_sentence:
+                sentence.append(deepcopy(child))
+
+    return element
+
+
 def create_element_with_title_and_sentence(title_sentence_elem: Optional[etree.Element],
                                          content_sentence_elem: Optional[etree.Element],
                                          config: ConversionConfig,
@@ -433,11 +464,13 @@ def create_element_with_title_and_sentence(title_sentence_elem: Optional[etree.E
                 new_sentence.set('Num', str(idx))
                 sentence_elem.append(new_sentence)
         elif len(all_columns) == 1:
-            # Columnが1つのみの場合（通常は発生しないが、念のため）
-            if content_sentence_elem is not None:
-                sentence_elem.append(deepcopy(content_sentence_elem))
-            else:
-                etree.SubElement(sentence_elem, 'Sentence', Num='1')
+            # Columnが1つのみの場合、そのColumn内のすべてのSentence要素を処理
+            first_column = all_columns[0]
+            sentences_in_column = first_column.findall('Sentence')
+            for idx, sentence in enumerate(sentences_in_column, start=1):
+                new_sentence = deepcopy(sentence)
+                new_sentence.set('Num', str(idx))
+                sentence_elem.append(new_sentence)
     else:
         # フォールバック: Sentence要素として追加（後方互換性のため）
         if content_sentence_elem is not None:
@@ -558,6 +591,13 @@ def create_element_from_list(element, config: ConversionConfig, stats, parent_el
         # Columnが3つ以上で、最初のColumnが空の場合、変換をスキップ（そのままList要素として残す）
         if col_count > 2:
             return None, f"*** {config.script_name}: [スキップ] Column3つ以上（1つ目が空） List -> 変換スキップ（そのままList要素として残す） ***"
+        # Columnが1つで、最初のColumnがラベル要素に該当しない場合の処理
+        elif col_count == 1 and col1_text and not (is_label(col1_text) or is_kanji_number_label(col1_text)):
+            # ItemSentenceの中にColumn要素を1つ作成
+            child_elem = create_element_with_single_column(col1_sentence, config, element)
+            comment_text = f"*** {config.script_name}: [処理1-分岐1-0] Column1つ（テキスト） List -> {config.child_tag}（Column要素1つ） ***"
+            stats[f'CONVERTED_SINGLE_COLUMN_LIST_TO_{config.child_tag.upper()}'] += 1
+            return child_elem, comment_text
         # Columnが2つ以上あり、かつ1つ目のColumnがラベル要素に該当しない場合の処理
         elif col_count >= config.column_condition_min and col1_text and not (is_label(col1_text) or is_kanji_number_label(col1_text)):
             # 常にItemSentenceの中にColumn要素を2つ作成
@@ -1944,6 +1984,7 @@ def process_xml_file(input_path: Path, output_path: Path, config: ConversionConf
         f'CONVERTED_NON_LIST_TO_{config.child_tag.upper()}',
         f'CONVERTED_TEXT_FIRST_COLUMN_LIST_TO_{config.child_tag.upper()}',
         f'CONVERTED_TEXT_FIRST_COLUMN_MULTI_LIST_TO_{config.child_tag.upper()}',
+        f'CONVERTED_SINGLE_COLUMN_LIST_TO_{config.child_tag.upper()}',
         f'SKIPPED_DUE_TO_EMPTY_PARENT'
     ]
 
@@ -1990,6 +2031,8 @@ def process_xml_file(input_path: Path, output_path: Path, config: ConversionConf
                 desc = "ColumnなしList"
             elif 'TEXT_FIRST_COLUMN' in key:
                 desc = "Column2つ（1つ目がテキスト）"
+            elif 'SINGLE_COLUMN' in key:
+                desc = "Column1つ（テキスト）"
             elif 'LABELED_MULTI_COLUMN' in key:
                 desc = "Column3つ以上（1つ目がラベル）"
             elif 'NON_LIST' in key:
