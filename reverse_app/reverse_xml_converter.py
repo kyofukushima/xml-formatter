@@ -67,6 +67,15 @@ def get_element_sentence_element(element, config: ReverseConversionConfig) -> Op
     return sentence_elem
 
 
+def get_element_sentence_elements(element, config: ReverseConversionConfig) -> ListType[etree.Element]:
+    """要素のSentence要素内のすべてのSentence要素を取得"""
+    sentence_container = element.find(config.sentence_tag)
+    if sentence_container is not None:
+        sentences = sentence_container.findall('Sentence')
+        return sentences
+    return []
+
+
 def get_element_sentence_columns(element, config: ReverseConversionConfig) -> ListType[etree.Element]:
     """要素のSentence内のすべてのColumn要素を取得"""
     sentence_elem = element.find(config.sentence_tag)
@@ -107,6 +116,37 @@ def create_list_element_with_columns(title_text: str, sentence_text: str, senten
                 sentence2.set(attr_name, attr_value)
     else:
         sentence2.text = sentence_text
+
+    return list_elem
+
+
+def create_list_element_with_columns_and_multiple_sentences(title_text: str, sentence_elements: ListType[etree.Element]) -> etree.Element:
+    """タイトルと複数のSentence要素を持つ2カラムのList要素を作成"""
+    list_elem = etree.Element('List')
+    list_sentence = etree.SubElement(list_elem, 'ListSentence')
+
+    # Column 1: Title
+    col1 = etree.SubElement(list_sentence, 'Column', Num='1')
+    sentence1 = etree.SubElement(col1, 'Sentence', Num='1')
+    sentence1.text = title_text
+
+    # Column 2: 複数のSentence要素
+    col2 = etree.SubElement(list_sentence, 'Column', Num='2')
+    for idx, sentence_elem in enumerate(sentence_elements, start=1):
+        # Sentence要素を作成（Num属性は後で設定）
+        sentence = etree.SubElement(col2, 'Sentence')
+        # Sentence要素全体をコピー（Ruby要素などの子要素構造を保持）
+        if sentence_elem is not None:
+            sentence.text = sentence_elem.text
+            for child in sentence_elem:
+                sentence.append(deepcopy(child))
+            # 元の属性を先にコピー（順序を保持）
+            for attr_name, attr_value in sentence_elem.attrib.items():
+                sentence.set(attr_name, attr_value)
+            # Num属性を更新（既に存在する場合は上書き）
+            sentence.set('Num', str(idx))
+        else:
+            sentence.set('Num', str(idx))
 
     return list_elem
 
@@ -165,17 +205,44 @@ def create_list_element_no_columns(sentence_text: str, sentence_elem: Optional[e
     return list_elem
 
 
-def convert_child_to_list(child_elem, config: ReverseConversionConfig, stats) -> Tuple[Optional[etree.Element], ListType]:
+def create_list_element_with_column_and_multiple_sentences(sentence_elements: ListType[etree.Element]) -> etree.Element:
+    """タイトルなしで、1つのColumn内に複数のSentence要素を持つList要素を作成"""
+    list_elem = etree.Element('List')
+    list_sentence = etree.SubElement(list_elem, 'ListSentence')
+    
+    # Column Num="1"に複数のSentence要素を配置
+    col1 = etree.SubElement(list_sentence, 'Column', Num='1')
+    for idx, sentence_elem in enumerate(sentence_elements, start=1):
+        # Sentence要素を作成（Num属性は後で設定）
+        sentence = etree.SubElement(col1, 'Sentence')
+        # Sentence要素全体をコピー（Ruby要素などの子要素構造を保持）
+        if sentence_elem is not None:
+            sentence.text = sentence_elem.text
+            for child in sentence_elem:
+                sentence.append(deepcopy(child))
+            # 元の属性を先にコピー（順序を保持）
+            for attr_name, attr_value in sentence_elem.attrib.items():
+                sentence.set(attr_name, attr_value)
+            # Num属性を更新（既に存在する場合は上書き）
+            sentence.set('Num', str(idx))
+        else:
+            sentence.set('Num', str(idx))
+    
+    return list_elem
+
+
+def convert_child_to_list(child_elem, config: ReverseConversionConfig, stats) -> Tuple[ListType[etree.Element], ListType]:
     """
     子要素をList要素に変換
-    返り値: (変換されたList要素, 子要素内の子要素（孫要素）のリスト)、または(None, [])（変換不要の場合）
+    返り値: (変換されたList要素のリスト, 子要素内の子要素（孫要素）のリスト)、または([], [])（変換不要の場合）
     """
     if child_elem.tag != config.child_tag:
-        return None, []
+        return [], []
 
     title_text = get_element_title_text(child_elem, config)
     sentence_text = get_element_sentence_text(child_elem, config)
     sentence_elem = get_element_sentence_element(child_elem, config)
+    sentence_elements = get_element_sentence_elements(child_elem, config)
     columns = get_element_sentence_columns(child_elem, config)
 
     # 子要素内の子要素（孫要素）を取得（List要素やその他の要素）
@@ -187,28 +254,49 @@ def convert_child_to_list(child_elem, config: ReverseConversionConfig, stats) ->
         if grandchild.tag != config.title_tag and grandchild.tag != config.sentence_tag:
             child_children.append(deepcopy(grandchild))
 
+    list_elements = []
+
     # 複数のColumn要素がある場合の処理
     if len(columns) > 0:
         if title_text:
             # ケース3: タイトルがあり、複数のColumn要素がある場合
             list_elem = create_list_element_with_title_and_multiple_columns(title_text, columns)
+            list_elements.append(list_elem)
             stats['CONVERTED_WITH_TITLE'] += 1
         else:
             # ケース4: タイトルが空で、複数のColumn要素がある場合
             list_elem = create_list_element_with_multiple_columns(columns)
+            list_elements.append(list_elem)
             stats['CONVERTED_NO_TITLE'] += 1
     else:
-        # 通常のケース: Column要素がない場合
-        if title_text:
-            # ケース1: タイトルがある場合（2カラムList）
-            list_elem = create_list_element_with_columns(title_text, sentence_text, sentence_elem)
-            stats['CONVERTED_WITH_TITLE'] += 1
+        # 複数のSentence要素がある場合の処理
+        if len(sentence_elements) > 1:
+            if title_text:
+                # ケース5: タイトルがあり、複数のSentence要素がある場合
+                # すべてのSentence要素を1つのColumn内に配置
+                list_elem = create_list_element_with_columns_and_multiple_sentences(title_text, sentence_elements)
+                list_elements.append(list_elem)
+                stats['CONVERTED_WITH_TITLE'] += 1
+            else:
+                # ケース6: タイトルが空で、複数のSentence要素がある場合
+                # 1つのList要素のColumn内に複数のSentence要素を配置
+                list_elem = create_list_element_with_column_and_multiple_sentences(sentence_elements)
+                list_elements.append(list_elem)
+                stats['CONVERTED_NO_TITLE'] += 1
         else:
-            # ケース2: タイトルがない場合（ColumnなしList）
-            list_elem = create_list_element_no_columns(sentence_text, sentence_elem)
-            stats['CONVERTED_NO_TITLE'] += 1
+            # 通常のケース: Column要素がなく、Sentence要素が1つのみの場合
+            if title_text:
+                # ケース1: タイトルがある場合（2カラムList）
+                list_elem = create_list_element_with_columns(title_text, sentence_text, sentence_elem)
+                list_elements.append(list_elem)
+                stats['CONVERTED_WITH_TITLE'] += 1
+            else:
+                # ケース2: タイトルがない場合（ColumnなしList）
+                list_elem = create_list_element_no_columns(sentence_text, sentence_elem)
+                list_elements.append(list_elem)
+                stats['CONVERTED_NO_TITLE'] += 1
 
-    return list_elem, child_children
+    return list_elements, child_children
 
 
 def process_parent_element(parent_elem, config: ReverseConversionConfig, stats) -> bool:
@@ -225,9 +313,11 @@ def process_parent_element(parent_elem, config: ReverseConversionConfig, stats) 
     for child in list(parent_elem):
         if child.tag == config.child_tag:
             # 子要素をListに変換
-            list_elem, child_children = convert_child_to_list(child, config, stats)
-            if list_elem is not None:
-                new_children.append(list_elem)
+            list_elements, child_children = convert_child_to_list(child, config, stats)
+            if len(list_elements) > 0:
+                # 複数のList要素を追加
+                for list_elem in list_elements:
+                    new_children.append(list_elem)
                 # 子要素内の子要素（孫要素）をList要素の後に追加
                 # これにより、階層構造がフラットなList要素の並びに変換される
                 for grandchild in child_children:

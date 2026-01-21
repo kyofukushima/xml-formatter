@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<Law>
+  <LawBody>
+    <MainProvision>
+      <Article Num="1">
+        <ArticleTitle>第１条</ArticleTitle>
+        <Paragraph Num="1">
+          <ParagraphNum>第１</ParagraphNum>
+          <ParagraphSentence>
+            <Sentence Num="1">Paragraphの内容</Sentence>
+          </ParagraphSentence>
+          <List>
+            <ListSentence>
+              <Column Num="1">
+                <Sentence Function="main" Num="1">被検機器は、予熱時間をとらない。</Sentence>
+                <Sentence Function="proviso" Num="2">ただし、被検機器の取扱説明書に予熱時間が必要である旨が明記されている場合は、記載された予熱時間経過後に測定する。</Sentence>
+                <Sentence Function="additional" Num="3">さらに、追加の条件がある場合も考慮する。</Sentence>
+              </Column>
+            </ListSentence>
+          </List>
+        </Paragraph>
+      </Article>
+    </MainProvision>
+  </LawBody>
+</Law>
