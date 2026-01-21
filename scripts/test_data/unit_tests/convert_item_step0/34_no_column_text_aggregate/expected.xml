@@ -7,15 +7,16 @@
         <Sentence Num="1">Paragraphの内容</Sentence>
       </ParagraphSentence>
       <Item Num="1">
-        <ItemTitle></ItemTitle>
+        <ItemTitle/>
         <ItemSentence>
           <Sentence Num="1">次の事項について，内部規程を具体的かつ体系的に整備しなければならない。</Sentence>
         </ItemSentence>
-        <List>
-          <ListSentence>
-            <Sentence Num="1">生産行程の管理に関する事項には，生産方法の確立，生産方法の定期的な検証及び修正が含まれる。</Sentence>
-          </ListSentence>
-        </List>
+      </Item>
+      <Item Num="2">
+        <ItemTitle/>
+        <ItemSentence>
+          <Sentence Num="1">生産行程の管理に関する事項には，生産方法の確立，生産方法の定期的な検証及び修正が含まれる。</Sentence>
+        </ItemSentence>
         <List>
           <ListSentence>
             <Column Num="1">

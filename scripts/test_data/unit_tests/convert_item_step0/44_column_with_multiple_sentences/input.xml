@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Law>
+  <LawBody>
+    <Paragraph Num="1">
+      <ParagraphNum>第１</ParagraphNum>
+      <ParagraphSentence>
+        <Sentence Num="1">Paragraphの内容</Sentence>
+      </ParagraphSentence>
+      <List>
+        <ListSentence>
+          <Column Num="1">
+            <Sentence Num="1">一</Sentence>
+          </Column>
+          <Column Num="2">
+            <Sentence Num="1">試験を行う室内の温湿度は、日本産業規格ＪＩＳ</Sentence>
+          </Column>
+          <Column Num="3">
+            <Sentence Function="main" Num="1">Ｚ八七〇三号による室温摂氏五度から摂氏三五度までの範囲内、常湿四五パーセントから八五パーセントまで（相対湿度）の範囲内とする。</Sentence>
+            <Sentence Function="proviso" Num="2">ただし、被検機器の取扱説明書にこれ以外の定常動作条件が定められている場合は、これによる。</Sentence>
+          </Column>
+        </ListSentence>
+      </List>
+    </Paragraph>
+  </LawBody>
+</Law>
