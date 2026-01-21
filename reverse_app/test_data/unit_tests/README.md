@@ -46,6 +46,20 @@
 - **条件**: TableStructなどの特殊な構造が階層構造内に含まれている
 - **期待結果**: 特殊な構造はそのまま残され、前後でList要素が正しい順序で登場する
 
+### 08_case5_title_with_multiple_sentences
+**仕様**: ケース5 - ItemTitleがあり、ItemSentenceに複数のSentence要素がある場合
+
+- **条件**: ItemTitleが存在し、かつ空でない、かつItemSentence内に複数のSentence要素が存在する
+- **期待結果**: 
+  - 最初のSentence要素はタイトルと一緒に2カラムのList要素に変換
+  - 2つ目以降のSentence要素はそれぞれ別々のList要素（Columnなし）に変換
+
+### 09_case6_empty_title_with_multiple_sentences
+**仕様**: ケース6 - ItemTitleが空で、ItemSentenceに複数のSentence要素がある場合
+
+- **条件**: ItemTitleが空または存在しない、かつItemSentence内に複数のSentence要素が存在する
+- **期待結果**: それぞれのSentence要素を別々のList要素（Columnなし）に変換
+
 ## テストの実行方法
 
 ```bash
