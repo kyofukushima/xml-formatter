@@ -303,7 +303,14 @@ def process_parent_element(parent_elem, config: ReverseConversionConfig, stats) 
     """
     親要素内の子要素をList要素に変換
     """
-    if parent_elem.tag != config.parent_tag:
+    # Item要素を処理する場合、親要素のタグに関係なく処理する
+    # （Paragraph, AppdxTable, その他の要素に対応）
+    if config.child_tag == 'Item':
+        # 直接の子要素としてItem要素があるかチェック
+        has_item_child = any(child.tag == config.child_tag for child in parent_elem)
+        if not has_item_child:
+            return False
+    elif parent_elem.tag != config.parent_tag:
         return False
 
     made_changes = False
@@ -363,7 +370,20 @@ def process_xml_file(input_path: Path, output_path: Path, config: ReverseConvers
     root = tree.getroot()
 
     # 処理対象の親要素を取得
-    if config.parent_tag == 'Paragraph':
+    if config.child_tag == 'Item':
+        # Item要素を子要素として持つすべての要素を処理対象にする
+        # Paragraph, AppdxTable, その他の要素に対応
+        parent_elements = root.xpath(f'.//*[{config.child_tag}]')
+        # 重複を除去（子要素が親要素としても含まれる可能性があるため）
+        seen = set()
+        unique_parents = []
+        for elem in parent_elements:
+            elem_id = id(elem)
+            if elem_id not in seen:
+                seen.add(elem_id)
+                unique_parents.append(elem)
+        parent_elements = unique_parents
+    elif config.parent_tag == 'Paragraph':
         # ドキュメント内の全Paragraph要素を処理
         parent_elements = root.xpath('.//Paragraph')
     else:

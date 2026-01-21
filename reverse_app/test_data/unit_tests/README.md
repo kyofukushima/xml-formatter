@@ -60,6 +60,12 @@
 - **条件**: ItemTitleが空または存在しない、かつItemSentence内に複数のSentence要素が存在する
 - **期待結果**: それぞれのSentence要素を別々のList要素（Columnなし）に変換
 
+### 10_case7_item_in_non_paragraph
+**仕様**: AppdxTableやその他の要素内のItem要素の処理
+
+- **条件**: Item要素がParagraph以外の要素（AppdxTableなど）の直接の子要素として存在する
+- **期待結果**: Item要素が正しくList要素に変換される（親要素の種類に関係なく処理される）
+
 ## テストの実行方法
 
 ```bash
