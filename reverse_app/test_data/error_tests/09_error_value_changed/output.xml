@@ -1,0 +1,60 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<Law>
+  <LawBody>
+    <MainProvision>
+      <Article Num="1">
+        <ArticleTitle>第１条</ArticleTitle>
+        <Paragraph Num="1">
+          <ParagraphNum>第１</ParagraphNum>
+          <ParagraphSentence>
+            <Sentence Num="1">Paragraphの内容</Sentence>
+          </ParagraphSentence>
+          <List>
+            <ListSentence>
+              <Column Num="1">
+                <Sentence Num="1">（１）</Sentence>
+              </Column>
+              <Column Num="2">
+                <Sentence Num="1">項目A</Sentence>
+              </Column>
+            </ListSentence>
+          </List>
+          <List>
+            <ListSentence>
+              <Column Num="1">
+                <Sentence Num="1">ア</Sentence>
+              </Column>
+              <Column Num="2">
+                <Sentence Num="1">Subitem1の内容<Ruby>
+                    <Rt>ルビ</Rt>
+                  </Ruby>（変更された値）</Sentence>
+              </Column>
+            </ListSentence>
+          </List>
+          <List>
+            <ListSentence>
+              <Column Num="1">
+                <Sentence Num="1">（ア）</Sentence>
+              </Column>
+              <Column Num="2">
+                <Sentence Num="1">Subitem2の内容</Sentence>
+              </Column>
+            </ListSentence>
+          </List>
+          <List>
+            <ListSentence>
+              <Column Num="1">
+                <Sentence Num="1">イ</Sentence>
+              </Column>
+              <Column Num="2">
+                <Sentence Num="1">Subitem1-2の内容<Sup>上付き</Sup>
+                  <Sub>下付き</Sub>
+                </Sentence>
+              </Column>
+            </ListSentence>
+          </List>
+        </Paragraph>
+      </Article>
+    </MainProvision>
+  </LawBody>
+</Law>
