@@ -24,12 +24,14 @@ class ReverseConversionConfig:
                  child_tag: str,            # 子要素タグ (Item/Subitem1/Subitem2)
                  title_tag: str,            # タイトル要素タグ
                  sentence_tag: str,         # センテンス要素タグ
-                 script_name: str):         # スクリプト名
+                 script_name: str,          # スクリプト名
+                 allowed_parent_tags: Optional[ListType[str]] = None):  # 処理対象とする親要素タグのリスト（Item要素の場合のみ有効、Noneの場合はすべて）
         self.parent_tag = parent_tag
         self.child_tag = child_tag
         self.title_tag = title_tag
         self.sentence_tag = sentence_tag
         self.script_name = script_name
+        self.allowed_parent_tags = allowed_parent_tags  # Noneの場合はすべての要素を対象
 
 
 def format_xml_lxml(tree, output_path):
@@ -371,18 +373,36 @@ def process_xml_file(input_path: Path, output_path: Path, config: ReverseConvers
 
     # 処理対象の親要素を取得
     if config.child_tag == 'Item':
-        # Item要素を子要素として持つすべての要素を処理対象にする
-        # Paragraph, AppdxTable, その他の要素に対応
-        parent_elements = root.xpath(f'.//*[{config.child_tag}]')
-        # 重複を除去（子要素が親要素としても含まれる可能性があるため）
-        seen = set()
-        unique_parents = []
-        for elem in parent_elements:
-            elem_id = id(elem)
-            if elem_id not in seen:
-                seen.add(elem_id)
-                unique_parents.append(elem)
-        parent_elements = unique_parents
+        if config.allowed_parent_tags is None or len(config.allowed_parent_tags) == 0:
+            # すべての要素を対象にする場合
+            # Item要素を子要素として持つすべての要素を処理対象にする
+            # Paragraph, AppdxTable, Class, TableColumn, Remarks, その他の要素に対応
+            parent_elements = root.xpath(f'.//*[{config.child_tag}]')
+            # 重複を除去（子要素が親要素としても含まれる可能性があるため）
+            seen = set()
+            unique_parents = []
+            for elem in parent_elements:
+                elem_id = id(elem)
+                if elem_id not in seen:
+                    seen.add(elem_id)
+                    unique_parents.append(elem)
+            parent_elements = unique_parents
+        else:
+            # 指定された親要素タグのみを対象にする場合
+            parent_elements = []
+            for tag in config.allowed_parent_tags:
+                # 各タグでItem要素を直接の子要素として持つ要素を取得
+                elements = root.xpath(f'.//{tag}[Item]')
+                parent_elements.extend(elements)
+            # 重複を除去
+            seen = set()
+            unique_parents = []
+            for elem in parent_elements:
+                elem_id = id(elem)
+                if elem_id not in seen:
+                    seen.add(elem_id)
+                    unique_parents.append(elem)
+            parent_elements = unique_parents
     elif config.parent_tag == 'Paragraph':
         # ドキュメント内の全Paragraph要素を処理
         parent_elements = root.xpath('.//Paragraph')
@@ -430,6 +450,21 @@ def main_with_config(config: ReverseConversionConfig, description: str, default_
 
     parser.add_argument('input_file', help='入力XMLファイル')
     parser.add_argument('output_file', nargs='?', help=f'出力XMLファイル（デフォルト: {default_output_suffix}）')
+    
+    # Item要素の場合のみ、処理対象とする親要素を選択するオプションを追加
+    if config.child_tag == 'Item':
+        parser.add_argument('--no-include-paragraph', action='store_true',
+                          help='Paragraph要素内のItem要素を処理対象から除外する（デフォルト: 含める）')
+        parser.add_argument('--no-include-class', action='store_true',
+                          help='Class要素内のItem要素を処理対象から除外する（デフォルト: 含める）')
+        parser.add_argument('--no-include-appdxtable', action='store_true',
+                          help='AppdxTable要素内のItem要素を処理対象から除外する（デフォルト: 含める）')
+        parser.add_argument('--no-include-tablecolumn', action='store_true',
+                          help='TableColumn要素内のItem要素を処理対象から除外する（デフォルト: 含める）')
+        parser.add_argument('--no-include-remarks', action='store_true',
+                          help='Remarks要素内のItem要素を処理対象から除外する（デフォルト: 含める）')
+        parser.add_argument('--no-include-newprovision', action='store_true',
+                          help='NewProvision要素内のItem要素を処理対象から除外する（デフォルト: 含める）')
 
     args = parser.parse_args()
 
@@ -440,5 +475,27 @@ def main_with_config(config: ReverseConversionConfig, description: str, default_
         return 1
 
     output_path = Path(args.output_file) if args.output_file else input_path.parent / f"{input_path.stem}{default_output_suffix}"
+
+    # コマンドライン引数からallowed_parent_tagsを設定（Item要素の場合のみ）
+    if config.child_tag == 'Item':
+        allowed_tags = []
+        if not getattr(args, 'no_include_paragraph', False):
+            allowed_tags.append('Paragraph')
+        if not getattr(args, 'no_include_class', False):
+            allowed_tags.append('Class')
+        if not getattr(args, 'no_include_appdxtable', False):
+            allowed_tags.append('AppdxTable')
+        if not getattr(args, 'no_include_tablecolumn', False):
+            allowed_tags.append('TableColumn')
+        if not getattr(args, 'no_include_remarks', False):
+            allowed_tags.append('Remarks')
+        if not getattr(args, 'no_include_newprovision', False):
+            allowed_tags.append('NewProvision')
+        
+        # すべてがTrueの場合はNone（すべての要素を対象）に設定
+        if len(allowed_tags) == 6:
+            config.allowed_parent_tags = None
+        else:
+            config.allowed_parent_tags = allowed_tags
 
     return process_xml_file(input_path, output_path, config)

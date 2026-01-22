@@ -57,7 +57,13 @@ def run_reverse_pipeline(
     script_dir: Path,
     intermediate_dir: Optional[Path] = None,
     timeout: int = 300,
-    progress_callback: Optional[callable] = None
+    progress_callback: Optional[callable] = None,
+    include_paragraph: bool = True,
+    include_class: bool = True,
+    include_appdxtable: bool = True,
+    include_tablecolumn: bool = True,
+    include_remarks: bool = True,
+    include_newprovision: bool = True
 ) -> Tuple[bool, Optional[str], Dict[str, any]]:
     """
     逆変換パイプラインを実行
@@ -69,6 +75,12 @@ def run_reverse_pipeline(
         intermediate_dir: 中間ファイル保存ディレクトリ（オプション）
         timeout: タイムアウト時間（秒）
         progress_callback: 進捗コールバック関数（current_step, total_steps, script_name）
+        include_paragraph: Paragraph要素内のItem要素を処理対象にするか（デフォルト: True）
+        include_class: Class要素内のItem要素を処理対象にするか（デフォルト: True）
+        include_appdxtable: AppdxTable要素内のItem要素を処理対象にするか（デフォルト: True）
+        include_tablecolumn: TableColumn要素内のItem要素を処理対象にするか（デフォルト: True）
+        include_remarks: Remarks要素内のItem要素を処理対象にするか（デフォルト: True）
+        include_newprovision: NewProvision要素内のItem要素を処理対象にするか（デフォルト: True）
     
     Returns:
         (success: bool, error_message: Optional[str], execution_log: Dict)
@@ -120,8 +132,26 @@ def run_reverse_pipeline(
         
         try:
             # Pythonスクリプトを実行（カレントディレクトリをreverse_appに設定）
+            # reverse_convert_item.pyの場合のみ、各要素タイプのオプションを追加
+            cmd = [sys.executable, str(script_path), str(current_input), str(step_output)]
+            if script_name == 'reverse_convert_item.py':
+                # デフォルト（すべてTrue）の場合はオプションを追加しない
+                # 1つでもFalseの場合は、Trueのものだけをオプションとして追加
+                if not include_paragraph:
+                    cmd.insert(-1, '--no-include-paragraph')
+                if not include_class:
+                    cmd.insert(-1, '--no-include-class')
+                if not include_appdxtable:
+                    cmd.insert(-1, '--no-include-appdxtable')
+                if not include_tablecolumn:
+                    cmd.insert(-1, '--no-include-tablecolumn')
+                if not include_remarks:
+                    cmd.insert(-1, '--no-include-remarks')
+                if not include_newprovision:
+                    cmd.insert(-1, '--no-include-newprovision')
+            
             result = subprocess.run(
-                [sys.executable, str(script_path), str(current_input), str(step_output)],
+                cmd,
                 capture_output=True,
                 text=True,
                 timeout=timeout,
