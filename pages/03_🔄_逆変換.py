@@ -47,6 +47,18 @@ if 'reverse_processing_result' not in st.session_state:
     st.session_state.reverse_processing_result = None
 if 'show_reverse_output_preview' not in st.session_state:
     st.session_state.show_reverse_output_preview = False
+if 'reverse_include_paragraph' not in st.session_state:
+    st.session_state.reverse_include_paragraph = True
+if 'reverse_include_class' not in st.session_state:
+    st.session_state.reverse_include_class = True
+if 'reverse_include_appdxtable' not in st.session_state:
+    st.session_state.reverse_include_appdxtable = True
+if 'reverse_include_tablecolumn' not in st.session_state:
+    st.session_state.reverse_include_tablecolumn = True
+if 'reverse_include_remarks' not in st.session_state:
+    st.session_state.reverse_include_remarks = True
+if 'reverse_include_newprovision' not in st.session_state:
+    st.session_state.reverse_include_newprovision = True
 
 def main():
     """メイン関数"""
@@ -144,6 +156,56 @@ def main():
         
         st.info(f"📋 **実行されるスクリプト**: {len(REVERSE_SCRIPT_ORDER)}個（内側から外側へ順次実行）")
         
+        # オプション設定
+        st.markdown("### ⚙️ オプション設定")
+        st.markdown("**Item要素の処理対象となる親要素を選択してください（デフォルト: すべて選択）**")
+        
+        col1, col2 = st.columns(2)
+        
+        with col1:
+            include_paragraph = st.checkbox(
+                "Paragraph",
+                value=st.session_state.reverse_include_paragraph,
+                help="Paragraph要素内のItem要素を処理対象にします"
+            )
+            st.session_state.reverse_include_paragraph = include_paragraph
+            
+            include_class = st.checkbox(
+                "Class",
+                value=st.session_state.reverse_include_class,
+                help="Class要素内のItem要素を処理対象にします"
+            )
+            st.session_state.reverse_include_class = include_class
+            
+            include_appdxtable = st.checkbox(
+                "AppdxTable",
+                value=st.session_state.reverse_include_appdxtable,
+                help="AppdxTable要素（別表）内のItem要素を処理対象にします"
+            )
+            st.session_state.reverse_include_appdxtable = include_appdxtable
+        
+        with col2:
+            include_tablecolumn = st.checkbox(
+                "TableColumn",
+                value=st.session_state.reverse_include_tablecolumn,
+                help="TableColumn要素（テーブルの列）内のItem要素を処理対象にします"
+            )
+            st.session_state.reverse_include_tablecolumn = include_tablecolumn
+            
+            include_remarks = st.checkbox(
+                "Remarks",
+                value=st.session_state.reverse_include_remarks,
+                help="Remarks要素（備考）内のItem要素を処理対象にします"
+            )
+            st.session_state.reverse_include_remarks = include_remarks
+            
+            include_newprovision = st.checkbox(
+                "NewProvision",
+                value=st.session_state.reverse_include_newprovision,
+                help="NewProvision要素（新設規定）内のItem要素を処理対象にします"
+            )
+            st.session_state.reverse_include_newprovision = include_newprovision
+        
         # 処理開始ボタン
         col1, col2 = st.columns([1, 4])
         
@@ -206,7 +268,13 @@ def main():
                         script_dir=reverse_script_dir,
                         intermediate_dir=intermediate_dir,
                         timeout=300,
-                        progress_callback=progress_callback
+                        progress_callback=progress_callback,
+                        include_paragraph=st.session_state.reverse_include_paragraph,
+                        include_class=st.session_state.reverse_include_class,
+                        include_appdxtable=st.session_state.reverse_include_appdxtable,
+                        include_tablecolumn=st.session_state.reverse_include_tablecolumn,
+                        include_remarks=st.session_state.reverse_include_remarks,
+                        include_newprovision=st.session_state.reverse_include_newprovision
                     )
                 
                 st.session_state.reverse_processing = False
