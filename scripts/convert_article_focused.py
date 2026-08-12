@@ -30,7 +30,7 @@ script_dir = Path(__file__).resolve().parent
 sys.path.insert(0, str(script_dir))
 
 # 共通XMLユーティリティをインポート
-from utils import save_xml_with_indent, renumber_nums_in_tree
+from utils import save_xml_with_indent, renumber_nums_by_title
 
 
 class ArticleFocusedConverter:
@@ -426,22 +426,14 @@ class ArticleFocusedConverter:
         print(f"  - 分割したArticle: {self.stats['articles_split']}個")
         print(f"  - スキップしたArticle: {self.stats['articles_skipped']}個（ArticleTitleが空）")
         
-        # Num属性の振り直し（親要素が変わるたびにリセット）
+        # Num属性の振り直し（直接の親要素ごとにグループ化して採番）
         if renumber:
             print(f"\nNum属性振り直し:")
-            # Article要素の全親要素パターン（スキーマに基づく）
-            # 各親要素内でArticleを1から連番（親が変わるたびにリセット）
-            renumber_stats = renumber_nums_in_tree(tree, [
-                ('MainProvision', 'Article'),  # 本文本体
-                ('Part', 'Article'),           # 編
-                ('Chapter', 'Article'),        # 章
-                ('Section', 'Article'),        # 節
-                ('Subsection', 'Article'),     # 款
-                ('Division', 'Article'),       # 目
-                ('SupplProvision', 'Article')  # 付則
-            ], start_num=1)
-            for elem_type, count in renumber_stats.items():
-                print(f"  - {elem_type}: {count}個（親要素ごとに1からリセット）")
+            # ArticleTitle から番号を導出できる場合はコーパス準拠の枝番形式
+            # （例: 「第十三条の二」→ Num="13_2"）、できない場合は親ごとに1から連番
+            renumber_stats = renumber_nums_by_title(tree, ['Article'], start_num=1)
+            for elem_type, mode_counts in renumber_stats.items():
+                print(f"  - {elem_type}: タイトル由来 {mode_counts['title']}個 / 連番 {mode_counts['sequential']}個")
         
         # 結果を保存（インデント整形付き）
         save_xml_with_indent(tree, output_path)

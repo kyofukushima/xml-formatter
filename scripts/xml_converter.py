@@ -23,6 +23,7 @@ script_dir = Path(__file__).resolve().parent
 sys.path.insert(0, str(script_dir))
 
 from utils.label_utils import is_label, detect_label_id, get_number_type, get_alphabet_type, is_valid_label_id, get_exclude_label_ids_for_context
+from utils.renumber_utils import renumber_children
 from utils.bracket_utils import is_subject_name_bracket, is_instruction_bracket, is_grade_single_bracket, is_grade_double_bracket, get_bracket_type
 
 
@@ -1949,12 +1950,15 @@ def process_elements_recursive(parent_elem, config: ConversionConfig, stats) -> 
 
 
 def renumber_elements(tree, config: ConversionConfig):
-    """子要素のNum属性を再採番"""
+    """子要素のNum属性を再採番
+
+    タイトル（config.title_tag）から番号を導出できる親要素内では
+    コーパス準拠の枝番形式（例: 「六の二」→ Num="6_2"）を用い、
+    導出できない場合は従来どおり連番を振る（renumber_children 参照）。
+    """
     root = tree.getroot()
     for parent in root.xpath(f'.//{config.parent_tag}'):
-        children = parent.findall(config.child_tag)
-        for i, child in enumerate(children):
-            child.set('Num', str(i + 1))
+        renumber_children(parent, config.child_tag, title_tag=config.title_tag)
 
 
 def process_xml_file(input_path: Path, output_path: Path, config: ConversionConfig) -> int:

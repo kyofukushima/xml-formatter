@@ -29,6 +29,184 @@ from pathlib import Path
 from typing import List, Tuple, Optional, Dict, Set, Union
 
 
+# ============================================================================
+# タイトル由来の Num 導出（コーパス準拠の枝番形式）
+#
+# e-LAWS / 対応済コーパスでは、Num 属性は表示番号と対応させる
+# （例: <ItemTitle>六の二</ItemTitle> → Num="6_2"、<ArticleTitle>第十三条の二</ArticleTitle> → Num="13_2"）。
+# タイトルが番号として完全に解釈できない場合（「（１）」「イ」等）は従来どおり連番。
+# ============================================================================
+
+# スキーマ上 Num が xs:positiveInteger のため枝番形式（"6_2"）を使えない要素
+SEQUENTIAL_ONLY_TAGS: Set[str] = {'Paragraph'}
+
+_ZEN2HAN = str.maketrans('０１２３４５６７８９', '0123456789')
+_KANJI_DIGITS = {'一': 1, '二': 2, '三': 3, '四': 4, '五': 5,
+                 '六': 6, '七': 7, '八': 8, '九': 9}
+_KANJI_UNITS = {'十': 10, '百': 100, '千': 1000}
+
+_ARABIC_PART = r'[0-9０-９]+'
+_KANJI_PART = r'[一二三四五六七八九十百千]+'
+_NUM_PART = rf'(?:{_ARABIC_PART}|{_KANJI_PART})'
+_SEP = r'[のノ]'
+
+# 「１２」「六の二」など番号のみのタイトル（完全一致）
+_PLAIN_TITLE_RE = re.compile(rf'^{_NUM_PART}(?:{_SEP}{_NUM_PART})*$')
+# 条見出し形式: 「第１」「第１の２」「第十三条の二」など（完全一致）
+_ARTICLE_TITLE_RE = re.compile(rf'^第{_NUM_PART}条?(?:{_SEP}{_NUM_PART})*$')
+
+
+def _kanji_to_int(text: str) -> Optional[int]:
+    """漢数字（一〜九千九百九十九）を整数に変換する。解釈できない場合は None
+
+    「一二」のような位取り表記は番号として扱わず None を返す
+    （〇を含む表記は呼び出し前の正規表現で除外される）。
+    """
+    result = 0
+    current = 0
+    last_unit = float('inf')  # 単位（十・百・千）は降順でのみ出現可（「十百」等を拒否）
+    for ch in text:
+        if ch in _KANJI_DIGITS:
+            if current != 0:
+                return None
+            current = _KANJI_DIGITS[ch]
+        elif ch in _KANJI_UNITS:
+            unit = _KANJI_UNITS[ch]
+            if unit >= last_unit:
+                return None
+            last_unit = unit
+            result += (current if current != 0 else 1) * unit
+            current = 0
+        else:
+            return None
+    total = result + current
+    return total if total > 0 else None
+
+
+def _number_part_to_int(part: str) -> Optional[int]:
+    """番号1要素分（アラビア数字または漢数字）を整数に変換する"""
+    part = part.translate(_ZEN2HAN)
+    if part.isdigit():
+        num = int(part)
+        return num if num > 0 else None
+    return _kanji_to_int(part)
+
+
+def title_to_num(text: Optional[str]) -> Optional[str]:
+    """タイトル文字列からコーパス準拠の Num 値を導出する
+
+    例:
+        「１２」「十二」          → "12"
+        「６の２」「六の二」      → "6_2"
+        「第１の２」「第十三条の二」 → "13_2" 等の条見出し形式にも対応
+
+    タイトル全体が番号として解釈できない場合は None を返す
+    （呼び出し側で連番にフォールバックする）。
+    """
+    if not text:
+        return None
+    t = text.strip(' \t\r\n　')
+    if not t:
+        return None
+    if _ARTICLE_TITLE_RE.match(t):
+        t = t[1:].replace('条', '', 1)  # 先頭の「第」と「条」を除去
+    elif not _PLAIN_TITLE_RE.match(t):
+        return None
+    nums = [_number_part_to_int(p) for p in re.split(_SEP, t)]
+    if any(n is None for n in nums):
+        return None
+    return '_'.join(str(n) for n in nums)
+
+
+def derive_child_nums(children: List[ET._Element], title_tag: str) -> Optional[List[str]]:
+    """子要素群のタイトルから Num 値のリストを導出する
+
+    全要素が導出可能かつ値が一意である場合のみリストを返し、
+    それ以外は None を返す（親単位の all-or-nothing 判定）。
+    """
+    nums: List[str] = []
+    for child in children:
+        title_elem = child.find(title_tag)
+        num = title_to_num(title_elem.text if title_elem is not None else None)
+        if num is None:
+            return None
+        nums.append(num)
+    if len(set(nums)) != len(nums):
+        return None
+    return nums
+
+
+def renumber_children(
+    parent_elem: ET._Element,
+    child_tag: str,
+    title_tag: Optional[str] = None,
+    start_num: int = 1
+) -> Tuple[str, int]:
+    """親要素直下の child_tag 要素の Num 属性を振り直す
+
+    タイトル要素（title_tag、省略時は child_tag + 'Title'）から番号を導出できる場合は
+    コーパス準拠の枝番形式（例: 「六の二」→ "6_2"）を用いる。
+    1つでも導出できない・重複する場合は、その親要素内は従来どおり連番を振る。
+    SEQUENTIAL_ONLY_TAGS（Paragraph 等、スキーマ上 Num が正整数の要素）は常に連番。
+
+    Returns:
+        Tuple[str, int]: (採番方式 'title' または 'sequential', 対象要素数)
+    """
+    children = [c for c in parent_elem if c.tag == child_tag]
+    if not children:
+        return ('sequential', 0)
+    if title_tag is None:
+        title_tag = child_tag + 'Title'
+    nums: Optional[List[str]] = None
+    if child_tag not in SEQUENTIAL_ONLY_TAGS:
+        nums = derive_child_nums(children, title_tag)
+    if nums is None:
+        mode = 'sequential'
+        nums = [str(i) for i in range(start_num, start_num + len(children))]
+    else:
+        mode = 'title'
+    for child, num in zip(children, nums):
+        child.set('Num', num)
+    return (mode, len(children))
+
+
+def renumber_nums_by_title(
+    tree: ET.ElementTree,
+    child_tags: List[str],
+    start_num: int = 1
+) -> Dict[str, Dict[str, int]]:
+    """文書全体を対象に、指定タグの要素を「直接の親」ごとにグループ化して Num を振り直す
+
+    親要素のタグ名を列挙する必要はなく、各要素の直接の親ごとに
+    renumber_children() を適用する（親が変わるたびに連番はリセット）。
+
+    Args:
+        tree: 処理対象の ElementTree
+        child_tags: 振り直す要素タグのリスト（例: ['Article'] や ['Item', 'Subitem1']）
+        start_num: 連番フォールバック時の開始番号
+
+    Returns:
+        Dict[str, Dict[str, int]]: タグごとの採番方式別要素数
+        例: {'Article': {'title': 12, 'sequential': 0}}
+    """
+    root = tree.getroot()
+    stats: Dict[str, Dict[str, int]] = {}
+    for tag in child_tags:
+        tag_stats = {'title': 0, 'sequential': 0}
+        parents: List[ET._Element] = []
+        seen: Set[int] = set()
+        for elem in root.iter(tag):
+            parent = elem.getparent()
+            if parent is not None and id(parent) not in seen:
+                seen.add(id(parent))
+                parents.append(parent)
+        for parent in parents:
+            mode, count = renumber_children(parent, tag, start_num=start_num)
+            tag_stats[mode] += count
+        stats[tag] = tag_stats
+    return stats
+
+
 def renumber_nums_in_tree(
     tree: ET.ElementTree, 
     mappings: List[Tuple[str, Optional[str]]],

@@ -178,3 +178,32 @@ for item in remaining_items:
 
 
 
+
+---
+
+## 追記（2026-08-12）: タイトル由来採番への統一
+
+上記4系統の採番処理を、`utils/renumber_utils.py` に追加した共通関数へ統一した。
+
+### 新方式（コーパス準拠の枝番形式）
+
+- `title_to_num(text)`: タイトル文字列から Num 値を導出
+  - 「１２」「十二」→ `12`、「６の２」「六の二」→ `6_2`、「第十三条の二」→ `13_2`
+  - タイトル全体が番号として解釈できない場合（「（１）」「イ」等）は `None`
+- `renumber_children(parent, child_tag, title_tag=None)`: 親要素直下の子要素を採番
+  - 親単位の all-or-nothing: 全子要素のタイトルが導出可能かつ一意な場合のみタイトル由来、
+    それ以外はその親要素内は従来どおり連番にフォールバック
+  - `SEQUENTIAL_ONLY_TAGS`（Paragraph）はスキーマ上 Num が xs:positiveInteger のため常に連番
+- `renumber_nums_by_title(tree, child_tags)`: 直接の親ごとにグループ化して一括採番
+  （親要素タグの列挙が不要になった）
+
+### 呼び出し元の変更
+
+| スクリプト | 変更内容 |
+|-----------|---------|
+| `convert_article_focused.py` | 7パターンの `renumber_nums_in_tree()` → `renumber_nums_by_title(tree, ['Article'])` |
+| `xml_converter.py: renumber_elements()` | 連番ロジック → `renumber_children()`（item/subitem 系 step0/step1 6スクリプトに波及） |
+| `convert_paragraph_step3.py` | Paragraph は連番維持、Item のみ `renumber_children()` |
+| `convert_subject_item.py` | インライン実装 → `renumber_children()`（Item / Subitem1） |
+
+テスト: `scripts/test_renumber_title.py`（44ケース）、既存 `test_data/unit_tests` 全19スイート成功を確認。

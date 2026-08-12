@@ -17,7 +17,10 @@ from .renumber_utils import (
     renumber_nums_in_tree,
     renumber_nums_in_file,
     renumber_common_elements,
-    get_default_mappings
+    get_default_mappings,
+    title_to_num,
+    renumber_children,
+    renumber_nums_by_title
 )
 
 from .label_utils import (
@@ -42,6 +45,9 @@ __all__ = [
     'renumber_nums_in_file',
     'renumber_common_elements',
     'get_default_mappings',
+    'title_to_num',
+    'renumber_children',
+    'renumber_nums_by_title',
     
     # 項目ラベル判定関連
     'LabelPattern',
