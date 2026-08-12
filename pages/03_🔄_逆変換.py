@@ -59,6 +59,10 @@ if 'reverse_include_remarks' not in st.session_state:
     st.session_state.reverse_include_remarks = True
 if 'reverse_include_newprovision' not in st.session_state:
     st.session_state.reverse_include_newprovision = True
+if 'reverse_remove_fullwidth_space' not in st.session_state:
+    st.session_state.reverse_remove_fullwidth_space = False
+if 'reverse_fullwidth_include_list' not in st.session_state:
+    st.session_state.reverse_fullwidth_include_list = False
 
 def main():
     """メイン関数"""
@@ -205,7 +209,28 @@ def main():
                 help="NewProvision要素（新設規定）内のItem要素を処理対象にします"
             )
             st.session_state.reverse_include_newprovision = include_newprovision
-        
+
+        # 文頭全角スペース除去オプション（正変換の補填処理と対になる処理）
+        st.markdown("**文頭全角スペースの扱い**")
+
+        remove_fullwidth_space = st.checkbox(
+            "逆変換前に文頭全角スペースを除去する",
+            value=st.session_state.reverse_remove_fullwidth_space,
+            help="正変換時に補填された文頭全角スペース（Title要素が空のItem/Subitem等の"
+                 "Sentence冒頭、LineBreak=\"true\"のColumn内Sentence冒頭）を除去してから"
+                 "逆変換を実行します"
+        )
+        st.session_state.reverse_remove_fullwidth_space = remove_fullwidth_space
+
+        fullwidth_include_list = st.checkbox(
+            "List内のSentenceも除去対象にする",
+            value=st.session_state.reverse_fullwidth_include_list,
+            disabled=not remove_fullwidth_space,
+            help="List/ListSentence内のSentence冒頭の全角スペースも除去します"
+                 "（正変換で「List内のSentenceも対象にする」を有効にした場合に合わせてください）"
+        )
+        st.session_state.reverse_fullwidth_include_list = fullwidth_include_list
+
         # 処理開始ボタン
         col1, col2 = st.columns([1, 4])
         
@@ -274,7 +299,9 @@ def main():
                         include_appdxtable=st.session_state.reverse_include_appdxtable,
                         include_tablecolumn=st.session_state.reverse_include_tablecolumn,
                         include_remarks=st.session_state.reverse_include_remarks,
-                        include_newprovision=st.session_state.reverse_include_newprovision
+                        include_newprovision=st.session_state.reverse_include_newprovision,
+                        remove_fullwidth_space=st.session_state.reverse_remove_fullwidth_space,
+                        fullwidth_include_list=st.session_state.reverse_fullwidth_include_list
                     )
                 
                 st.session_state.reverse_processing = False

@@ -73,34 +73,47 @@ def save_label_config(config: Dict, config_path: Optional[Path] = None) -> Tuple
         return False, str(e)
 
 
+ALL_TARGET_LEVELS = ["Item", "Subitem1", "Subitem2", "Subitem3", "Subitem4",
+                     "Subitem5", "Subitem6", "Subitem7", "Subitem8",
+                     "Subitem9", "Subitem10"]
+
+
 def update_boolean_settings(
     config: Dict,
     column_enabled: bool,
-    split_mode_enabled: bool
+    split_mode_enabled: bool,
+    image_split_enabled: bool = False
 ) -> Dict:
     """
     ブーリアン型パラメーターを更新
-    
+
     Args:
         config: 設定データの辞書
         column_enabled: Column処理を有効化
         split_mode_enabled: 分割モードを有効化
-    
+        image_split_enabled: 画像List後の並列分割を有効化
+
     Returns:
         更新された設定データの辞書
     """
     # conversion_behaviorsの更新
     if 'conversion_behaviors' not in config:
         config['conversion_behaviors'] = {}
-    
+
     if 'column_list_text_first_column' not in config['conversion_behaviors']:
         config['conversion_behaviors']['column_list_text_first_column'] = {}
     config['conversion_behaviors']['column_list_text_first_column']['enabled'] = column_enabled
-    
+
     if 'no_column_text_split_mode' not in config['conversion_behaviors']:
         config['conversion_behaviors']['no_column_text_split_mode'] = {}
     config['conversion_behaviors']['no_column_text_split_mode']['enabled'] = split_mode_enabled
-    
+
+    if 'image_list_split_mode' not in config['conversion_behaviors']:
+        config['conversion_behaviors']['image_list_split_mode'] = {
+            'target_levels': list(ALL_TARGET_LEVELS)
+        }
+    config['conversion_behaviors']['image_list_split_mode']['enabled'] = image_split_enabled
+
     return config
 
 
@@ -116,16 +129,20 @@ def get_boolean_settings(config: Dict) -> Dict[str, bool]:
     """
     result = {
         'column_enabled': False,
-        'split_mode_enabled': False
+        'split_mode_enabled': False,
+        'image_split_enabled': False
     }
-    
+
     if 'conversion_behaviors' in config:
         if 'column_list_text_first_column' in config['conversion_behaviors']:
             result['column_enabled'] = config['conversion_behaviors']['column_list_text_first_column'].get('enabled', False)
-        
+
         if 'no_column_text_split_mode' in config['conversion_behaviors']:
             result['split_mode_enabled'] = config['conversion_behaviors']['no_column_text_split_mode'].get('enabled', False)
-    
+
+        if 'image_list_split_mode' in config['conversion_behaviors']:
+            result['image_split_enabled'] = config['conversion_behaviors']['image_list_split_mode'].get('enabled', False)
+
     return result
 
 

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Law>
+  <LawBody>
+    <MainProvision>
+      <Paragraph Num="1">
+        <ParagraphNum>1</ParagraphNum>
+        <ParagraphSentence>
+          <Sentence Num="1">項の本文</Sentence>
+        </ParagraphSentence>
+        <Item Num="1">
+          <ItemTitle>（1）</ItemTitle>
+          <ItemSentence>
+            <Sentence Num="1">号の本文</Sentence>
+          </ItemSentence>
+          <Subitem1 Num="1">
+            <Subitem1Title/>
+            <Subitem1Sentence>
+              <Sentence Num="1">　タイトルが空の細分の文章</Sentence>
+            </Subitem1Sentence>
+            <Subitem2 Num="1">
+              <Subitem2Title>ア</Subitem2Title>
+              <Subitem2Sentence>
+                <Sentence Num="1">番号があるため全角スペース不要の文章</Sentence>
+              </Subitem2Sentence>
+            </Subitem2>
+          </Subitem1>
+        </Item>
+      </Paragraph>
+    </MainProvision>
+  </LawBody>
+</Law>

@@ -47,6 +47,7 @@ def get_reverse_script_description(script_name: str) -> str:
         "reverse_convert_subitem2.py": "Subitem2 → List 逆変換",
         "reverse_convert_subitem1.py": "Subitem1 → List 逆変換",
         "reverse_convert_item.py": "Item → List 逆変換",
+        "postprocess_fullwidth_space.py": "文頭全角スペース除去（前処理）",
     }
     return descriptions.get(script_name, "逆変換スクリプト")
 
@@ -63,7 +64,9 @@ def run_reverse_pipeline(
     include_appdxtable: bool = True,
     include_tablecolumn: bool = True,
     include_remarks: bool = True,
-    include_newprovision: bool = True
+    include_newprovision: bool = True,
+    remove_fullwidth_space: bool = False,
+    fullwidth_include_list: bool = False
 ) -> Tuple[bool, Optional[str], Dict[str, any]]:
     """
     逆変換パイプラインを実行
@@ -81,7 +84,9 @@ def run_reverse_pipeline(
         include_tablecolumn: TableColumn要素内のItem要素を処理対象にするか（デフォルト: True）
         include_remarks: Remarks要素内のItem要素を処理対象にするか（デフォルト: True）
         include_newprovision: NewProvision要素内のItem要素を処理対象にするか（デフォルト: True）
-    
+        remove_fullwidth_space: 逆変換前に文頭全角スペースを除去するか（デフォルト: False）
+        fullwidth_include_list: 全角スペース除去でList内のSentenceも対象にするか（デフォルト: False）
+
     Returns:
         (success: bool, error_message: Optional[str], execution_log: Dict)
     """
@@ -91,19 +96,32 @@ def run_reverse_pipeline(
     if not script_dir.exists():
         return False, f"スクリプトディレクトリが見つかりません: {script_dir}", {}
     
+    # 実行ステップの組み立て
+    # 文頭全角スペース除去が有効な場合は、逆変換の前段として先頭に追加する
+    # （正変換の全角スペース補填と対になる処理。スクリプトはscripts/配下を共用）
+    pipeline_steps = []
+    if remove_fullwidth_space:
+        removal_script_path = script_dir.parent / "scripts" / "postprocess_fullwidth_space.py"
+        removal_args = ['--mode', 'remove']
+        if fullwidth_include_list:
+            removal_args.append('--include-list')
+        pipeline_steps.append(
+            ("postprocess_fullwidth_space.py", removal_script_path, removal_args)
+        )
+    for script_name in REVERSE_SCRIPT_ORDER:
+        pipeline_steps.append((script_name, script_dir / script_name, []))
+
     execution_log = {
-        "total_steps": len(REVERSE_SCRIPT_ORDER),
+        "total_steps": len(pipeline_steps),
         "completed_steps": 0,
         "failed_step": None,
         "steps": []
     }
-    
+
     current_input = input_path
-    total_steps = len(REVERSE_SCRIPT_ORDER)
-    
-    for step_idx, script_name in enumerate(REVERSE_SCRIPT_ORDER, 1):
-        script_path = script_dir / script_name
-        
+    total_steps = len(pipeline_steps)
+
+    for step_idx, (script_name, script_path, extra_args) in enumerate(pipeline_steps, 1):
         if not script_path.exists():
             error_msg = f"スクリプトが見つかりません: {script_name}"
             execution_log["failed_step"] = script_name
@@ -133,7 +151,7 @@ def run_reverse_pipeline(
         try:
             # Pythonスクリプトを実行（カレントディレクトリをreverse_appに設定）
             # reverse_convert_item.pyの場合のみ、各要素タイプのオプションを追加
-            cmd = [sys.executable, str(script_path), str(current_input), str(step_output)]
+            cmd = [sys.executable, str(script_path), str(current_input), str(step_output)] + extra_args
             if script_name == 'reverse_convert_item.py':
                 # デフォルト（すべてTrue）の場合はオプションを追加しない
                 # 1つでもFalseの場合は、Trueのものだけをオプションとして追加

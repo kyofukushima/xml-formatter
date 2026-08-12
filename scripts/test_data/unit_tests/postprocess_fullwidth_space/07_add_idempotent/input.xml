@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Law>
+  <LawBody>
+    <MainProvision>
+      <Paragraph Num="1">
+        <ParagraphNum>1</ParagraphNum>
+        <ParagraphSentence>
+          <Sentence Num="1">項の本文</Sentence>
+        </ParagraphSentence>
+        <Item Num="1">
+          <ItemTitle/>
+          <ItemSentence>
+            <Sentence Num="1">　タイトルが空の号の本文</Sentence>
+          </ItemSentence>
+        </Item>
+        <Item Num="2">
+          <ItemTitle>一</ItemTitle>
+          <ItemSentence>
+            <Sentence Num="1">番号ありの号の本文</Sentence>
+          </ItemSentence>
+        </Item>
+        <Item Num="3">
+          <ItemTitle></ItemTitle>
+          <ItemSentence>
+            <Sentence Num="1">　複数文の一文目</Sentence>
+            <Sentence Num="2">同一行に続く二文目</Sentence>
+          </ItemSentence>
+        </Item>
+        <Item Num="4">
+          <ItemTitle/>
+          <ItemSentence>
+            <Sentence Num="1"/>
+          </ItemSentence>
+        </Item>
+        <Item Num="5">
+          <ItemSentence>
+            <Sentence Num="1">　タイトル要素自体がない号の本文</Sentence>
+          </ItemSentence>
+        </Item>
+      </Paragraph>
+    </MainProvision>
+  </LawBody>
+</Law>

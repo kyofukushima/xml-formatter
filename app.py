@@ -9,6 +9,7 @@ import sys
 from datetime import datetime
 import tempfile
 import shutil
+import subprocess
 import zipfile
 import io
 
@@ -21,7 +22,8 @@ from utils.file_handler import save_uploaded_file, validate_xml_file, cleanup_te
 from utils.pipeline import (
     get_available_scripts,
     get_script_description,
-    run_pipeline
+    run_pipeline,
+    ENUMERATION_AWARE_SCRIPTS
 )
 from utils.validation import (
     validate_xml_syntax,
@@ -53,6 +55,16 @@ if 'selected_scripts' not in st.session_state:
     st.session_state.selected_scripts = []
 if 'show_output_preview' not in st.session_state:
     st.session_state.show_output_preview = False
+if 'apply_fullwidth_space' not in st.session_state:
+    st.session_state.apply_fullwidth_space = False
+if 'fullwidth_space_include_list' not in st.session_state:
+    st.session_state.fullwidth_space_include_list = False
+if 'fullwidth_space_exclude_paren' not in st.session_state:
+    st.session_state.fullwidth_space_exclude_paren = False
+if 'preserve_enumeration' not in st.session_state:
+    st.session_state.preserve_enumeration = False
+if 'preserve_linebreak_list' not in st.session_state:
+    st.session_state.preserve_linebreak_list = False
 
 def main():
     """メイン関数"""
@@ -105,7 +117,72 @@ def main():
                         st.caption(description)
             else:
                 st.warning("⚠️ 少なくとも1つのスクリプトを選択してください。")
-        
+
+        st.markdown("---")
+
+        # 列記List保護オプション（告示データ整備方針パターン20D対応）
+        st.header("📑 列記Listの保護")
+        preserve_enumeration = st.checkbox(
+            "列記のList（Column構成）を変換せず保持する",
+            value=st.session_state.preserve_enumeration,
+            help="Columnが2つ以上のListのうち、1つ目がラベル（番号等）で2つ目がテキストの"
+                 "「番号+見出し」構成のみを変換対象とし、1つ目と2つ目の種別が同一"
+                 "（テキスト同士・ラベル同士）のListは列記とみなして変換せずそのまま残します。"
+                 "Columnが1つのListは従来どおり変換されます。"
+                 "従来データの変換結果が変わるため、告示データ整備方針に沿ったデータの場合のみONにしてください。"
+        )
+        st.session_state.preserve_enumeration = preserve_enumeration
+
+        preserve_linebreak_list = st.checkbox(
+            "LineBreak付きColumnを含むListを変換せず保持する",
+            value=st.session_state.preserve_linebreak_list,
+            help="LineBreak=\"true\"のColumn（改行して表示する指示）を含むListを変換対象から除外します。"
+                 "変換するとColumnラッパーが捨てられLineBreak属性（改行表現）が失われるため、"
+                 "告示データ整備方針に沿ってLineBreakを使用しているデータではONを推奨します。"
+        )
+        st.session_state.preserve_linebreak_list = preserve_linebreak_list
+
+        st.markdown("---")
+
+        # 文頭全角スペース補填オプション（告示マークアップ修正案対応）
+        st.header("🔤 文頭全角スペース補填")
+        apply_fullwidth_space = st.checkbox(
+            "変換後に文頭全角スペースを補填する",
+            value=st.session_state.apply_fullwidth_space,
+            help="Title要素が空のItem/Subitem1～10のSentence冒頭、および"
+                 "LineBreak=\"true\"のColumn内Sentence冒頭に全角スペースを挿入します。"
+                 "テキスト内容検証は補填前のファイルに対して実行されます。"
+        )
+        st.session_state.apply_fullwidth_space = apply_fullwidth_space
+
+        fullwidth_space_include_list = st.checkbox(
+            "List内のSentenceも対象にする",
+            value=st.session_state.fullwidth_space_include_list,
+            disabled=not apply_fullwidth_space,
+            help="List/ListSentence内のSentence冒頭にも全角スペースを挿入します"
+                 "（整備方針資料上「要確認」のためデフォルトは対象外）"
+        )
+        st.session_state.fullwidth_space_include_list = fullwidth_space_include_list
+
+        fullwidth_space_exclude_paren = st.checkbox(
+            "「（」で始まるSentenceは対象外にする",
+            value=st.session_state.fullwidth_space_exclude_paren,
+            disabled=not apply_fullwidth_space,
+            help="「（注）…」等の括弧書きで始まるSentenceに全角スペースを挿入しません。"
+                 "括弧書きを字下げするかどうかは告示ごとの官報体裁に合わせて選択してください。"
+        )
+        st.session_state.fullwidth_space_exclude_paren = fullwidth_space_exclude_paren
+
+        # page_linkはマルチページ実行時のみ有効（テストランナー等では利用不可）
+        try:
+            st.page_link(
+                "pages/04_🔤_全角スペース補填設定.py",
+                label="XML例を確認しながら設定する",
+                icon="🔤"
+            )
+        except Exception:
+            st.caption("XML例は「全角スペース補填設定」ページで確認できます。")
+
         st.markdown("---")
         st.header("ℹ️ 情報")
         st.markdown("""
@@ -284,6 +361,20 @@ def main():
                     progress_bar.progress(progress)
                     status_text.info(f"処理中 ({current_step}/{total_steps}): {script_name}")
                 
+                # List保護オプションがONの場合、対応スクリプトにフラグを渡す
+                preserve_flags = []
+                if st.session_state.preserve_enumeration:
+                    preserve_flags.append('--preserve-enumeration')
+                if st.session_state.preserve_linebreak_list:
+                    preserve_flags.append('--preserve-linebreak-list')
+                extra_args_by_script = None
+                if preserve_flags:
+                    extra_args_by_script = {
+                        script_name: preserve_flags
+                        for script_name in st.session_state.selected_scripts
+                        if script_name in ENUMERATION_AWARE_SCRIPTS
+                    }
+
                 # パイプライン実行
                 with st.spinner("パイプライン処理を実行中..."):
                     success, error_msg, execution_log = run_pipeline(
@@ -293,9 +384,41 @@ def main():
                         script_dir=script_dir,
                         intermediate_dir=intermediate_dir,
                         timeout=300,
-                        progress_callback=progress_callback
+                        progress_callback=progress_callback,
+                        extra_args_by_script=extra_args_by_script
                     )
-                
+
+                # 文頭全角スペース補填（(a)方式: テキスト内容検証は補填前のファイルに対して実施）
+                text_validation_target = output_path
+                fullwidth_space_applied = False
+                if success and st.session_state.apply_fullwidth_space:
+                    pre_space_path = intermediate_dir / f"{intermediate_stem}_before_fullwidth_space.xml"
+                    postprocess_script = script_dir / "postprocess_fullwidth_space.py"
+                    try:
+                        shutil.copy(output_path, pre_space_path)
+                        cmd = [sys.executable, str(postprocess_script),
+                               str(pre_space_path), str(output_path)]
+                        if st.session_state.fullwidth_space_include_list:
+                            cmd.append('--include-list')
+                        if st.session_state.fullwidth_space_exclude_paren:
+                            cmd.append('--exclude-paren')
+                        with st.spinner("文頭全角スペースを補填中..."):
+                            pp_result = subprocess.run(
+                                cmd, capture_output=True, text=True, timeout=300
+                            )
+                        if pp_result.returncode != 0:
+                            success = False
+                            error_msg = "文頭全角スペース補填に失敗しました"
+                            if pp_result.stderr:
+                                error_msg += f"\nエラー詳細: {pp_result.stderr}"
+                        else:
+                            # テキスト内容検証は補填前のファイルと比較する
+                            text_validation_target = pre_space_path
+                            fullwidth_space_applied = True
+                    except Exception as e:
+                        success = False
+                        error_msg = f"文頭全角スペース補填でエラーが発生しました: {e}"
+
                 st.session_state.processing = False
                 
                 if success:
@@ -328,7 +451,7 @@ def main():
                             comparison_script = script_dir / "compare_xml_text_content.py"
                             content_valid, content_error, content_output, report_data = validate_text_content(
                                 original_file,
-                                output_path,
+                                text_validation_target,
                                 comparison_script if comparison_script.exists() else None
                             )
                             validation_results['content'] = {
@@ -343,7 +466,8 @@ def main():
                         "output_path": output_path,
                         "execution_log": execution_log,
                         "intermediate_dir": intermediate_dir,
-                        "validation_results": validation_results
+                        "validation_results": validation_results,
+                        "fullwidth_space_applied": fullwidth_space_applied
                     }
                 else:
                     status_text.error(f"❌ エラーが発生しました: {error_msg}")
@@ -395,6 +519,8 @@ def main():
             with col2:
                 st.subheader("📝 テキスト内容検証")
                 st.markdown("元のXMLファイルと処理後のXMLファイルのテキスト内容が一致しているか検証します。")
+                if st.session_state.processing_result.get("fullwidth_space_applied"):
+                    st.caption("※ 全角スペース補填**前**のファイルに対して検証しています（補填による差分は検証対象外）")
                 
                 if 'content' in validation_results:
                     content_result = validation_results['content']
