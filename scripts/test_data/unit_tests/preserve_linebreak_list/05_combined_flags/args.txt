@@ -1,0 +1,1 @@
+--preserve-enumeration --preserve-linebreak-list

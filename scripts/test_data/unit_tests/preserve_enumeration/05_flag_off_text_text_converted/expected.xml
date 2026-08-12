@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<Law>
+  <LawBody>
+    <Paragraph Num="1">
+      <ParagraphNum>1</ParagraphNum>
+      <ParagraphSentence>
+        <Sentence Num="1">Paragraphの内容</Sentence>
+      </ParagraphSentence>
+      <Item Num="1">
+        <ItemTitle/>
+        <ItemSentence>
+          <Column Num="1">
+            <Sentence Num="1">東京都</Sentence>
+          </Column>
+          <Column Num="2">
+            <Sentence Num="1">神奈川県</Sentence>
+          </Column>
+        </ItemSentence>
+      </Item>
+    </Paragraph>
+  </LawBody>
+</Law>

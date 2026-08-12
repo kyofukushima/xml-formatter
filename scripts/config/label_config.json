@@ -812,12 +812,53 @@
     "column_list_text_first_column": {
       "enabled": true,
       "description": "Columnが2つあり、かつ1つ目のColumnがラベル要素に該当しない場合、ItemSentence/Subitem*Sentenceの中にSentence要素を2つ作成して各Columnの値を挿入する",
-      "target_levels": ["Item", "Subitem1", "Subitem2", "Subitem3", "Subitem4", "Subitem5", "Subitem6", "Subitem7", "Subitem8", "Subitem9", "Subitem10"]
+      "target_levels": [
+        "Item",
+        "Subitem1",
+        "Subitem2",
+        "Subitem3",
+        "Subitem4",
+        "Subitem5",
+        "Subitem6",
+        "Subitem7",
+        "Subitem8",
+        "Subitem9",
+        "Subitem10"
+      ]
     },
     "no_column_text_split_mode": {
       "enabled": true,
       "description": "no_column_textタイプのItemの後、カラムなしリストを並列分割するかどうか。false: List要素のまま取り込む（モード1）、true: 並列分割して別々のItem要素に変換（モード2）",
-      "target_levels": ["Item", "Subitem1", "Subitem2", "Subitem3", "Subitem4", "Subitem5", "Subitem6", "Subitem7", "Subitem8", "Subitem9", "Subitem10"]
+      "target_levels": [
+        "Item",
+        "Subitem1",
+        "Subitem2",
+        "Subitem3",
+        "Subitem4",
+        "Subitem5",
+        "Subitem6",
+        "Subitem7",
+        "Subitem8",
+        "Subitem9",
+        "Subitem10"
+      ]
+    },
+    "image_list_split_mode": {
+      "enabled": true,
+      "description": "画像List（QuoteStructのみでテキストのないColumnなしList）から変換された要素の後にテキストのColumnなしListが来た場合の処理。false: 同じSentenceコンテナ内に連続するSentence要素として統合、true: 並列分割して別々の要素に変換",
+      "target_levels": [
+        "Item",
+        "Subitem1",
+        "Subitem2",
+        "Subitem3",
+        "Subitem4",
+        "Subitem5",
+        "Subitem6",
+        "Subitem7",
+        "Subitem8",
+        "Subitem9",
+        "Subitem10"
+      ]
     }
   },
   "metadata": {

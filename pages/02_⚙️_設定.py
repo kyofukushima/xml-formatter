@@ -329,9 +329,125 @@ with tab2:
 </Law>''',
                     'description': '分割モードが無効なため、最初のItemに後続のListが取り込まれます（集約）'
                 }
+            },
+            'image_split_enabled': {
+                'on': {
+                    'input': '''<?xml version="1.0" encoding="UTF-8"?>
+<Law>
+  <LawBody>
+    <Paragraph Num="1">
+      <ParagraphNum>1</ParagraphNum>
+      <ParagraphSentence>
+        <Sentence Num="1">Paragraphの内容</Sentence>
+      </ParagraphSentence>
+      <List>
+        <ListSentence>
+          <Sentence Num="1"><QuoteStruct><Fig src="./pict/sample.jpg"/></QuoteStruct></Sentence>
+        </ListSentence>
+      </List>
+      <List>
+        <ListSentence>
+          <Sentence Num="1">1つ目のテキストリスト</Sentence>
+        </ListSentence>
+      </List>
+      <List>
+        <ListSentence>
+          <Sentence Num="1">2つ目のテキストリスト</Sentence>
+        </ListSentence>
+      </List>
+    </Paragraph>
+  </LawBody>
+</Law>''',
+                    'output': '''<?xml version="1.0" encoding="UTF-8"?>
+<Law>
+  <LawBody>
+    <Paragraph Num="1">
+      <ParagraphNum>1</ParagraphNum>
+      <ParagraphSentence>
+        <Sentence Num="1">Paragraphの内容</Sentence>
+      </ParagraphSentence>
+      <Item Num="1">
+        <ItemTitle/>
+        <ItemSentence>
+          <Sentence Num="1">
+            <QuoteStruct>
+              <Fig src="./pict/sample.jpg"/>
+            </QuoteStruct>
+          </Sentence>
+        </ItemSentence>
+      </Item>
+      <Item Num="2">
+        <ItemTitle/>
+        <ItemSentence>
+          <Sentence Num="1">1つ目のテキストリスト</Sentence>
+        </ItemSentence>
+      </Item>
+      <Item Num="3">
+        <ItemTitle/>
+        <ItemSentence>
+          <Sentence Num="1">2つ目のテキストリスト</Sentence>
+        </ItemSentence>
+      </Item>
+    </Paragraph>
+  </LawBody>
+</Law>''',
+                    'description': '画像List後の並列分割が有効なため、画像Listと後続のテキストListがそれぞれ別々のItem要素に変換されます（並列分割）'
+                },
+                'off': {
+                    'input': '''<?xml version="1.0" encoding="UTF-8"?>
+<Law>
+  <LawBody>
+    <Paragraph Num="1">
+      <ParagraphNum>1</ParagraphNum>
+      <ParagraphSentence>
+        <Sentence Num="1">Paragraphの内容</Sentence>
+      </ParagraphSentence>
+      <List>
+        <ListSentence>
+          <Sentence Num="1"><QuoteStruct><Fig src="./pict/sample.jpg"/></QuoteStruct></Sentence>
+        </ListSentence>
+      </List>
+      <List>
+        <ListSentence>
+          <Sentence Num="1">1つ目のテキストリスト</Sentence>
+        </ListSentence>
+      </List>
+      <List>
+        <ListSentence>
+          <Sentence Num="1">2つ目のテキストリスト</Sentence>
+        </ListSentence>
+      </List>
+    </Paragraph>
+  </LawBody>
+</Law>''',
+                    'output': '''<?xml version="1.0" encoding="UTF-8"?>
+<Law>
+  <LawBody>
+    <Paragraph Num="1">
+      <ParagraphNum>1</ParagraphNum>
+      <ParagraphSentence>
+        <Sentence Num="1">Paragraphの内容</Sentence>
+      </ParagraphSentence>
+      <Item Num="1">
+        <ItemTitle/>
+        <ItemSentence>
+          <Sentence Num="1">
+            <QuoteStruct>
+              <Fig src="./pict/sample.jpg"/>
+            </QuoteStruct>
+          </Sentence>
+          <Sentence Num="2">1つ目のテキストリスト</Sentence>
+          <Sentence Num="3">2つ目のテキストリスト</Sentence>
+        </ItemSentence>
+      </Item>
+    </Paragraph>
+  </LawBody>
+</Law>''',
+                    'description': '画像List後の並列分割が無効なため、後続のテキストListが同じItemSentence内に連続するSentence要素として統合されます'
+                }
             }
         }
-        
+
         # 設定UI
         st.subheader("変換動作")
         
@@ -368,7 +484,7 @@ with tab2:
             help="列がないテキストの分割モードを有効化します",
             key="checkbox_split_mode"
         )
-        
+
         # XML例の表示（トグル）
         show_example_split_mode = st.toggle(
             "XML例を表示",
@@ -376,7 +492,7 @@ with tab2:
             key="toggle_split_mode_example"
         )
         st.session_state['show_example_split_mode'] = show_example_split_mode
-        
+
         if show_example_split_mode:
             example_key = 'on' if split_mode else 'off'
             example = xml_examples['split_mode_enabled'][example_key]
@@ -388,14 +504,45 @@ with tab2:
             with col2:
                 st.markdown("**出力XML**")
                 st.code(example['output'], language='xml')
-        
+
+        image_split = st.checkbox(
+            "画像List後の並列分割を有効化",
+            value=boolean_settings['image_split_enabled'],
+            help="画像List（QuoteStructのみでテキストのないList）の後にテキストのColumnなしListが"
+                 "続く場合、Sentence要素として統合せず、それぞれ並列の要素（Item/Subitem等）に分割します。"
+                 "数式画像とその変数説明のListが連続する告示データなどで使用します。"
+                 "後続List同士の並列分割には「分割モード」も有効である必要があります。",
+            key="checkbox_image_split"
+        )
+
+        # XML例の表示（トグル）
+        show_example_image_split = st.toggle(
+            "XML例を表示",
+            value=st.session_state.get('show_example_image_split', False),
+            key="toggle_image_split_example"
+        )
+        st.session_state['show_example_image_split'] = show_example_image_split
+
+        if show_example_image_split:
+            example_key = 'on' if image_split else 'off'
+            example = xml_examples['image_split_enabled'][example_key]
+            st.info(f"**説明**: {example['description']}")
+            col1, col2 = st.columns(2)
+            with col1:
+                st.markdown("**入力XML**")
+                st.code(example['input'], language='xml')
+            with col2:
+                st.markdown("**出力XML**")
+                st.code(example['output'], language='xml')
+
         # 保存ボタン
         if st.button("設定を保存", type="primary", key="save_boolean_settings"):
             # 設定を更新
             updated_config = update_boolean_settings(
                 st.session_state.config_data.copy(),
                 column_enabled,
-                split_mode
+                split_mode,
+                image_split
             )
             
             # 保存
