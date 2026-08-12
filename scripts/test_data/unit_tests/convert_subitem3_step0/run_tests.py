@@ -9,6 +9,8 @@ import sys
 import os
 import subprocess
 import difflib
+import json
+import shutil
 from pathlib import Path
 from lxml import etree
 
@@ -20,6 +22,56 @@ def normalize_xml(xml_content):
 
     root = etree.fromstring(xml_content)
     return etree.tostring(root, encoding='unicode', pretty_print=True)
+
+def enable_split_mode_for_test(test_name):
+    """並列分割モードのテストケースの場合、設定を有効化"""
+    # image_list_split_mode を必要とするテストケース
+    image_split_tests = ['31_image_list_split_mode_basic',
+                         '32_image_list_split_mode_formula_variables']
+
+    if test_name not in image_split_tests:
+        return None, None
+
+    # 設定ファイルのパス
+    script_dir = Path(__file__).parent.parent.parent.parent
+    config_path = script_dir / "config" / "label_config.json"
+    backup_path = config_path.with_suffix('.json.backup')
+
+    try:
+        # 設定ファイルを読み込む
+        with open(config_path, 'r', encoding='utf-8') as f:
+            config = json.load(f)
+
+        # バックアップを作成
+        shutil.copy2(config_path, backup_path)
+
+        # 設定を有効化
+        if 'conversion_behaviors' in config:
+            if 'image_list_split_mode' in config['conversion_behaviors']:
+                config['conversion_behaviors']['image_list_split_mode']['enabled'] = True
+            if 'no_column_text_split_mode' in config['conversion_behaviors']:
+                config['conversion_behaviors']['no_column_text_split_mode']['enabled'] = True
+
+        # 設定ファイルを書き込む
+        with open(config_path, 'w', encoding='utf-8') as f:
+            json.dump(config, f, ensure_ascii=False, indent=2)
+
+        return config_path, backup_path
+    except Exception as e:
+        print(f"⚠️ 設定ファイルの変更に失敗しました: {e}")
+        return None, None
+
+def restore_config(config_path, backup_path):
+    """設定ファイルを元に戻す"""
+    if config_path is None or backup_path is None:
+        return
+
+    try:
+        if backup_path.exists():
+            shutil.copy2(backup_path, config_path)
+            backup_path.unlink()
+    except Exception as e:
+        print(f"⚠️ 設定ファイルの復元に失敗しました: {e}")
 
 def run_test(test_dir):
     """単一のテストケースを実行"""
@@ -36,6 +88,9 @@ def run_test(test_dir):
     if not expected_file.exists():
         print(f"❌ expected.xml が見つかりません: {expected_file}")
         return False
+
+    # 並列分割モードのテストケースの場合、設定を有効化
+    config_path, backup_path = enable_split_mode_for_test(test_name)
 
     # convert_subitem3_step0.py を実行（出力を標準出力にリダイレクト）
     # スクリプトのパスを現在のワークスペースに合わせて設定
@@ -108,6 +163,9 @@ def run_test(test_dir):
     except Exception as e:
         print(f"❌ 予期せぬエラー: {e}")
         return False
+    finally:
+        # 設定ファイルを元に戻す（成功時も失敗時も必ず実行）
+        restore_config(config_path, backup_path)
 
 def main():
     """メイン関数"""
@@ -119,7 +177,7 @@ def main():
     # テストケースの収集
     test_dirs = []
     for item in test_root.iterdir():
-        if item.is_dir() and item.name.startswith(('01_', '27_', '28_', '29_', '02_', '03_', '04_', '05_', '06_', '07_', '08_', '09_', '10_', '11_', '12_', '13_', '14_', '15_','16_','17_','18_','19_','20_','21_','22_','23_','24_','25_', '26_', '26_')):
+        if item.is_dir() and item.name.startswith(('01_', '27_', '28_', '29_', '02_', '03_', '04_', '05_', '06_', '07_', '08_', '09_', '10_', '11_', '12_', '13_', '14_', '15_','16_','17_','18_','19_','20_','21_','22_','23_','24_','25_', '26_', '26_', '31_', '32_')):
             test_dirs.append(item)
 
     test_dirs.sort()

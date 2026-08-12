@@ -36,16 +36,24 @@
                   <Subitem5Sentence>
                     <Sentence Num="1">Subitem5の内容</Sentence>
                   </Subitem5Sentence>
-                  <List>
-                    <ListSentence>
-                      <Column>
-                        <Sentence Num="1">ニ</Sentence>
-                      </Column>
-                      <Column>
-                        <Sentence Num="1">内容1</Sentence>
-                      </Column>
-                    </ListSentence>
-                  </List>
+                  <Subitem6 Num="1">
+                    <Subitem6Title>（b）</Subitem6Title>
+                    <Subitem6Sentence>
+                      <Sentence Num="1">Subitem6の内容</Sentence>
+                    </Subitem6Sentence>
+                    <Subitem7 Num="1">
+                      <Subitem7Title>（ウ）</Subitem7Title>
+                      <Subitem7Sentence>
+                        <Sentence Num="1">Subitem7の内容</Sentence>
+                      </Subitem7Sentence>
+                      <Subitem8 Num="1">
+                        <Subitem8Title>ニ</Subitem8Title>
+                        <Subitem8Sentence>
+                          <Sentence Num="1">内容1</Sentence>
+                        </Subitem8Sentence>
+                      </Subitem8>
+                    </Subitem7>
+                  </Subitem6>
                 </Subitem5>
               </Subitem4>
             </Subitem3>

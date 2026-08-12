@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <Law>
   <LawBody>
     <Paragraph Num="1">
@@ -18,26 +18,22 @@
           </Subitem1Sentence>
           <List>
             <ListSentence>
-              <Sentence Num="1">
-                <Column>
-                  <Sentence Num="1">a</Sentence>
-                </Column>
-                <Column>
-                  <Sentence Num="1">内容1</Sentence>
-                </Column>
-              </Sentence>
+              <Column Num="1">
+                <Sentence Num="1">a</Sentence>
+              </Column>
+              <Column Num="2">
+                <Sentence Num="1">内容1</Sentence>
+              </Column>
             </ListSentence>
           </List>
           <List>
             <ListSentence>
-              <Sentence Num="1">
-                <Column>
-                  <Sentence Num="1">b</Sentence>
-                </Column>
-                <Column>
-                  <Sentence Num="1">内容2</Sentence>
-                </Column>
-              </Sentence>
+              <Column Num="1">
+                <Sentence Num="1">b</Sentence>
+              </Column>
+              <Column Num="2">
+                <Sentence Num="1">内容2</Sentence>
+              </Column>
             </ListSentence>
           </List>
         </Subitem1>

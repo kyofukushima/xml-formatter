@@ -14,8 +14,12 @@
         <Subitem10 Num="1">
           <Subitem10Title>ａ）</Subitem10Title>
           <Subitem10Sentence>
-            <Sentence Num="1">ＪＡＳ</Sentence>
-            <Sentence Num="2">００２６の箇条４に規定するベジタリアン又はヴィーガンに適した料理に関する事項</Sentence>
+            <Column Num="1">
+              <Sentence Num="1">ＪＡＳ</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1">００２６の箇条４に規定するベジタリアン又はヴィーガンに適した料理に関する事項</Sentence>
+            </Column>
           </Subitem10Sentence>
           <List>
             <ListSentence>
@@ -50,8 +54,12 @@
         <Subitem10 Num="2">
           <Subitem10Title>ｂ）</Subitem10Title>
           <Subitem10Sentence>
-            <Sentence Num="1">ＪＡＳ</Sentence>
-            <Sentence Num="2">００２６の箇条４に規定するベジタリアン又はヴィーガンに適した料理に関する事項</Sentence>
+            <Column Num="1">
+              <Sentence Num="1">ＪＡＳ</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1">００２６の箇条４に規定するベジタリアン又はヴィーガンに適した料理に関する事項</Sentence>
+            </Column>
           </Subitem10Sentence>
         </Subitem10>
       </Subitem9>

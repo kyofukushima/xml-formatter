@@ -1,16 +1,28 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <Law>
   <LawBody>
     <Subitem5 Num="1">
-      <Subitem5Title></Subitem5Title>
+      <Subitem5Title/>
       <Subitem5Sentence>
-        <Sentence Num="1"></Sentence>
+        <Sentence Num="1"/>
       </Subitem5Sentence>
-      <List>
-        <ListSentence>
-          <Sentence Num="1">ColumnなしListの内容（親要素が空の場合）</Sentence>
-        </ListSentence>
-      </List>
+      <Subitem6 Num="1">
+        <Subitem6Title/>
+        <Subitem6Sentence>
+          <Sentence Num="1"/>
+        </Subitem6Sentence>
+        <Subitem7 Num="1">
+          <Subitem7Title/>
+          <Subitem7Sentence>
+            <Sentence Num="1"/>
+          </Subitem7Sentence>
+          <List>
+            <ListSentence>
+              <Sentence Num="1">ColumnなしListの内容（親要素が空の場合）</Sentence>
+            </ListSentence>
+          </List>
+        </Subitem7>
+      </Subitem6>
     </Subitem5>
   </LawBody>
 </Law>

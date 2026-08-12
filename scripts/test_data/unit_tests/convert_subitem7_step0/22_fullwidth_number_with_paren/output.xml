@@ -26,67 +26,71 @@
               <Subitem3Sentence>
                 <Sentence Num="1">Subitem3の内容</Sentence>
               </Subitem3Sentence>
-              <Subitem7 Num="1">
-                <Subitem7Title>ロ</Subitem7Title>
-                <Subitem7Sentence>
-                  <Sentence Num="1">Subitem7の内容</Sentence>
-                </Subitem7Sentence>
-                <List>
-                  <ListSentence>
-                    <Column Num="1">
-                      <Sentence Num="1">１）</Sentence>
-                    </Column>
-                    <Column Num="2">
-                      <Sentence Num="1">全角数字 + ）のラベルを持つ項目の内容</Sentence>
-                    </Column>
-                  </ListSentence>
-                </List>
-                <List>
-                  <ListSentence>
-                    <Column Num="1">
-                      <Sentence Num="1">（１）</Sentence>
-                    </Column>
-                    <Column Num="2">
-                      <Sentence Num="1">既存の括弧全角数字（誤認識されないように）</Sentence>
-                    </Column>
-                  </ListSentence>
-                </List>
-                <List>
-                  <ListSentence>
-                    <Column Num="1">
-                      <Sentence Num="1">２）</Sentence>
-                    </Column>
-                    <Column Num="2">
-                      <Sentence Num="1">2つ目の全角数字 + ）の項目</Sentence>
-                    </Column>
-                  </ListSentence>
-                </List>
-                <List>
-                  <ListSentence>
-                    <Column Num="1">
-                      <Sentence Num="1">１</Sentence>
-                    </Column>
-                    <Column Num="2">
-                      <Sentence Num="1">括弧なしの全角数字（誤認識されないように）</Sentence>
-                    </Column>
-                  </ListSentence>
-                </List>
-                <List>
-                  <ListSentence>
-                    <Column Num="1">
-                      <Sentence Num="1">４．１</Sentence>
-                    </Column>
-                    <Column Num="2">
-                      <Sentence Num="1">ドット区切り数字（誤認識されないように）</Sentence>
-                    </Column>
-                  </ListSentence>
-                </List>
-                <List>
-                  <ListSentence>
-                    <Sentence Num="1">ColumnなしListの内容（Subitem7の後に追加される）</Sentence>
-                  </ListSentence>
-                </List>
-              </Subitem7>
+              <Subitem4 Num="1">
+                <Subitem4Title>（イ）</Subitem4Title>
+                <Subitem4Sentence>
+                  <Sentence Num="1">Subitem4の内容</Sentence>
+                </Subitem4Sentence>
+                <Subitem5 Num="1">
+                  <Subitem5Title>b</Subitem5Title>
+                  <Subitem5Sentence>
+                    <Sentence Num="1">Subitem5の内容</Sentence>
+                  </Subitem5Sentence>
+                  <Subitem6 Num="1">
+                    <Subitem6Title>ロ</Subitem6Title>
+                    <Subitem6Sentence>
+                      <Sentence Num="1">Subitem7の内容</Sentence>
+                    </Subitem6Sentence>
+                    <Subitem7 Num="1">
+                      <Subitem7Title>１）</Subitem7Title>
+                      <Subitem7Sentence>
+                        <Sentence Num="1">全角数字 + ）のラベルを持つ項目の内容</Sentence>
+                      </Subitem7Sentence>
+                      <List>
+                        <ListSentence>
+                          <Column Num="1">
+                            <Sentence Num="1">（１）</Sentence>
+                          </Column>
+                          <Column Num="2">
+                            <Sentence Num="1">既存の括弧全角数字（誤認識されないように）</Sentence>
+                          </Column>
+                        </ListSentence>
+                      </List>
+                    </Subitem7>
+                    <Subitem7 Num="2">
+                      <Subitem7Title>２）</Subitem7Title>
+                      <Subitem7Sentence>
+                        <Sentence Num="1">2つ目の全角数字 + ）の項目</Sentence>
+                      </Subitem7Sentence>
+                      <List>
+                        <ListSentence>
+                          <Column Num="1">
+                            <Sentence Num="1">１</Sentence>
+                          </Column>
+                          <Column Num="2">
+                            <Sentence Num="1">括弧なしの全角数字（誤認識されないように）</Sentence>
+                          </Column>
+                        </ListSentence>
+                      </List>
+                      <List>
+                        <ListSentence>
+                          <Column Num="1">
+                            <Sentence Num="1">４．１</Sentence>
+                          </Column>
+                          <Column Num="2">
+                            <Sentence Num="1">ドット区切り数字（誤認識されないように）</Sentence>
+                          </Column>
+                        </ListSentence>
+                      </List>
+                      <List>
+                        <ListSentence>
+                          <Sentence Num="1">ColumnなしListの内容（Subitem7の後に追加される）</Sentence>
+                        </ListSentence>
+                      </List>
+                    </Subitem7>
+                  </Subitem6>
+                </Subitem5>
+              </Subitem4>
             </Subitem3>
           </Subitem2>
         </Subitem1>
