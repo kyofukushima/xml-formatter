@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Law>
+  <LawBody>
+    <MainProvision>
+      <Paragraph Num="1">
+        <ParagraphNum>1</ParagraphNum>
+        <ParagraphSentence>
+          <Sentence Num="1">項の本文</Sentence>
+        </ParagraphSentence>
+        <Item Num="1">
+          <ItemTitle/>
+          <ItemSentence>
+            <Sentence Num="1"><Ruby>較<Rt>こう</Rt></Ruby>正に関する文章</Sentence>
+          </ItemSentence>
+        </Item>
+      </Paragraph>
+    </MainProvision>
+  </LawBody>
+</Law>

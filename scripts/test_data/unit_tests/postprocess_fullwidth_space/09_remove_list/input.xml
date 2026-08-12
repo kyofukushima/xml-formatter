@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Law>
+  <LawBody>
+    <MainProvision>
+      <Paragraph Num="1">
+        <ParagraphNum>1</ParagraphNum>
+        <ParagraphSentence>
+          <Sentence Num="1">項の本文</Sentence>
+        </ParagraphSentence>
+        <List>
+          <ListSentence>
+            <Sentence Num="1">　ColumnのないListの文章</Sentence>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1">一</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1">ラベル付きListの本文</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1">一段目の段落</Sentence>
+            </Column>
+            <Column Num="2" LineBreak="true">
+              <Sentence Num="1">　List内で改行された二段目</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+      </Paragraph>
+    </MainProvision>
+  </LawBody>
+</Law>

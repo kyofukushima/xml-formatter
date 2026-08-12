@@ -17,6 +17,12 @@ from pathlib import Path
 from lxml import etree
 from copy import deepcopy
 
+# scripts/utils/をインポートパスに追加
+script_dir = Path(__file__).resolve().parent
+sys.path.insert(0, str(script_dir))
+
+from utils.renumber_utils import renumber_children
+
 
 def format_xml_lxml(tree, output_path):
     """lxmlのElementTreeをインデント整形して保存"""
@@ -118,16 +124,10 @@ def process_paragraph(paragraph, stats):
                 paragraph.remove(item_to_convert)
                 stats['removed_items'] += 1
     
-    # Item要素のNum属性を再採番
-    remaining_items = paragraph.findall('Item')
-    for i, item in enumerate(remaining_items):
-        item.set('Num', str(i + 1))
-    
-    # Subitem1のNum属性を再採番
-    for item in remaining_items:
-        subitems = item.findall('Subitem1')
-        for i, subitem in enumerate(subitems):
-            subitem.set('Num', str(i + 1))
+    # Item/Subitem1のNum属性を再採番（タイトル由来の枝番形式に対応、renumber_children 参照）
+    renumber_children(paragraph, 'Item')
+    for item in paragraph.findall('Item'):
+        renumber_children(item, 'Subitem1')
     
     return made_changes
 

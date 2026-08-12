@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <Law>
   <LawBody>
     <MainProvision>
@@ -10,7 +10,7 @@
         <Item Num="1">
           <ItemTitle>1</ItemTitle>
           <ItemSentence>
-            <Sentence Num="1" >itemの内容</Sentence>
+            <Sentence Num="1">itemの内容</Sentence>
           </ItemSentence>
           <Subitem1 Num="1">
             <Subitem1Title>４．１．１</Subitem1Title>
@@ -20,8 +20,12 @@
             <Subitem2 Num="1">
               <Subitem2Title/>
               <Subitem2Sentence>
-                <Sentence Num="1">テキスト１</Sentence>
-                <Sentence Num="2">テキスト２</Sentence>
+                <Column Num="1">
+                  <Sentence Num="1">テキスト１</Sentence>
+                </Column>
+                <Column Num="2">
+                  <Sentence Num="1">テキスト２</Sentence>
+                </Column>
               </Subitem2Sentence>
               <List>
                 <ListSentence>

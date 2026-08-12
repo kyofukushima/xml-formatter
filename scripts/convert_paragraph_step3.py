@@ -26,6 +26,7 @@ script_dir = Path(__file__).resolve().parent
 sys.path.insert(0, str(script_dir))
 
 from utils.label_utils import detect_label_id, is_label
+from utils.renumber_utils import renumber_children
 
 def format_xml_lxml(tree, output_path):
     """
@@ -88,9 +89,14 @@ def find_split_point(paragraph):
     return None
 
 def renumber_elements(tree):
-    """ParagraphとItemのNumを再採番する"""
+    """ParagraphとItemのNumを再採番する
+
+    Paragraph はスキーマ上 Num が xs:positiveInteger のため常に連番。
+    Item は ItemTitle から番号を導出できる場合はコーパス準拠の枝番形式
+    （例: 「六の二」→ Num="6_2"）、できない場合は連番（renumber_children 参照）。
+    """
     root = tree.getroot()
-    
+
     parents = {p for p in root.xpath('.//Paragraph/..')}
     for parent in parents:
         paragraphs = parent.findall('Paragraph')
@@ -98,9 +104,7 @@ def renumber_elements(tree):
             para.set('Num', str(i + 1))
 
     for paragraph in root.xpath('.//Paragraph'):
-        items = paragraph.findall('Item')
-        for i, item in enumerate(items):
-            item.set('Num', str(i + 1))
+        renumber_children(paragraph, 'Item')
 
 def main():
     """メイン関数"""

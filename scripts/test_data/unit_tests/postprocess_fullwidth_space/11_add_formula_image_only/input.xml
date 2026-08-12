@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Law>
+  <LawBody>
+    <MainProvision>
+      <Paragraph Num="1">
+        <ParagraphNum>1</ParagraphNum>
+        <ParagraphSentence>
+          <Sentence Num="1">項の本文</Sentence>
+        </ParagraphSentence>
+        <Item Num="1">
+          <ItemTitle>一</ItemTitle>
+          <ItemSentence>
+            <Sentence Num="1">次の式により算出するものとする。</Sentence>
+          </ItemSentence>
+          <Subitem1 Num="1">
+            <Subitem1Title/>
+            <Subitem1Sentence>
+              <Sentence Num="1"><QuoteStruct><Fig src="./pict/formula1.jpg"/></QuoteStruct></Sentence>
+            </Subitem1Sentence>
+          </Subitem1>
+          <Subitem1 Num="2">
+            <Subitem1Title/>
+            <Subitem1Sentence>
+              <Sentence Num="1">
+                <QuoteStruct>
+                  <Fig src="./pict/formula2.jpg"/>
+                </QuoteStruct>
+              </Sentence>
+            </Subitem1Sentence>
+          </Subitem1>
+          <Subitem1 Num="2_2">
+            <Subitem1Title/>
+            <Subitem1Sentence>
+              <Sentence Num="1"><ArithFormula>売上高－費用総額＋給与総額</ArithFormula></Sentence>
+            </Subitem1Sentence>
+          </Subitem1>
+          <Subitem1 Num="3">
+            <Subitem1Title/>
+            <Subitem1Sentence>
+              <Sentence Num="1">テキストを含む本文には補填される。</Sentence>
+            </Subitem1Sentence>
+          </Subitem1>
+        </Item>
+      </Paragraph>
+    </MainProvision>
+  </LawBody>
+</Law>

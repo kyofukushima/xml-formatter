@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Law>
+  <LawBody>
+    <Paragraph Num="1">
+      <ParagraphNum>1</ParagraphNum>
+      <ParagraphSentence>
+        <Sentence Num="1" WritingMode="vertical">空気調和設備の設計一次エネルギー消費量は、次の式により算出するものとする。</Sentence>
+      </ParagraphSentence>
+      <Subitem6 Num="1">
+        <Subitem6Title>（１）</Subitem6Title>
+        <Subitem6Sentence>
+          <Sentence Num="1">Itemの内容</Sentence>
+        </Subitem6Sentence>
+        <Subitem7 Num="1">
+          <Subitem7Title/>
+          <Subitem7Sentence>
+            <Sentence Num="1" WritingMode="vertical">
+              <QuoteStruct>
+                <Fig src="./pict/2JH00000019886.jpg"/>
+              </QuoteStruct>
+            </Sentence>
+          </Subitem7Sentence>
+        </Subitem7>
+        <Subitem7 Num="2">
+          <Subitem7Title/>
+          <Subitem7Sentence>
+            <Sentence Num="1" WritingMode="vertical">この式において、Ｅ<Sub>ＡＣ</Sub>、Ｅ<Sub>ＡＣ，ＡＨＵ，ｄ，ｉ</Sub>及びＤ<Sub>ＡＨＵ，ｉ</Sub>は、それぞれ次の数値を表すものとする。</Sentence>
+          </Subitem7Sentence>
+        </Subitem7>
+        <Subitem7 Num="3">
+          <Subitem7Title/>
+          <Subitem7Sentence>
+            <Sentence Num="1" WritingMode="vertical">Ｅ<Sub>ＡＣ</Sub>：空気調和設備の設計一次エネルギー消費量（単位　１年につきメガジュール）</Sentence>
+          </Subitem7Sentence>
+        </Subitem7>
+        <Subitem7 Num="4">
+          <Subitem7Title/>
+          <Subitem7Sentence>
+            <Sentence Num="1" WritingMode="vertical">Ｅ<Sub>ＡＣ，ＡＨＵ，ｄ，ｉ</Sub>：日付ｄにおける空気調和機等ｉの１日当たりの設計一次エネルギー消費量（単位　１日につきメガジュール）</Sentence>
+          </Subitem7Sentence>
+        </Subitem7>
+      </Subitem6>
+    </Paragraph>
+  </LawBody>
+</Law>

@@ -36,11 +36,18 @@
                   <Subitem5Sentence>
                     <Sentence Num="1">Subitem5の内容</Sentence>
                   </Subitem5Sentence>
-                  <List>
-                    <ListSentence>
-                      <Sentence Num="1">〔医療と社会〕</Sentence>
-                    </ListSentence>
-                  </List>
+                  <Subitem6 Num="1">
+                    <Subitem6Title>（b）</Subitem6Title>
+                    <Subitem6Sentence>
+                      <Sentence Num="1">Subitem6の内容</Sentence>
+                    </Subitem6Sentence>
+                    <Subitem7 Num="1">
+                      <Subitem7Title/>
+                      <Subitem7Sentence>
+                        <Sentence Num="1">〔医療と社会〕</Sentence>
+                      </Subitem7Sentence>
+                    </Subitem7>
+                  </Subitem6>
                 </Subitem5>
               </Subitem4>
             </Subitem3>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <Law>
   <LawBody>
     <Paragraph Num="1">
@@ -6,11 +6,11 @@
       <ParagraphSentence>
         <Sentence Num="1">Paragraphの内容</Sentence>
       </ParagraphSentence>
-      <Subitem9 Num="1">
-        <Subitem9Title>（１）</Subitem9Title>
-        <Subitem9Sentence>
+      <Subitem8 Num="1">
+        <Subitem8Title>（１）</Subitem8Title>
+        <Subitem8Sentence>
           <Sentence Num="1">Itemの内容</Sentence>
-        </Subitem9Sentence>
+        </Subitem8Sentence>
         <Subitem9 Num="1">
           <Subitem9Title/>
           <Subitem9Sentence>
@@ -32,7 +32,7 @@
             </ListSentence>
           </List>
         </Subitem9>
-      </Subitem9>
+      </Subitem8>
     </Paragraph>
   </LawBody>
 </Law>

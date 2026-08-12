@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Law>
+  <LawBody>
+    <MainProvision>
+      <Paragraph Num="1">
+        <ParagraphNum>1</ParagraphNum>
+        <ParagraphSentence>
+          <Sentence Num="1">項の本文</Sentence>
+        </ParagraphSentence>
+        <Item Num="1">
+          <ItemTitle>一</ItemTitle>
+          <ItemSentence>
+            <Sentence Num="1">次の式により算出するものとする。</Sentence>
+          </ItemSentence>
+          <Subitem1 Num="1">
+            <Subitem1Title/>
+            <Subitem1Sentence>
+              <Sentence Num="1">この式において、Ｅ<Sub>ＡＣ</Sub>及びｎは、それぞれ次の数値を表すものとする。</Sentence>
+            </Subitem1Sentence>
+            <Subitem2 Num="1">
+              <Subitem2Title/>
+              <Subitem2Sentence>
+                <Sentence Num="1">Ｅ<Sub>ＡＣ，ＡＨＵ，ｄ，ｉ</Sub>：設計一次エネルギー消費量（単位　メガジュール）</Sentence>
+              </Subitem2Sentence>
+            </Subitem2>
+            <Subitem2 Num="2">
+              <Subitem2Title/>
+              <Subitem2Sentence>
+                <Sentence Num="1">ｎ：機器の数（単位　台）</Sentence>
+              </Subitem2Sentence>
+            </Subitem2>
+          </Subitem1>
+          <Subitem1 Num="2">
+            <Subitem1Title/>
+            <Subitem1Sentence>
+              <Sentence Num="1">η：ギリシャ文字で始まる変数定義行</Sentence>
+            </Subitem1Sentence>
+          </Subitem1>
+          <Subitem1 Num="2_2">
+            <Subitem1Title/>
+            <Subitem1Sentence>
+              <Sentence Num="1">Ｅ<Sub>Ｍ</Sub>＝α<Sub>Ｍ</Sub>×Ａ<Sub>ｔｏｔａｌ</Sub></Sentence>
+            </Subitem1Sentence>
+          </Subitem1>
+          <Subitem1 Num="3">
+            <Subitem1Title/>
+            <Subitem1Sentence>
+              <Sentence Num="1">通常の本文はこれまでどおり補填される。</Sentence>
+            </Subitem1Sentence>
+          </Subitem1>
+        </Item>
+      </Paragraph>
+    </MainProvision>
+  </LawBody>
+</Law>

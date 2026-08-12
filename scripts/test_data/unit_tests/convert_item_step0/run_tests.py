@@ -26,12 +26,15 @@ def normalize_xml(xml_content):
 def enable_split_mode_for_test(test_name):
     """モード2のテストケースの場合、設定を有効化"""
     # モード2のテストケースを判定
-    mode2_tests = ['39_no_column_text_split_mode_basic', 
+    mode2_tests = ['39_no_column_text_split_mode_basic',
                    '40_no_column_text_split_mode_with_column_list',
                    '41_no_column_text_split_mode_with_figstruct',
                    '42_table_struct_order_preservation']
-    
-    if test_name not in mode2_tests:
+    # image_list_split_modeのテストケース（no_column_text_split_modeも併せて有効化）
+    image_split_tests = ['46_image_list_split_mode_basic',
+                         '47_image_list_split_mode_formula_variables']
+
+    if test_name not in mode2_tests and test_name not in image_split_tests:
         return None, None
     
     # 設定ファイルのパス
@@ -51,6 +54,12 @@ def enable_split_mode_for_test(test_name):
         if 'conversion_behaviors' in config:
             if 'no_column_text_split_mode' in config['conversion_behaviors']:
                 config['conversion_behaviors']['no_column_text_split_mode']['enabled'] = True
+            if test_name in image_split_tests:
+                config['conversion_behaviors'].setdefault('image_list_split_mode', {
+                    'target_levels': ['Item', 'Subitem1', 'Subitem2', 'Subitem3', 'Subitem4',
+                                      'Subitem5', 'Subitem6', 'Subitem7', 'Subitem8',
+                                      'Subitem9', 'Subitem10']
+                })['enabled'] = True
         
         # 設定ファイルを書き込む
         with open(config_path, 'w', encoding='utf-8') as f:
@@ -178,7 +187,7 @@ def main():
     # テストケースの収集
     test_dirs = []
     for item in test_root.iterdir():
-        if item.is_dir() and item.name.startswith(('01_', '02_', '03_', '04_', '05_', '06_', '07_', '08_', '09_', '10_', '11_', '12_', '13_', '14_', '15_','16_','17_','18_','19_','20_','21_','22_','23_','24_','25_','26_','27_','28_','29_','30_','31_','32_','33_','34_','35_','36_','37_','38_','39_','40_','41_','42_','43_','44_','45_')):
+        if item.is_dir() and item.name.startswith(('01_', '02_', '03_', '04_', '05_', '06_', '07_', '08_', '09_', '10_', '11_', '12_', '13_', '14_', '15_','16_','17_','18_','19_','20_','21_','22_','23_','24_','25_','26_','27_','28_','29_','30_','31_','32_','33_','34_','35_','36_','37_','38_','39_','40_','41_','42_','43_','44_','45_','46_','47_')):
             test_dirs.append(item)
 
     test_dirs.sort()

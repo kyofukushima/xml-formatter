@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <Law>
   <LawBody>
     <Paragraph Num="1">
@@ -9,13 +9,17 @@
       <Item Num="1">
         <ItemTitle>1</ItemTitle>
         <ItemSentence>
-          <Sentence Num="1" >itemの内容</Sentence>
+          <Sentence Num="1">itemの内容</Sentence>
         </ItemSentence>
         <Subitem1 Num="1">
           <Subitem1Title>ａ）</Subitem1Title>
           <Subitem1Sentence>
-            <Sentence Num="1">ＪＡＳ</Sentence>
-            <Sentence Num="2">００２６の箇条４に規定するベジタリアン又はヴィーガンに適した料理に関する事項</Sentence>
+            <Column Num="1">
+              <Sentence Num="1">ＪＡＳ</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1">００２６の箇条４に規定するベジタリアン又はヴィーガンに適した料理に関する事項</Sentence>
+            </Column>
           </Subitem1Sentence>
           <List>
             <ListSentence>
@@ -50,8 +54,12 @@
         <Subitem1 Num="2">
           <Subitem1Title>ｂ）</Subitem1Title>
           <Subitem1Sentence>
-            <Sentence Num="1">ＪＡＳ</Sentence>
-            <Sentence Num="2">００２６の箇条４に規定するベジタリアン又はヴィーガンに適した料理に関する事項</Sentence>
+            <Column Num="1">
+              <Sentence Num="1">ＪＡＳ</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1">００２６の箇条４に規定するベジタリアン又はヴィーガンに適した料理に関する事項</Sentence>
+            </Column>
           </Subitem1Sentence>
         </Subitem1>
       </Item>

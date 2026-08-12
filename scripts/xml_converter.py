@@ -23,6 +23,7 @@ script_dir = Path(__file__).resolve().parent
 sys.path.insert(0, str(script_dir))
 
 from utils.label_utils import is_label, detect_label_id, get_number_type, get_alphabet_type, is_valid_label_id, get_exclude_label_ids_for_context
+from utils.renumber_utils import renumber_children
 from utils.bracket_utils import is_subject_name_bracket, is_instruction_bracket, is_grade_single_bracket, is_grade_double_bracket, get_bracket_type
 
 
@@ -101,10 +102,22 @@ def should_split_no_column_text_lists(child_tag: str) -> bool:
     """no_column_textタイプのItemの後、カラムなしリストを並列分割するかどうかを判定"""
     behaviors = load_conversion_behaviors_config()
     behavior = behaviors.get('no_column_text_split_mode', {})
-    
+
     if not behavior.get('enabled', False):
         return False
-    
+
+    target_levels = behavior.get('target_levels', [])
+    return child_tag in target_levels
+
+
+def should_split_after_image_list(child_tag: str) -> bool:
+    """画像List（QuoteStructのみ）から変換された要素の後、テキストのカラムなしリストを並列分割するかどうかを判定"""
+    behaviors = load_conversion_behaviors_config()
+    behavior = behaviors.get('image_list_split_mode', {})
+
+    if not behavior.get('enabled', False):
+        return False
+
     target_levels = behavior.get('target_levels', [])
     return child_tag in target_levels
 
@@ -119,7 +132,9 @@ class ConversionConfig:
                  column_condition_min: int, # Column数の最小条件
                  supported_types: List[str], # サポートするタイプリスト
                  script_name: str,          # スクリプト名
-                 skip_empty_parent: bool = False):  # 親要素空チェックを行うか
+                 skip_empty_parent: bool = False,  # 親要素空チェックを行うか
+                 preserve_enumeration: bool = False,  # 列記List（Column種別が同一）を変換せず保持するか
+                 preserve_linebreak_list: bool = False):  # LineBreak付きColumnを含むListを変換せず保持するか
         self.parent_tag = parent_tag
         self.child_tag = child_tag
         self.title_tag = title_tag
@@ -128,6 +143,8 @@ class ConversionConfig:
         self.supported_types = supported_types
         self.script_name = script_name
         self.skip_empty_parent = skip_empty_parent
+        self.preserve_enumeration = preserve_enumeration
+        self.preserve_linebreak_list = preserve_linebreak_list
 
 
 def is_grade_pattern(text: str) -> bool:
@@ -562,6 +579,31 @@ def create_element_from_list(element, config: ConversionConfig, stats, parent_el
         col1_sentence, col2_sentence, col_count = get_list_columns(element)
         col1_text = get_column_text(col1_sentence)
 
+        # LineBreak付きColumn保護（告示データ整備方針①: 改行表現の保持）:
+        # LineBreak="true"のColumnは「改行して表示する」指示を持つが、変換分岐によっては
+        # Columnラッパーを捨てて中のSentenceだけを抽出するため属性が失われる。
+        # 改行表現を壊さないよう、LineBreak付きColumnを含むListは変換せずListのまま保持する。
+        if config.preserve_linebreak_list and col_count >= 1:
+            has_linebreak = any(
+                column.get('LineBreak') == 'true'
+                for column in get_all_list_column_elements(element)
+            )
+            if has_linebreak:
+                stats['SKIPPED_LINEBREAK_LIST'] += 1
+                return None, f"*** {config.script_name}: [スキップ] LineBreak付きColumnを含むList -> 変換スキップ（そのままList要素として残す） ***"
+
+        # 列記保護（告示データ整備方針パターン20D対応）:
+        # Columnが2つ以上のListは「1つ目がラベル + 2つ目が非ラベル」の番号+見出し構成の
+        # 場合のみ変換対象とし、1つ目と2つ目の種別が同一（テキスト同士・ラベル同士）の
+        # 場合は列記とみなして変換せずListのまま保持する。Columnが1つの場合は対象外。
+        if config.preserve_enumeration and col_count >= 2:
+            col2_text = get_column_text(col2_sentence)
+            col1_is_label = bool(col1_text) and (is_label(col1_text) or is_kanji_number_label(col1_text))
+            col2_is_label = bool(col2_text) and (is_label(col2_text) or is_kanji_number_label(col2_text))
+            if not (col1_is_label and not col2_is_label):
+                stats['SKIPPED_ENUMERATION_LIST'] += 1
+                return None, f"*** {config.script_name}: [スキップ] 列記List（Column種別が同一） -> 変換スキップ（そのままList要素として残す） ***"
+
         # Columnが3つ以上で、最初のColumnがラベル要素の場合の処理
         if col_count > 2 and col1_text and (is_label(col1_text) or is_kanji_number_label(col1_text)):
             all_sentences = get_all_list_columns(element)
@@ -835,6 +877,40 @@ def get_list_type(list_elem, config: ConversionConfig):
         return 'text_first_column'
     
     return 'no_column_text'
+
+
+def is_image_only_element(element, config: ConversionConfig) -> bool:
+    """
+    画像List（QuoteStructのみでテキストのないColumnなしList）から変換された要素かどうかを判定
+
+    条件:
+    - Titleが空
+    - Sentenceコンテナ内のSentenceにテキストがない
+    - SentenceにQuoteStruct（またはFig）が含まれる
+    """
+    title_elem = element.find(config.title_tag)
+    title_text = "".join(title_elem.itertext()).strip() if title_elem is not None else ""
+    if title_text:
+        return False
+
+    sentence_container = element.find(config.sentence_tag)
+    if sentence_container is None:
+        return False
+
+    sentences = sentence_container.findall('Sentence')
+    if not sentences:
+        return False
+
+    has_quote_struct = False
+    for sentence in sentences:
+        if sentence.find('.//QuoteStruct') is not None or sentence.find('.//Fig') is not None:
+            has_quote_struct = True
+        else:
+            # QuoteStructを含まないSentenceにテキストがある場合は画像のみの要素ではない
+            if "".join(sentence.itertext()).strip():
+                return False
+
+    return has_quote_struct
 
 
 def get_title_text(element, config: ConversionConfig) -> str:
@@ -1155,6 +1231,13 @@ def are_same_hierarchy(current_elem, list_elem, config: ConversionConfig) -> boo
     # 後続のラベル付きListは常に取り込む（テストケース26, 30の仕様）
     if not current_title_text and current_type == 'other' and list_type == 'labeled':
         return False  # 取り込み
+
+    # 画像List（QuoteStructのみでテキストなし）から変換された要素の後に
+    # ColumnなしListが来た場合、image_list_split_modeが有効なら並列分割する
+    if (current_type == 'other' and list_type == 'no_column_text'
+            and should_split_after_image_list(config.child_tag)
+            and is_image_only_element(current_elem, config)):
+        return True  # 分割
 
     if current_type == 'other' and list_type in [t for t in config.supported_types if t != 'grade']:
         return True
@@ -1949,12 +2032,15 @@ def process_elements_recursive(parent_elem, config: ConversionConfig, stats) -> 
 
 
 def renumber_elements(tree, config: ConversionConfig):
-    """子要素のNum属性を再採番"""
+    """子要素のNum属性を再採番
+
+    タイトル（config.title_tag）から番号を導出できる親要素内では
+    コーパス準拠の枝番形式（例: 「六の二」→ Num="6_2"）を用い、
+    導出できない場合は従来どおり連番を振る（renumber_children 参照）。
+    """
     root = tree.getroot()
     for parent in root.xpath(f'.//{config.parent_tag}'):
-        children = parent.findall(config.child_tag)
-        for i, child in enumerate(children):
-            child.set('Num', str(i + 1))
+        renumber_children(parent, config.child_tag, title_tag=config.title_tag)
 
 
 def process_xml_file(input_path: Path, output_path: Path, config: ConversionConfig) -> int:
@@ -1985,7 +2071,9 @@ def process_xml_file(input_path: Path, output_path: Path, config: ConversionConf
         f'CONVERTED_TEXT_FIRST_COLUMN_LIST_TO_{config.child_tag.upper()}',
         f'CONVERTED_TEXT_FIRST_COLUMN_MULTI_LIST_TO_{config.child_tag.upper()}',
         f'CONVERTED_SINGLE_COLUMN_LIST_TO_{config.child_tag.upper()}',
-        f'SKIPPED_DUE_TO_EMPTY_PARENT'
+        f'SKIPPED_DUE_TO_EMPTY_PARENT',
+        'SKIPPED_ENUMERATION_LIST',
+        'SKIPPED_LINEBREAK_LIST'
     ]
 
     if 'grade' in config.supported_types:
@@ -2037,6 +2125,10 @@ def process_xml_file(input_path: Path, output_path: Path, config: ConversionConf
                 desc = "Column3つ以上（1つ目がラベル）"
             elif 'NON_LIST' in key:
                 desc = "非List要素"
+            elif 'ENUMERATION' in key:
+                desc = "スキップ（列記Listのため変換せず保持）"
+            elif 'LINEBREAK' in key:
+                desc = "スキップ（LineBreak付きColumnのため変換せず保持）"
             elif 'SKIPPED' in key:
                 desc = "スキップ（親が空のため）"
             else:

@@ -29,6 +29,10 @@ def main():
 
     parser.add_argument('input_file', help='入力XMLファイル')
     parser.add_argument('output_file', nargs='?', help='出力XMLファイル（デフォルト: _subitem2_step0.xml）')
+    parser.add_argument('--preserve-enumeration', action='store_true',
+                        help='列記List（Column1つ目と2つ目の種別が同一）を変換せずListのまま保持する')
+    parser.add_argument('--preserve-linebreak-list', action='store_true',
+                        help='LineBreak="true"のColumnを含むListを変換せずListのまま保持する')
 
     args = parser.parse_args()
 
@@ -49,7 +53,9 @@ def main():
         column_condition_min=0,  # Subitem2は col_count >= 0
         supported_types=['labeled', 'subject_name', 'instruction', 'grade_single', 'grade_double'],
         script_name='convert_subitem2_step0',
-        skip_empty_parent=False  # Subitem2変換では親要素が空でも変換を実行
+        skip_empty_parent=False,  # Subitem2変換では親要素が空でも変換を実行
+        preserve_enumeration=args.preserve_enumeration,  # 列記List保護
+        preserve_linebreak_list=args.preserve_linebreak_list  # LineBreak付きColumn保護
     )
 
     return process_xml_file(input_path, output_path, config)

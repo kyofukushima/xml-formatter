@@ -29,6 +29,21 @@ RECOMMENDED_SCRIPT_ORDER = [
     "convert_subitem10_step0.py",
 ]
 
+# --preserve-enumeration フラグ（列記List保護）に対応している変換スクリプト
+ENUMERATION_AWARE_SCRIPTS = [
+    "convert_item_step0.py",
+    "convert_subitem1_step0.py",
+    "convert_subitem2_step0.py",
+    "convert_subitem3_step0.py",
+    "convert_subitem4_step0.py",
+    "convert_subitem5_step0.py",
+    "convert_subitem6_step0.py",
+    "convert_subitem7_step0.py",
+    "convert_subitem8_step0.py",
+    "convert_subitem9_step0.py",
+    "convert_subitem10_step0.py",
+]
+
 
 def get_available_scripts(script_dir: Path) -> List[str]:
     """
@@ -45,8 +60,11 @@ def get_available_scripts(script_dir: Path) -> List[str]:
     
     scripts = []
     for script_file in script_dir.glob("*.py"):
-        # テストファイルやバックアップファイルを除外
-        if not script_file.name.startswith("test_") and not script_file.name.endswith(".bak.py"):
+        # テストファイル・バックアップファイル・後処理スクリプトを除外
+        # （postprocess_はチェックボックスで適用制御するため選択リストに含めない）
+        if (not script_file.name.startswith("test_")
+                and not script_file.name.startswith("postprocess_fullwidth")
+                and not script_file.name.endswith(".bak.py")):
             scripts.append(script_file.name)
     
     # 推奨順序でソート
@@ -99,11 +117,12 @@ def run_pipeline(
     script_dir: Path,
     intermediate_dir: Optional[Path] = None,
     timeout: int = 300,
-    progress_callback: Optional[callable] = None
+    progress_callback: Optional[callable] = None,
+    extra_args_by_script: Optional[Dict[str, List[str]]] = None
 ) -> Tuple[bool, Optional[str], Dict[str, any]]:
     """
     パイプラインを実行
-    
+
     Args:
         input_path: 入力XMLファイルのパス
         output_path: 出力XMLファイルのパス
@@ -112,6 +131,7 @@ def run_pipeline(
         intermediate_dir: 中間ファイル保存ディレクトリ（オプション）
         timeout: タイムアウト時間（秒）
         progress_callback: 進捗コールバック関数（current_step, total_steps, script_name）
+        extra_args_by_script: スクリプト名ごとの追加CLI引数（オプション）
     
     Returns:
         (success: bool, error_message: Optional[str], execution_log: Dict)
@@ -163,8 +183,11 @@ def run_pipeline(
         
         try:
             # Pythonスクリプトを実行
+            cmd = [sys.executable, str(script_path), str(current_input), str(step_output)]
+            if extra_args_by_script and script_name in extra_args_by_script:
+                cmd.extend(extra_args_by_script[script_name])
             result = subprocess.run(
-                [sys.executable, str(script_path), str(current_input), str(step_output)],
+                cmd,
                 capture_output=True,
                 text=True,
                 timeout=timeout

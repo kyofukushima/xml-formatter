@@ -32,26 +32,31 @@
           <Subitem1Sentence>
             <Sentence Num="1">2つ目の注記 + 数字の項目</Sentence>
           </Subitem1Sentence>
-        </Subitem1>
-        <Subitem1 Num="3">
-          <Subitem1Title/>
-          <Subitem1Sentence>
-            <Sentence Num="1">注記（１）</Sentence>
-            <Sentence Num="2">注記 + 括弧付き数字（誤認識されないように）</Sentence>
-          </Subitem1Sentence>
-        </Subitem1>
-        <Subitem1 Num="4">
-          <Subitem1Title/>
-          <Subitem1Sentence>
-            <Sentence Num="1">注記１）</Sentence>
-            <Sentence Num="2">注記 + 数字 + ）（誤認識されないように）</Sentence>
-          </Subitem1Sentence>
-        </Subitem1>
-        <Subitem1 Num="5">
-          <Subitem1Title/>
-          <Subitem1Sentence>
-            <Sentence Num="1">ColumnなしListの内容（Subitem1の後に追加される）</Sentence>
-          </Subitem1Sentence>
+          <List>
+            <ListSentence>
+              <Column Num="1">
+                <Sentence Num="1">注記（１）</Sentence>
+              </Column>
+              <Column Num="2">
+                <Sentence Num="1">注記 + 括弧付き数字（誤認識されないように）</Sentence>
+              </Column>
+            </ListSentence>
+          </List>
+          <List>
+            <ListSentence>
+              <Column Num="1">
+                <Sentence Num="1">注記１）</Sentence>
+              </Column>
+              <Column Num="2">
+                <Sentence Num="1">注記 + 数字 + ）（誤認識されないように）</Sentence>
+              </Column>
+            </ListSentence>
+          </List>
+          <List>
+            <ListSentence>
+              <Sentence Num="1">ColumnなしListの内容（Subitem1の後に追加される）</Sentence>
+            </ListSentence>
+          </List>
         </Subitem1>
       </Item>
     </Paragraph>
