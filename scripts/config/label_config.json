@@ -519,46 +519,52 @@
       "id": "halfwidth_number",
       "name": "半角数字",
       "patterns": [
-        "^[0-9]+$"
+        "^[0-9]+(?:[のノ][0-9]+)*$"
       ],
       "examples": [
         "1",
         "2",
         "3",
         "10",
-        "123"
+        "123",
+        "1の2",
+        "13の2"
       ],
-      "description": "半角数字（Paragraph/Itemレベル）"
+      "description": "半角数字（Paragraph/Itemレベル）。「1の2」形式の枝番付きも同一種別として扱う"
     },
     "fullwidth_number": {
       "id": "fullwidth_number",
       "name": "全角数字",
       "patterns": [
-        "^[０-９]+$"
+        "^[０-９]+(?:[のノ][０-９]+)*$"
       ],
       "examples": [
         "１",
         "２",
         "３",
         "１０",
-        "１２３"
+        "１２３",
+        "１の１",
+        "１３の２"
       ],
-      "description": "全角数字（Paragraph/Itemレベル）"
+      "description": "全角数字（Paragraph/Itemレベル）。「１の１」形式の枝番付きも同一種別として扱う"
     },
     "kanji_number": {
       "id": "kanji_number",
       "name": "漢数字",
       "patterns": [
-        "^[一二三四五六七八九十百千]+$"
+        "^[一二三四五六七八九十百千]+(?:[のノ][一二三四五六七八九十百千]+)*$"
       ],
       "examples": [
         "一",
         "二",
         "十",
         "百",
-        "千"
+        "千",
+        "一の二",
+        "十三の四"
       ],
-      "description": "漢数字（Paragraph/Itemレベル）"
+      "description": "漢数字（Paragraph/Itemレベル）。「十の二」形式の枝番付きも同一種別として扱う"
     },
     "fullwidth_lowercase_alphabet_with_paren": {
       "id": "fullwidth_lowercase_alphabet_with_paren",
@@ -864,7 +870,7 @@
   "metadata": {
     "description": "XML文書変換用ラベルパターン設定ファイル",
     "created": "2025-01-01",
-    "last_updated": "2026-01-16",
+    "last_updated": "2026-08-17",
     "author": "XML Processing Pipeline"
   }
 }
