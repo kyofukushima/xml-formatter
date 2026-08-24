@@ -93,6 +93,48 @@ def test_non_branch_number_not_number_label(text):
     ("１　テキスト", ("１", "テキスト")),
     # 「の」の後が数字でない場合はラベル部を最小に保つ（従来同様マッチしない）
     ("二の　テキスト", (None, "二の　テキスト")),
+    # 第○パターンの枝番付き
+    ("第一の二　テキスト", ("第一の二", "テキスト")),
+    ("第一の一の二　テキスト", ("第一の一の二", "テキスト")),
+    ("第１の２　テキスト", ("第１の２", "テキスト")),
 ])
 def test_split_label_and_content_with_branch(text, expected):
     assert split_label_and_content(text) == expected
+
+
+# ============================================================================
+# article_boundary（第○パターン）: 枝番付きの判定
+# ============================================================================
+
+@pytest.mark.parametrize("text,expected", [
+    # 枝番なし・従来動作の確認
+    ("第一", "article_boundary"),
+    ("第１", "article_boundary"),
+    ("第1", "article_boundary"),
+    ("第十三", "article_boundary"),
+    # 枝番付き（2分割）
+    ("第一の二", "article_boundary"),
+    ("第十の二", "article_boundary"),
+    ("第十三の二", "article_boundary"),
+    ("第１の２", "article_boundary"),
+    ("第1の2", "article_boundary"),
+    # 多段の枝番（3分割）
+    ("第一の一の二", "article_boundary"),
+    ("第十三の二の二", "article_boundary"),
+    # カタカナ「ノ」区切り
+    ("第十ノ二", "article_boundary"),
+])
+def test_article_boundary_branch_label_id(text, expected):
+    assert detect_label_id(text) == expected
+
+
+@pytest.mark.parametrize("text", [
+    "第二条の六",     # 「条」を含む条文参照はラベルではない
+    "第一の",         # 「の」の後に数字がない
+    "第の二",         # 「第」の直後に数字がない
+    "第一の２",       # 種別の混在（漢数字＋全角数字）は対象外
+])
+def test_non_article_boundary(text):
+    label_id = detect_label_id(text)
+    assert label_id != "article_boundary", \
+        f"{text!r} が article_boundary に誤判定された"

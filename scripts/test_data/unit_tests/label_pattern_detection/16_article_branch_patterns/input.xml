@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Law>
+  <LawBody>
+    <Paragraph Num="1">
+      <ParagraphNum>1</ParagraphNum>
+      <ParagraphSentence>
+        <Sentence Num="1">枝番付き第○パターン</Sentence>
+      </ParagraphSentence>
+      <List>
+        <ListSentence>
+          <Column Num="1">
+            <Sentence Num="1">第一</Sentence>
+          </Column>
+          <Column Num="2">
+            <Sentence Num="1">見出し第一</Sentence>
+          </Column>
+        </ListSentence>
+      </List>
+      <List>
+        <ListSentence>
+          <Column Num="1">
+            <Sentence Num="1">一</Sentence>
+          </Column>
+          <Column Num="2">
+            <Sentence Num="1">漢数字一</Sentence>
+          </Column>
+        </ListSentence>
+      </List>
+      <List>
+        <ListSentence>
+          <Column Num="1">
+            <Sentence Num="1">二</Sentence>
+          </Column>
+          <Column Num="2">
+            <Sentence Num="1">漢数字二</Sentence>
+          </Column>
+        </ListSentence>
+      </List>
+      <List>
+        <ListSentence>
+          <Column Num="1">
+            <Sentence Num="1">第一の一の二</Sentence>
+          </Column>
+          <Column Num="2">
+            <Sentence Num="1">見出し第一の一の二</Sentence>
+          </Column>
+        </ListSentence>
+      </List>
+      <List>
+        <ListSentence>
+          <Column Num="1">
+            <Sentence Num="1">第一の二</Sentence>
+          </Column>
+          <Column Num="2">
+            <Sentence Num="1">見出し第一の二</Sentence>
+          </Column>
+        </ListSentence>
+      </List>
+      <List>
+        <ListSentence>
+          <Column Num="1">
+            <Sentence Num="1">第十三の二の二</Sentence>
+          </Column>
+          <Column Num="2">
+            <Sentence Num="1">見出し第十三の二の二</Sentence>
+          </Column>
+        </ListSentence>
+      </List>
+    </Paragraph>
+  </LawBody>
+</Law>
