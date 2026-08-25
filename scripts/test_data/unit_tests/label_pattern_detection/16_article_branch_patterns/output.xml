@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<Law>
+  <LawBody>
+    <Paragraph Num="1">
+      <ParagraphNum>1</ParagraphNum>
+      <ParagraphSentence>
+        <Sentence Num="1">枝番付き第○パターン</Sentence>
+      </ParagraphSentence>
+      <Item Num="1">
+        <ItemTitle>第一</ItemTitle>
+        <ItemSentence>
+          <Sentence Num="1">見出し第一</Sentence>
+        </ItemSentence>
+        <Subitem1 Num="1">
+          <Subitem1Title>一</Subitem1Title>
+          <Subitem1Sentence>
+            <Sentence Num="1">漢数字一</Sentence>
+          </Subitem1Sentence>
+        </Subitem1>
+        <Subitem1 Num="2">
+          <Subitem1Title>二</Subitem1Title>
+          <Subitem1Sentence>
+            <Sentence Num="1">漢数字二</Sentence>
+          </Subitem1Sentence>
+        </Subitem1>
+      </Item>
+      <Item Num="1_1_2">
+        <ItemTitle>第一の一の二</ItemTitle>
+        <ItemSentence>
+          <Sentence Num="1">見出し第一の一の二</Sentence>
+        </ItemSentence>
+      </Item>
+      <Item Num="1_2">
+        <ItemTitle>第一の二</ItemTitle>
+        <ItemSentence>
+          <Sentence Num="1">見出し第一の二</Sentence>
+        </ItemSentence>
+      </Item>
+      <Item Num="13_2_2">
+        <ItemTitle>第十三の二の二</ItemTitle>
+        <ItemSentence>
+          <Sentence Num="1">見出し第十三の二の二</Sentence>
+        </ItemSentence>
+      </Item>
+    </Paragraph>
+  </LawBody>
+</Law>
