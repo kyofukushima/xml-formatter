@@ -164,6 +164,14 @@ def main():
 
     missing_texts = original_texts - final_texts
 
+    # 変換過程で複数のColumn/Sentenceが全角スペース結合などで1つのSentenceに
+    # まとめられる場合があるため、最終ファイルのいずれかのテキストに部分文字列
+    # として含まれていれば欠落とみなさない
+    missing_texts = {
+        text for text in missing_texts
+        if not any(text in final_text for final_text in final_texts)
+    }
+
     # 表の順序と数を検証
     original_tables = get_table_sequence(original_tree)
     final_tables = get_table_sequence(final_tree)
