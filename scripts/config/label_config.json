@@ -805,6 +805,7 @@
     "empty",
     "text_non_label"
   ],
+  "label_overrides": {},
   "hierarchy_rules": {
     "same_pattern_same_hierarchy": true,
     "allow_cross_hierarchy_split": false,

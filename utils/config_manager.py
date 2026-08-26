@@ -146,6 +146,67 @@ def get_boolean_settings(config: Dict) -> Dict[str, bool]:
     return result
 
 
+def get_label_overrides(config: Dict) -> Dict[str, str]:
+    """
+    ラベル種別の手動オーバーライド設定を取得
+
+    Args:
+        config: 設定データの辞書
+
+    Returns:
+        値→ラベルIDの辞書（未設定の場合は空辞書）
+    """
+    overrides = config.get('label_overrides')
+    return dict(overrides) if isinstance(overrides, dict) else {}
+
+
+def set_label_overrides(config: Dict, overrides: Dict[str, str]) -> Dict:
+    """
+    ラベル種別の手動オーバーライド設定を置き換える
+
+    Args:
+        config: 設定データの辞書
+        overrides: 値→ラベルIDの辞書（空辞書ですべてクリア）
+
+    Returns:
+        更新された設定データの辞書
+    """
+    config['label_overrides'] = dict(overrides)
+    return config
+
+
+def reset_label_overrides(config_path: Optional[Path] = None) -> bool:
+    """
+    設定ファイルの label_overrides を空にして保存する（アプリ起動時のリセット用）
+
+    手動指定は「特定のファイルだけ特定の扱いをする」一時的な設定であるため、
+    アプリ起動のたびにクリアする。Streamlitに依存しない純粋なファイル操作として
+    実装し、起動処理やテストから安全に呼び出せるようにしている。
+
+    Args:
+        config_path: 設定ファイルのパス（Noneの場合はデフォルト）
+
+    Returns:
+        bool: クリアを実行した場合True（元々空・ファイル無し・エラー時はFalse）
+    """
+    if config_path is None:
+        config_path = Path(__file__).parent.parent / "scripts" / "config" / "label_config.json"
+
+    try:
+        with open(config_path, 'r', encoding='utf-8') as f:
+            config = json.load(f)
+
+        if not config.get('label_overrides'):
+            return False
+
+        config['label_overrides'] = {}
+        with open(config_path, 'w', encoding='utf-8') as f:
+            json.dump(config, f, ensure_ascii=False, indent=2)
+        return True
+    except Exception:
+        return False
+
+
 def validate_label_config(config: Dict) -> Tuple[bool, List[str]]:
     """
     ラベル設定のバリデーション
@@ -180,7 +241,20 @@ def validate_label_config(config: Dict) -> Tuple[bool, List[str]]:
     # conversion_behaviorsフィールドのチェック
     if 'conversion_behaviors' in config and not isinstance(config['conversion_behaviors'], dict):
         errors.append("'conversion_behaviors'は辞書形式である必要があります")
-    
+
+    # label_overridesフィールドのチェック
+    if 'label_overrides' in config:
+        overrides = config['label_overrides']
+        if not isinstance(overrides, dict):
+            errors.append("'label_overrides'は辞書形式である必要があります")
+        else:
+            definitions = config.get('label_definitions', {})
+            for value, label_id in overrides.items():
+                if not isinstance(label_id, str):
+                    errors.append(f"'label_overrides'の値はラベルID文字列である必要があります: {value!r}")
+                elif definitions and label_id not in definitions:
+                    errors.append(f"'label_overrides'に存在しないラベルIDが指定されています: {value!r} → {label_id}")
+
     return len(errors) == 0, errors
 
 

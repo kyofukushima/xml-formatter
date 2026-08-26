@@ -63,7 +63,7 @@ def get_available_scripts(script_dir: Path) -> List[str]:
         # テストファイル・バックアップファイル・後処理スクリプトを除外
         # （postprocess_はチェックボックスで適用制御するため選択リストに含めない）
         if (not script_file.name.startswith("test_")
-                and not script_file.name.startswith("postprocess_fullwidth")
+                and not script_file.name.startswith("postprocess_")
                 and not script_file.name.endswith(".bak.py")):
             scripts.append(script_file.name)
     

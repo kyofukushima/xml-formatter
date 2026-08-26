@@ -32,6 +32,13 @@ from utils.validation import (
     format_validation_report
 )
 from utils.label_analyzer import analyze_xml_labels
+from utils.config_manager import (
+    load_label_config,
+    save_label_config,
+    get_label_overrides,
+    set_label_overrides,
+    reset_label_overrides,
+)
 from components.xml_preview import preview_xml_file
 
 # ページ設定
@@ -65,6 +72,137 @@ if 'preserve_enumeration' not in st.session_state:
     st.session_state.preserve_enumeration = False
 if 'preserve_linebreak_list' not in st.session_state:
     st.session_state.preserve_linebreak_list = False
+if 'remove_empty_titles' not in st.session_state:
+    st.session_state.remove_empty_titles = True
+
+AUTO_DETECT_LABEL = "（自動判定）"
+
+
+@st.cache_resource
+def _reset_label_overrides_on_startup() -> bool:
+    """アプリ（サーバープロセス）起動時に手動指定をリセットする
+
+    手動指定は「特定のファイルだけ特定の扱いをする」ための一時設定のため、
+    起動をまたいで持ち越さない。@st.cache_resource によりプロセスごとに
+    1回だけ実行される（画面のリロードや再実行では再クリアされない）。
+    """
+    return reset_label_overrides()
+
+
+_reset_label_overrides_on_startup()
+
+
+def render_label_override_editor(result_df):
+    """ラベル種別の手動指定（オーバーライド）UIを描画する
+
+    判定結果の各値に対して、ツールの自動判定とは別のラベル種別を
+    ユーザーが選択できるようにする。指定内容は label_config.json の
+    label_overrides に保存され、変換処理・判定表の両方に反映される。
+    """
+    st.subheader("✏️ ラベル種別の手動指定")
+
+    config = load_label_config()
+    if config is None:
+        st.error("ラベル設定ファイルを読み込めないため、手動指定は利用できません。")
+        return
+
+    definitions = config.get('label_definitions', {})
+    current_overrides = get_label_overrides(config)
+
+    # 選択肢: ラベル名 → ラベルID の対応表（unknown/empty は選択対象外）
+    name_to_id = {}
+    for label_id, definition in definitions.items():
+        if label_id in ('unknown', 'empty'):
+            continue
+        name = definition.get('name', label_id)
+        name_to_id[name] = label_id
+    id_to_name = {v: k for k, v in name_to_id.items()}
+
+    # 保存済みオーバーライドの警告表示とクリア
+    if current_overrides:
+        override_list = "、".join(
+            f"「{value}」→ {id_to_name.get(label_id, label_id)}"
+            for value, label_id in current_overrides.items()
+        )
+        st.warning(
+            f"⚠️ 手動指定が設定されています（アプリを再起動するか、クリアするまで適用されます）: {override_list}"
+        )
+        if st.button("🗑️ 手動指定をすべてクリア", key="clear_label_overrides"):
+            set_label_overrides(config, {})
+            success, error_msg = save_label_config(config)
+            if success:
+                _refresh_label_analysis()
+                st.rerun()
+            else:
+                st.error(f"設定の保存に失敗しました: {error_msg}")
+
+    st.caption(
+        "ツールの判定と異なる種別として処理したい値がある場合、"
+        "「指定種別」を選択して「適用」を押してください。（自動判定）のままの行は変更されません。"
+    )
+
+    # 編集用テーブルの構築
+    editor_rows = []
+    for _, row in result_df.iterrows():
+        value = row['値']
+        override_id = current_overrides.get(value.strip())
+        editor_rows.append({
+            '値': value,
+            'ツール判定': row['ラベル要素'],
+            '指定種別': id_to_name.get(override_id, AUTO_DETECT_LABEL),
+        })
+
+    import pandas as pd
+    editor_df = pd.DataFrame(editor_rows)
+
+    edited_df = st.data_editor(
+        editor_df,
+        use_container_width=True,
+        hide_index=True,
+        disabled=['値', 'ツール判定'],
+        column_config={
+            '指定種別': st.column_config.SelectboxColumn(
+                '指定種別',
+                options=[AUTO_DETECT_LABEL] + sorted(name_to_id.keys()),
+                required=True,
+                help="この値を別のラベル種別として扱いたい場合に選択します",
+            )
+        },
+        key="label_override_editor",
+    )
+
+    if st.button("✅ 手動指定を適用", key="apply_label_overrides", type="primary"):
+        new_overrides = {}
+        for _, row in edited_df.iterrows():
+            selected = row['指定種別']
+            if selected != AUTO_DETECT_LABEL and selected in name_to_id:
+                new_overrides[row['値'].strip()] = name_to_id[selected]
+
+        set_label_overrides(config, new_overrides)
+        success, error_msg = save_label_config(config)
+        if success:
+            if new_overrides:
+                st.success(f"✅ {len(new_overrides)}件の手動指定を保存しました")
+            else:
+                st.success("✅ 手動指定をクリアしました")
+            _refresh_label_analysis()
+            st.rerun()
+        else:
+            st.error(f"設定の保存に失敗しました: {error_msg}")
+
+
+def _refresh_label_analysis():
+    """アップロード済みファイルのラベル判定を再実行してセッション状態を更新する"""
+    tmp_path = st.session_state.get('uploaded_file_path')
+    if tmp_path is None:
+        return
+    try:
+        result_df, has_column_list = analyze_xml_labels(Path(tmp_path))
+        st.session_state.label_analysis_result = result_df if has_column_list else None
+        st.session_state.has_column_list = has_column_list
+    except Exception as e:
+        st.warning(f"⚠️ ラベル種類の再判定中にエラーが発生しました: {e}")
+
 
 def main():
     """メイン関数"""
@@ -144,12 +282,27 @@ def main():
 
         st.markdown("---")
 
+        # 空Title要素の省略オプション
+        st.header("🏷️ 空Title要素の省略")
+        remove_empty_titles = st.checkbox(
+            "空のTitle要素を出力しない",
+            value=st.session_state.remove_empty_titles,
+            help="変換後のItemTitle/Subitem1Title～Subitem10Titleのうち、"
+                 "内容が空のものを最終出力から除去します。"
+                 "XMLスキーマ上、これらのTitle要素はオプション（minOccurs=\"0\"）のため"
+                 "省略しても妥当なXMLになります。"
+                 "従来どおり空のTitle要素を出力する場合はOFFにしてください。"
+        )
+        st.session_state.remove_empty_titles = remove_empty_titles
+
+        st.markdown("---")
+
         # 文頭全角スペース補填オプション（告示マークアップ修正案対応）
         st.header("🔤 文頭全角スペース補填")
         apply_fullwidth_space = st.checkbox(
             "変換後に文頭全角スペースを補填する",
             value=st.session_state.apply_fullwidth_space,
-            help="Title要素が空のItem/Subitem1～10のSentence冒頭、および"
+            help="Title要素が空（または省略されている）Item/Subitem1～10のSentence冒頭、および"
                  "LineBreak=\"true\"のColumn内Sentence冒頭に全角スペースを挿入します。"
                  "テキスト内容検証は補填前のファイルに対して実行されます。"
         )
@@ -186,11 +339,13 @@ def main():
         st.markdown("---")
         st.header("ℹ️ 情報")
         st.markdown("""
-        **バージョン**: 1.5.0
-        
+        **バージョン**: 1.6.0
+
         **機能**:
         - XMLファイルのアップロード
         - ラベル種類の判定（自動実行）
+        - ラベル種別の手動指定（オーバーライド）
+        - 枝番付き数字ラベル対応（「十の二」等）
         - 変換スクリプトの選択
         - パイプライン処理の実行
         - 検証機能
@@ -270,12 +425,12 @@ def main():
                 st.info("columnありのList要素なし")
             elif st.session_state.label_analysis_result is not None:
                 result_df = st.session_state.label_analysis_result
-                
+
                 # 不明な値の件数をチェック
                 unknown_count = len(result_df[result_df['ラベル要素'] == '不明'])
                 if unknown_count > 0:
                     st.warning(f"⚠️ 不明な値が{unknown_count}個あります")
-                
+
                 # 結果テーブルの表示
                 st.subheader("判定結果")
                 st.dataframe(
@@ -283,7 +438,7 @@ def main():
                     use_container_width=True,
                     hide_index=True
                 )
-                
+
                 # CSVダウンロードボタン
                 csv = result_df.to_csv(index=False, encoding='utf-8-sig')
                 st.download_button(
@@ -292,6 +447,9 @@ def main():
                     file_name=f"{Path(st.session_state.uploaded_file_name).stem}_label_analysis.csv",
                     mime="text/csv"
                 )
+
+                # ラベル種別の手動指定（オーバーライド）
+                render_label_override_editor(result_df)
             else:
                 st.info("ラベル種類の判定結果がありません。ファイルをアップロードしてください。")
         
@@ -388,6 +546,30 @@ def main():
                         extra_args_by_script=extra_args_by_script
                     )
 
+                # 空Title要素の除去（スキーマ上オプションのため最終出力から省略）
+                empty_titles_removed = False
+                if success and st.session_state.remove_empty_titles:
+                    pre_remove_path = intermediate_dir / f"{intermediate_stem}_before_remove_empty_titles.xml"
+                    remove_titles_script = script_dir / "postprocess_remove_empty_titles.py"
+                    try:
+                        shutil.copy(output_path, pre_remove_path)
+                        cmd = [sys.executable, str(remove_titles_script),
+                               str(pre_remove_path), str(output_path)]
+                        with st.spinner("空Title要素を除去中..."):
+                            pp_result = subprocess.run(
+                                cmd, capture_output=True, text=True, timeout=300
+                            )
+                        if pp_result.returncode != 0:
+                            success = False
+                            error_msg = "空Title要素の除去に失敗しました"
+                            if pp_result.stderr:
+                                error_msg += f"\nエラー詳細: {pp_result.stderr}"
+                        else:
+                            empty_titles_removed = True
+                    except Exception as e:
+                        success = False
+                        error_msg = f"空Title要素の除去でエラーが発生しました: {e}"
+
                 # 文頭全角スペース補填（(a)方式: テキスト内容検証は補填前のファイルに対して実施）
                 text_validation_target = output_path
                 fullwidth_space_applied = False
@@ -467,7 +649,8 @@ def main():
                         "execution_log": execution_log,
                         "intermediate_dir": intermediate_dir,
                         "validation_results": validation_results,
-                        "fullwidth_space_applied": fullwidth_space_applied
+                        "fullwidth_space_applied": fullwidth_space_applied,
+                        "empty_titles_removed": empty_titles_removed
                     }
                 else:
                     status_text.error(f"❌ エラーが発生しました: {error_msg}")
