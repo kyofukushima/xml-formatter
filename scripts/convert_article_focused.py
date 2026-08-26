@@ -129,11 +129,20 @@ class ArticleFocusedConverter:
                         if self.is_article_boundary_label(label):
                             # 現在のArticleTitleと異なるかチェック
                             if label != current_title:
-                                # 2番目のColumnから内容を取得
-                                second_col = columns[1]
-                                sentence2 = second_col.find('.//Sentence')
-                                content = sentence2.text.strip() if sentence2 is not None and sentence2.text else ''
-                                
+                                # 2番目以降のColumnから内容を取得
+                                # 3カラム以上の場合、表示ツール上でColumn区切りに相当する
+                                # 全角スペースで結合して1つのSentenceにする
+                                content_parts = []
+                                for col in columns[1:]:
+                                    col_texts = [
+                                        s.text.strip()
+                                        for s in col.findall('.//Sentence')
+                                        if s.text and s.text.strip()
+                                    ]
+                                    if col_texts:
+                                        content_parts.append(''.join(col_texts))
+                                content = '　'.join(content_parts)
+
                                 return (i, paragraph, label, content)
         
         return None
