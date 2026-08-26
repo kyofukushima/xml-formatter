@@ -80,14 +80,15 @@ def analyze_label_types(column1_values: Set[str], label_config: Optional[LabelCo
         pd.DataFrame: 判定結果の表（ラベル要素、値の2列構成）
     """
     if label_config is None:
+        # 毎回新規に読み込む（label_overrides等の設定変更を確実に反映するため）
         label_config = LabelConfig()
-    
+
     results = []
-    
+
     # すべての値に対して判定を実施
     for value in sorted(column1_values):
-        label_id = detect_label_id(value)
-        
+        label_id = label_config.detect_label_id(value)
+
         if label_id:
             # ラベル定義から名前を取得
             label_def = label_config.get_label_definition(label_id)
@@ -95,10 +96,12 @@ def analyze_label_types(column1_values: Set[str], label_config: Optional[LabelCo
         else:
             label_id = "unknown"
             label_name = "不明"
-        
+
+        is_overridden = value.strip() in getattr(label_config, 'label_overrides', {})
         results.append({
             'ラベル要素': label_name,
-            '値': value
+            '値': value,
+            '判定方法': '手動指定' if is_overridden else '自動'
         })
     
     # DataFrameに変換

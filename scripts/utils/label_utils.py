@@ -9,6 +9,7 @@
 """
 
 import re
+import os
 import json
 from enum import Enum
 from typing import Tuple, Optional, Dict, List
@@ -81,6 +82,12 @@ class LabelConfig:
                 'definition': definition
             }
 
+        # 値→ラベルIDの手動オーバーライド（存在しないラベルIDを指すものは無視）
+        self.label_overrides: Dict[str, str] = {}
+        for value, label_id in (self.config.get('label_overrides') or {}).items():
+            if label_id in self.pattern_cache:
+                self.label_overrides[value.strip()] = label_id
+
     def detect_label_id(self, text: str, exclude_label_ids: Optional[List[str]] = None) -> Optional[str]:
         """
         テキストからラベルIDを判定
@@ -96,7 +103,11 @@ class LabelConfig:
             return None
 
         text = text.strip()
-        
+
+        # 手動オーバーライドが最優先（文脈依存の除外リストよりも優先する）
+        if text in self.label_overrides:
+            return self.label_overrides[text]
+
         if exclude_label_ids is None:
             exclude_label_ids = []
 
@@ -146,11 +157,27 @@ class LabelConfig:
 _label_config: Optional[LabelConfig] = None
 
 def get_label_config() -> LabelConfig:
-    """グローバルLabelConfigインスタンスを取得"""
+    """グローバルLabelConfigインスタンスを取得
+
+    環境変数 LABEL_CONFIG_PATH が設定されている場合はそのパスの設定を読み込む
+    （テストや文書ごとの一時設定の切り替えに使用）。
+    """
     global _label_config
     if _label_config is None:
-        _label_config = LabelConfig()
+        config_path = os.environ.get('LABEL_CONFIG_PATH')
+        _label_config = LabelConfig(config_path) if config_path else LabelConfig()
     return _label_config
+
+
+def reload_label_config() -> LabelConfig:
+    """グローバルLabelConfigインスタンスを破棄して再読み込みする
+
+    設定ファイル（label_overrides 等）を更新した後に呼び出すことで、
+    同一プロセス内でも最新の設定を反映できる。
+    """
+    global _label_config
+    _label_config = None
+    return get_label_config()
 
 def detect_label_id(text: str, exclude_label_ids: Optional[List[str]] = None) -> Optional[str]:
     """
