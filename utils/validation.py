@@ -83,16 +83,18 @@ def validate_xml_syntax_with_script(
 def validate_text_content(
     original_file: Path,
     processed_file: Path,
-    comparison_script_path: Optional[Path] = None
+    comparison_script_path: Optional[Path] = None,
+    extra_args: Optional[list] = None
 ) -> Tuple[bool, Optional[str], Optional[str], Optional[Dict]]:
     """
     テキスト内容検証を実行（元のXMLと処理後のXMLのテキスト内容が一致するか確認）
-    
+
     Args:
         original_file: 元のXMLファイルのパス
         processed_file: 処理後のXMLファイルのパス
         comparison_script_path: 比較スクリプトのパス（Noneの場合はデフォルト）
-    
+        extra_args: 比較スクリプトへの追加CLI引数（例: ['--ignore-spaces']）
+
     Returns:
         (is_valid: bool, error_message: Optional[str], validation_output: Optional[str], report_data: Optional[Dict])
     """
@@ -116,15 +118,18 @@ def validate_text_content(
         with tempfile.NamedTemporaryFile(mode='w', suffix='.txt', delete=False) as tmp_report:
             report_path = Path(tmp_report.name)
         
+        cmd = [
+            sys.executable,
+            str(comparison_script_path),
+            str(original_file),
+            str(processed_file),
+            "--report_file",
+            str(report_path)
+        ]
+        if extra_args:
+            cmd.extend(extra_args)
         result = subprocess.run(
-            [
-                sys.executable,
-                str(comparison_script_path),
-                str(original_file),
-                str(processed_file),
-                "--report_file",
-                str(report_path)
-            ],
+            cmd,
             capture_output=True,
             text=True,
             timeout=60
