@@ -6,20 +6,32 @@
 表の順序と数も検証します。
 """
 
+import re
 import sys
 import argparse
 from lxml import etree
 from pathlib import Path
 
-def get_all_texts(tree: etree._ElementTree) -> set:
+def normalize_spaces(text: str) -> str:
+    """全角スペース（U+3000）と半角スペースをすべて除去する"""
+    return text.replace('　', '').replace(' ', '')
+
+
+def get_all_texts(tree: etree._ElementTree, ignore_spaces: bool = False) -> set:
     """
     XMLツリーからすべてのテキストコンテンツを抽出し、セットとして返す。
     空白文字のみのテキストは除外する。
+
+    Args:
+        ignore_spaces: Trueの場合、テキスト中の全角・半角スペースを
+            除去してから比較用セットに追加する
     """
     texts = set()
     for element in tree.iter():
         if element.text:
             text = element.text.strip()
+            if ignore_spaces:
+                text = normalize_spaces(text)
             if text:
                 texts.add(text)
     return texts
@@ -48,11 +60,15 @@ def get_element_context_text(elem: etree._Element, max_length: int = 50) -> str:
     
     return ""
 
-def get_table_sequence(tree: etree._ElementTree) -> list:
+def get_table_sequence(tree: etree._ElementTree, ignore_spaces: bool = False) -> list:
     """
     XMLツリーからTableStruct要素を文書順序で取得し、表の識別子のリストとして返す。
     同じ内容のTableStructが複数ある場合でも、位置情報を含めることで区別できるようにする。
-    
+
+    Args:
+        ignore_spaces: Trueの場合、表の内容テキスト中の全角・半角スペースを
+            除去してから識別子を作成する
+
     Returns:
         表の識別子（内容 + 位置情報）のリスト
     """
@@ -61,10 +77,20 @@ def get_table_sequence(tree: etree._ElementTree) -> list:
     for elem in tree.getroot().iter():
         if elem.tag == 'TableStruct':
             # 表全体のテキストを取得
+            # TableStructTitle（表１等）はマークアップによって表の内外どちらにも
+            # 置かれ得るため、内容比較からは除外する
             texts = []
             for sub in elem.iter():
+                if sub.tag == 'TableStructTitle' or \
+                        any(a.tag == 'TableStructTitle'
+                            for a in sub.iterancestors()):
+                    continue
                 if sub.text and sub.text.strip():
-                    texts.append(sub.text.strip())
+                    text = sub.text.strip()
+                    if ignore_spaces:
+                        text = normalize_spaces(text)
+                    if text:
+                        texts.append(text)
             
             # 表の内容識別用に最初の10個のテキストを使用
             content_id = ' | '.join(texts[:10]) if texts else ""
@@ -128,6 +154,8 @@ def main():
     parser.add_argument('original_file', help='Original XML file (before conversion)')
     parser.add_argument('final_file', help='Final XML file (after conversion)')
     parser.add_argument('--report_file', help='Path to save the comparison report', default='xml_comparison_report.txt')
+    parser.add_argument('--ignore-spaces', action='store_true',
+                        help='全角・半角スペースの有無を無視して比較する')
 
     args = parser.parse_args()
 
@@ -156,25 +184,94 @@ def main():
         print(f"Error parsing XML: {e}")
         sys.exit(1)
 
+    if args.ignore_spaces:
+        print("Mode: 全角・半角スペースの有無を無視して比較")
+
     original_texts = get_all_texts(original_tree)
     final_texts = get_all_texts(final_tree)
 
     print(f"Found {len(original_texts)} unique text elements in the original file.")
     print(f"Found {len(final_texts)} unique text elements in the final file.")
 
-    missing_texts = original_texts - final_texts
+    # --ignore-spaces時はスペースを除去した形で照合する
+    if args.ignore_spaces:
+        norm = normalize_spaces
+    else:
+        norm = lambda t: t  # noqa: E731
+    final_norm_texts = {n for n in (norm(t) for t in final_texts) if n}
 
-    # 変換過程で複数のColumn/Sentenceが全角スペース結合などで1つのSentenceに
-    # まとめられる場合があるため、最終ファイルのいずれかのテキストに部分文字列
-    # として含まれていれば欠落とみなさない
-    missing_texts = {
-        text for text in missing_texts
-        if not any(text in final_text for final_text in final_texts)
-    }
+    def is_present(fragment: str) -> bool:
+        """テキスト片が最終ファイルに存在するか（完全一致または部分文字列）
+
+        部分文字列一致は、変換過程で複数のColumn/Sentenceが全角スペース
+        結合などで1つのSentenceにまとめられる場合（結合）に対応する。
+        """
+        n = norm(fragment)
+        if not n:
+            return True
+        if n in final_norm_texts:
+            return True
+        return any(n in final_text for final_text in final_norm_texts)
+
+    def can_cover_by_split(text: str) -> bool:
+        """分割フォールバック: テキストをスペース位置で複数の断片に分割し、
+        すべての断片が最終ファイルの要素テキストと完全一致する分割方法が
+        存在するかを判定する（動的計画法）。
+
+        「①　本文」のようなラベル＋本文の1要素が、マークアップにより
+        Title要素と本文Sentenceに分割される場合に対応する。本文中に
+        スペースが残るケース（「（ｉ）　排水管　共用配管との…」等）も、
+        任意の分割位置の組合せで照合する。断片の照合は完全一致のみとし、
+        単なるスペース挿入の差（例:「屋内 階段」→「屋内階段」）を
+        ここで許容しないようにする。
+        """
+        separators = list(re.finditer(r'[　 ]+', text))
+        if not separators:
+            return False
+        # 断片の開始/終了候補位置（先頭、各スペース区切り、末尾）
+        starts = [0] + [m.end() for m in separators]
+        ends = [m.start() for m in separators] + [len(text)]
+
+        memo = {}
+
+        def feasible(start_idx: int) -> bool:
+            """starts[start_idx]以降の残り全体を要素テキストで被覆できるか"""
+            if start_idx == len(starts):
+                return True
+            if start_idx in memo:
+                return memo[start_idx]
+            result = False
+            for end_idx in range(start_idx, len(ends)):
+                piece = text[starts[start_idx]:ends[end_idx]]
+                n = norm(piece)
+                if not n:
+                    # 空断片（連続スペース等）は読み飛ばす
+                    if feasible(end_idx + 1):
+                        result = True
+                        break
+                    continue
+                if n in final_norm_texts and feasible(end_idx + 1):
+                    result = True
+                    break
+            memo[start_idx] = result
+            return result
+
+        # 全体を1断片とみなす被覆（=分割なし）は is_present で判定済みのため、
+        # ここでは少なくとも1箇所で分割される被覆のみが成立し得る
+        # （全体一致なら is_present が True になっている）
+        return feasible(0)
+
+    missing_texts = set()
+    for text in original_texts:
+        if is_present(text):
+            continue
+        if can_cover_by_split(text):
+            continue
+        missing_texts.add(text)
 
     # 表の順序と数を検証
-    original_tables = get_table_sequence(original_tree)
-    final_tables = get_table_sequence(final_tree)
+    original_tables = get_table_sequence(original_tree, ignore_spaces=args.ignore_spaces)
+    final_tables = get_table_sequence(final_tree, ignore_spaces=args.ignore_spaces)
 
     print("-" * 80)
     print(f"Found {len(original_tables)} tables in the original file.")

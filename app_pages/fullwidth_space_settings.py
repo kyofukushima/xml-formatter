@@ -260,6 +260,6 @@ st.markdown(
 )
 # page_linkはマルチページ実行時のみ有効（テストランナー等では利用不可）
 try:
-    st.page_link("app.py", label="メインページへ戻って変換を実行", icon="🏠")
+    st.page_link("app_pages/home.py", label="ホームへ戻って変換を実行", icon="🏠")
 except Exception:
     st.caption("メインページに戻って変換を実行してください。")
