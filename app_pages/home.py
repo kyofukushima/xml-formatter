@@ -63,7 +63,7 @@ if 'selected_scripts' not in st.session_state:
 if 'show_output_preview' not in st.session_state:
     st.session_state.show_output_preview = False
 if 'apply_fullwidth_space' not in st.session_state:
-    st.session_state.apply_fullwidth_space = False
+    st.session_state.apply_fullwidth_space = True
 if 'fullwidth_space_include_list' not in st.session_state:
     st.session_state.fullwidth_space_include_list = False
 if 'fullwidth_space_exclude_paren' not in st.session_state:
