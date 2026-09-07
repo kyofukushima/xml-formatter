@@ -8,6 +8,7 @@
 
 import re
 import sys
+import difflib
 import argparse
 from lxml import etree
 from pathlib import Path
@@ -147,6 +148,75 @@ def get_table_sequence(tree: etree._ElementTree, ignore_spaces: bool = False) ->
             tables.append(table_id)
     return tables
 
+def get_full_document_text(tree: etree._ElementTree) -> str:
+    """文書順の全テキストを連結し、空白（全角スペース含む）を除去して返す
+
+    マークアップ変換ではラベルと本文の区切りスペースが要素分割により
+    消えるため、順序比較は常に空白を無視した文字列で行う。
+    """
+    text = ''.join(tree.getroot().itertext())
+    return normalize_spaces(''.join(text.split()))
+
+
+def compare_text_order(original_tree: etree._ElementTree,
+                       final_tree: etree._ElementTree,
+                       max_issues: int = 20) -> list:
+    """文書順の全文比較で、テキストの欠落・順序の入れ替わりを検出する。
+
+    set比較（get_all_texts）は断片の存在しか見ないため、順序の入れ替わりや
+    重複断片の片方欠落を検出できない。ここでは全文を文書順に連結した
+    文字列同士を比較し、元ファイルのテキストが同じ順序で残っているかを検証する。
+
+    マークアップ変換で正当に発生する差分は許容する:
+      - 区切りスペースの消失（空白除去で吸収）
+      - Article分割時のParagraphNum複製等による「挿入」(insert)
+
+    一方、「削除」(delete)・「置換」(replace)は、テキストの欠落または
+    順序の入れ替わり（移動元からの消失）を意味するためエラーとする。
+
+    Returns:
+        検出された問題のリスト。各要素は
+        {'kind': 'reordered'|'missing', 'position': int,
+         'fragment': str, 'context': str} の辞書。
+    """
+    a = get_full_document_text(original_tree)
+    b = get_full_document_text(final_tree)
+    if a == b:
+        return []
+
+    # 極端に大きい文書ではSequenceMatcherが遅くなるため、
+    # 最初の差分位置のみ報告する簡易モードにフォールバックする
+    if max(len(a), len(b)) > 300_000:
+        pos = next((i for i in range(min(len(a), len(b))) if a[i] != b[i]),
+                   min(len(a), len(b)))
+        return [{
+            'kind': 'missing',
+            'position': pos,
+            'fragment': a[pos:pos + 80],
+            'context': a[max(0, pos - 40):pos],
+        }]
+
+    issues = []
+    sm = difflib.SequenceMatcher(None, a, b, autojunk=False)
+    for tag, i1, i2, j1, j2 in sm.get_opcodes():
+        if tag not in ('delete', 'replace'):
+            continue
+        fragment = a[i1:i2]
+        # 断片が最終ファイルの別の場所に存在すれば「順序の入れ替わり」、
+        # 存在しなければ「欠落」
+        probe = fragment[:40]
+        kind = 'reordered' if probe and probe in b else 'missing'
+        issues.append({
+            'kind': kind,
+            'position': i1,
+            'fragment': fragment[:80],
+            'context': a[max(0, i1 - 40):i1],
+        })
+        if len(issues) >= max_issues:
+            break
+    return issues
+
+
 def main():
     parser = argparse.ArgumentParser(
         description="Compare two XML files to check for missing text content."
@@ -269,6 +339,25 @@ def main():
             continue
         missing_texts.add(text)
 
+    # 文書順の全文比較（順序の入れ替わり・重複断片の欠落を検出）
+    order_issues = compare_text_order(original_tree, final_tree)
+
+    print("-" * 80)
+    if not order_issues:
+        print("✅ Text order is correct.")
+    else:
+        reordered = [x for x in order_issues if x['kind'] == 'reordered']
+        lost = [x for x in order_issues if x['kind'] == 'missing']
+        print(f"❌ Error: Found {len(order_issues)} text order/content issue(s) "
+              f"(reordered: {len(reordered)}, missing: {len(lost)}).")
+        for issue in order_issues[:5]:
+            kind_label = '順序入れ替わり' if issue['kind'] == 'reordered' else '欠落'
+            print(f"  [{kind_label}] 位置 {issue['position']}:")
+            print(f"    直前の文脈: …{issue['context']}")
+            print(f"    対象テキスト: {issue['fragment']}…")
+        if len(order_issues) > 5:
+            print(f"  ... and {len(order_issues) - 5} more issues")
+
     # 表の順序と数を検証
     original_tables = get_table_sequence(original_tree, ignore_spaces=args.ignore_spaces)
     final_tables = get_table_sequence(final_tree, ignore_spaces=args.ignore_spaces)
@@ -360,6 +449,27 @@ def main():
                 f.write(f"{i+1}: {text}\n")
             f.write("\n")
         
+        # 文書順の全文比較の結果
+        f.write("=" * 80 + "\n")
+        f.write("Text Order Validation Results\n")
+        f.write("=" * 80 + "\n\n")
+
+        if not order_issues:
+            f.write("✅ Text order is correct.\n\n")
+        else:
+            has_errors = True
+            reordered = [x for x in order_issues if x['kind'] == 'reordered']
+            lost = [x for x in order_issues if x['kind'] == 'missing']
+            f.write(f"❌ Error: Found {len(order_issues)} text order/content issue(s) "
+                    f"(reordered: {len(reordered)}, missing: {len(lost)}).\n\n")
+            f.write("Text order/content issues:\n")
+            f.write("-" * 30 + "\n")
+            for issue in order_issues:
+                kind_label = '順序入れ替わり' if issue['kind'] == 'reordered' else '欠落'
+                f.write(f"[{kind_label}] 位置 {issue['position']}:\n")
+                f.write(f"  直前の文脈: …{issue['context']}\n")
+                f.write(f"  対象テキスト: {issue['fragment']}…\n\n")
+
         # 表の検証結果
         f.write("=" * 80 + "\n")
         f.write("Table Validation Results\n")
@@ -398,7 +508,8 @@ def main():
     print("=" * 80)
 
     # エラーがある場合は1を返す（位置情報の違いは警告のみなので、エラーとして扱わない）
-    return 0 if not missing_texts and not table_count_error and not table_order_errors else 1
+    return 0 if (not missing_texts and not order_issues
+                 and not table_count_error and not table_order_errors) else 1
 
 if __name__ == '__main__':
     sys.exit(main())
