@@ -3,7 +3,14 @@
 
 """
 2つのXMLファイルを比較し、テキスト内容の欠落がないか検証するスクリプト
-表の順序と数も検証します。
+
+以下も併せて検証します。
+- 表（TableStruct）の順序と数
+- 図（Fig）の文書順と数
+- テキストを持たない構造要素（TableStruct/FigStruct/StyleStruct/Fig）の数
+
+Fig等は自身にテキストを持たないため、テキスト比較だけでは欠落も複製も
+検出できない。専用の検証を行う。
 """
 
 import re
@@ -147,6 +154,47 @@ def get_table_sequence(tree: etree._ElementTree, ignore_spaces: bool = False) ->
             
             tables.append(table_id)
     return tables
+
+# テキストを持たないため、テキスト比較では欠落・複製を検出できない構造要素。
+# 数と文書順を専用に検証する。
+STRUCT_TAGS = ['TableStruct', 'FigStruct', 'StyleStruct', 'Fig']
+
+
+def get_fig_sequence(tree: etree._ElementTree) -> list:
+    """XMLツリーからFig要素を文書順序で取得し、識別子のリストとして返す。
+
+    Fig要素は ``<Fig src="./pict/xxx.jpg"/>`` のようにテキストを持たないため、
+    テキスト比較（get_all_texts / compare_text_order）では欠落も複製も検出
+    できない。src属性を識別子として文書順に並べ、元ファイルと完全一致
+    （数・順序の両方）することを検証するために使用する。
+
+    Returns:
+        Figの識別子（src属性）のリスト
+    """
+    figs = []
+    for elem in tree.getroot().iter():
+        if elem.tag == 'Fig':
+            src = (elem.get('src') or '').strip()
+            figs.append(src if src else "EMPTY_FIG_SRC")
+    return figs
+
+
+def get_struct_counts(tree: etree._ElementTree) -> dict:
+    """テキストを持たない構造要素の出現数を数える。
+
+    TableStruct/FigStruct/StyleStruct/Fig は自身にテキストを持たないため、
+    集合ベースのテキスト比較では増減が素通りする。要素数の増減を直接
+    検証するために使用する。
+
+    Returns:
+        {タグ名: 出現数} の辞書
+    """
+    counts = {tag: 0 for tag in STRUCT_TAGS}
+    for elem in tree.getroot().iter():
+        if elem.tag in counts:
+            counts[elem.tag] += 1
+    return counts
+
 
 def get_full_document_text(tree: etree._ElementTree) -> str:
     """文書順の全テキストを連結し、空白（全角スペース含む）を除去して返す
@@ -428,6 +476,77 @@ def main():
         else:
             print("✅ Table order is correct.")
 
+    # 図（Fig）の順序と数を検証
+    # Figはテキストを持たないため、上のテキスト比較では欠落も複製も検出できない
+    original_figs = get_fig_sequence(original_tree)
+    final_figs = get_fig_sequence(final_tree)
+
+    print("-" * 80)
+    print(f"Found {len(original_figs)} figures in the original file.")
+    print(f"Found {len(final_figs)} figures in the final file.")
+
+    fig_count_error = None
+    fig_order_errors = []
+
+    if len(original_figs) != len(final_figs):
+        fig_count_error = (f"❌ Error: Figure count mismatch. "
+                           f"Original: {len(original_figs)}, Final: {len(final_figs)}")
+        print(fig_count_error)
+        # 数が違う場合でも、どのFigがずれたのかを併せて報告する
+        for i in range(min(len(original_figs), len(final_figs))):
+            if original_figs[i] != final_figs[i]:
+                fig_order_errors.append({
+                    'index': i + 1,
+                    'original': original_figs[i],
+                    'final': final_figs[i],
+                })
+                break
+    else:
+        for i in range(len(original_figs)):
+            if original_figs[i] != final_figs[i]:
+                fig_order_errors.append({
+                    'index': i + 1,
+                    'original': original_figs[i],
+                    'final': final_figs[i],
+                })
+
+    if fig_order_errors:
+        print(f"❌ Error: Found {len(fig_order_errors)} figure(s) with order mismatch.")
+        for error in fig_order_errors[:5]:
+            print(f"  Position {error['index']}:")
+            print(f"    Original: {error['original']}")
+            print(f"    Final:    {error['final']}")
+        if len(fig_order_errors) > 5:
+            print(f"  ... and {len(fig_order_errors) - 5} more figure order mismatches")
+    elif not fig_count_error:
+        print("✅ Figure order is correct.")
+
+    # テキストを持たない構造要素の数を検証
+    # （TableStruct/FigStruct/StyleStruct/Fig の欠落・複製はテキスト比較では素通りする）
+    original_counts = get_struct_counts(original_tree)
+    final_counts = get_struct_counts(final_tree)
+
+    print("-" * 80)
+    struct_count_errors = []
+    for tag in STRUCT_TAGS:
+        if original_counts[tag] != final_counts[tag]:
+            struct_count_errors.append({
+                'tag': tag,
+                'original': original_counts[tag],
+                'final': final_counts[tag],
+            })
+
+    if struct_count_errors:
+        print(f"❌ Error: Found {len(struct_count_errors)} struct element count mismatch(es).")
+        for error in struct_count_errors:
+            diff = error['final'] - error['original']
+            direction = '複製' if diff > 0 else '欠落'
+            print(f"  {error['tag']}: Original {error['original']} → "
+                  f"Final {error['final']} ({diff:+d}: {direction})")
+    else:
+        summary = ', '.join(f"{tag}={original_counts[tag]}" for tag in STRUCT_TAGS)
+        print(f"✅ Struct element counts are correct. ({summary})")
+
     print("-" * 80)
 
     # レポートファイルに書き込み
@@ -503,13 +622,59 @@ def main():
         elif not table_count_error:
             f.write("✅ Table order is correct.\n")
         
+        # 図の検証結果
+        f.write("=" * 80 + "\n")
+        f.write("Figure Validation Results\n")
+        f.write("=" * 80 + "\n\n")
+
+        if fig_count_error:
+            has_errors = True
+            f.write(fig_count_error + "\n\n")
+
+        if fig_order_errors:
+            has_errors = True
+            f.write(f"❌ Error: Found {len(fig_order_errors)} figure(s) with order mismatch.\n\n")
+            f.write("Figure order mismatches:\n")
+            f.write("-" * 30 + "\n")
+            for error in fig_order_errors:
+                f.write(f"Position {error['index']}:\n")
+                f.write(f"  Original: {error['original']}\n")
+                f.write(f"  Final:    {error['final']}\n\n")
+        elif not fig_count_error:
+            f.write("✅ Figure order is correct.\n\n")
+
+        # 構造要素数の検証結果
+        f.write("=" * 80 + "\n")
+        f.write("Struct Element Count Validation Results\n")
+        f.write("=" * 80 + "\n\n")
+
+        if struct_count_errors:
+            has_errors = True
+            f.write(f"❌ Error: Found {len(struct_count_errors)} struct element "
+                    f"count mismatch(es).\n\n")
+            f.write("Struct element count mismatches:\n")
+            f.write("-" * 30 + "\n")
+            for error in struct_count_errors:
+                diff = error['final'] - error['original']
+                direction = '複製' if diff > 0 else '欠落'
+                f.write(f"{error['tag']}: Original {error['original']} → "
+                        f"Final {error['final']} ({diff:+d}: {direction})\n")
+            f.write("\n")
+        else:
+            f.write("✅ Struct element counts are correct.\n")
+            for tag in STRUCT_TAGS:
+                f.write(f"  {tag}: {original_counts[tag]}\n")
+            f.write("\n")
+
         print(f"A detailed report has been saved to: {report_path}")
 
     print("=" * 80)
 
     # エラーがある場合は1を返す（位置情報の違いは警告のみなので、エラーとして扱わない）
     return 0 if (not missing_texts and not order_issues
-                 and not table_count_error and not table_order_errors) else 1
+                 and not table_count_error and not table_order_errors
+                 and not fig_count_error and not fig_order_errors
+                 and not struct_count_errors) else 1
 
 if __name__ == '__main__':
     sys.exit(main())

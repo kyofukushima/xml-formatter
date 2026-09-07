@@ -10,7 +10,8 @@
 - scripts/convert_article_focused.py
   （Article分割時のParagraph子要素の並び順保持）
 - scripts/compare_xml_text_content.py
-  （順序入れ替わり・重複断片欠落の検出）
+  （順序入れ替わり・重複断片欠落の検出、Fig等の構造要素の複製・欠落・
+    順序入れ替わりの検出）
 """
 
 import subprocess
@@ -258,6 +259,83 @@ class TestCompareDetectsOrderIssues:
         result, report = self.run_compare(tmp_path, orig, final)
         assert result.returncode == 0
         assert '✅ Text order is correct.' in report
+
+
+class TestCompareDetectsFigIssues:
+    """Fig等のテキストを持たない構造要素の欠落・複製・順序入れ替わりの検出"""
+
+    SCRIPT = "compare_xml_text_content.py"
+
+    BASE = """<?xml version="1.0" encoding="UTF-8"?>
+<Law><LawBody><MainProvision><Article Num="1"><ArticleTitle>第１</ArticleTitle>
+<Paragraph Num="1"><ParagraphNum>１</ParagraphNum>
+<ParagraphSentence><Sentence Num="1">本文</Sentence></ParagraphSentence>
+{figs}</Paragraph></Article></MainProvision></LawBody></Law>"""
+
+    @staticmethod
+    def figs(*names) -> str:
+        return ''.join(
+            f'<FigStruct><Fig src="./pict/{n}.jpg"/></FigStruct>' for n in names)
+
+    def run_compare(self, tmp_path, original_xml, final_xml):
+        orig = tmp_path / "original.xml"
+        final = tmp_path / "final.xml"
+        report = tmp_path / "report.txt"
+        orig.write_text(original_xml, encoding='utf-8')
+        final.write_text(final_xml, encoding='utf-8')
+        result = subprocess.run(
+            [sys.executable, str(SCRIPTS / self.SCRIPT),
+             str(orig), str(final), '--report_file', str(report)],
+            capture_output=True, text=True, timeout=120)
+        report_text = report.read_text(encoding='utf-8') if report.exists() else ''
+        return result, report_text
+
+    def test_identical_figs_pass(self, tmp_path):
+        xml = self.BASE.format(figs=self.figs('a', 'b', 'c'))
+        result, report = self.run_compare(tmp_path, xml, xml)
+        assert result.returncode == 0
+        assert '✅ Figure order is correct.' in report
+        assert '✅ Struct element counts are correct.' in report
+
+    def test_duplicated_figs_are_detected(self, tmp_path):
+        """Figが複製された場合（テキストを持たないため従来は素通り）にエラーになる"""
+        orig = self.BASE.format(figs=self.figs('a', 'b', 'c'))
+        final = self.BASE.format(figs=self.figs('a', 'b', 'c', 'b', 'c'))
+        result, report = self.run_compare(tmp_path, orig, final)
+        assert result.returncode == 1
+        assert 'Figure count mismatch' in report
+        assert 'Fig: Original 3 → Final 5 (+2: 複製)' in report
+
+    def test_missing_figs_are_detected(self, tmp_path):
+        orig = self.BASE.format(figs=self.figs('a', 'b', 'c'))
+        final = self.BASE.format(figs=self.figs('a', 'c'))
+        result, report = self.run_compare(tmp_path, orig, final)
+        assert result.returncode == 1
+        assert 'Figure count mismatch' in report
+        assert 'FigStruct: Original 3 → Final 2 (-1: 欠落)' in report
+
+    def test_reordered_figs_are_detected(self, tmp_path):
+        """数は同じでも文書順が入れ替わっている場合にエラーになる"""
+        orig = self.BASE.format(figs=self.figs('a', 'b', 'c'))
+        final = self.BASE.format(figs=self.figs('a', 'c', 'b'))
+        result, report = self.run_compare(tmp_path, orig, final)
+        assert result.returncode == 1
+        assert 'figure(s) with order mismatch' in report
+        assert './pict/b.jpg' in report
+
+    def test_fig_moved_to_child_element_is_tolerated(self, tmp_path):
+        """文書順が保たれていれば、親要素が変わっても（変換で正常に起きる）通る"""
+        orig = self.BASE.format(figs=self.figs('a', 'b'))
+        final = """<?xml version="1.0" encoding="UTF-8"?>
+<Law><LawBody><MainProvision><Article Num="1"><ArticleTitle>第１</ArticleTitle>
+<Paragraph Num="1"><ParagraphNum>１</ParagraphNum>
+<ParagraphSentence><Sentence Num="1">本文</Sentence></ParagraphSentence>
+<Item Num="1"><ItemTitle/><ItemSentence><Sentence Num="1"/></ItemSentence>
+""" + self.figs('a', 'b') + """</Item>
+</Paragraph></Article></MainProvision></LawBody></Law>"""
+        result, report = self.run_compare(tmp_path, orig, final)
+        assert result.returncode == 0
+        assert '✅ Figure order is correct.' in report
 
 
 if __name__ == '__main__':
