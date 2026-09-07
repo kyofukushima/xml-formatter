@@ -3,11 +3,19 @@
 
 """
 2つのXMLファイルを比較し、テキスト内容の欠落がないか検証するスクリプト
-表の順序と数も検証します。
+
+以下も併せて検証します。
+- 表（TableStruct）の順序と数
+- 図（Fig）の文書順と数
+- テキストを持たない構造要素（TableStruct/FigStruct/StyleStruct/Fig）の数
+
+Fig等は自身にテキストを持たないため、テキスト比較だけでは欠落も複製も
+検出できない。専用の検証を行う。
 """
 
 import re
 import sys
+import difflib
 import argparse
 from lxml import etree
 from pathlib import Path
@@ -147,6 +155,116 @@ def get_table_sequence(tree: etree._ElementTree, ignore_spaces: bool = False) ->
             tables.append(table_id)
     return tables
 
+# テキストを持たないため、テキスト比較では欠落・複製を検出できない構造要素。
+# 数と文書順を専用に検証する。
+STRUCT_TAGS = ['TableStruct', 'FigStruct', 'StyleStruct', 'Fig']
+
+
+def get_fig_sequence(tree: etree._ElementTree) -> list:
+    """XMLツリーからFig要素を文書順序で取得し、識別子のリストとして返す。
+
+    Fig要素は ``<Fig src="./pict/xxx.jpg"/>`` のようにテキストを持たないため、
+    テキスト比較（get_all_texts / compare_text_order）では欠落も複製も検出
+    できない。src属性を識別子として文書順に並べ、元ファイルと完全一致
+    （数・順序の両方）することを検証するために使用する。
+
+    Returns:
+        Figの識別子（src属性）のリスト
+    """
+    figs = []
+    for elem in tree.getroot().iter():
+        if elem.tag == 'Fig':
+            src = (elem.get('src') or '').strip()
+            figs.append(src if src else "EMPTY_FIG_SRC")
+    return figs
+
+
+def get_struct_counts(tree: etree._ElementTree) -> dict:
+    """テキストを持たない構造要素の出現数を数える。
+
+    TableStruct/FigStruct/StyleStruct/Fig は自身にテキストを持たないため、
+    集合ベースのテキスト比較では増減が素通りする。要素数の増減を直接
+    検証するために使用する。
+
+    Returns:
+        {タグ名: 出現数} の辞書
+    """
+    counts = {tag: 0 for tag in STRUCT_TAGS}
+    for elem in tree.getroot().iter():
+        if elem.tag in counts:
+            counts[elem.tag] += 1
+    return counts
+
+
+def get_full_document_text(tree: etree._ElementTree) -> str:
+    """文書順の全テキストを連結し、空白（全角スペース含む）を除去して返す
+
+    マークアップ変換ではラベルと本文の区切りスペースが要素分割により
+    消えるため、順序比較は常に空白を無視した文字列で行う。
+    """
+    text = ''.join(tree.getroot().itertext())
+    return normalize_spaces(''.join(text.split()))
+
+
+def compare_text_order(original_tree: etree._ElementTree,
+                       final_tree: etree._ElementTree,
+                       max_issues: int = 20) -> list:
+    """文書順の全文比較で、テキストの欠落・順序の入れ替わりを検出する。
+
+    set比較（get_all_texts）は断片の存在しか見ないため、順序の入れ替わりや
+    重複断片の片方欠落を検出できない。ここでは全文を文書順に連結した
+    文字列同士を比較し、元ファイルのテキストが同じ順序で残っているかを検証する。
+
+    マークアップ変換で正当に発生する差分は許容する:
+      - 区切りスペースの消失（空白除去で吸収）
+      - Article分割時のParagraphNum複製等による「挿入」(insert)
+
+    一方、「削除」(delete)・「置換」(replace)は、テキストの欠落または
+    順序の入れ替わり（移動元からの消失）を意味するためエラーとする。
+
+    Returns:
+        検出された問題のリスト。各要素は
+        {'kind': 'reordered'|'missing', 'position': int,
+         'fragment': str, 'context': str} の辞書。
+    """
+    a = get_full_document_text(original_tree)
+    b = get_full_document_text(final_tree)
+    if a == b:
+        return []
+
+    # 極端に大きい文書ではSequenceMatcherが遅くなるため、
+    # 最初の差分位置のみ報告する簡易モードにフォールバックする
+    if max(len(a), len(b)) > 300_000:
+        pos = next((i for i in range(min(len(a), len(b))) if a[i] != b[i]),
+                   min(len(a), len(b)))
+        return [{
+            'kind': 'missing',
+            'position': pos,
+            'fragment': a[pos:pos + 80],
+            'context': a[max(0, pos - 40):pos],
+        }]
+
+    issues = []
+    sm = difflib.SequenceMatcher(None, a, b, autojunk=False)
+    for tag, i1, i2, j1, j2 in sm.get_opcodes():
+        if tag not in ('delete', 'replace'):
+            continue
+        fragment = a[i1:i2]
+        # 断片が最終ファイルの別の場所に存在すれば「順序の入れ替わり」、
+        # 存在しなければ「欠落」
+        probe = fragment[:40]
+        kind = 'reordered' if probe and probe in b else 'missing'
+        issues.append({
+            'kind': kind,
+            'position': i1,
+            'fragment': fragment[:80],
+            'context': a[max(0, i1 - 40):i1],
+        })
+        if len(issues) >= max_issues:
+            break
+    return issues
+
+
 def main():
     parser = argparse.ArgumentParser(
         description="Compare two XML files to check for missing text content."
@@ -269,6 +387,25 @@ def main():
             continue
         missing_texts.add(text)
 
+    # 文書順の全文比較（順序の入れ替わり・重複断片の欠落を検出）
+    order_issues = compare_text_order(original_tree, final_tree)
+
+    print("-" * 80)
+    if not order_issues:
+        print("✅ Text order is correct.")
+    else:
+        reordered = [x for x in order_issues if x['kind'] == 'reordered']
+        lost = [x for x in order_issues if x['kind'] == 'missing']
+        print(f"❌ Error: Found {len(order_issues)} text order/content issue(s) "
+              f"(reordered: {len(reordered)}, missing: {len(lost)}).")
+        for issue in order_issues[:5]:
+            kind_label = '順序入れ替わり' if issue['kind'] == 'reordered' else '欠落'
+            print(f"  [{kind_label}] 位置 {issue['position']}:")
+            print(f"    直前の文脈: …{issue['context']}")
+            print(f"    対象テキスト: {issue['fragment']}…")
+        if len(order_issues) > 5:
+            print(f"  ... and {len(order_issues) - 5} more issues")
+
     # 表の順序と数を検証
     original_tables = get_table_sequence(original_tree, ignore_spaces=args.ignore_spaces)
     final_tables = get_table_sequence(final_tree, ignore_spaces=args.ignore_spaces)
@@ -339,6 +476,77 @@ def main():
         else:
             print("✅ Table order is correct.")
 
+    # 図（Fig）の順序と数を検証
+    # Figはテキストを持たないため、上のテキスト比較では欠落も複製も検出できない
+    original_figs = get_fig_sequence(original_tree)
+    final_figs = get_fig_sequence(final_tree)
+
+    print("-" * 80)
+    print(f"Found {len(original_figs)} figures in the original file.")
+    print(f"Found {len(final_figs)} figures in the final file.")
+
+    fig_count_error = None
+    fig_order_errors = []
+
+    if len(original_figs) != len(final_figs):
+        fig_count_error = (f"❌ Error: Figure count mismatch. "
+                           f"Original: {len(original_figs)}, Final: {len(final_figs)}")
+        print(fig_count_error)
+        # 数が違う場合でも、どのFigがずれたのかを併せて報告する
+        for i in range(min(len(original_figs), len(final_figs))):
+            if original_figs[i] != final_figs[i]:
+                fig_order_errors.append({
+                    'index': i + 1,
+                    'original': original_figs[i],
+                    'final': final_figs[i],
+                })
+                break
+    else:
+        for i in range(len(original_figs)):
+            if original_figs[i] != final_figs[i]:
+                fig_order_errors.append({
+                    'index': i + 1,
+                    'original': original_figs[i],
+                    'final': final_figs[i],
+                })
+
+    if fig_order_errors:
+        print(f"❌ Error: Found {len(fig_order_errors)} figure(s) with order mismatch.")
+        for error in fig_order_errors[:5]:
+            print(f"  Position {error['index']}:")
+            print(f"    Original: {error['original']}")
+            print(f"    Final:    {error['final']}")
+        if len(fig_order_errors) > 5:
+            print(f"  ... and {len(fig_order_errors) - 5} more figure order mismatches")
+    elif not fig_count_error:
+        print("✅ Figure order is correct.")
+
+    # テキストを持たない構造要素の数を検証
+    # （TableStruct/FigStruct/StyleStruct/Fig の欠落・複製はテキスト比較では素通りする）
+    original_counts = get_struct_counts(original_tree)
+    final_counts = get_struct_counts(final_tree)
+
+    print("-" * 80)
+    struct_count_errors = []
+    for tag in STRUCT_TAGS:
+        if original_counts[tag] != final_counts[tag]:
+            struct_count_errors.append({
+                'tag': tag,
+                'original': original_counts[tag],
+                'final': final_counts[tag],
+            })
+
+    if struct_count_errors:
+        print(f"❌ Error: Found {len(struct_count_errors)} struct element count mismatch(es).")
+        for error in struct_count_errors:
+            diff = error['final'] - error['original']
+            direction = '複製' if diff > 0 else '欠落'
+            print(f"  {error['tag']}: Original {error['original']} → "
+                  f"Final {error['final']} ({diff:+d}: {direction})")
+    else:
+        summary = ', '.join(f"{tag}={original_counts[tag]}" for tag in STRUCT_TAGS)
+        print(f"✅ Struct element counts are correct. ({summary})")
+
     print("-" * 80)
 
     # レポートファイルに書き込み
@@ -360,6 +568,27 @@ def main():
                 f.write(f"{i+1}: {text}\n")
             f.write("\n")
         
+        # 文書順の全文比較の結果
+        f.write("=" * 80 + "\n")
+        f.write("Text Order Validation Results\n")
+        f.write("=" * 80 + "\n\n")
+
+        if not order_issues:
+            f.write("✅ Text order is correct.\n\n")
+        else:
+            has_errors = True
+            reordered = [x for x in order_issues if x['kind'] == 'reordered']
+            lost = [x for x in order_issues if x['kind'] == 'missing']
+            f.write(f"❌ Error: Found {len(order_issues)} text order/content issue(s) "
+                    f"(reordered: {len(reordered)}, missing: {len(lost)}).\n\n")
+            f.write("Text order/content issues:\n")
+            f.write("-" * 30 + "\n")
+            for issue in order_issues:
+                kind_label = '順序入れ替わり' if issue['kind'] == 'reordered' else '欠落'
+                f.write(f"[{kind_label}] 位置 {issue['position']}:\n")
+                f.write(f"  直前の文脈: …{issue['context']}\n")
+                f.write(f"  対象テキスト: {issue['fragment']}…\n\n")
+
         # 表の検証結果
         f.write("=" * 80 + "\n")
         f.write("Table Validation Results\n")
@@ -393,12 +622,59 @@ def main():
         elif not table_count_error:
             f.write("✅ Table order is correct.\n")
         
+        # 図の検証結果
+        f.write("=" * 80 + "\n")
+        f.write("Figure Validation Results\n")
+        f.write("=" * 80 + "\n\n")
+
+        if fig_count_error:
+            has_errors = True
+            f.write(fig_count_error + "\n\n")
+
+        if fig_order_errors:
+            has_errors = True
+            f.write(f"❌ Error: Found {len(fig_order_errors)} figure(s) with order mismatch.\n\n")
+            f.write("Figure order mismatches:\n")
+            f.write("-" * 30 + "\n")
+            for error in fig_order_errors:
+                f.write(f"Position {error['index']}:\n")
+                f.write(f"  Original: {error['original']}\n")
+                f.write(f"  Final:    {error['final']}\n\n")
+        elif not fig_count_error:
+            f.write("✅ Figure order is correct.\n\n")
+
+        # 構造要素数の検証結果
+        f.write("=" * 80 + "\n")
+        f.write("Struct Element Count Validation Results\n")
+        f.write("=" * 80 + "\n\n")
+
+        if struct_count_errors:
+            has_errors = True
+            f.write(f"❌ Error: Found {len(struct_count_errors)} struct element "
+                    f"count mismatch(es).\n\n")
+            f.write("Struct element count mismatches:\n")
+            f.write("-" * 30 + "\n")
+            for error in struct_count_errors:
+                diff = error['final'] - error['original']
+                direction = '複製' if diff > 0 else '欠落'
+                f.write(f"{error['tag']}: Original {error['original']} → "
+                        f"Final {error['final']} ({diff:+d}: {direction})\n")
+            f.write("\n")
+        else:
+            f.write("✅ Struct element counts are correct.\n")
+            for tag in STRUCT_TAGS:
+                f.write(f"  {tag}: {original_counts[tag]}\n")
+            f.write("\n")
+
         print(f"A detailed report has been saved to: {report_path}")
 
     print("=" * 80)
 
     # エラーがある場合は1を返す（位置情報の違いは警告のみなので、エラーとして扱わない）
-    return 0 if not missing_texts and not table_count_error and not table_order_errors else 1
+    return 0 if (not missing_texts and not order_issues
+                 and not table_count_error and not table_order_errors
+                 and not fig_count_error and not fig_order_errors
+                 and not struct_count_errors) else 1
 
 if __name__ == '__main__':
     sys.exit(main())

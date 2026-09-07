@@ -2009,7 +2009,12 @@ def process_elements_recursive(parent_elem, config: ConversionConfig, stats) -> 
             elif hasattr(child, 'tag') and isinstance(child.tag, str) and config.child_tag in child.tag:  # 既存の子要素
                 state.set_last_child(child)
             else:
+                # 変換対象外の要素（表タイトルのParagraphSentence等）は親要素直下に
+                # そのままの位置で残す。以降のTableStruct等をこの要素より前の
+                # Item要素内へ取り込むとコンテンツの出現順が入れ替わってしまうため、
+                # last_childをリセットして後続のStruct要素も親要素直下に配置する。
                 state.append_child(child)
+                state.last_child = None
 
     # 親要素の再構築
     # 親要素のタグ名から対応するCaption要素のタグ名を動的に生成

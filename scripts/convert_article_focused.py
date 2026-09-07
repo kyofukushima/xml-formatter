@@ -134,11 +134,13 @@ class ArticleFocusedConverter:
                                 # 全角スペースで結合して1つのSentenceにする
                                 content_parts = []
                                 for col in columns[1:]:
+                                    # Ruby等のインライン子要素のテキストも含めて取得する
+                                    # （s.textのみだと子要素以降の本文が欠落する）
                                     col_texts = [
-                                        s.text.strip()
+                                        ''.join(s.itertext()).strip()
                                         for s in col.findall('.//Sentence')
-                                        if s.text and s.text.strip()
                                     ]
+                                    col_texts = [t for t in col_texts if t]
                                     if col_texts:
                                         content_parts.append(''.join(col_texts))
                                 content = '　'.join(content_parts)
@@ -186,38 +188,26 @@ class ArticleFocusedConverter:
                 continue  # 既に処理済み
             
             if child == split_paragraph:
-                # 分割Paragraphの場合、split_indexより前のList要素のみを含むParagraphを作成
+                # 分割Paragraphの場合、分割点（境界ラベルのList）より前の子要素を
+                # 元の並び順のままコピーしたParagraphを作成する。
+                # 種類別にまとめてコピーするとTableStructとParagraphSentence等の
+                # 相対順序（コンテンツの出現順）が壊れるため、必ず文書順を保持する。
                 new_para = ET.Element('Paragraph', attrib=child.attrib)
-                
-                # ParagraphNum、ParagraphSentenceをコピー
-                for sub_child in child:
-                    if sub_child.tag in ['ParagraphNum', 'ParagraphSentence', 'ParagraphCaption']:
-                        new_para.append(copy.deepcopy(sub_child))
-                
-                # split_indexより前のList要素をコピー
-                list_children = [c for c in child if c.tag == 'List']
-                for i, list_elem in enumerate(list_children):
-                    if i < split_index:
-                        new_para.append(copy.deepcopy(list_elem))
-                
-                # split_indexより前のTableStruct要素をコピー
-                # List要素の実際の位置に基づいてTableStructを分割
+
                 all_children = list(child)
                 list_indices = [i for i, c in enumerate(all_children) if c.tag == 'List']
-                
-                # split_indexに対応するList要素の実際のインデックスを取得
+
+                # split_indexに対応するList要素の実際の子要素インデックスを取得
                 if split_index < len(list_indices):
                     split_list_index = list_indices[split_index]
-                    # split_list_indexより前のTableStructをコピー
-                    for i, sub_child in enumerate(all_children):
-                        if sub_child.tag == 'TableStruct' and i < split_list_index:
-                            new_para.append(copy.deepcopy(sub_child))
-                
-                # 他の要素（Itemなど）もコピー（TableStructは既に処理済み）
-                for sub_child in child:
-                    if sub_child.tag not in ['ParagraphNum', 'ParagraphSentence', 'ParagraphCaption', 'List', 'TableStruct']:
+                else:
+                    split_list_index = len(all_children)
+
+                # 分割点より前の子要素を元の順序のままコピー
+                for i, sub_child in enumerate(all_children):
+                    if i < split_list_index:
                         new_para.append(copy.deepcopy(sub_child))
-                
+
                 # Only append the paragraph if it has meaningful content
                 has_content = any(
                     sub.tag not in ['ParagraphNum', 'ParagraphCaption']
@@ -252,30 +242,20 @@ class ArticleFocusedConverter:
                 sentence = ET.SubElement(para_sentence, 'Sentence')
                 sentence.text = new_content
                 
-                # split_index以降の要素を元の順序を保持してコピー
-                # List要素の実際の位置に基づいて分割
+                # 分割点（境界ラベルのList）より後の子要素を元の順序のままコピー
+                # （ParagraphNumは先頭で処理済みのため除外。ParagraphSentenceは
+                # コンテンツの出現順を保つため、そのままの位置でコピーする）
                 all_children = list(child)
                 list_indices = [i for i, c in enumerate(all_children) if c.tag == 'List']
-                
-                # split_indexに対応するList要素の実際のインデックスを取得
+
+                # split_indexに対応するList要素の実際の子要素インデックスを取得
                 if split_index < len(list_indices):
                     split_list_index = list_indices[split_index]
-                    # split_list_indexより後の要素を元の順序でコピー
                     for i, sub_child in enumerate(all_children):
-                        if i > split_list_index:
-                            # List要素の場合、split_indexより後のもののみ
-                            if sub_child.tag == 'List':
-                                list_children = [c for c in child if c.tag == 'List']
-                                list_index = list_children.index(sub_child)
-                                if list_index > split_index:
-                                    new_para.append(copy.deepcopy(sub_child))
-                            # TableStruct要素の場合、すべてコピー
-                            elif sub_child.tag == 'TableStruct':
-                                new_para.append(copy.deepcopy(sub_child))
-                            # その他の要素もコピー
-                            elif sub_child.tag not in ['ParagraphNum', 'ParagraphSentence', 'ParagraphCaption']:
-                                new_para.append(copy.deepcopy(sub_child))
-                
+                        if i > split_list_index and \
+                                sub_child.tag not in ['ParagraphNum', 'ParagraphCaption']:
+                            new_para.append(copy.deepcopy(sub_child))
+
                 second_article.append(new_para)
             
             elif found_split:

@@ -15,6 +15,7 @@ Paragraph、Item、Subitem1-5要素内のSentence要素で、
 """
 
 import sys
+import copy
 import argparse
 from pathlib import Path
 from lxml import etree
@@ -93,39 +94,52 @@ def split_sentences_in_element(parent_elem: etree.Element, title_tag: str,
             
             sentence_elem = child.find('Sentence')
             if sentence_elem is not None and sentence_elem.text:
-                text = sentence_elem.text.strip()
-                # 全角スペースで分割
-                parts = text.split('　', 1)
+                # ラベルはSentence先頭のテキスト（最初の子要素より前）からのみ判定する。
+                # Ruby等の子要素や2つ目以降のSentenceは変換時にそのまま引き継ぐ。
+                parts = sentence_elem.text.split('　', 1)
                 if len(parts) == 2:
-                    label, content = parts
+                    label = parts[0].strip()
                     # 分割した前半が項目ラベルか判定
-                    if is_label(label.strip()):
-                        candidates.append((child, label.strip(), content.strip()))
-    
+                    if is_label(label):
+                        candidates.append((child, label, parts[1]))
+
     return candidates
 
-def convert_sentence_to_list(sentence_elem: etree.Element, label: str, content: str, 
+def convert_sentence_to_list(sentence_elem: etree.Element, label: str, content: str,
                             parent: etree.Element) -> None:
     """Sentence要素をList要素に変換して置き換える
-    
+
     Args:
-        sentence_elem: 変換対象のSentence要素
+        sentence_elem: 変換対象のSentence要素（XxxSentence要素）
         label: ラベル文字列
-        content: 内容文字列
+        content: 1つ目のSentenceのラベル・区切り全角スペースを除いた先頭テキスト
         parent: 親要素
     """
     # 新しいList要素を構築
     new_list = etree.Element('List')
     list_sentence = etree.SubElement(new_list, 'ListSentence')
-    
+
     col1 = etree.SubElement(list_sentence, 'Column', Num='1')
     sent1 = etree.SubElement(col1, 'Sentence', Num='1')
     sent1.text = label
-    
+
+    # Column 2にはRuby等のインライン子要素・2つ目以降のSentenceも含めて引き継ぐ
     col2 = etree.SubElement(list_sentence, 'Column', Num='2')
-    sent2 = etree.SubElement(col2, 'Sentence', Num='1')
-    sent2.text = content
-    
+    for num, src_sent in enumerate(sentence_elem.findall('Sentence'), start=1):
+        sent2 = etree.SubElement(col2, 'Sentence', Num=str(num))
+        text = src_sent.text or ''
+        if num == 1:
+            # ラベルと区切りの全角スペースを除いた残りを本文とする
+            text = content
+        if len(src_sent) == 0:
+            sent2.text = text.strip()
+        else:
+            # 子要素（Ruby等）がある場合、テキストの続きは子要素側にあるため
+            # 先頭の余分なスペースのみ除去し、子要素とtailをそのままコピーする
+            sent2.text = text.lstrip('　 ')
+            for sub in src_sent:
+                sent2.append(copy.deepcopy(sub))
+
     # Sentence要素を新しいList要素で置き換え
     parent.replace(sentence_elem, new_list)
 
