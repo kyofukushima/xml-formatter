@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<Law>
+  <LawBody>
+    <Paragraph Num="1">
+      <ParagraphNum>1</ParagraphNum>
+      <ParagraphSentence>
+        <Sentence Num="1">半角のドット区切り数字・範囲パターン</Sentence>
+      </ParagraphSentence>
+      <Item Num="1">
+        <ItemTitle>4.1</ItemTitle>
+        <ItemSentence>
+          <Sentence Num="1">半角ドット区切り4.1</Sentence>
+        </ItemSentence>
+      </Item>
+      <Item Num="2">
+        <ItemTitle>4.2</ItemTitle>
+        <ItemSentence>
+          <Sentence Num="1">半角ドット区切り4.2</Sentence>
+        </ItemSentence>
+        <Subitem1 Num="1">
+          <Subitem1Title>4.3.1</Subitem1Title>
+          <Subitem1Sentence>
+            <Sentence Num="1">半角ドット区切り4.3.1</Sentence>
+          </Subitem1Sentence>
+        </Subitem1>
+        <Subitem1 Num="2">
+          <Subitem1Title>4.3.2</Subitem1Title>
+          <Subitem1Sentence>
+            <Sentence Num="1">半角ドット区切り4.3.2</Sentence>
+          </Subitem1Sentence>
+          <Subitem2 Num="1">
+            <Subitem2Title>2.</Subitem2Title>
+            <Subitem2Sentence>
+              <Sentence Num="1">半角数字ピリオド2.</Sentence>
+            </Subitem2Sentence>
+          </Subitem2>
+          <Subitem2 Num="2">
+            <Subitem2Title>3.</Subitem2Title>
+            <Subitem2Sentence>
+              <Sentence Num="1">半角数字ピリオド3.</Sentence>
+            </Subitem2Sentence>
+            <Subitem3 Num="1">
+              <Subitem3Title>1-3</Subitem3Title>
+              <Subitem3Sentence>
+                <Sentence Num="1">半角数字範囲1-3</Sentence>
+              </Subitem3Sentence>
+            </Subitem3>
+            <Subitem3 Num="2">
+              <Subitem3Title>4-6</Subitem3Title>
+              <Subitem3Sentence>
+                <Sentence Num="1">半角数字範囲4-6</Sentence>
+              </Subitem3Sentence>
+            </Subitem3>
+          </Subitem2>
+        </Subitem1>
+      </Item>
+    </Paragraph>
+  </LawBody>
+</Law>

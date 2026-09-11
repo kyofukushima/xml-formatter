@@ -748,6 +748,379 @@
         "テキスト2（ラベルではない）"
       ],
       "description": "Columnの1つ目がラベルではないテキストの場合（優先順位は最低）"
+    },
+    "lowercase_alphabet_with_paren": {
+      "id": "lowercase_alphabet_with_paren",
+      "name": "半角小文字アルファベット＋閉じ括弧",
+      "description": "閉じ括弧のみの半角小文字アルファベット（fullwidth_lowercase_alphabet_with_paren の半角版）",
+      "patterns": [
+        "^[a-z][）)]$"
+      ],
+      "examples": [
+        "a)",
+        "b)",
+        "c)"
+      ]
+    },
+    "halfwidth_number_with_paren": {
+      "id": "halfwidth_number_with_paren",
+      "name": "半角数字＋閉じ括弧",
+      "description": "閉じ括弧のみの半角数字（fullwidth_number_with_paren の半角版）",
+      "patterns": [
+        "^[0-9]+[）)]$"
+      ],
+      "examples": [
+        "1)",
+        "2)",
+        "10)"
+      ]
+    },
+    "katakana_with_halfwidth_paren": {
+      "id": "katakana_with_halfwidth_paren",
+      "name": "カタカナ＋半角閉じ括弧",
+      "description": "半角閉じ括弧のみのカタカナ（katakana_with_paren の半角版）",
+      "patterns": [
+        "^[ア-ヴ]+\\)$"
+      ],
+      "examples": [
+        "ア)",
+        "イ)",
+        "ウ)"
+      ]
+    },
+    "lowercase_alphabet_with_dot": {
+      "id": "lowercase_alphabet_with_dot",
+      "name": "半角小文字アルファベット＋ピリオド",
+      "description": "ピリオド付きの半角小文字アルファベット（fullwidth_lowercase_alphabet_with_dot の半角版）",
+      "patterns": [
+        "^[a-z]+[．.]$"
+      ],
+      "examples": [
+        "a.",
+        "b.",
+        "c."
+      ]
+    },
+    "dot_separated_halfwidth_number_triple": {
+      "id": "dot_separated_halfwidth_number_triple",
+      "name": "ドット区切り半角数字（ドット3つ）",
+      "description": "ドット区切り半角数字（dot_separated_number_triple の半角版）",
+      "patterns": [
+        "^[0-9]+[．.][0-9]+[．.][0-9]+[．.][0-9]+$"
+      ],
+      "examples": [
+        "4.3.2.1",
+        "1.2.3.4"
+      ]
+    },
+    "dot_separated_halfwidth_number_double": {
+      "id": "dot_separated_halfwidth_number_double",
+      "name": "ドット区切り半角数字（ドット2つ）",
+      "description": "ドット区切り半角数字（dot_separated_number_double の半角版）",
+      "patterns": [
+        "^[0-9]+[．.][0-9]+[．.][0-9]+$"
+      ],
+      "examples": [
+        "4.3.2",
+        "1.2.3"
+      ]
+    },
+    "dot_separated_halfwidth_number_single": {
+      "id": "dot_separated_halfwidth_number_single",
+      "name": "ドット区切り半角数字（ドット1つ）",
+      "description": "ドット区切り半角数字（dot_separated_number_single の半角版）",
+      "patterns": [
+        "^[0-9]+[．.][0-9]+$"
+      ],
+      "examples": [
+        "4.1",
+        "4.2",
+        "1.1"
+      ]
+    },
+    "halfwidth_number_with_dot": {
+      "id": "halfwidth_number_with_dot",
+      "name": "半角数字＋ピリオド",
+      "description": "ピリオド付きの半角数字（fullwidth_number_with_dot の半角版）",
+      "patterns": [
+        "^[0-9]+[．.]$"
+      ],
+      "examples": [
+        "2.",
+        "1.",
+        "10."
+      ]
+    },
+    "note_with_number_halfwidth": {
+      "id": "note_with_number_halfwidth",
+      "name": "注記＋半角数字",
+      "description": "注記＋半角数字（note_with_number の半角版）",
+      "patterns": [
+        "^注記[0-9]+$"
+      ],
+      "examples": [
+        "注記1",
+        "注記2",
+        "注記10"
+      ]
+    },
+    "number_range_hyphen_halfwidth": {
+      "id": "number_range_hyphen_halfwidth",
+      "name": "半角数字の範囲（ハイフン）",
+      "description": "半角数字の範囲表記（number_range_hyphen の半角版）",
+      "patterns": [
+        "^[0-9]+[―-][0-9]+$"
+      ],
+      "examples": [
+        "1-3",
+        "1―3",
+        "10-20"
+      ]
+    },
+    "note_with_number_kanji": {
+      "id": "note_with_number_kanji",
+      "name": "注記＋漢数字",
+      "description": "注記＋漢数字（note_with_number の漢数字版）",
+      "patterns": [
+        "^注記[一二三四五六七八九十百千]+$"
+      ],
+      "examples": [
+        "注記一",
+        "注記二",
+        "注記十"
+      ]
+    },
+    "note_bare": {
+      "id": "note_bare",
+      "name": "注（番号なし）",
+      "description": "番号なしの注（同じ値が繰り返されるため hierarchy_rules.repeatable_label_ids に登録し、既出でも兄弟として扱う）",
+      "patterns": [
+        "^注$"
+      ],
+      "examples": [
+        "注"
+      ]
+    },
+    "note_fullwidth_number": {
+      "id": "note_fullwidth_number",
+      "name": "注＋全角数字",
+      "description": "注＋全角数字",
+      "patterns": [
+        "^注[０-９]+$"
+      ],
+      "examples": [
+        "注１",
+        "注２",
+        "注１０"
+      ]
+    },
+    "note_halfwidth_number": {
+      "id": "note_halfwidth_number",
+      "name": "注＋半角数字",
+      "description": "注＋半角数字",
+      "patterns": [
+        "^注[0-9]+$"
+      ],
+      "examples": [
+        "注1",
+        "注2",
+        "注10"
+      ]
+    },
+    "note_kanji_number": {
+      "id": "note_kanji_number",
+      "name": "注＋漢数字",
+      "description": "注＋漢数字",
+      "patterns": [
+        "^注[一二三四五六七八九十百千]+$"
+      ],
+      "examples": [
+        "注一",
+        "注二",
+        "注十"
+      ]
+    },
+    "asterisk_bare": {
+      "id": "asterisk_bare",
+      "name": "※（番号なし）",
+      "description": "番号なしの※（同じ値が繰り返されるため hierarchy_rules.repeatable_label_ids に登録し、既出でも兄弟として扱う）",
+      "patterns": [
+        "^※$"
+      ],
+      "examples": [
+        "※"
+      ]
+    },
+    "asterisk_fullwidth_number": {
+      "id": "asterisk_fullwidth_number",
+      "name": "※＋全角数字",
+      "description": "※＋全角数字",
+      "patterns": [
+        "^※[０-９]+$"
+      ],
+      "examples": [
+        "※１",
+        "※２",
+        "※１０"
+      ]
+    },
+    "asterisk_halfwidth_number": {
+      "id": "asterisk_halfwidth_number",
+      "name": "※＋半角数字",
+      "description": "※＋半角数字",
+      "patterns": [
+        "^※[0-9]+$"
+      ],
+      "examples": [
+        "※1",
+        "※2",
+        "※10"
+      ]
+    },
+    "asterisk_kanji_number": {
+      "id": "asterisk_kanji_number",
+      "name": "※＋漢数字",
+      "description": "※＋漢数字",
+      "patterns": [
+        "^※[一二三四五六七八九十百千]+$"
+      ],
+      "examples": [
+        "※一",
+        "※二",
+        "※十"
+      ]
+    },
+    "paren_note_with_number": {
+      "id": "paren_note_with_number",
+      "name": "括弧付き注記＋全角数字",
+      "description": "括弧付き注記＋全角数字（丸括弧見出し subject_label_round より前に配置すること）",
+      "patterns": [
+        "^[（(]注記[０-９]+[）)]$"
+      ],
+      "examples": [
+        "（注記１）",
+        "（注記２）"
+      ]
+    },
+    "paren_note_with_number_halfwidth": {
+      "id": "paren_note_with_number_halfwidth",
+      "name": "括弧付き注記＋半角数字",
+      "description": "括弧付き注記＋半角数字（丸括弧見出し subject_label_round より前に配置すること）",
+      "patterns": [
+        "^[（(]注記[0-9]+[）)]$"
+      ],
+      "examples": [
+        "（注記1）",
+        "(注記2)"
+      ]
+    },
+    "paren_note_with_number_kanji": {
+      "id": "paren_note_with_number_kanji",
+      "name": "括弧付き注記＋漢数字",
+      "description": "括弧付き注記＋漢数字（丸括弧見出し subject_label_round より前に配置すること）",
+      "patterns": [
+        "^[（(]注記[一二三四五六七八九十百千]+[）)]$"
+      ],
+      "examples": [
+        "（注記一）",
+        "（注記二）"
+      ]
+    },
+    "paren_note_bare": {
+      "id": "paren_note_bare",
+      "name": "括弧付き注（番号なし）",
+      "description": "番号なしの括弧付き注（丸括弧見出し subject_label_round より前に配置すること）（同じ値が繰り返されるため hierarchy_rules.repeatable_label_ids に登録し、既出でも兄弟として扱う）",
+      "patterns": [
+        "^[（(]注[）)]$"
+      ],
+      "examples": [
+        "（注）",
+        "(注)"
+      ]
+    },
+    "paren_note_fullwidth_number": {
+      "id": "paren_note_fullwidth_number",
+      "name": "括弧付き注＋全角数字",
+      "description": "括弧付き注＋全角数字（丸括弧見出し subject_label_round より前に配置すること）",
+      "patterns": [
+        "^[（(]注[０-９]+[）)]$"
+      ],
+      "examples": [
+        "（注１）",
+        "（注２）"
+      ]
+    },
+    "paren_note_halfwidth_number": {
+      "id": "paren_note_halfwidth_number",
+      "name": "括弧付き注＋半角数字",
+      "description": "括弧付き注＋半角数字（丸括弧見出し subject_label_round より前に配置すること）",
+      "patterns": [
+        "^[（(]注[0-9]+[）)]$"
+      ],
+      "examples": [
+        "（注1）",
+        "(注2)"
+      ]
+    },
+    "paren_note_kanji_number": {
+      "id": "paren_note_kanji_number",
+      "name": "括弧付き注＋漢数字",
+      "description": "括弧付き注＋漢数字（丸括弧見出し subject_label_round より前に配置すること）",
+      "patterns": [
+        "^[（(]注[一二三四五六七八九十百千]+[）)]$"
+      ],
+      "examples": [
+        "（注一）",
+        "（注二）"
+      ]
+    },
+    "paren_asterisk_bare": {
+      "id": "paren_asterisk_bare",
+      "name": "括弧付き※（番号なし）",
+      "description": "番号なしの括弧付き※（丸括弧見出し subject_label_round より前に配置すること）（同じ値が繰り返されるため hierarchy_rules.repeatable_label_ids に登録し、既出でも兄弟として扱う）",
+      "patterns": [
+        "^[（(]※[）)]$"
+      ],
+      "examples": [
+        "（※）",
+        "(※)"
+      ]
+    },
+    "paren_asterisk_fullwidth_number": {
+      "id": "paren_asterisk_fullwidth_number",
+      "name": "括弧付き※＋全角数字",
+      "description": "括弧付き※＋全角数字（丸括弧見出し subject_label_round より前に配置すること）",
+      "patterns": [
+        "^[（(]※[０-９]+[）)]$"
+      ],
+      "examples": [
+        "（※１）",
+        "（※２）"
+      ]
+    },
+    "paren_asterisk_halfwidth_number": {
+      "id": "paren_asterisk_halfwidth_number",
+      "name": "括弧付き※＋半角数字",
+      "description": "括弧付き※＋半角数字（丸括弧見出し subject_label_round より前に配置すること）",
+      "patterns": [
+        "^[（(]※[0-9]+[）)]$"
+      ],
+      "examples": [
+        "（※1）",
+        "(※2)"
+      ]
+    },
+    "paren_asterisk_kanji_number": {
+      "id": "paren_asterisk_kanji_number",
+      "name": "括弧付き※＋漢数字",
+      "description": "括弧付き※＋漢数字（丸括弧見出し subject_label_round より前に配置すること）",
+      "patterns": [
+        "^[（(]※[一二三四五六七八九十百千]+[）)]$"
+      ],
+      "examples": [
+        "（※一）",
+        "（※二）"
+      ]
     }
   },
   "pattern_priority": [
@@ -768,22 +1141,52 @@
     "paren_lowercase_alphabet",
     "paren_fullwidth_uppercase_alphabet",
     "fullwidth_lowercase_alphabet_with_paren",
+    "lowercase_alphabet_with_paren",
     "paren_fullwidth_lowercase_alphabet",
     "paren_alphabet",
     "paren_katakana",
     "paren_halfwidth_number",
     "fullwidth_number_with_paren",
+    "halfwidth_number_with_paren",
     "katakana_with_paren",
+    "katakana_with_halfwidth_paren",
     "katakana_with_dot",
     "fullwidth_lowercase_alphabet_with_dot",
+    "lowercase_alphabet_with_dot",
     "paren_fullwidth_number",
     "paren_kanji_number",
     "dot_separated_number_triple",
+    "dot_separated_halfwidth_number_triple",
     "dot_separated_number_double",
+    "dot_separated_halfwidth_number_double",
     "dot_separated_number_single",
+    "dot_separated_halfwidth_number_single",
     "fullwidth_number_with_dot",
+    "halfwidth_number_with_dot",
     "note_with_number",
+    "note_with_number_halfwidth",
+    "note_with_number_kanji",
+    "note_bare",
+    "note_fullwidth_number",
+    "note_halfwidth_number",
+    "note_kanji_number",
+    "asterisk_bare",
+    "asterisk_fullwidth_number",
+    "asterisk_halfwidth_number",
+    "asterisk_kanji_number",
+    "paren_note_with_number",
+    "paren_note_with_number_halfwidth",
+    "paren_note_with_number_kanji",
+    "paren_note_bare",
+    "paren_note_fullwidth_number",
+    "paren_note_halfwidth_number",
+    "paren_note_kanji_number",
+    "paren_asterisk_bare",
+    "paren_asterisk_fullwidth_number",
+    "paren_asterisk_halfwidth_number",
+    "paren_asterisk_kanji_number",
     "number_range_hyphen",
+    "number_range_hyphen_halfwidth",
     "subject_label_square",
     "subject_label_double_square",
     "subject_label_corner",
@@ -817,7 +1220,13 @@
       "subject_patterns": [
         "subject_label"
       ]
-    }
+    },
+    "repeatable_label_ids": [
+      "note_bare",
+      "asterisk_bare",
+      "paren_note_bare",
+      "paren_asterisk_bare"
+    ]
   },
   "conversion_behaviors": {
     "column_list_text_first_column": {
@@ -875,7 +1284,7 @@
   "metadata": {
     "description": "XML文書変換用ラベルパターン設定ファイル",
     "created": "2025-01-01",
-    "last_updated": "2026-08-17",
+    "last_updated": "2026-09-11",
     "author": "XML Processing Pipeline"
   }
 }
