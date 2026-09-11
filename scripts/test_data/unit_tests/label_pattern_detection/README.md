@@ -46,6 +46,17 @@
 23. **括弧付きカタカナ**: `（ア）`, `（イ）`, `(ア)`, `(イ)` など
 24. **二重括弧付きカタカナ**: `（（ア））`, `（（イ））`, `((ア))`, `((イ))` など
 
+### 注・※系
+25. **注記＋数字**（`note_with_number` / `note_with_number_halfwidth` / `note_with_number_kanji`）: `注記１`, `注記1`, `注記一` など
+26. **注＋数字・※＋数字**（`note_*_number` / `asterisk_*_number`）: `注１`, `注1`, `注一`, `※１`, `※1`, `※一` など
+27. **番号なしの注・※**（`note_bare` / `asterisk_bare`）: `注`, `※`
+    - `hierarchy_rules.repeatable_label_ids` に登録されており、同じ値が繰り返されても下位の再スタートとみなさず兄弟に並ぶ
+28. **括弧付き注・※**（`paren_note_*` / `paren_asterisk_*`）: `（注）`, `（注１）`, `（※）`, `（※１）` など
+    - 丸括弧見出し（`subject_label_round`）より前の優先順位で専用ラベルとして認識される
+
+### 半角版
+29. 全角にしか定義がなかったラベルの半角版（`halfwidth_number_with_paren` `1)`、`lowercase_alphabet_with_paren` `a)`、`katakana_with_halfwidth_paren` `ア)`、`lowercase_alphabet_with_dot` `a.`、`dot_separated_halfwidth_number_*` `4.1`、`halfwidth_number_with_dot` `2.`、`note_with_number_halfwidth` `注記1`、`number_range_hyphen_halfwidth` `1-3`）。全角版とは別のラベルIDとして扱われる
+
 ## テストケース構成
 
 各テストケースフォルダには以下のファイルが含まれます：

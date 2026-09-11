@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Law>
+  <LawBody>
+    <Paragraph Num="1">
+      <ParagraphNum>1</ParagraphNum>
+      <ParagraphSentence>
+        <Sentence Num="1">括弧付き注・※パターン</Sentence>
+      </ParagraphSentence>
+      <List>
+        <ListSentence>
+          <Column Num="1">
+            <Sentence Num="1">（注１）</Sentence>
+          </Column>
+          <Column Num="2">
+            <Sentence Num="1">括弧付き注1</Sentence>
+          </Column>
+        </ListSentence>
+      </List>
+      <List>
+        <ListSentence>
+          <Column Num="1">
+            <Sentence Num="1">（注２）</Sentence>
+          </Column>
+          <Column Num="2">
+            <Sentence Num="1">括弧付き注2</Sentence>
+          </Column>
+        </ListSentence>
+      </List>
+      <List>
+        <ListSentence>
+          <Column Num="1">
+            <Sentence Num="1">（※１）</Sentence>
+          </Column>
+          <Column Num="2">
+            <Sentence Num="1">括弧付き※1</Sentence>
+          </Column>
+        </ListSentence>
+      </List>
+      <List>
+        <ListSentence>
+          <Column Num="1">
+            <Sentence Num="1">（※２）</Sentence>
+          </Column>
+          <Column Num="2">
+            <Sentence Num="1">括弧付き※2</Sentence>
+          </Column>
+        </ListSentence>
+      </List>
+      <List>
+        <ListSentence>
+          <Column Num="1">
+            <Sentence Num="1">（注）</Sentence>
+          </Column>
+          <Column Num="2">
+            <Sentence Num="1">番号なしの括弧付き注A</Sentence>
+          </Column>
+        </ListSentence>
+      </List>
+      <List>
+        <ListSentence>
+          <Column Num="1">
+            <Sentence Num="1">（注）</Sentence>
+          </Column>
+          <Column Num="2">
+            <Sentence Num="1">番号なしの括弧付き注B</Sentence>
+          </Column>
+        </ListSentence>
+      </List>
+      <List>
+        <ListSentence>
+          <Column Num="1">
+            <Sentence Num="1">（※）</Sentence>
+          </Column>
+          <Column Num="2">
+            <Sentence Num="1">番号なしの括弧付き※A</Sentence>
+          </Column>
+        </ListSentence>
+      </List>
+      <List>
+        <ListSentence>
+          <Column Num="1">
+            <Sentence Num="1">（※）</Sentence>
+          </Column>
+          <Column Num="2">
+            <Sentence Num="1">番号なしの括弧付き※B</Sentence>
+          </Column>
+        </ListSentence>
+      </List>
+    </Paragraph>
+  </LawBody>
+</Law>

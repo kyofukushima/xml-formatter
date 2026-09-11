@@ -22,9 +22,23 @@ from copy import deepcopy
 script_dir = Path(__file__).resolve().parent
 sys.path.insert(0, str(script_dir))
 
-from utils.label_utils import is_label, detect_label_id, get_number_type, get_alphabet_type, is_valid_label_id, get_exclude_label_ids_for_context
+from utils.label_utils import get_label_config, is_label, detect_label_id, get_number_type, get_alphabet_type, is_valid_label_id, get_exclude_label_ids_for_context
 from utils.renumber_utils import renumber_children
 from utils.bracket_utils import is_subject_name_bracket, is_instruction_bracket, is_grade_single_bracket, is_grade_double_bracket, get_bracket_type
+
+
+def is_repeatable_label(text: str) -> bool:
+    """ラベルが hierarchy_rules.repeatable_label_ids に登録されたIDかどうかを判定
+
+    番号を持たず同じ値が繰り返されるのが通常のラベル（「注」「※」等）は、
+    同じ値が再び現れても「番号の振り直し（下位の再スタート）」とはみなさず、
+    既出チェックを行わずに同種のラベルとして兄弟に並べる。
+    一覧が空の場合は常にFalse（従来どおりの動作）。
+    """
+    if not text:
+        return False
+    ids = get_label_config().config.get('hierarchy_rules', {}).get('repeatable_label_ids', []) or []
+    return bool(ids) and detect_label_id(text) in ids
 
 
 # ============================================================================
@@ -1143,7 +1157,7 @@ def process_first_child_mode(child, state: ProcessingState, config: ConversionCo
             has_label = is_label_text(col1_text, col_count)
             
             # 既に出現したラベルの場合、変換せずにListのまま取り込む
-            if has_label and state.has_seen_label(col1_text):
+            if has_label and state.has_seen_label(col1_text) and not is_repeatable_label(col1_text):
                 state.append_to_last_child(child)
                 state.mode = ProcessingMode.NORMAL_PROCESSING
                 return True
@@ -1370,6 +1384,10 @@ def should_split_labeled_list(current_title_text, col1_text, current_label_id, l
     # ラベルの種類が異なる場合は取り込む
     if current_label_id != list_label_id:
         return False
+
+    # 重複許容ID（番号なしの「注」「※」等）は既出でも取り込まず、同種として分割する
+    if is_repeatable_label(col1_text):
+        return True
     
     # 同じラベルの種類の場合
     # 同じ値の場合は取り込む（既に登場している）
@@ -1837,7 +1855,7 @@ def process_normal_mode_list_element(child, child_idx, children_to_process, stat
     
     # 指導項目の場合は重複チェックをスキップ（指導項目は必ず同じラベルが続くため）
     # 既に出現したラベルの場合、変換せずにListのまま取り込む（指導項目を除く）
-    if has_label and state.has_seen_label(col1_text) and not is_instruction:
+    if has_label and state.has_seen_label(col1_text) and not is_repeatable_label(col1_text) and not is_instruction:
         state.append_to_last_child(child)
         return True
     
@@ -1886,7 +1904,7 @@ def process_normal_mode_list_element(child, child_idx, children_to_process, stat
         is_instruction_for_check = is_instruction_bracket(list_text_for_check) if list_text_for_check else False
         
         # 既に出現したラベルの場合、変換せずにListのまま取り込む（指導項目を除く）
-        if has_label and state.has_seen_label(col1_text) and not is_instruction_for_check:
+        if has_label and state.has_seen_label(col1_text) and not is_repeatable_label(col1_text) and not is_instruction_for_check:
             state.append_to_last_child(child)
             return False
         else:
@@ -1943,7 +1961,7 @@ def process_normal_mode_list_element(child, child_idx, children_to_process, stat
                 is_instruction_for_check2 = is_instruction_bracket(list_text_for_check2) if list_text_for_check2 else False
                 
                 # 既に出現したラベルの場合、変換せずにListのまま取り込む（指導項目を除く）
-                if has_label and state.has_seen_label(col1_text) and not is_instruction_for_check2:
+                if has_label and state.has_seen_label(col1_text) and not is_repeatable_label(col1_text) and not is_instruction_for_check2:
                     state.append_to_last_child(child)
                     return True
                 
