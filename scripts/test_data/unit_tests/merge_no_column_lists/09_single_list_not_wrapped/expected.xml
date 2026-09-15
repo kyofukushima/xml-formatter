@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<Law>
+  <LawBody>
+    <MainProvision>
+      <Paragraph Num="1">
+        <ParagraphNum>１</ParagraphNum>
+        <ParagraphSentence>
+          <Sentence Num="1">次に掲げるものとする。</Sentence>
+        </ParagraphSentence>
+        <Item Num="1">
+          <ItemTitle/>
+          <ItemSentence>
+            <Sentence Num="1">単独の段落です。統合相手がないため Column で包まない。</Sentence>
+          </ItemSentence>
+          <List>
+            <ListSentence>
+              <Column Num="1">
+                <Sentence Num="1">（１）</Sentence>
+              </Column>
+              <Column Num="2">
+                <Sentence Num="1">ラベル付きの項目</Sentence>
+              </Column>
+            </ListSentence>
+          </List>
+          <List>
+            <ListSentence>
+              <Sentence Num="1">一段目の段落です。</Sentence>
+            </ListSentence>
+          </List>
+          <List>
+            <ListSentence>
+              <Sentence Num="1">二段目の段落です。</Sentence>
+            </ListSentence>
+          </List>
+        </Item>
+      </Paragraph>
+    </MainProvision>
+  </LawBody>
+</Law>
