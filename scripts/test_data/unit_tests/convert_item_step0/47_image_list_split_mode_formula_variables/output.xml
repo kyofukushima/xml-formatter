@@ -9,11 +9,7 @@
       <Item Num="1">
         <ItemTitle/>
         <ItemSentence>
-          <Sentence Num="1" WritingMode="vertical">
-            <QuoteStruct>
-              <Fig src="./pict/2JH00000019886.jpg"/>
-            </QuoteStruct>
-          </Sentence>
+          <Sentence Num="1" WritingMode="vertical"><QuoteStruct><Fig src="./pict/2JH00000019886.jpg"/></QuoteStruct></Sentence>
         </ItemSentence>
       </Item>
       <Item Num="2">

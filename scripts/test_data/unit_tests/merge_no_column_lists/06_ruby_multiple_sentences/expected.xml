@@ -11,9 +11,7 @@
           <ItemTitle/>
           <ItemSentence>
             <Column Num="1" LineBreak="true">
-              <Sentence Num="1">
-                <Ruby>難<Rt>なん</Rt>
-                </Ruby>読語を含む一文目。</Sentence>
+              <Sentence Num="1"><Ruby>難<Rt>なん</Rt></Ruby>読語を含む一文目。</Sentence>
               <Sentence Num="2">同じ段落の二文目。</Sentence>
             </Column>
             <Column Num="2" LineBreak="true">

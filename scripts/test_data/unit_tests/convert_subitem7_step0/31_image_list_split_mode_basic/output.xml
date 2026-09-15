@@ -14,11 +14,7 @@
         <Subitem7 Num="1">
           <Subitem7Title/>
           <Subitem7Sentence>
-            <Sentence Num="1">
-              <QuoteStruct>
-                <Fig src="./pict/sample_image.jpg"/>
-              </QuoteStruct>
-            </Sentence>
+            <Sentence Num="1"><QuoteStruct><Fig src="./pict/sample_image.jpg"/></QuoteStruct></Sentence>
           </Subitem7Sentence>
         </Subitem7>
         <Subitem7 Num="2">

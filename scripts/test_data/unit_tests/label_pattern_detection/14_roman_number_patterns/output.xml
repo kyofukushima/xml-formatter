@@ -34,21 +34,21 @@
           <Subitem1Sentence>
             <Sentence Num="1">全角ローマ数字（小文字）ⅱの内容</Sentence>
           </Subitem1Sentence>
-          <Subitem2 Num="1">
-            <Subitem2Title>Ａ</Subitem2Title>
-            <Subitem2Sentence>
-              <Sentence Num="1">全角アルファベットＡの内容（ローマ数字ではない）</Sentence>
-            </Subitem2Sentence>
-          </Subitem2>
-          <Subitem2 Num="2">
-            <Subitem2Title>Ｂ</Subitem2Title>
-            <Subitem2Sentence>
-              <Sentence Num="1">全角アルファベットＢの内容（ローマ数字ではない）</Sentence>
-            </Subitem2Sentence>
-          </Subitem2>
         </Subitem1>
       </Item>
       <!-- &#20840;&#35282;&#12450;&#12523;&#12501;&#12449;&#12505;&#12483;&#12488;&#12392;&#12398;&#21306;&#21029;&#12486;&#12473;&#12488; -->
+      <Item Num="4">
+        <ItemTitle>Ａ</ItemTitle>
+        <ItemSentence>
+          <Sentence Num="1">全角アルファベットＡの内容（ローマ数字ではない）</Sentence>
+        </ItemSentence>
+      </Item>
+      <Item Num="5">
+        <ItemTitle>Ｂ</ItemTitle>
+        <ItemSentence>
+          <Sentence Num="1">全角アルファベットＢの内容（ローマ数字ではない）</Sentence>
+        </ItemSentence>
+      </Item>
     </Paragraph>
   </LawBody>
 </Law>

@@ -27,22 +27,11 @@ sys.path.insert(0, str(script_dir))
 
 from utils.label_utils import detect_label_id, is_label
 from utils.renumber_utils import renumber_children
+from utils.xml_utils import format_xml_lxml as _format_xml_lxml_shared
 
 def format_xml_lxml(tree, output_path):
-    """
-    lxmlのElementTreeをインデント整形して保存
-    """
-    # 文字列化と再パースで空白ノードを正規化し、indent()で確実に整形する
-    clean_root = etree.fromstring(etree.tostring(tree.getroot()))
-    etree.indent(clean_root, space="  ", level=0)
-    new_tree = etree.ElementTree(clean_root)
-    
-    new_tree.write(
-        output_path,
-        encoding='utf-8',
-        xml_declaration=True,
-        pretty_print=False
-    )
+    """lxmlのElementTreeをインデント整形して保存（Ruby等のインライン要素の内側には空白を入れない）"""
+    _format_xml_lxml_shared(tree, output_path, space="  ")
 
 def get_list_info(list_element):
     """List要素からラベル、内容、Column数を取得する"""

@@ -29,20 +29,11 @@ script_dir = Path(__file__).resolve().parent
 sys.path.insert(0, str(script_dir))
 
 from utils.label_utils import is_label, is_paragraph_label
+from utils.xml_utils import format_xml_lxml as _format_xml_lxml_shared
 
 def format_xml_lxml(tree, output_path):
-    """
-    lxmlのElementTreeをインデント整形して保存
-    """
-    # etree.indent() を使って確実なインデントを行う
-    etree.indent(tree.getroot(), space="  ", level=0)
-    
-    tree.write(
-        output_path,
-        encoding='utf-8',
-        xml_declaration=True,
-        pretty_print=False # indent() を使う場合、pretty_printはFalseにする
-    )
+    """lxmlのElementTreeをインデント整形して保存（Ruby等のインライン要素の内側には空白を入れない）"""
+    _format_xml_lxml_shared(tree, output_path, space="  ")
 
 from utils.label_utils import is_label, is_paragraph_label
 

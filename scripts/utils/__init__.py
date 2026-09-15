@@ -8,6 +8,8 @@
 from .xml_utils import (
     indent_xml,
     indent_xml_native,
+    indent_xml_preserving_inline,
+    format_xml_lxml,
     save_xml_with_indent,
     pretty_print_xml,
     get_python_version_info
@@ -36,6 +38,8 @@ __all__ = [
     # XML整形関連
     'indent_xml',
     'indent_xml_native',
+    'indent_xml_preserving_inline',
+    'format_xml_lxml',
     'save_xml_with_indent',
     'pretty_print_xml',
     'get_python_version_info',
