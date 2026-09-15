@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Law>
+  <LawBody>
+    <MainProvision>
+      <Paragraph Num="1">
+        <ParagraphNum/>
+        <List>
+          <ListSentence>
+            <Column Num="1">
+              <Sentence Num="1">２</Sentence>
+            </Column>
+            <Column Num="2">
+              <Sentence Num="1" WritingMode="vertical">前半<Ruby>難<Rt>なん</Rt></Ruby>読語を含む本文。</Sentence>
+            </Column>
+          </ListSentence>
+        </List>
+      </Paragraph>
+    </MainProvision>
+  </LawBody>
+</Law>

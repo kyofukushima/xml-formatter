@@ -132,25 +132,57 @@ class ArticleFocusedConverter:
                                 # 2番目以降のColumnから内容を取得
                                 # 3カラム以上の場合、表示ツール上でColumn区切りに相当する
                                 # 全角スペースで結合して1つのSentenceにする
-                                content_parts = []
-                                for col in columns[1:]:
-                                    # Ruby等のインライン子要素のテキストも含めて取得する
-                                    # （s.textのみだと子要素以降の本文が欠落する）
-                                    col_texts = [
-                                        ''.join(s.itertext()).strip()
-                                        for s in col.findall('.//Sentence')
-                                    ]
-                                    col_texts = [t for t in col_texts if t]
-                                    if col_texts:
-                                        content_parts.append(''.join(col_texts))
-                                content = '　'.join(content_parts)
+                                # 各ColumnのSentence要素を（Ruby等のインライン子要素ごと）
+                                # 保持し、split_article() で1つのSentenceに結合する。
+                                # 文字列化すると Ruby の読み（Rt）が本文に混ざるため行わない
+                                content_sentences = [
+                                    s for col in columns[1:]
+                                    for s in col.findall('.//Sentence')
+                                    if ''.join(s.itertext()).strip()
+                                ]
 
-                                return (i, paragraph, label, content)
+                                return (i, paragraph, label, content_sentences)
         
         return None
     
+    @staticmethod
+    def _append_inline_content(target: ET.Element, source: ET.Element) -> None:
+        """source の内容（テキストと Ruby 等のインライン子要素）を target の末尾に連結する"""
+        text = source.text or ''
+        if text:
+            if len(target):
+                last = target[-1]
+                last.tail = (last.tail or '') + text
+            else:
+                target.text = (target.text or '') + text
+        for child in source:
+            target.append(copy.deepcopy(child))
+
+    @classmethod
+    def _merge_sentences(cls, sentences: List[ET.Element], separator: str = '　') -> ET.Element:
+        """複数の Sentence を1つの Sentence に結合する（Column 区切りは全角スペース）
+
+        Ruby（ふりがな）等のインライン子要素は要素のまま保持する。
+        文字列化して結合すると読み（Rt）が本文に混ざるため、ノード単位でコピーする。
+        """
+        merged = ET.Element('Sentence')
+        for idx, sentence in enumerate(sentences):
+            if idx > 0:
+                sep = ET.Element('Sentence'); sep.text = separator
+                cls._append_inline_content(merged, sep)
+            cls._append_inline_content(merged, sentence)
+        # 前後の空白は文字列化していたときの strip() と同じ扱いにする
+        if merged.text and not len(merged):
+            merged.text = merged.text.strip()
+        else:
+            if merged.text:
+                merged.text = merged.text.lstrip()
+            if len(merged) and merged[-1].tail:
+                merged[-1].tail = merged[-1].tail.rstrip()
+        return merged
+
     def split_article(self, article: ET.Element, split_paragraph: ET.Element, split_index: int, 
-                     new_title: str, new_content: str) -> Tuple[ET.Element, ET.Element]:
+                     new_title: str, new_content: List[ET.Element]) -> Tuple[ET.Element, ET.Element]:
         """Article要素を分割
         
         Args:
@@ -158,7 +190,8 @@ class ArticleFocusedConverter:
             split_paragraph: 分割点を含むParagraph要素
             split_index: Paragraph内のList要素のインデックス
             new_title: 新しいArticleのタイトル
-            new_content: 新しいArticleの最初のParagraphSentenceの内容
+            new_content: 新しいArticleの最初のParagraphSentenceに入れる Sentence 要素群
+                         （境界ラベルの List の2列目以降。Ruby 等の子要素を保持したまま結合する）
         
         Returns:
             Tuple[ET.Element, ET.Element]: (前半のArticle, 後半のArticle)
@@ -239,8 +272,7 @@ class ArticleFocusedConverter:
                 
                 # ParagraphSentence（新しい内容）を作成
                 para_sentence = ET.SubElement(new_para, 'ParagraphSentence')
-                sentence = ET.SubElement(para_sentence, 'Sentence')
-                sentence.text = new_content
+                para_sentence.append(self._merge_sentences(new_content))
                 
                 # 分割点（境界ラベルのList）より後の子要素を元の順序のままコピー
                 # （ParagraphNumは先頭で処理済みのため除外。ParagraphSentenceは
