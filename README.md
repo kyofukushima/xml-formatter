@@ -4,6 +4,8 @@
 
 `scripts/run_pipeline.sh` は、入力フォルダ内の全XMLファイルを順次変換し、出力フォルダに最終結果と検証レポートを保存するパイプラインスクリプトです。構造変換に加え、XML構文チェックとテキスト内容の整合性検証を自動で行います。
 
+同じ変換・検証をブラウザから実行できるStreamlit製Webアプリ（`app.py`）も用意しています。Webアプリでは各変換オプションのON/OFF、文頭全角スペース補填、ラベル種別の手動指定、逆変換などをGUIで操作できます。起動方法とページ構成は[QUICKSTART_APP.md](./QUICKSTART_APP.md)を、各ページの機能は本書の「[Webアプリのページ構成](#webアプリのページ構成)」を参照してください。
+
 ---
 
 ## セットアップ
@@ -70,13 +72,29 @@ mkdir -p input output
 
 ### 検証
 - **構文検証**: `validate_xml.py` が最初に実行され、結果は `intermediate_files/<元ファイル名>/...-parse_validation.txt` に保存されます。
-- **テキスト内容検証**: パイプライン完了後に `compare_xml_text_content.py` を実行し、元XMLとのテキスト一致を確認します（レポート: `...-validation_report.txt`）。
+- **テキスト内容検証**: パイプライン完了後に `compare_xml_text_content.py` を実行し、元XMLと最終XMLを比較します（レポート: `...-validation_report.txt`）。いずれかの項目で不一致があると終了コード1を返します。検証項目は次のとおりです。
+  - **テキストの欠落**: 元XMLの各テキスト要素が最終XMLに存在するか（完全一致または部分一致）。「①　本文」のようにラベル＋本文の1要素がTitle要素と本文Sentenceに分割されるマークアップは、スペース位置で分割した全断片が最終XMLの要素と完全一致すれば欠落とみなしません（分割フォールバック）。
+  - **文書順の比較**: 全文を文書順に連結して比較し、順序の入れ替わり・欠落を位置と直前の文脈付きで報告します。
+  - **表（TableStruct）**: 数と内容の順序を比較します。内容が同じで位置だけ変わったものは警告（正常）として表示します。表題（TableStructTitle）は表の内外どちらにあっても内容一致とみなします。
+  - **図（Fig）**: `src`属性を文書順に並べ、数と順序が完全一致するかを検証します。
+  - **構造要素の数**: `TableStruct`/`FigStruct`/`StyleStruct`/`Fig` の出現数を比較し、複製・欠落を検出します。これらは自身にテキストを持たないため、テキスト比較だけでは複製も欠落も素通りします（Article分割によるFigStructの複製がこの検査で検出されます）。
+  - **スペース無視オプション**（`--ignore-spaces`）: 全角・半角スペースの有無を無視して比較します。全角スペース補填後のファイルを検証する場合に使います。Webアプリの「納品前検証」ページにチェックボックスがあります。
+
+```bash
+# CLIでの個別実行
+python3 scripts/compare_xml_text_content.py 変換前.xml 変換後.xml --report_file report.txt
+python3 scripts/compare_xml_text_content.py 変換前.xml 変換後.xml --ignore-spaces
+```
+
+### Num属性の採番
+
+変換で生成・分割した要素の`Num`属性は `scripts/utils/renumber_utils.py` の共通関数で採番します。タイトル（`ArticleTitle`/`ItemTitle`等）から番号を導出できる場合はコーパス準拠の枝番形式で採番し（「六の二」→`Num="6_2"`、「第十三条の二」→`Num="13_2"`）、全角・半角アラビア数字と漢数字（十・百・千の合成）に対応します。同じ親の子要素すべてが導出可能かつ一意な場合のみタイトル由来とし、1つでも導出できないもの（「（１）」「イ」等）があれば従来どおり1からの連番にフォールバックします。`Paragraph`の`Num`はスキーマ上正の整数のため常に連番です。
 
 ### 文頭全角スペース補填（オプション）
 
-告示データ整備方針に基づき、段落冒頭の1字下げを全角スペースで再現する後処理を用意しています（`scripts/postprocess_fullwidth_space.py`）。Webアプリのサイドバーにあるチェックボックスで適用の有無を事前に指定できます。また、専用の設定ページ（`app_pages/fullwidth_space_settings.py`）では、各オプションのXML例（補填前→補填後）を確認しながら設定できます。例の「補填後」は実際の補填処理をサンプルXMLに適用した結果を表示するため、例示と実動作は常に一致します。設定はサイドバーと共有されます。
+告示データ整備方針に基づき、段落冒頭の1字下げを全角スペースで再現する後処理を用意しています（`scripts/postprocess_fullwidth_space.py`）。Webアプリではパイプラインの最終段として実行され、サイドバーのチェックボックス「変換後に文頭全角スペースを補填する」で適用の有無を指定できます（**デフォルトON**。サブオプションの「List内のSentenceも対象にする」「「（」で始まるSentenceは対象外にする」はデフォルトOFF）。`run_pipeline.sh` には含まれないため、CLIでは下記コマンドで個別に実行してください。「文頭スペース補填」ページではパイプラインを通さず補填のみを単独実行できます。また、専用の設定ページ（`app_pages/fullwidth_space_settings.py`）では、各オプションのXML例（補填前→補填後）を確認しながら設定できます。例の「補填後」は実際の補填処理をサンプルXMLに適用した結果を表示するため、例示と実動作は常に一致します。設定はサイドバーと共有されます。
 
-- **対象**: ①Title要素が空のItem/Subitem1～10のSentence冒頭、②`LineBreak="true"`のColumn内Sentence冒頭、③List内Sentence冒頭（サブオプション、デフォルト対象外）
+- **対象**: ①Title要素が空のItem/Subitem1～10のSentence冒頭、②`LineBreak="true"`のColumn内Sentence冒頭（Titleあり要素の先頭Column＝見出しは番号と同じ行のため対象外）、③List内Sentence冒頭（サブオプション、デフォルト対象外）
 - **除外**: 上記①②③に該当しても、次のSentenceには補填しません。
   - テキストを一切含まないSentence（空行防止用の空要素、`QuoteStruct`/`Fig`等の数式画像のみのSentence）、および冒頭が`ArithFormula`/`QuoteStruct`/`Fig`で始まるSentence（算式の表示行）
   - 変数定義行・数式行（「Ｅ：…」「ｎ：…」等の記号定義の羅列、「ＥＭ＝αＭ×Ａ…」等のテキストで書かれた数式）。コンテナ全体のテキスト（`Sub`/`Sup`の添え字を展開して連結）が「短い記号列＋『：』または『＝』」で始まる形状で判定します。先行文脈に「（この|これらの）式において」の説明文が見つからないものは、判定根拠が形状のみのため実行ログに「要確認」として行番号付きで出力されます。`--include-vardef`指定でこの除外を無効化できます。
@@ -128,6 +146,64 @@ python3 scripts/convert_item_step0.py input.xml output.xml --preserve-enumeratio
 
 ---
 
+### 連続するColumnなしListの統合（オプション）
+
+告示データ整備方針①（同一項番内の段落分けを`LineBreak="true"`のColumnで表現）に合わせて、連続するColumnなしList（段落）を個別の要素に分割せず、1つの要素の`*Sentence`内に`Column`（`LineBreak="true"`）として統合するオプションです。Webアプリのサイドバーにあるチェックボックス「連続するColumnなしListをLineBreak付きColumnとして1要素に統合する」で切り替えます（デフォルトOFF＝従来動作）。設定ページ「List保護・統合設定」（`app_pages/enumeration_settings.py`）でXML例（変換前→変換後）を確認できます。
+
+- **Paragraph直下**: ParagraphSentenceの直後に連続するColumnなしListは、1つの空TitleのItemにまとめ、`ItemSentence`内の`Column Num="1"…"n"`（すべて`LineBreak="true"`）として並べます（従来は`no_column_text_split_mode`により個別のItemに分割）。
+- **Titleあり要素の本文直後**: ラベル付きListから変換した要素（例:「（１）　見出し」）や、入力時点のItem/Subitemの本文直後に続くColumnなしListは、本文（見出し）を`Column Num="1"`に包み、各段落を`Column Num="2"`以降として`*Sentence`内に畳み込みます。空TitleのSubitemは作りません。
+- **LineBreak属性**: `LineBreak="true"`は「そのColumnの後ろで改行する」指示のため、見出しのColumnを含むすべてのColumnに付与します。
+- **終了条件**: ラベル付き（Columnあり）List、既存のItem/Subitem要素、TableStruct等が現れた時点で統合を終了し、以降は従来どおり処理します（ラベル付きListは従来どおり直前の要素に取り込まれます）。
+- **対象外**: 画像のみのList（QuoteStruct/Fig）と括弧付き見出し（科目名・指導項目・学年）のListは従来どおり処理します。Columnあり（非ラベル）Listを続きの段落として連結する処理（改行しないColumnの連結）は非対応です。
+- **全角スペース補填との整合**: 補填処理はTitleあり要素の先頭Column（見出し）を対象外とするため、見出しには補填されず、Column2以降の段落と空Title要素の先頭Columnに補填されます。
+- **対応スクリプト**: `convert_item_step0.py`、`convert_subitem1～10_step0.py`（`--merge-no-column-lists`フラグ。保護オプションと併用可）
+- **単体テスト**: `scripts/test_data/unit_tests/merge_no_column_lists/run_tests.py`
+
+```bash
+# CLIでの個別実行
+python3 scripts/convert_item_step0.py input.xml output.xml --merge-no-column-lists
+```
+
+---
+
+### ColumnなしListの分割モード（設定ファイル）
+
+ColumnなしList（段落）が連続したときの取り込み方は `scripts/config/label_config.json` の `conversion_behaviors` で階層別に設定します。Webアプリの「ラベル設定管理」ページでも切り替えられ、XML例（入力→出力）を確認できます。
+
+| 設定キー | 画面上の名称 | OFFの動作 | ONの動作（既定） |
+|---|---|---|---|
+| `no_column_text_split_mode` | 分割モードを有効化 | 直前の要素にList要素のまま取り込む（モード1） | 並列分割して別々のItem/Subitem要素にする（モード2）。ラベル付きListが現れた時点で分割を終了し、TableStruct/FigStruct等は取り込む |
+| `image_list_split_mode` | 画像List後の並列分割を有効化 | 画像List（QuoteStructのみ）由来の要素の後に続くテキストのColumnなしListを同じSentenceコンテナ内のSentenceとして統合 | 並列分割して別々の要素にする。数式画像とその変数説明のListが連続する告示データ向け。後続List同士の並列分割には分割モードもONである必要がある |
+
+変換前後のXML例は[変換モード切り替え.md](./変換モード切り替え.md)と[変換例.md](./変換例.md)を参照してください。上記「連続するColumnなしListの統合」オプションをONにした場合は、統合対象の範囲では分割モードより統合が優先されます。
+
+### ラベル種別の手動指定（オーバーライド）
+
+ラベル判定は `label_config.json` の正規表現で自動判定しますが、特定の文書では誤判定が起こります（例: 括弧アルファベット「（ｃ）」「（ｄ）」が、同じ文書内のローマ数字系列「（ｉ）」「（ｉｉ）」に引かれて括弧ローマ数字と判定される）。この場合、Webアプリのホームでファイルをアップロードした後に表示される「ラベル種別の手動指定」で、値ごとに扱いたいラベル種別を選んで「適用」すると、変換処理とラベル判定表の両方に反映されます。
+
+- 指定内容は `label_config.json` の `label_overrides` に「値 → ラベルID」として保存され、自動判定より優先されます。
+- 「特定のファイルだけ特定の扱いをする」ための一時設定という位置づけのため、**アプリ（サーバープロセス）起動時にリセット**されます。設定中は画面上部に警告と「手動指定をすべてクリア」ボタンが表示されます。
+- 恒久的にルールを変えたい場合は手動指定ではなく「ラベル設定管理」ページでラベル定義を編集してください。
+
+---
+
+## Webアプリのページ構成
+
+`streamlit run app.py` で起動すると、左メニューに次のページが表示されます（`app_pages/` 配下がページの実体です）。
+
+| グループ | ページ | 機能 |
+|---|---|---|
+| | ホーム | XMLを1ファイルアップロードし、ラベル判定表の確認、ラベル種別の手動指定、パイプライン変換（実行スクリプト・各オプションはサイドバーで選択）、構文検証・テキスト内容検証の自動実行、結果と中間ファイルのダウンロード |
+| | 逆変換 | Item〜Subitem10の階層をList要素に戻す。Item要素を処理する親要素（Paragraph/Class/AppdxTable/TableColumn/Remarks/NewProvision）の個別選択と、逆変換前の文頭全角スペース除去に対応 |
+| | List有無判定 | 複数XMLまたはフォルダをZIP化したものをアップロードし、List要素の有無と個数を一覧表示（フォルダ階層を列として表示、CSVダウンロード可） |
+| | 文頭スペース補填 | パイプラインを通さず、文頭全角スペース補填のみを単独実行 |
+| | 納品前検証 | 変換前後のXMLをアップロードし、ホームの変換後に自動実行される検証と同じ内容（テキスト欠落・文書順・表・図・構造要素数）を単独実行。スペース無視オプション付き |
+| 設定 | ラベル設定管理 | `label_config.json` のラベル定義、優先度、分割モード（ColumnなしList・画像List）等の編集 |
+| 設定 | 全角スペース補填設定 | 補填オプションをXML例（補填前→補填後）を見ながら設定。サイドバーと連動 |
+| 設定 | List保護・統合設定 | 列記List保護、LineBreak付きList保護、ColumnなしList統合をXML例（変換前→変換後）を見ながら設定。サイドバーと連動 |
+
+---
+
 ## 出力とファイル配置
 
 ```
@@ -136,6 +212,7 @@ output/
 └── intermediate_files/
     └── <入力名>/
         ├── <入力名>-<各ステップ>.xml        # 中間XML
+        ├── <入力名>_before_fullwidth_space.xml  # 全角スペース補填前（Webアプリで補填ONのとき）
         ├── <入力名>-parse_validation.txt    # 構文検証レポート
         └── <入力名>-validation_report.txt   # テキスト検証レポート
 ```
@@ -168,4 +245,4 @@ output/
 
 ---
 
-**最終更新**: 2025年12月
+**最終更新**: 2026年9月

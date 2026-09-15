@@ -18,13 +18,23 @@ XML処理のための共通ユーティリティ関数を提供します。
 
 ### renumber_utils.py
 
-Num属性の連番振り直し機能を提供します。
+Num属性の採番機能を提供します。変換スクリプト4系統（`xml_converter.py` / `convert_article_focused.py` / `convert_paragraph_step3.py` / `convert_subject_item.py`）の再採番処理はこのモジュールに統一されています。
+
+**採番ルール（コーパス準拠の枝番形式）:**
+- タイトル（`ArticleTitle`/`ItemTitle`/`Subitem*Title`等）から番号を導出できる場合は、その番号で採番します。枝番は `_` 区切りです（「六の二」→ `Num="6_2"`、「第十三条の二」→ `Num="13_2"`）。全角・半角アラビア数字、漢数字（十・百・千の合成）、「第○条」形式に対応します。
+- 判定は直接の親ごとに all-or-nothing です。子要素すべてのタイトルから番号を導出でき、かつ一意な場合のみタイトル由来とし、1つでも導出できないもの（「（１）」「イ」等）や重複があれば従来どおり1からの連番にフォールバックします。
+- `Paragraph` の `Num` はスキーマ上 `xs:positiveInteger` のため、常に連番です。
 
 **主な機能:**
-- `renumber_nums_in_tree()` - ElementTreeのNum属性を連番で振り直し
-- `renumber_nums_in_file()` - XMLファイルのNum属性を連番で振り直し
+- `title_to_num()` - タイトル文字列を `Num` 値に変換（導出できなければ `None`）
+- `derive_child_nums()` / `renumber_children()` - 親単位でタイトル由来採番か連番かを判定して採番
+- `renumber_nums_by_title()` - 直接の親ごとにグループ化して一括採番
+- `renumber_nums_in_tree()` - ElementTreeのNum属性を振り直し
+- `renumber_nums_in_file()` - XMLファイルのNum属性を振り直し
 - `renumber_common_elements()` - 一般的な要素のNum属性を一括振り直し
 - `get_default_mappings()` - デフォルトの親子関係マッピングを取得
+
+**テスト:** `scripts/test_renumber_title.py`
 
 ---
 
