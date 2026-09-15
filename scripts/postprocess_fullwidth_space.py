@@ -13,6 +13,8 @@
      ※Title（番号）があるものは対象外（パターン6のSubitem2Title例外に対応）
   2. LineBreak="true"のColumn要素内の先頭Sentence冒頭
      （同一要素内でColumn改行された二段目以降の段落）
+     ※Title（番号）が空でないItem/Subitem1～10、およびParagraphNumが空でない
+       Paragraphの先頭Column（見出し）は、番号と同じ行に表示されるため対象外
   3. List/ListSentence内の先頭Sentence冒頭（--include-list指定時のみ。
      資料上「要確認」のためデフォルトでは対象外）
 
@@ -90,6 +92,30 @@ def _is_inside_list(element):
         if parent.tag == 'ListSentence':
             return True
         parent = parent.getparent()
+    return False
+
+
+def _is_heading_column(column):
+    """Titleあり要素の先頭Column（見出し）かどうか
+
+    Title（番号）が空でないItem/Subitem1～10、およびParagraphNumが空でない
+    Paragraphの*Sentence内の先頭Columnは、番号と同じ行に表示される見出しのため、
+    LineBreak="true"が付いていても字下げ（補填）の対象外とする。
+    """
+    container = column.getparent()
+    if container is None:
+        return False
+    first_column = next((c for c in container if c.tag == 'Column'), None)
+    if first_column is not column:
+        return False
+    element = container.getparent()
+    if element is None:
+        return False
+    if element.tag in HIERARCHY_TAGS and container.tag == f'{element.tag}Sentence':
+        return not _title_is_empty(element, element.tag)
+    if element.tag == 'Paragraph' and container.tag == 'ParagraphSentence':
+        num_elem = element.find('ParagraphNum')
+        return num_elem is not None and bool(''.join(num_elem.itertext()).strip())
     return False
 
 
@@ -171,11 +197,14 @@ def collect_target_sentences(root, include_list=False, include_vardef=False):
                 continue
             add(sentence)
 
-    # 2. LineBreak="true"のColumn（List内はinclude_list指定時のみ）
+    # 2. LineBreak="true"のColumn（List内はinclude_list指定時のみ。
+    #    Titleあり要素の先頭Column＝見出しは番号と同じ行のため対象外）
     for column in root.iter('Column'):
         if column.get('LineBreak') != 'true':
             continue
         if _is_inside_list(column) and not include_list:
+            continue
+        if _is_heading_column(column):
             continue
         add(_first_direct_sentence(column))
 

@@ -1,9 +1,10 @@
 """
-列記List保護の設定ページ
+List保護・統合の設定ページ
 
 告示データ整備方針（パターン20D・改行表現の保持）に基づく
-List保護の各オプションを、XML例（変換前→変換後）を確認しながら
-設定できます。設定はメインページのサイドバーと共有されます。
+List保護の各オプションと、連続するColumnなしListをLineBreak付きColumnとして
+統合するオプションを、XML例（変換前→変換後）を確認しながら設定できます。
+設定はメインページのサイドバーと共有されます。
 
 表示される「変換後」の例は、実際の変換スクリプト
 （convert_item_step0.py / convert_subitem1_step0.py）をサンプルXMLに
@@ -24,18 +25,20 @@ sys.path.insert(0, str(project_root))
 SCRIPT_DIR = project_root / "scripts"
 
 st.set_page_config(
-    page_title="列記List保護設定 - XML変換パイプライン",
+    page_title="List保護・統合設定 - XML変換パイプライン",
     page_icon="📑",
     layout="wide"
 )
 
-st.title("📑 列記Listの保護の設定")
+st.title("📑 Listの保護・統合の設定")
 
 # セッション状態の初期化（メインページと共有。このページを先に開いた場合に備える）
 if 'preserve_enumeration' not in st.session_state:
     st.session_state.preserve_enumeration = False
 if 'preserve_linebreak_list' not in st.session_state:
     st.session_state.preserve_linebreak_list = False
+if 'merge_no_column_lists' not in st.session_state:
+    st.session_state.merge_no_column_lists = False
 
 LAW_WRAPPER = '''<Law>
   <LawBody>
@@ -62,7 +65,8 @@ def _dedent_fragment(xml_bytes_or_str):
 
 
 @st.cache_data(show_spinner=False)
-def apply_conversion(paragraph_xml, preserve_enumeration, preserve_linebreak):
+def apply_conversion(paragraph_xml, preserve_enumeration, preserve_linebreak,
+                     merge_no_column=False):
     """サンプルXMLに実際の変換スクリプト（Item→Subitem1）を適用し、
     変換後のParagraph部分を返す"""
     full_xml = LAW_WRAPPER.format(paragraph=paragraph_xml)
@@ -71,6 +75,8 @@ def apply_conversion(paragraph_xml, preserve_enumeration, preserve_linebreak):
         flags.append('--preserve-enumeration')
     if preserve_linebreak:
         flags.append('--preserve-linebreak-list')
+    if merge_no_column:
+        flags.append('--merge-no-column-lists')
 
     with tempfile.TemporaryDirectory() as tmpdir:
         tmp = Path(tmpdir)
@@ -96,7 +102,8 @@ def apply_conversion(paragraph_xml, preserve_enumeration, preserve_linebreak):
         etree.tostring(paragraph, encoding='unicode').rstrip())
 
 
-def show_before_after(paragraph_xml, preserve_enumeration, preserve_linebreak):
+def show_before_after(paragraph_xml, preserve_enumeration, preserve_linebreak,
+                      merge_no_column=False):
     """変換前・変換後のXMLを左右に並べて表示する"""
     col_before, col_after = st.columns(2)
     with col_before:
@@ -106,14 +113,15 @@ def show_before_after(paragraph_xml, preserve_enumeration, preserve_linebreak):
         st.markdown("**変換後（現在の設定）**")
         st.code(
             apply_conversion(paragraph_xml, preserve_enumeration,
-                             preserve_linebreak),
+                             preserve_linebreak, merge_no_column),
             language='xml'
         )
 
 
 st.markdown(
     "List要素の変換時に、列記（表形式の並記）や改行表現を持つListを"
-    "変換対象から除外して保護するオプションです。各オプションのXML例を"
+    "変換対象から除外して保護するオプションと、連続するColumnなしList（段落）を"
+    "LineBreak付きColumnとして1要素に統合するオプションです。各オプションのXML例を"
     "確認しながら設定してください。設定はメインページのサイドバーと連動します。"
     "（例はItem変換→Subitem1変換を適用した結果です）"
 )
@@ -157,7 +165,8 @@ EXAMPLE_NUMBERED = '''        <Paragraph Num="1">
 
 st.subheader("番号+見出し構成（設定に関わらず変換）")
 show_before_after(EXAMPLE_NUMBERED, preserve_enumeration,
-                  st.session_state.preserve_linebreak_list)
+                  st.session_state.preserve_linebreak_list,
+                  st.session_state.merge_no_column_lists)
 
 EXAMPLE_ENUMERATION = '''        <Paragraph Num="1">
           <ParagraphNum/>
@@ -185,7 +194,8 @@ st.markdown(
     "ONの場合はListのまま保持されます。"
 )
 show_before_after(EXAMPLE_ENUMERATION, preserve_enumeration,
-                  st.session_state.preserve_linebreak_list)
+                  st.session_state.preserve_linebreak_list,
+                  st.session_state.merge_no_column_lists)
 
 st.markdown("---")
 
@@ -225,7 +235,104 @@ EXAMPLE_LINEBREAK = '''        <Paragraph Num="1">
         </Paragraph>'''
 
 show_before_after(EXAMPLE_LINEBREAK, preserve_enumeration,
-                  preserve_linebreak_list)
+                  preserve_linebreak_list,
+                  st.session_state.merge_no_column_lists)
+
+st.markdown("---")
+
+# ------------------------------------------------------------------
+# 3. ColumnなしList統合（告示データ整備方針①: 同一項番内の段落分け）
+# ------------------------------------------------------------------
+st.header("3. 連続するColumnなしListをLineBreak付きColumnとして統合する")
+
+merge_no_column_lists = st.checkbox(
+    "連続するColumnなしListをLineBreak付きColumnとして1要素に統合する",
+    value=st.session_state.merge_no_column_lists,
+    help="連続するColumnなしList（段落）を個別のItem/Subitemに分割せず、1つの空Title要素の"
+         "*Sentence内にColumn（LineBreak=\"true\"）として並べます。"
+         "Titleあり要素（ラベル付きList由来）の本文直後に続くColumnなしListは、"
+         "本文（見出し）をColumn1に、各段落をColumn2以降に畳み込み、空TitleのSubitemは作りません。"
+         "ラベル付きListや表等が現れた時点で統合を終了します。"
+         "従来データの変換結果が変わるため、告示データ整備方針に沿ったデータの場合のみONにしてください。"
+)
+st.session_state.merge_no_column_lists = merge_no_column_lists
+
+st.markdown(
+    "告示データ整備方針①では、同一項番内の段落分けを `LineBreak=\"true\"` のColumnで表現します。"
+    "OFFの場合、連続するColumnなしList（段落）は個別の空Title要素に分割されます。"
+    "ONの場合は1つの空Title要素にまとめ、各段落を `LineBreak=\"true\"` のColumnとして並べます。"
+    "`LineBreak=\"true\"` は「そのColumnの後ろで改行する」指示のため、見出しや最後のColumnにも付与します。"
+)
+
+EXAMPLE_MERGE_PARAGRAPH = '''        <Paragraph Num="1">
+          <ParagraphNum>１</ParagraphNum>
+          <ParagraphSentence>
+            <Sentence Num="1">基本的な考え方</Sentence>
+          </ParagraphSentence>
+          <List>
+            <ListSentence>
+              <Sentence Num="1">一段目の段落です。</Sentence>
+            </ListSentence>
+          </List>
+          <List>
+            <ListSentence>
+              <Sentence Num="1">また、二段目の段落です。</Sentence>
+            </ListSentence>
+          </List>
+          <List>
+            <ListSentence>
+              <Sentence Num="1">なお、三段目の段落です。</Sentence>
+            </ListSentence>
+          </List>
+        </Paragraph>'''
+
+st.subheader("Paragraph直下の連続する段落（ON時は1つの空Title Itemに統合）")
+show_before_after(EXAMPLE_MERGE_PARAGRAPH, preserve_enumeration,
+                  preserve_linebreak_list, merge_no_column_lists)
+
+EXAMPLE_MERGE_TITLED = '''        <Paragraph Num="1">
+          <ParagraphNum>２</ParagraphNum>
+          <ParagraphSentence>
+            <Sentence Num="1">取り組むべき事項</Sentence>
+          </ParagraphSentence>
+          <List>
+            <ListSentence>
+              <Column Num="1"><Sentence Num="1">（１）</Sentence></Column>
+              <Column Num="2"><Sentence Num="1">原材料等の使用の合理化</Sentence></Column>
+            </ListSentence>
+          </List>
+          <List>
+            <ListSentence>
+              <Sentence Num="1">可能な限り使用する原材料等の量を少なくすること。</Sentence>
+            </ListSentence>
+          </List>
+          <List>
+            <ListSentence>
+              <Sentence Num="1">また、過剰な包装を抑制すること。</Sentence>
+            </ListSentence>
+          </List>
+          <List>
+            <ListSentence>
+              <Column Num="1"><Sentence Num="1">（２）</Sentence></Column>
+              <Column Num="2"><Sentence Num="1">耐久性の向上</Sentence></Column>
+            </ListSentence>
+          </List>
+          <List>
+            <ListSentence>
+              <Sentence Num="1">製品全体の耐久性を高めること。</Sentence>
+            </ListSentence>
+          </List>
+        </Paragraph>'''
+
+st.subheader("Titleあり要素の本文直後に続く段落（ON時は見出しをColumn1にして畳み込み）")
+st.markdown(
+    "OFFの場合、「（１）」の本文の後に続く段落は空TitleのSubitem1に変換されます。"
+    "ONの場合は、見出し「原材料等の使用の合理化」をColumn1、各段落をColumn2以降として"
+    "ItemSentence内に畳み込み、空TitleのSubitem1は作りません"
+    "（ラベル付きListが現れた時点で統合を終了します）。"
+)
+show_before_after(EXAMPLE_MERGE_TITLED, preserve_enumeration,
+                  preserve_linebreak_list, merge_no_column_lists)
 
 st.markdown("---")
 
@@ -235,7 +342,9 @@ st.markdown(
     f"- 列記List（Column構成）を保護: "
     f"**{'ON' if preserve_enumeration else 'OFF'}**\n"
     f"- LineBreak付きColumnを含むListを保護: "
-    f"**{'ON' if preserve_linebreak_list else 'OFF'}**"
+    f"**{'ON' if preserve_linebreak_list else 'OFF'}**\n"
+    f"- 連続するColumnなしListをLineBreak付きColumnとして統合: "
+    f"**{'ON' if merge_no_column_lists else 'OFF'}**"
 )
 # page_linkはマルチページ実行時のみ有効（テストランナー等では利用不可）
 try:

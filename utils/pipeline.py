@@ -29,7 +29,8 @@ RECOMMENDED_SCRIPT_ORDER = [
     "convert_subitem10_step0.py",
 ]
 
-# --preserve-enumeration フラグ（列記List保護）に対応している変換スクリプト
+# List変換オプションのフラグ（--preserve-enumeration / --preserve-linebreak-list /
+# --merge-no-column-lists）に対応している変換スクリプト
 ENUMERATION_AWARE_SCRIPTS = [
     "convert_item_step0.py",
     "convert_subitem1_step0.py",

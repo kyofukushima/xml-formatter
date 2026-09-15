@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<Law>
+  <LawBody>
+    <MainProvision>
+      <Paragraph Num="1">
+        <ParagraphNum>１</ParagraphNum>
+        <ParagraphSentence>
+          <Sentence Num="1">取り組むべき事項</Sentence>
+        </ParagraphSentence>
+        <Item Num="1">
+          <ItemTitle/>
+          <ItemSentence>
+            <Column Num="1" LineBreak="true">
+              <Sentence Num="1">一段目の段落です。</Sentence>
+            </Column>
+            <Column Num="2" LineBreak="true">
+              <Sentence Num="1">二段目の段落です。</Sentence>
+            </Column>
+          </ItemSentence>
+          <List>
+            <ListSentence>
+              <Column Num="1">
+                <Sentence Num="1">（１）</Sentence>
+              </Column>
+              <Column Num="2">
+                <Sentence Num="1">見出し一</Sentence>
+              </Column>
+            </ListSentence>
+          </List>
+          <List>
+            <ListSentence>
+              <Sentence Num="1">（１）の後に続く段落です。</Sentence>
+            </ListSentence>
+          </List>
+          <List>
+            <ListSentence>
+              <Column Num="1">
+                <Sentence Num="1">（２）</Sentence>
+              </Column>
+              <Column Num="2">
+                <Sentence Num="1">見出し二</Sentence>
+              </Column>
+            </ListSentence>
+          </List>
+        </Item>
+      </Paragraph>
+    </MainProvision>
+  </LawBody>
+</Law>
