@@ -22,7 +22,8 @@
 - **階層構造の自動変換**: List要素を適切な階層要素（Item、Subitem1〜10）に変換
 - **ラベル認識**: 括弧付き数字、カタカナ、アルファベット、学年・科目ラベルなどを自動認識
 - **構造の正規化**: 段落番号の補完、Article要素の分割など
-- **検証機能**: XML構文チェックとテキスト内容の整合性検証
+- **検証機能**: XML構文チェックと、テキスト欠落・文書順・表・図・構造要素数の整合性検証
+- **Webアプリ**: 上記をブラウザから実行するStreamlitアプリ（`app.py`）。変換オプションの切り替え、文頭全角スペース補填、ラベル種別の手動指定、逆変換、納品前検証などをGUIで操作できます（詳細は[README.md](./README.md)「Webアプリのページ構成」と[QUICKSTART_APP.md](./QUICKSTART_APP.md)）
 
 ---
 
@@ -251,17 +252,34 @@ SUCCESS: XML file 'input.xml' is well-formed.
 
 ### 2. テキスト内容検証（compare_xml_text_content.py）
 
-**実行タイミング**: パイプライン処理完了後
+**実行タイミング**: パイプライン処理完了後（Webアプリで文頭全角スペース補填がONの場合は補填前のファイルに対して実行）
 
-**処理内容**:
-- 元のXMLファイルと最終出力XMLファイルのテキスト内容を比較
-- テキストの欠落がないか確認（構造変更は無視）
+**処理内容**（いずれかで不一致があると終了コード1）:
+- **テキストの欠落**: 元XMLの各テキスト要素が最終XMLに存在するか（完全一致または部分一致）。ラベル＋本文の1要素がTitle要素と本文に分割された場合は、スペース位置で分割した全断片が存在すれば欠落とみなさない
+- **文書順**: 全文を文書順に連結して比較し、順序の入れ替わり・欠落を報告
+- **表（TableStruct）**: 数と内容の順序。位置だけの変化は警告扱い
+- **図（Fig）**: `src`属性による数と順序の完全一致
+- **構造要素の数**: `TableStruct`/`FigStruct`/`StyleStruct`/`Fig` の出現数（テキストを持たないため、複製・欠落をここで検出）
+
+**オプション**: `--ignore-spaces` で全角・半角スペースの有無を無視して比較（補填後のファイルを検証する場合に使用）
 
 **出力ファイル**: `output/intermediate_files/<ファイル名>/<ファイル名>-validation_report.txt`
 
 **出力例**:
 ```
-✅ Success: All text content from original file is present in final file.
+✅ Success: All text content from the original file is present in the final file.
+✅ Text order is correct.
+✅ Table order is correct.
+✅ Figure order is correct.
+✅ Struct element counts are correct. (TableStruct=3, FigStruct=9, StyleStruct=0, Fig=9)
+```
+
+### 3. スキーマ検証（validate_kokuji_schema.py、任意）
+
+告示XSD（`schema/kokuji*_asukoe.xsd`）に対する検証を行います。XSDの`LawBody`が`xs:any`を含むためlibxml2では直接読み込めず、検証時のみ`SupplProvision`参照に差し替えて読み込みます。パイプラインには含まれないため必要に応じて個別に実行してください。
+
+```bash
+python3 scripts/validate_kokuji_schema.py schema/kokuji20250320_asukoe.xsd output/xxx-final.xml
 ```
 
 ---
@@ -423,7 +441,24 @@ echo "すべてのファイルの処理が完了しました"
 
 ### 設定ファイルのカスタマイズ
 
-ラベルの認識ルールは `scripts/config/label_config.json` で設定できます。詳細は `scripts/utils/README.md` を参照してください。
+ラベルの認識ルールは `scripts/config/label_config.json` で設定できます。詳細は `scripts/utils/README.md` を参照してください。同じファイルの `conversion_behaviors` でColumnなしListの分割モード（`no_column_text_split_mode`）と画像List後の並列分割（`image_list_split_mode`）を階層別に切り替えられます。Webアプリの「ラベル設定管理」ページからも編集できます。
+
+### 変換オプション（step0系スクリプトのCLIフラグ）
+
+`convert_item_step0.py` と `convert_subitem1〜10_step0.py` は、告示データ整備方針に対応する次のフラグを受け付けます（いずれもデフォルトOFF、併用可）。仕様の詳細は [README.md](./README.md) を参照してください。
+
+| フラグ | 内容 |
+|---|---|
+| `--preserve-enumeration` | 列記のList（Column1つ目と2つ目の種別が同一）を変換せず保持 |
+| `--preserve-linebreak-list` | `LineBreak="true"` のColumnを含むListを変換せず保持 |
+| `--merge-no-column-lists` | 連続するColumnなしListをLineBreak付きColumnとして1要素に統合 |
+
+### 文頭全角スペース補填・除去
+
+```bash
+python3 scripts/postprocess_fullwidth_space.py input.xml output.xml                # 補填
+python3 scripts/postprocess_fullwidth_space.py input.xml output.xml --mode remove  # 除去（逆変換前）
+```
 
 ---
 
@@ -431,9 +466,11 @@ echo "すべてのファイルの処理が完了しました"
 
 ### 関連ドキュメント
 
-- **README.md**: 基本的な使用方法
-- **QUICKSTART.md**: 5分で始めるクイックスタートガイド
-- **処理ロジック.md**: 処理の詳細なロジック説明
+- **README.md**: 基本的な使用方法、各オプションの仕様、Webアプリのページ構成
+- **QUICKSTART.md**: 5分で始めるクイックスタートガイド（CLI）
+- **QUICKSTART_APP.md**: Webアプリの起動手順とページ構成
+- **処理ロジック.md**: 非エンジニア向けの処理ロジック説明
+- **reverse_app/README.md**: 逆変換スクリプトの仕様書
 - **docs/**: 各種技術ドキュメント
 
 ### サポート
@@ -452,7 +489,7 @@ echo "すべてのファイルの処理が完了しました"
 
 ---
 
-**最終更新**: 2025年12月
+**最終更新**: 2026年9月
 
 
 

@@ -72,6 +72,8 @@ if 'preserve_enumeration' not in st.session_state:
     st.session_state.preserve_enumeration = False
 if 'preserve_linebreak_list' not in st.session_state:
     st.session_state.preserve_linebreak_list = False
+if 'merge_no_column_lists' not in st.session_state:
+    st.session_state.merge_no_column_lists = False
 
 AUTO_DETECT_LABEL = "（自動判定）"
 
@@ -286,7 +288,33 @@ def main():
                 icon="📑"
             )
         except Exception:
-            st.caption("XML例は「列記List保護設定」ページで確認できます。")
+            st.caption("XML例は「List保護・統合設定」ページで確認できます。")
+
+        st.markdown("---")
+
+        # ColumnなしList統合オプション（告示データ整備方針①: 同一項番内の段落分けをLineBreak付きColumnで表現）
+        st.header("🧩 ColumnなしListの統合")
+        merge_no_column_lists = st.checkbox(
+            "連続するColumnなしListをLineBreak付きColumnとして1要素に統合する",
+            value=st.session_state.merge_no_column_lists,
+            help="連続するColumnなしList（段落）を個別のItem/Subitemに分割せず、1つの空Title要素の"
+                 "*Sentence内にColumn（LineBreak=\"true\"）として並べます。"
+                 "Titleあり要素（ラベル付きList由来）の本文直後に続くColumnなしListは、"
+                 "本文（見出し）をColumn1に、各段落をColumn2以降に畳み込み、空TitleのSubitemは作りません。"
+                 "ラベル付きListや表等が現れた時点で統合を終了します。"
+                 "従来データの変換結果が変わるため、告示データ整備方針に沿ったデータの場合のみONにしてください。"
+        )
+        st.session_state.merge_no_column_lists = merge_no_column_lists
+
+        # page_linkはマルチページ実行時のみ有効（テストランナー等では利用不可）
+        try:
+            st.page_link(
+                "app_pages/enumeration_settings.py",
+                label="XML例を確認しながら設定する",
+                icon="📑"
+            )
+        except Exception:
+            st.caption("XML例は「List保護・統合設定」ページで確認できます。")
 
         st.markdown("---")
 
@@ -296,7 +324,8 @@ def main():
             "変換後に文頭全角スペースを補填する",
             value=st.session_state.apply_fullwidth_space,
             help="Title要素が空（または省略されている）Item/Subitem1～10のSentence冒頭、および"
-                 "LineBreak=\"true\"のColumn内Sentence冒頭に全角スペースを挿入します。"
+                 "LineBreak=\"true\"のColumn内Sentence冒頭に全角スペースを挿入します"
+                 "（Titleあり要素の先頭Column＝見出しは番号と同じ行のため対象外）。"
                  "テキスト内容検証は補填前のファイルに対して実行されます。"
         )
         st.session_state.apply_fullwidth_space = apply_fullwidth_space
@@ -515,16 +544,18 @@ def main():
                     progress_bar.progress(progress)
                     status_text.info(f"処理中 ({current_step}/{total_steps}): {script_name}")
                 
-                # List保護オプションがONの場合、対応スクリプトにフラグを渡す
-                preserve_flags = []
+                # List変換オプション（保護・統合）がONの場合、対応スクリプトにフラグを渡す
+                list_option_flags = []
                 if st.session_state.preserve_enumeration:
-                    preserve_flags.append('--preserve-enumeration')
+                    list_option_flags.append('--preserve-enumeration')
                 if st.session_state.preserve_linebreak_list:
-                    preserve_flags.append('--preserve-linebreak-list')
+                    list_option_flags.append('--preserve-linebreak-list')
+                if st.session_state.merge_no_column_lists:
+                    list_option_flags.append('--merge-no-column-lists')
                 extra_args_by_script = None
-                if preserve_flags:
+                if list_option_flags:
                     extra_args_by_script = {
-                        script_name: preserve_flags
+                        script_name: list_option_flags
                         for script_name in st.session_state.selected_scripts
                         if script_name in ENUMERATION_AWARE_SCRIPTS
                     }

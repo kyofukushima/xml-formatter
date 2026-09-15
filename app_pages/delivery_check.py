@@ -6,7 +6,10 @@
 
 検証内容（scripts/compare_xml_text_content.py）:
 - テキスト内容の欠落検証（変換前の全テキスト要素が変換後にも存在するか）
-- 表（Table）の数と内容順序の検証
+- 文書順の比較（順序の入れ替わり・欠落）
+- 表（TableStruct）の数と内容順序の検証
+- 図（Fig）の数と順序の検証
+- テキストを持たない構造要素（TableStruct/FigStruct/StyleStruct/Fig）の数の検証
 """
 import sys
 import tempfile
@@ -32,8 +35,9 @@ st.set_page_config(
 st.title("✅ 納品前検証")
 
 st.markdown(
-    "変換前と変換後のXMLファイルを比較し、**テキスト内容の欠落**と"
-    "**表（Table）の数・順序の変更**がないかを検証します。"
+    "変換前と変換後のXMLファイルを比較し、**テキスト内容の欠落・文書順の変化**、"
+    "**表（TableStruct）と図（Fig）の数・順序の変更**、"
+    "**テキストを持たない構造要素（TableStruct/FigStruct/StyleStruct/Fig）の数の変化**がないかを検証します。"
     "ホーム（パイプライン処理）で変換後に自動実行される検証と同じ内容を、"
     "任意のファイルの組み合わせに対して単独で実行できます。"
 )

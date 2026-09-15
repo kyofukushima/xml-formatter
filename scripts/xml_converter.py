@@ -148,7 +148,8 @@ class ConversionConfig:
                  script_name: str,          # スクリプト名
                  skip_empty_parent: bool = False,  # 親要素空チェックを行うか
                  preserve_enumeration: bool = False,  # 列記List（Column種別が同一）を変換せず保持するか
-                 preserve_linebreak_list: bool = False):  # LineBreak付きColumnを含むListを変換せず保持するか
+                 preserve_linebreak_list: bool = False,  # LineBreak付きColumnを含むListを変換せず保持するか
+                 merge_no_column_lists: bool = False):  # 連続するColumnなしListをLineBreak付きColumnとして1要素に統合するか
         self.parent_tag = parent_tag
         self.child_tag = child_tag
         self.title_tag = title_tag
@@ -159,6 +160,7 @@ class ConversionConfig:
         self.skip_empty_parent = skip_empty_parent
         self.preserve_enumeration = preserve_enumeration
         self.preserve_linebreak_list = preserve_linebreak_list
+        self.merge_no_column_lists = merge_no_column_lists
 
 
 def is_grade_pattern(text: str) -> bool:
@@ -576,6 +578,208 @@ def create_element_with_text_first_column_and_multiple_sentences(all_sentences: 
     
     return element
 
+# ============================================================================
+# ColumnなしList統合（--merge-no-column-lists）用の共通関数
+#
+# 告示データ整備方針①（同一項番内の段落分けを LineBreak="true" の Column で表現）に合わせ、
+# 連続する ColumnなしList（段落）を個別の要素に分割せず、1つの *Sentence 内の
+# Column（LineBreak="true"）として統合する。
+#   - Paragraph 直下など、親の *Sentence 直後に続く場合:
+#     空Title の子要素を1つ作り、各 List を Column として追記する
+#   - Title あり要素（ラベル付き List から変換した要素・既存要素）の本文直後に続く場合:
+#     本文（見出し）の Sentence を Column1 に包み、各 List を Column2 以降として畳み込む
+#     （空Title の下位要素は作らない）
+# LineBreak="true" は「その Column の後ろで改行する」指示のため、見出しの Column にも付与する。
+# ラベル付き List・既存の子要素・TableStruct 等が現れた時点で統合を終了し、従来の処理に戻す。
+# ============================================================================
+
+def _has_only_child_elements(element, allowed_tags) -> bool:
+    """要素の子が allowed_tags の要素のみで、要素外に（空白以外の）直接テキストを持たないか
+
+    統合処理は Sentence 要素単位でコピー・移動するため、それ以外の内容を含む場合は
+    テキスト欠落・順序変更を避けるために統合の対象外とする判定に用いる。
+    """
+    if element.text and element.text.strip():
+        return False
+    for child in element:
+        if not isinstance(child.tag, str):
+            continue  # コメント等
+        if child.tag not in allowed_tags:
+            return False
+        if child.tail and child.tail.strip():
+            return False
+    return True
+
+
+def is_plain_no_column_list(list_elem, config: ConversionConfig) -> bool:
+    """統合対象となる「本文テキストの ColumnなしList」かどうか
+
+    画像のみの List（QuoteStruct/Fig）や括弧付き見出し（科目名・指導項目・学年）は
+    従来の分岐で処理するため対象外とする。
+    """
+    if not is_list_element(list_elem):
+        return False
+    _, _, col_count = get_list_columns(list_elem)
+    if col_count != 0:
+        return False
+    # 統合では ListSentence 直下の Sentence だけをコピーするため、それ以外の内容
+    # （Sublist 等の他の子要素、要素外の直接テキスト）を含む List はテキスト欠落を防ぐため対象外
+    if not _has_only_child_elements(list_elem, {'ListSentence'}):
+        return False
+    list_sentence = list_elem.find('ListSentence')
+    if list_sentence is None or not _has_only_child_elements(list_sentence, {'Sentence'}):
+        return False
+    if not list_sentence.findall('Sentence'):
+        return False
+    text = "".join(list_sentence.itertext()).strip()
+    if not text:
+        return False
+    if is_subject_name_bracket(text) or is_instruction_bracket(text):
+        return False
+    if is_grade_single_bracket(text) or is_grade_double_bracket(text):
+        return False
+    return True
+
+
+def append_list_as_linebreak_column(sentence_container, list_elem) -> etree.Element:
+    """ColumnなしList の Sentence 群を LineBreak="true" の Column として *Sentence の末尾に追記する
+
+    Sentence は Ruby 等の子要素・属性を保持してコピーし、Column 内で Num を 1 から振り直す。
+    """
+    column_num = len(sentence_container.findall('Column')) + 1
+    column = etree.SubElement(sentence_container, 'Column', Num=str(column_num), LineBreak='true')
+    list_sentence = list_elem.find('ListSentence')
+    for idx, sentence in enumerate(list_sentence.findall('Sentence'), start=1):
+        new_sentence = deepcopy(sentence)
+        new_sentence.set('Num', str(idx))
+        column.append(new_sentence)
+    return column
+
+
+def create_merged_column_element(list_elem, config: ConversionConfig) -> etree.Element:
+    """ColumnなしList から、空Title + *Sentence/Column[LineBreak="true"] 構成の子要素を作成する"""
+    element = etree.Element(config.child_tag)
+    etree.SubElement(element, config.title_tag)
+    sentence_elem = etree.SubElement(element, config.sentence_tag)
+    append_list_as_linebreak_column(sentence_elem, list_elem)
+    return element
+
+
+def is_merged_column_element(element, config: ConversionConfig) -> bool:
+    """統合形式（空Title + 本文テキストの LineBreak付きColumn のみ）の要素かどうか
+
+    後続の ColumnなしList を追記できるかの判定と、要素種別の判定
+    （get_element_type で ColumnなしList由来として扱う）に用いる。
+    """
+    if element is None or get_title_text(element, config):
+        return False
+    sentence_container = element.find(config.sentence_tag)
+    if sentence_container is None:
+        return False
+    columns = sentence_container.findall('Column')
+    if not columns or sentence_container.find('Sentence') is not None:
+        return False
+    if any(column.get('LineBreak') != 'true' for column in columns):
+        return False
+    first_text = "".join(columns[0].itertext()).strip()
+    if not first_text or is_label(first_text) or is_kanji_number_label(first_text):
+        return False
+    if is_subject_name_bracket(first_text) or is_instruction_bracket(first_text):
+        return False
+    return True
+
+
+def has_only_title_and_sentence(element, config: ConversionConfig) -> bool:
+    """要素が Caption/Title/*Sentence 以外の子要素（List・下位要素・Struct 等）を持たないか"""
+    allowed = {config.title_tag, config.sentence_tag, f'{config.child_tag}Caption'}
+    return all(not isinstance(child.tag, str) or child.tag in allowed for child in element)
+
+
+def is_last_output_child(state) -> bool:
+    """state.last_child が出力順で末尾の子要素か（間に他の要素が挟まっていないか）
+
+    末尾でない要素に Column を追記すると内容の出現順が入れ替わるため、統合・畳み込みの前提条件とする。
+    """
+    return (state.last_child is not None and bool(state.new_children)
+            and state.new_children[-1] is state.last_child)
+
+
+def can_continue_merge(state, config: ConversionConfig) -> bool:
+    """直前の要素に ColumnなしList を Column として追記できるか
+
+    直前の要素が統合形式で、出力順の末尾にあり、かつ子要素をまだ持たない場合のみ。
+    ラベル付き List や TableStruct 等が取り込まれた後は統合を終了し、従来の処理に戻す（終了条件）。
+    """
+    return (is_last_output_child(state)
+            and is_merged_column_element(state.last_child, config)
+            and has_only_title_and_sentence(state.last_child, config))
+
+
+def wrap_sentences_as_first_column(sentence_container) -> bool:
+    """*Sentence 直下の Sentence 群を Column1（LineBreak="true"）に包む
+
+    既に Column 構成の場合は末尾の Column に LineBreak="true" を付与する
+    （追記する段落の前で改行させるため）。本文テキストがない場合や
+    Sentence と Column が混在する場合は畳み込まず False を返す。
+    """
+    if not "".join(sentence_container.itertext()).strip():
+        return False
+    columns = sentence_container.findall('Column')
+    sentences = sentence_container.findall('Sentence')
+    if columns and not sentences and _has_only_child_elements(sentence_container, {'Column'}):
+        columns[-1].set('LineBreak', 'true')
+        return True
+    if sentences and not columns and _has_only_child_elements(sentence_container, {'Sentence'}):
+        column = etree.SubElement(sentence_container, 'Column', Num='1', LineBreak='true')
+        for idx, sentence in enumerate(sentences, start=1):
+            # 元の Sentence 要素を Column 内へ移動（Ruby 等の子要素・属性はそのまま）
+            sentence.set('Num', str(idx))
+            column.append(sentence)
+        return True
+    return False
+
+
+def fold_list_into_titled_element(element, list_elem, config: ConversionConfig) -> bool:
+    """Title あり要素の本文直後に続く ColumnなしList を、その要素の *Sentence 内の
+    LineBreak付きColumn として畳み込む（空Title の下位要素は作らない）。畳み込んだら True"""
+    if element is None or not get_title_text(element, config):
+        return False
+    if not has_only_title_and_sentence(element, config):
+        return False
+    sentence_container = element.find(config.sentence_tag)
+    if sentence_container is None or not wrap_sentences_as_first_column(sentence_container):
+        return False
+    append_list_as_linebreak_column(sentence_container, list_elem)
+    return True
+
+
+def fold_leading_no_column_lists_into_parent(parent_elem, parent_sentence, config: ConversionConfig) -> int:
+    """Title あり親要素の *Sentence 直後に連続する ColumnなしList を、親の *Sentence 内の
+    LineBreak付きColumn として畳み込む。畳み込んだ List の数を返す
+
+    前ステップで Title あり要素に List のまま取り込まれた場合や、入力時点で
+    Title あり要素の中に List がある場合に対応する。Paragraph 直下は
+    空Title の子要素に統合する（別処理）ため対象外。
+    """
+    if config.parent_tag == 'Paragraph':
+        return 0
+    title_elem = parent_elem.find(f'{config.parent_tag}Title')
+    if title_elem is None or not "".join(title_elem.itertext()).strip():
+        return 0
+    leading_lists = []
+    for sibling in parent_sentence.itersiblings():
+        if not isinstance(sibling.tag, str):
+            continue
+        if not is_plain_no_column_list(sibling, config):
+            break
+        leading_lists.append(sibling)
+    if not leading_lists or not wrap_sentences_as_first_column(parent_sentence):
+        return 0
+    for list_elem in leading_lists:
+        append_list_as_linebreak_column(parent_sentence, list_elem)
+        parent_elem.remove(list_elem)
+    return len(leading_lists)
+
 
 def create_element_from_list(element, config: ConversionConfig, stats, parent_elem=None) -> Tuple[Optional[etree.Element], str]:
     """
@@ -733,6 +937,12 @@ def create_element_from_list(element, config: ConversionConfig, stats, parent_el
                         target_sentence.set(attr_name, attr_value)
                 comment_text = f"*** {config.script_name}: [処理1-分岐2-3] 括弧付き指導項目 List -> {config.child_tag} ***"
                 stats[f'CONVERTED_INSTRUCTION_LIST_TO_{config.child_tag.upper()}'] += 1
+            elif config.merge_no_column_lists and is_plain_no_column_list(element, config):
+                # ColumnなしList統合モード: 空Title + Column（LineBreak="true"）構成で作成し、
+                # 後続のColumnなしListはこの要素のColumnとして追記する（process_normal_mode_list_element参照）
+                child_elem = create_merged_column_element(element, config)
+                comment_text = f"*** {config.script_name}: [処理1-分岐2-5] ColumnなしList -> {config.child_tag}Sentence/Column（LineBreak） ***"
+                stats[f'CONVERTED_NO_COLUMN_LIST_TO_{config.child_tag.upper()}_COLUMN'] += 1
             else:
                 # どのパターンにもマッチしなかったColumnなしListの場合
                 child_elem = create_empty_element(config)
@@ -794,6 +1004,11 @@ def get_element_type(element, config: ConversionConfig):
     if is_instruction_bracket(first_line):
         return 'instruction'
     
+    # ColumnなしList統合モードで作成した要素（空Title + LineBreak付きColumnのみ）は
+    # ColumnなしList由来の要素として扱う（後続Listの取り込み・分割判定を従来の動作と揃えるため）
+    if config.merge_no_column_lists and not title_text and is_merged_column_element(element, config):
+        return 'no_column_text'
+
     # Columnが2つ以上で最初がテキスト（ラベルではない）の場合の判定
     # ItemTitleが空で、ItemSentenceに複数のSentence要素またはColumn要素がある場合、text_first_columnタイプとみなす
     # （no_column_textの判定より先にチェックする必要がある）
@@ -1489,6 +1704,15 @@ def handle_no_column_list_in_normal_mode(child, state: ProcessingState, config: 
     Returns:
         処理が完了した場合False（通常の処理フローに戻る）
     """
+    # ColumnなしList統合モード: 直前の要素がTitleあり（ラベル付きList由来等）で本文の直後なら、
+    # 空Titleの下位要素を作らず、その要素の*Sentence内のLineBreak付きColumnとして畳み込む
+    if (config.merge_no_column_lists and is_plain_no_column_list(child, config)
+            and is_last_output_child(state)
+            and fold_list_into_titled_element(state.last_child, child, config)):
+        stats['FOLDED_NO_COLUMN_LIST_INTO_SENTENCE'] += 1
+        state.made_changes = True
+        return False
+
     # last_childがColumnありListから変換されたItemかどうかを判定
     title_text = get_title_text(state.last_child, config)
     is_column_list_converted_item = bool(title_text)
@@ -1845,6 +2069,17 @@ def process_normal_mode_list_element(child, child_idx, children_to_process, stat
         stats[f'SKIPPED_DUE_TO_EMPTY_PARENT'] += 1
         return True
 
+    # ColumnなしList統合モード: 直前の要素が統合形式（空Title + LineBreak付きColumn）で
+    # まだ子要素を持たない場合、このColumnなしListをその要素のColumnとして追記する。
+    # ラベル付きList等が取り込まれた後は can_continue_merge が False となり従来の処理に戻る（終了条件）
+    if (config.merge_no_column_lists and col_count == 0
+            and is_plain_no_column_list(child, config)
+            and can_continue_merge(state, config)):
+        append_list_as_linebreak_column(state.last_child.find(config.sentence_tag), child)
+        stats['MERGED_NO_COLUMN_LIST_AS_COLUMN'] += 1
+        state.made_changes = True
+        return True
+
     # ColumnありListの場合、ラベルのテキストを取得
     col1_text = get_column_text(col1_sentence)
     has_label = is_label_text(col1_text, col_count)
@@ -1998,9 +2233,17 @@ def process_elements_recursive(parent_elem, config: ConversionConfig, stats) -> 
     if parent_sentence is None:
         return False
 
+    # ColumnなしList統合モード: Titleあり親要素の本文直後に連続するColumnなしListは、
+    # 空Titleの子要素にせず親の*Sentence内のLineBreak付きColumnとして畳み込む
+    folded_count = 0
+    if config.merge_no_column_lists:
+        folded_count = fold_leading_no_column_lists_into_parent(parent_elem, parent_sentence, config)
+        if folded_count:
+            stats['FOLDED_NO_COLUMN_LIST_INTO_SENTENCE'] += folded_count
+
     siblings = list(parent_sentence.itersiblings())
     if not siblings:
-        return False
+        return folded_count > 0
 
     # 処理状態の初期化
     state = ProcessingState()
@@ -2051,7 +2294,7 @@ def process_elements_recursive(parent_elem, config: ConversionConfig, stats) -> 
 
     rebuild_parent_element(parent_elem, parent_sentence, parent_caption_elem_copy, parent_title_elem_copy, state.new_children, config)
 
-    return state.made_changes
+    return state.made_changes or folded_count > 0
 
 
 def renumber_elements(tree, config: ConversionConfig):
@@ -2096,7 +2339,10 @@ def process_xml_file(input_path: Path, output_path: Path, config: ConversionConf
         f'CONVERTED_SINGLE_COLUMN_LIST_TO_{config.child_tag.upper()}',
         f'SKIPPED_DUE_TO_EMPTY_PARENT',
         'SKIPPED_ENUMERATION_LIST',
-        'SKIPPED_LINEBREAK_LIST'
+        'SKIPPED_LINEBREAK_LIST',
+        f'CONVERTED_NO_COLUMN_LIST_TO_{config.child_tag.upper()}_COLUMN',
+        'MERGED_NO_COLUMN_LIST_AS_COLUMN',
+        'FOLDED_NO_COLUMN_LIST_INTO_SENTENCE'
     ]
 
     if 'grade' in config.supported_types:
@@ -2122,7 +2368,13 @@ def process_xml_file(input_path: Path, output_path: Path, config: ConversionConf
     for key, value in stats.items():
         if value > 0:
             # 統計キーから説明を生成
-            if 'KANJI_LABELED' in key:
+            if key.endswith('_COLUMN') and 'NO_COLUMN_LIST_TO_' in key:
+                desc = "ColumnなしList（統合: Column改行形式で作成）"
+            elif key == 'MERGED_NO_COLUMN_LIST_AS_COLUMN':
+                desc = "ColumnなしList（統合: 直前要素のColumnとして追記）"
+            elif key == 'FOLDED_NO_COLUMN_LIST_INTO_SENTENCE':
+                desc = "ColumnなしList（統合: Titleあり要素の本文にColumnとして畳み込み）"
+            elif 'KANJI_LABELED' in key:
                 desc = "漢数字ラベルColumnありList"
             elif 'MULTI_COLUMN' in key:
                 desc = "Column3つ以上List"

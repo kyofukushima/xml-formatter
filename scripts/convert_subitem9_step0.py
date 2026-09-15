@@ -33,6 +33,8 @@ def main():
                         help='列記List（Column1つ目と2つ目の種別が同一）を変換せずListのまま保持する')
     parser.add_argument('--preserve-linebreak-list', action='store_true',
                         help='LineBreak="true"のColumnを含むListを変換せずListのまま保持する')
+    parser.add_argument('--merge-no-column-lists', action='store_true',
+                        help='連続するColumnなしListを個別の要素に分割せず、LineBreak="true"のColumnとして1要素に統合する')
 
     args = parser.parse_args()
 
@@ -55,7 +57,8 @@ def main():
         script_name='convert_subitem9_step0',
         skip_empty_parent=False,  # Subitem9変換では親要素が空でも変換を実行
         preserve_enumeration=args.preserve_enumeration,  # 列記List保護
-        preserve_linebreak_list=args.preserve_linebreak_list  # LineBreak付きColumn保護
+        preserve_linebreak_list=args.preserve_linebreak_list,  # LineBreak付きColumn保護
+        merge_no_column_lists=args.merge_no_column_lists  # ColumnなしList統合
     )
 
     return process_xml_file(input_path, output_path, config)

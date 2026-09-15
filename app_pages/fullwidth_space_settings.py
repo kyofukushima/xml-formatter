@@ -89,7 +89,8 @@ apply_fullwidth_space = st.checkbox(
     "変換後に文頭全角スペースを補填する",
     value=st.session_state.apply_fullwidth_space,
     help="Title要素が空のItem/Subitem1～10のSentence冒頭、および"
-         "LineBreak=\"true\"のColumn内Sentence冒頭に全角スペースを挿入します。"
+         "LineBreak=\"true\"のColumn内Sentence冒頭に全角スペースを挿入します"
+         "（Titleあり要素の先頭Column＝見出しは番号と同じ行のため対象外）。"
 )
 st.session_state.apply_fullwidth_space = apply_fullwidth_space
 
@@ -136,6 +137,40 @@ EXAMPLE_COLUMN = '''<Item Num="1">
 
 show_before_after(
     f"<MainProvision>\n{EXAMPLE_COLUMN}\n</MainProvision>",
+    enabled=apply_fullwidth_space
+)
+
+st.markdown(
+    "Title（番号）のある要素の先頭Column（見出し）は、番号と同じ行に表示されるため"
+    "`LineBreak=\"true\"` が付いていても対象外です（ColumnなしList統合オプションで"
+    "作成される「見出し＋段落」構成に対応）。Titleが空の要素の先頭Columnは対象です。"
+)
+
+EXAMPLE_HEADING_COLUMN = '''<Subitem1 Num="1">
+  <Subitem1Title>①</Subitem1Title>
+  <Subitem1Sentence>
+    <Column Num="1" LineBreak="true">
+      <Sentence Num="1">見出し（対象外）</Sentence>
+    </Column>
+    <Column Num="2" LineBreak="true">
+      <Sentence Num="1">改行された段落（補填対象）</Sentence>
+    </Column>
+  </Subitem1Sentence>
+</Subitem1>
+<Item Num="2">
+  <ItemTitle/>
+  <ItemSentence>
+    <Column Num="1" LineBreak="true">
+      <Sentence Num="1">Titleが空の要素の一段目（補填対象）</Sentence>
+    </Column>
+    <Column Num="2" LineBreak="true">
+      <Sentence Num="1">二段目の段落（補填対象）</Sentence>
+    </Column>
+  </ItemSentence>
+</Item>'''
+
+show_before_after(
+    f"<MainProvision>\n{EXAMPLE_HEADING_COLUMN}\n</MainProvision>",
     enabled=apply_fullwidth_space
 )
 

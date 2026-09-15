@@ -29,6 +29,9 @@
 - `reverse_convert_subitem9.py` - Subitem8内のSubitem9要素をList要素に変換
 - `reverse_convert_subitem10.py` - Subitem9内のSubitem10要素をList要素に変換
 - `run_reverse_pipeline.sh` - 逆変換パイプライン実行スクリプト
+- `verify_reverse_order.py` - 逆変換前後でテキストの登場順が保持されているかを検証するスクリプト
+
+Webアプリの「逆変換」ページ（`app_pages/reverse_conversion.py`）は、このフォルダのスクリプトを `utils/reverse_pipeline.py` 経由で実行します。`scripts/reverse/` にも同名のスクリプトがありますが旧配置のコピーで、Webアプリからは使われません。仕様変更は本フォルダに対して行ってください。
 
 ---
 
@@ -479,6 +482,35 @@ python3 reverse_convert_subitem10.py input.xml output.xml
 ./run_reverse_pipeline.sh input_folder output_folder step
 ```
 
+### Item逆変換の処理対象となる親要素の選択
+
+Item要素は `Paragraph` 以外の要素（別表の `AppdxTable`、表の列 `TableColumn`、備考 `Remarks`、新設規定 `NewProvision`、`Class`）の直下にも現れます。`reverse_convert_item.py` はデフォルトでこれらすべての親要素内のItemを処理しますが、`--no-include-*` オプションで個別に除外できます。
+
+```bash
+# AppdxTable内とTableColumn内のItemは逆変換しない
+python3 reverse_convert_item.py input.xml output.xml --no-include-appdxtable --no-include-tablecolumn
+```
+
+| オプション | 除外される親要素 |
+|---|---|
+| `--no-include-paragraph` | Paragraph |
+| `--no-include-class` | Class |
+| `--no-include-appdxtable` | AppdxTable（別表） |
+| `--no-include-tablecolumn` | TableColumn（表の列） |
+| `--no-include-remarks` | Remarks（備考） |
+| `--no-include-newprovision` | NewProvision（新設規定） |
+
+Webアプリの「逆変換」ページでは、同じ内容を親要素ごとのチェックボックス（デフォルトすべてON）で指定します。
+
+### 文頭全角スペースの除去（Webアプリ）
+
+正変換で文頭全角スペース補填を適用したファイルを逆変換する場合、「逆変換前に文頭全角スペースを除去する」をONにすると、`scripts/postprocess_fullwidth_space.py --mode remove` を前処理として実行してから逆変換します。正変換で「List内のSentenceも対象にする」を有効にしていた場合は「List内のSentenceも除去対象にする」も合わせてONにしてください。CLIで同じことを行う場合は次のとおりです。
+
+```bash
+python3 ../scripts/postprocess_fullwidth_space.py input.xml input_nospace.xml --mode remove
+./run_reverse_pipeline.sh input_folder output_folder
+```
+
 ---
 
 ## 注意事項
@@ -515,17 +547,17 @@ python3 reverse_convert_subitem10.py input.xml output.xml
 
 ```bash
 # 基本的な使用方法
-python3 scripts/reverse/verify_reverse_order.py <元のXMLファイル> <逆変換後のXMLファイル>
+python3 reverse_app/verify_reverse_order.py <元のXMLファイル> <逆変換後のXMLファイル>
 
 # レポートファイルを指定する場合
-python3 scripts/reverse/verify_reverse_order.py input.xml output.xml --report order_report.txt
+python3 reverse_app/verify_reverse_order.py input.xml output.xml --report order_report.txt
 ```
 
 **実行例:**
 
 ```bash
 # 逆変換を実行
-cd scripts/reverse
+cd reverse_app
 ./run_reverse_pipeline.sh ../input ../output
 
 # 順序を検証
@@ -593,7 +625,7 @@ python3 verify_reverse_order.py ../input/original.xml ../output/original-final.x
 
 ### テストケースの場所
 
-`scripts/reverse/test_data/unit_tests/` ディレクトリに、以下のテストケースが含まれています：
+`reverse_app/test_data/unit_tests/` ディレクトリに、以下のテストケースが含まれています：
 
 1. **01_case1_title_with_content** - タイトル要素がある場合（2カラムList）
 2. **02_case2_title_empty** - タイトル要素がない場合（ColumnなしList）
@@ -606,13 +638,13 @@ python3 verify_reverse_order.py ../input/original.xml ../output/original-final.x
 ### テストの実行方法
 
 ```bash
-cd scripts/reverse/test_data/unit_tests
+cd reverse_app/test_data/unit_tests
 python3 run_tests.py
 ```
 
 各テストケースは、`input.xml`（逆変換前）と`expected.xml`（期待される出力）を含んでいます。テスト実行後、`output.xml`が生成され、期待値と比較されます。
 
-詳細は `scripts/reverse/test_data/unit_tests/README.md` を参照してください。
+詳細は `reverse_app/test_data/unit_tests/README.md` を参照してください。
 
 ---
 

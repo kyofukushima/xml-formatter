@@ -22,7 +22,7 @@ page = st.navigation({
         st.Page("app_pages/fullwidth_space_settings.py",
                 title="全角スペース補填設定", icon="🔤"),
         st.Page("app_pages/enumeration_settings.py",
-                title="列記List保護設定", icon="📑"),
+                title="List保護・統合設定", icon="📑"),
     ],
 })
 
