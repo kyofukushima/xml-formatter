@@ -23,6 +23,7 @@ import argparse
 from pathlib import Path
 from lxml import etree
 import xml.etree.ElementTree as ET
+from copy import deepcopy
 
 # scripts/utils/をインポートパスに追加
 script_dir = Path(__file__).resolve().parent
@@ -116,12 +117,9 @@ def _convert_list_to_paragraph_sentence_text_only(paragraph, list_element):
         # 1. 新しい要素を作成
         paragraph_sentence = etree.Element('ParagraphSentence')
         for sentence in list_sentence.findall('Sentence'):
-            new_sentence = etree.Element('Sentence')
-            new_sentence.text = sentence.text
-            new_sentence.tail = sentence.tail
-            for attr_name, attr_value in sentence.attrib.items():
-                new_sentence.set(attr_name, attr_value)
-            paragraph_sentence.append(new_sentence)
+            # Ruby（ふりがな）等のインライン子要素と、その後ろの本文（tail）を
+            # 失わないよう、Sentence 要素を属性・子要素ごと丸ごとコピーする
+            paragraph_sentence.append(deepcopy(sentence))
 
         # 2. 要素を置換
         original_tail = list_element.tail
@@ -162,12 +160,9 @@ def _convert_list_to_paragraph_sentence_with_label(paragraph, paragraph_num, lis
 
         # 1. 新しい要素を作成
         paragraph_sentence = etree.Element('ParagraphSentence')
-        new_sentence = etree.Element('Sentence')
-        new_sentence.text = content_sentence.text
-        new_sentence.tail = content_sentence.tail
-        for attr_name, attr_value in content_sentence.attrib.items():
-            new_sentence.set(attr_name, attr_value)
-        paragraph_sentence.append(new_sentence)
+        # Ruby（ふりがな）等のインライン子要素と、その後ろの本文（tail）を
+        # 失わないよう、Sentence 要素を属性・子要素ごと丸ごとコピーする
+        paragraph_sentence.append(deepcopy(content_sentence))
 
         # 3. 要素を置換
         original_tail = list_element.tail

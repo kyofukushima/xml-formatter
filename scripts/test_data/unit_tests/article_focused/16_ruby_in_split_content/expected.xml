@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<Law>
+  <LawBody>
+    <MainProvision>
+      <Article Num="1">
+        <ArticleTitle>第１</ArticleTitle>
+        <Paragraph Num="1">
+          <ParagraphNum/>
+          <ParagraphSentence>
+            <Sentence Num="1">第1条の本文です。</Sentence>
+          </ParagraphSentence>
+        </Paragraph>
+      </Article>
+      <Article Num="2">
+        <ArticleTitle>第２</ArticleTitle>
+        <Paragraph Num="1">
+          <ParagraphNum/>
+          <ParagraphSentence>
+            <Sentence>前半<Ruby>難<Rt>なん</Rt></Ruby>読語を含む第2条の本文。　三列目<Ruby>膣<Rt>ちつ</Rt></Ruby>用の補足。</Sentence>
+          </ParagraphSentence>
+          <List>
+            <ListSentence>
+              <Sentence Num="1">第2条に続く段落。</Sentence>
+            </ListSentence>
+          </List>
+        </Paragraph>
+      </Article>
+    </MainProvision>
+  </LawBody>
+</Law>

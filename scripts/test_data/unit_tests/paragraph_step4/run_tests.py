@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 """
-convert_article_focused.py の単体テスト実行スクリプト
+convert_paragraph_step4.py の単体テスト実行スクリプト
 """
 
 import sys
@@ -38,35 +38,44 @@ def run_test(test_dir):
         print(f"❌ expected.xml が見つかりません: {expected_file}")
         return False
 
-    # convert_article_focused.py を実行
+    # convert_paragraph_step4.py を実行
     script_dir = Path(__file__).parent.parent.parent.parent
-    script_path = script_dir / "convert_article_focused.py"
+    script_path = script_dir / "convert_paragraph_step4.py"
 
     try:
-        # テストディレクトリ内にoutput.xmlを作成
-        output_file = test_dir / "output.xml"
+        # 一時ファイルを作成して、そこに出力する
+        import tempfile
+        with tempfile.NamedTemporaryFile(mode='w+', suffix='.xml', delete=False) as temp_file:
+            temp_output_path = temp_file.name
 
         result = subprocess.run([
             sys.executable, str(script_path),
             str(input_file),
-            str(output_file)
-        ], capture_output=True, text=True, timeout=30)
+            temp_output_path
+        ], capture_output=True, text=True, timeout=60)
 
         if result.returncode != 0:
             print(f"❌ スクリプト実行エラー (終了コード: {result.returncode})")
-            print("STDOUT:", result.stdout)
-            print("STDERR:", result.stderr)
+            print("STDOUT:", result.stdout[:500])  # 最初の500文字のみ表示
+            print("STDERR:", result.stderr[:500])  # 最初の500文字のみ表示
             return False
 
-        print(f"✅ スクリプト実行成功 - 出力: {output_file}")
+        print(f"✅ スクリプト実行成功")
 
-        # 出力ファイルの内容を読み込む
+        # 一時ファイルの内容を読み込む
         try:
-            with open(output_file, 'r', encoding='utf-8') as f:
+            with open(temp_output_path, 'r', encoding='utf-8') as f:
                 actual_content = f.read()
         except Exception as e:
-            print(f"❌ 出力ファイル読み込みエラー: {e}")
+            print(f"❌ 一時ファイル読み込みエラー: {e}")
             return False
+        finally:
+            # 一時ファイルを削除
+            try:
+                import os
+                os.unlink(temp_output_path)
+            except:
+                pass
 
         # 期待ファイルの読み込み
         try:
@@ -107,21 +116,19 @@ def run_test(test_dir):
         return False
     except Exception as e:
         print(f"❌ 予期せぬエラー: {e}")
-        import traceback
-        traceback.print_exc()
         return False
 
 def main():
     """メイン関数"""
     test_root = Path(__file__).parent
 
-    print("convert_article_focused.py 単体テスト実行")
+    print("convert_paragraph_step4.py 単体テスト実行")
     print("=" * 50)
 
-    # テストケースの収集（01_, 02_, ... で始まるディレクトリ）
+    # テストケースの収集
     test_dirs = []
     for item in test_root.iterdir():
-        # 数字2桁+アンダースコアで始まるディレクトリのみをテストケースとして扱う
+        # 数字2桁+アンダースコアで始まるディレクトリのみをテストケースとして扱う（output 等は除外）
         if item.is_dir() and re.match(r'^\d{2}_', item.name):
             test_dirs.append(item)
 
@@ -146,3 +153,20 @@ def main():
 
 if __name__ == '__main__':
     sys.exit(main())
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
