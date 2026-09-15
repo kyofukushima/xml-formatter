@@ -745,6 +745,33 @@ def fold_list_into_titled_element(element, list_elem, config: ConversionConfig) 
     return True
 
 
+def unwrap_single_column_merged_elements(new_children, config: ConversionConfig) -> int:
+    """統合形式で作成したが Column が1つだけで終わった要素（＝単独の ColumnなしList）を、
+    従来どおり *Sentence 直下に Sentence を置く形に戻す。戻した要素の数を返す
+
+    LineBreak 付き Column は「同一項番内の複数段落」を表すための構成であり、
+    段落が1つしかない場合は Column で包む必要がない。後続の ColumnなしList が
+    追記されるかは処理を終えるまで分からないため、親要素の処理完了後に判定する。
+    """
+    count = 0
+    for element in new_children:
+        if not isinstance(element.tag, str) or element.tag != config.child_tag:
+            continue
+        if not is_merged_column_element(element, config):
+            continue
+        sentence_container = element.find(config.sentence_tag)
+        columns = sentence_container.findall('Column')
+        if len(columns) != 1:
+            continue
+        column = columns[0]
+        for idx, sentence in enumerate(column.findall('Sentence'), start=1):
+            sentence.set('Num', str(idx))
+            sentence_container.append(sentence)
+        sentence_container.remove(column)
+        count += 1
+    return count
+
+
 def fold_leading_no_column_lists_into_parent(parent_elem, parent_sentence, config: ConversionConfig) -> int:
     """Title あり親要素の *Sentence 直後に連続する ColumnなしList を、親の *Sentence 内の
     LineBreak付きColumn として畳み込む。畳み込んだ List の数を返す
@@ -2269,6 +2296,13 @@ def process_elements_recursive(parent_elem, config: ConversionConfig, stats) -> 
                 state.append_child(child)
                 state.last_child = None
 
+    # ColumnなしList統合モード: 統合相手が現れず Column 1つで終わった要素は
+    # 従来どおり *Sentence 直下の Sentence に戻す（単独段落は Column で包まない）
+    if config.merge_no_column_lists:
+        unwrapped = unwrap_single_column_merged_elements(state.new_children, config)
+        if unwrapped:
+            stats['UNWRAPPED_SINGLE_COLUMN_MERGED'] += unwrapped
+
     # 親要素の再構築
     # 親要素のタグ名から対応するCaption要素のタグ名を動的に生成
     # 例: Paragraph → ParagraphCaption, Item → ItemCaption, Subitem1 → Subitem1Caption
@@ -2334,7 +2368,8 @@ def process_xml_file(input_path: Path, output_path: Path, config: ConversionConf
         'SKIPPED_LINEBREAK_LIST',
         f'CONVERTED_NO_COLUMN_LIST_TO_{config.child_tag.upper()}_COLUMN',
         'MERGED_NO_COLUMN_LIST_AS_COLUMN',
-        'FOLDED_NO_COLUMN_LIST_INTO_SENTENCE'
+        'FOLDED_NO_COLUMN_LIST_INTO_SENTENCE',
+        'UNWRAPPED_SINGLE_COLUMN_MERGED'
     ]
 
     if 'grade' in config.supported_types:
@@ -2366,6 +2401,8 @@ def process_xml_file(input_path: Path, output_path: Path, config: ConversionConf
                 desc = "ColumnなしList（統合: 直前要素のColumnとして追記）"
             elif key == 'FOLDED_NO_COLUMN_LIST_INTO_SENTENCE':
                 desc = "ColumnなしList（統合: Titleあり要素の本文にColumnとして畳み込み）"
+            elif key == 'UNWRAPPED_SINGLE_COLUMN_MERGED':
+                desc = "ColumnなしList（統合: 単独段落のためColumnで包まずSentenceに戻した）"
             elif 'KANJI_LABELED' in key:
                 desc = "漢数字ラベルColumnありList"
             elif 'MULTI_COLUMN' in key:

@@ -151,6 +151,7 @@ python3 scripts/convert_item_step0.py input.xml output.xml --preserve-enumeratio
 告示データ整備方針①（同一項番内の段落分けを`LineBreak="true"`のColumnで表現）に合わせて、連続するColumnなしList（段落）を個別の要素に分割せず、1つの要素の`*Sentence`内に`Column`（`LineBreak="true"`）として統合するオプションです。Webアプリのサイドバーにあるチェックボックス「連続するColumnなしListをLineBreak付きColumnとして1要素に統合する」で切り替えます（**WebアプリではデフォルトON**。OFFにすると従来どおり段落ごとに個別のItem/Subitemへ分割します。CLIでは`--merge-no-column-lists`を指定したときのみ有効）。設定ページ「List保護・統合設定」（`app_pages/enumeration_settings.py`）でXML例（変換前→変換後）を確認できます。
 
 - **Paragraph直下**: ParagraphSentenceの直後に連続するColumnなしListは、1つの空TitleのItemにまとめ、`ItemSentence`内の`Column Num="1"…"n"`（すべて`LineBreak="true"`）として並べます（従来は`no_column_text_split_mode`により個別のItemに分割）。
+- **単独のColumnなしList**: 連続せず1つだけのColumnなしList（統合相手がないもの）は、Columnで包まず従来どおり`*Sentence`直下の`Sentence`として変換します。LineBreak付きColumnは複数段落を1要素にまとめるための構成のため、段落が1つの場合には付与しません。
 - **Titleあり要素の本文直後**: ラベル付きListから変換した要素（例:「（１）　見出し」）や、入力時点のItem/Subitemの本文直後に続くColumnなしListは、本文（見出し）を`Column Num="1"`に包み、各段落を`Column Num="2"`以降として`*Sentence`内に畳み込みます。空TitleのSubitemは作りません。
 - **LineBreak属性**: `LineBreak="true"`は「そのColumnの後ろで改行する」指示のため、見出しのColumnを含むすべてのColumnに付与します。
 - **終了条件**: ラベル付き（Columnあり）List、既存のItem/Subitem要素、TableStruct等が現れた時点で統合を終了し、以降は従来どおり処理します（ラベル付きListは従来どおり直前の要素に取り込まれます）。

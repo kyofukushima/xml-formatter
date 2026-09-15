@@ -10,9 +10,7 @@
         <Item Num="1">
           <ItemTitle/>
           <ItemSentence>
-            <Column Num="1" LineBreak="true">
-              <Sentence Num="1">一段目の段落です。</Sentence>
-            </Column>
+            <Sentence Num="1">一段目の段落です。</Sentence>
           </ItemSentence>
         </Item>
         <Item Num="2">
@@ -24,9 +22,7 @@
         <Item Num="3">
           <ItemTitle/>
           <ItemSentence>
-            <Column Num="1" LineBreak="true">
-              <Sentence Num="1">画像の後の段落です。</Sentence>
-            </Column>
+            <Sentence Num="1">画像の後の段落です。</Sentence>
           </ItemSentence>
         </Item>
       </Paragraph>
