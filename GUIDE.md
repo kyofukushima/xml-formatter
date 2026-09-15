@@ -445,7 +445,7 @@ echo "すべてのファイルの処理が完了しました"
 
 ### 変換オプション（step0系スクリプトのCLIフラグ）
 
-`convert_item_step0.py` と `convert_subitem1〜10_step0.py` は、告示データ整備方針に対応する次のフラグを受け付けます（いずれもデフォルトOFF、併用可）。仕様の詳細は [README.md](./README.md) を参照してください。
+`convert_item_step0.py` と `convert_subitem1〜10_step0.py` は、告示データ整備方針に対応する次のフラグを受け付けます（CLIでは指定したときのみ有効、併用可。Webアプリのチェックボックスは統合がデフォルトON、保護2種がデフォルトOFF）。仕様の詳細は [README.md](./README.md) を参照してください。
 
 | フラグ | 内容 |
 |---|---|

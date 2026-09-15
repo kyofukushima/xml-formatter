@@ -73,7 +73,7 @@ if 'preserve_enumeration' not in st.session_state:
 if 'preserve_linebreak_list' not in st.session_state:
     st.session_state.preserve_linebreak_list = False
 if 'merge_no_column_lists' not in st.session_state:
-    st.session_state.merge_no_column_lists = False
+    st.session_state.merge_no_column_lists = True
 
 AUTO_DETECT_LABEL = "（自動判定）"
 
@@ -302,7 +302,8 @@ def main():
                  "Titleあり要素（ラベル付きList由来）の本文直後に続くColumnなしListは、"
                  "本文（見出し）をColumn1に、各段落をColumn2以降に畳み込み、空TitleのSubitemは作りません。"
                  "ラベル付きListや表等が現れた時点で統合を終了します。"
-                 "従来データの変換結果が変わるため、告示データ整備方針に沿ったデータの場合のみONにしてください。"
+                 "告示データ整備方針に沿ったデータを前提にデフォルトONです。従来どおり段落ごとに"
+                 "個別のItem/Subitemへ分割したい場合はOFFにしてください。"
         )
         st.session_state.merge_no_column_lists = merge_no_column_lists
 
