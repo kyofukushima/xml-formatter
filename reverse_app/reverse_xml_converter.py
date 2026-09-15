@@ -16,6 +16,10 @@ from lxml import etree
 from typing import Optional, Tuple, Dict, List as ListType
 from copy import deepcopy
 
+# 正変換スクリプトと共通の XML 整形ユーティリティ（scripts/utils）を利用する
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "scripts"))
+from utils.xml_utils import format_xml_lxml as _format_xml_lxml_shared  # noqa: E402
+
 
 class ReverseConversionConfig:
     """逆変換設定を管理するクラス"""
@@ -35,17 +39,8 @@ class ReverseConversionConfig:
 
 
 def format_xml_lxml(tree, output_path):
-    """lxmlのElementTreeをインデント整形して保存"""
-    clean_root = etree.fromstring(etree.tostring(tree.getroot()))
-    etree.indent(clean_root, space="  ", level=0)
-    new_tree = etree.ElementTree(clean_root)
-    new_tree.write(
-        output_path,
-        encoding='utf-8',
-        xml_declaration=True,
-        pretty_print=False
-    )
-
+    """lxmlのElementTreeをインデント整形して保存（Ruby等のインライン要素の内側には空白を入れない）"""
+    _format_xml_lxml_shared(tree, output_path, space="  ")
 
 def get_element_title_text(element, config: ReverseConversionConfig) -> str:
     """要素のタイトルテキストを取得"""

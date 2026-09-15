@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <Law>
   <LawBody>
     <Paragraph Num="1">
@@ -14,11 +14,7 @@
         <Subitem4 Num="1">
           <Subitem4Title/>
           <Subitem4Sentence>
-            <Sentence Num="1" WritingMode="vertical">
-              <QuoteStruct>
-                <Fig src="./pict/2JH00000019886.jpg"/>
-              </QuoteStruct>
-            </Sentence>
+            <Sentence Num="1" WritingMode="vertical"><QuoteStruct><Fig src="./pict/2JH00000019886.jpg"/></QuoteStruct></Sentence>
           </Subitem4Sentence>
         </Subitem4>
         <Subitem4 Num="2">

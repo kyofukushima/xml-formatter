@@ -24,6 +24,7 @@ sys.path.insert(0, str(script_dir))
 
 from utils.label_utils import get_label_config, is_label, detect_label_id, get_number_type, get_alphabet_type, is_valid_label_id, get_exclude_label_ids_for_context
 from utils.renumber_utils import renumber_children
+from utils.xml_utils import format_xml_lxml as _format_xml_lxml_shared
 from utils.bracket_utils import is_subject_name_bracket, is_instruction_bracket, is_grade_single_bracket, is_grade_double_bracket, get_bracket_type
 
 
@@ -183,17 +184,8 @@ def count_grades(text: str) -> int:
 
 
 def format_xml_lxml(tree, output_path):
-    """lxmlのElementTreeをインデント整形して保存"""
-    clean_root = etree.fromstring(etree.tostring(tree.getroot()))
-    etree.indent(clean_root, space="  ", level=0)
-    new_tree = etree.ElementTree(clean_root)
-    new_tree.write(
-        output_path,
-        encoding='utf-8',
-        xml_declaration=True,
-        pretty_print=False
-    )
-
+    """lxmlのElementTreeをインデント整形して保存（Ruby等のインライン要素の内側には空白を入れない）"""
+    _format_xml_lxml_shared(tree, output_path, space="  ")
 
 def is_kanji_number_label(text: str) -> bool:
     """漢数字ラベルかどうかを判定（一, 二などの漢数字）"""

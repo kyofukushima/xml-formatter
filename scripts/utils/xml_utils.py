@@ -76,6 +76,86 @@ def indent_xml(elem: ET.Element, level: int = 0, indent_str: str = "  ") -> None
             elem.tail = current_indent
 
 
+# インライン内容を持つ要素（本文テキストと子要素が同居する「混在内容」の容器）。
+# これらの内側にインデント用の改行・空白を挿入すると、Ruby（ふりがな）の内側などに
+# 空白文字が本文として入り、表示上の改行やずれの原因になる。
+INLINE_CONTAINER_TAGS = frozenset({
+    'Sentence', 'Ruby', 'Rt', 'Sub', 'Sup', 'Line', 'ParagraphNum',
+})
+
+
+def _is_inline_container(elem) -> bool:
+    """インデントを内側に入れてはいけない要素かどうか
+
+    Sentence・各種 Title/Caption・Ruby 等の既知のインライン容器に加え、
+    本文テキストと子要素が同居している（混在内容の）要素も対象とする。
+    """
+    tag = elem.tag
+    if not isinstance(tag, str):
+        return False
+    if tag in INLINE_CONTAINER_TAGS or tag.endswith('Title') or tag.endswith('Caption'):
+        return True
+    if len(elem) == 0:
+        return False
+    if elem.text and elem.text.strip():
+        return True
+    return any(child.tail and child.tail.strip() for child in elem)
+
+
+def _has_no_newline(value) -> bool:
+    return value is None or '\n' not in value
+
+
+def indent_xml_preserving_inline(root: ET.Element, space: str = "  ", level: int = 0) -> None:
+    """構造要素だけをインデント整形し、インライン容器の内側には空白を追加しない
+
+    lxml の etree.indent() は子要素を持つ要素をすべてブロック要素とみなすため、
+    Sentence 内の Ruby（ふりがな）等の内側（例: </Rt> と </Ruby> の間）にも
+    改行とインデントを挿入してしまう。この関数は etree.indent() を実行した後、
+    インライン容器の内側で「元は空白がなかった（または改行を含まなかった）」
+    text/tail を元の値に戻すことで、本文への空白追加を防ぐ。
+
+    元から改行を含む空白（前段の整形結果など）は、従来どおり再インデントされる。
+
+    Args:
+        root: 整形対象のルート要素（lxml）
+        space: インデント文字列
+        level: 開始レベル
+    """
+    snapshot = []
+    for elem in root.iter():
+        if not _is_inline_container(elem):
+            continue
+        if _has_no_newline(elem.text):
+            snapshot.append((elem, 'text', elem.text))
+        for desc in elem.iterdescendants():
+            if _has_no_newline(desc.text):
+                snapshot.append((desc, 'text', desc.text))
+            if _has_no_newline(desc.tail):
+                snapshot.append((desc, 'tail', desc.tail))
+
+    ET.indent(root, space=space, level=level)
+
+    for elem, attr, value in snapshot:
+        setattr(elem, attr, value)
+
+
+def format_xml_lxml(tree: ET.ElementTree, output_path: Union[str, Path], space: str = "  ") -> None:
+    """lxml の ElementTree をインデント整形して保存する（各変換スクリプト共通）
+
+    文字列化と再パースで既存の空白ノードを正規化した上で、
+    indent_xml_preserving_inline() により Ruby 等の内側に空白を入れずに整形する。
+    """
+    clean_root = ET.fromstring(ET.tostring(tree.getroot()))
+    indent_xml_preserving_inline(clean_root, space=space, level=0)
+    ET.ElementTree(clean_root).write(
+        str(output_path),
+        encoding='utf-8',
+        xml_declaration=True,
+        pretty_print=False
+    )
+
+
 def indent_xml_native(elem: ET.Element, space: str = "  ") -> None:
     """lxmlのpretty_print機能を使用したインデント整形
     
@@ -113,20 +193,21 @@ def save_xml_with_indent(tree: ET.ElementTree, output_path: Union[str, Path],
         save_xml_with_indent(tree, 'output.xml')
     """
     root = tree.getroot()
-    
+
     # 動的に要素を追加・削除した場合、pretty_printだけでは不十分なため
-    # 手動でインデントを再設定
-    indent_xml(root, indent_str=indent_str)
-    
+    # インデントを再設定する。Sentence 内の Ruby 等（インライン容器）の内側には
+    # 空白を追加しない（indent_xml_preserving_inline 参照）
+    indent_xml_preserving_inline(root, space=indent_str)
+
     # Pathオブジェクトの場合は文字列に変換
     output_path_str = str(output_path) if isinstance(output_path, Path) else output_path
-    
-    # XML宣言付きで保存（pretty_print=Trueでインデント整形）
+
+    # XML宣言付きで保存（インデントは上で設定済みのため pretty_print は使わない）
     tree.write(
         output_path_str,
         encoding='utf-8',
         xml_declaration=True,
-        pretty_print=True
+        pretty_print=False
     )
 
 

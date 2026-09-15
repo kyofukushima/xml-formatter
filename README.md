@@ -219,6 +219,7 @@ output/
 
 - 最終ファイルは常に `<入力名>-final.xml` として `<output_folder>` にコピーされます。
 - 中間ファイルと検証レポートは出力フォルダ配下の `intermediate_files/` にまとめて保存されます。
+- **出力XMLの整形**: 各ステップの保存時に構造要素だけをインデントします。`Sentence`・各種`Title`/`Caption`・`Ruby`等のインライン要素の内側には改行やインデントを追加しません（ふりがなの`</Rt>`と`</Ruby>`の間に空白が入って表示上の改行になる問題への対処。整形処理は `scripts/utils/xml_utils.py` の `indent_xml_preserving_inline` / `format_xml_lxml` に共通化されており、正変換・逆変換の全スクリプトが使用します）。
 
 ---
 
