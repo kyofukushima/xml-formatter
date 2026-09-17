@@ -1,0 +1,1 @@
+--preserve-lists-after-struct --merge-no-column-lists

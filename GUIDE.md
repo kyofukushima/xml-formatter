@@ -445,13 +445,14 @@ echo "すべてのファイルの処理が完了しました"
 
 ### 変換オプション（step0系スクリプトのCLIフラグ）
 
-`convert_item_step0.py` と `convert_subitem1〜10_step0.py` は、告示データ整備方針に対応する次のフラグを受け付けます（CLIでは指定したときのみ有効、併用可。Webアプリのチェックボックスは統合がデフォルトON、保護2種がデフォルトOFF）。仕様の詳細は [README.md](./README.md) を参照してください。
+`convert_item_step0.py` と `convert_subitem1〜10_step0.py` は、告示データ整備方針・告示スキーマに対応する次のフラグを受け付けます（CLIでは指定したときのみ有効、併用可。Webアプリのチェックボックスは統合がデフォルトON、保護3種がデフォルトOFF）。仕様の詳細は [README.md](./README.md) を参照してください。
 
 | フラグ | 内容 |
 |---|---|
 | `--preserve-enumeration` | 列記のList（Column1つ目と2つ目の種別が同一）を変換せず保持 |
 | `--preserve-linebreak-list` | `LineBreak="true"` のColumnを含むListを変換せず保持 |
 | `--merge-no-column-lists` | 連続するColumnなしListをLineBreak付きColumnとして1要素に統合 |
+| `--preserve-lists-after-struct` | Item/Subitem直下に表・図（TableStruct等）が置かれた後のListを変換せず保持（スキーマ違反の防止。Paragraph直下は対象外） |
 
 ### 文頭全角スペース補填・除去
 

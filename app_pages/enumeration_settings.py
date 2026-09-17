@@ -39,6 +39,8 @@ if 'preserve_linebreak_list' not in st.session_state:
     st.session_state.preserve_linebreak_list = False
 if 'merge_no_column_lists' not in st.session_state:
     st.session_state.merge_no_column_lists = True
+if 'preserve_lists_after_struct' not in st.session_state:
+    st.session_state.preserve_lists_after_struct = False
 
 LAW_WRAPPER = '''<Law>
   <LawBody>
@@ -66,7 +68,7 @@ def _dedent_fragment(xml_bytes_or_str):
 
 @st.cache_data(show_spinner=False)
 def apply_conversion(paragraph_xml, preserve_enumeration, preserve_linebreak,
-                     merge_no_column=False):
+                     merge_no_column=False, preserve_after_struct=False):
     """サンプルXMLに実際の変換スクリプト（Item→Subitem1）を適用し、
     変換後のParagraph部分を返す"""
     full_xml = LAW_WRAPPER.format(paragraph=paragraph_xml)
@@ -77,6 +79,8 @@ def apply_conversion(paragraph_xml, preserve_enumeration, preserve_linebreak,
         flags.append('--preserve-linebreak-list')
     if merge_no_column:
         flags.append('--merge-no-column-lists')
+    if preserve_after_struct:
+        flags.append('--preserve-lists-after-struct')
 
     with tempfile.TemporaryDirectory() as tmpdir:
         tmp = Path(tmpdir)
@@ -103,8 +107,12 @@ def apply_conversion(paragraph_xml, preserve_enumeration, preserve_linebreak,
 
 
 def show_before_after(paragraph_xml, preserve_enumeration, preserve_linebreak,
-                      merge_no_column=False):
-    """変換前・変換後のXMLを左右に並べて表示する"""
+                      merge_no_column=False, preserve_after_struct=None):
+    """変換前・変換後のXMLを左右に並べて表示する
+
+    preserve_after_struct を省略した場合は現在のセッション設定を使う"""
+    if preserve_after_struct is None:
+        preserve_after_struct = st.session_state.preserve_lists_after_struct
     col_before, col_after = st.columns(2)
     with col_before:
         st.markdown("**変換前**")
@@ -113,13 +121,14 @@ def show_before_after(paragraph_xml, preserve_enumeration, preserve_linebreak,
         st.markdown("**変換後（現在の設定）**")
         st.code(
             apply_conversion(paragraph_xml, preserve_enumeration,
-                             preserve_linebreak, merge_no_column),
+                             preserve_linebreak, merge_no_column,
+                             preserve_after_struct),
             language='xml'
         )
 
 
 st.markdown(
-    "List要素の変換時に、列記（表形式の並記）や改行表現を持つListを"
+    "List要素の変換時に、列記（表形式の並記）や改行表現を持つList、表・図の後に続くListを"
     "変換対象から除外して保護するオプションと、連続するColumnなしList（段落）を"
     "LineBreak付きColumnとして1要素に統合するオプションです。各オプションのXML例を"
     "確認しながら設定してください。設定はメインページのサイドバーと連動します。"
@@ -337,6 +346,111 @@ show_before_after(EXAMPLE_MERGE_TITLED, preserve_enumeration,
 
 st.markdown("---")
 
+# ------------------------------------------------------------------
+# 4. 表・図の後のList保護（schema: Item/Subitem内では表・図の後ろに下位Subitemを置けない）
+# ------------------------------------------------------------------
+st.header("4. 表・図の後のListを保護する")
+
+preserve_lists_after_struct = st.checkbox(
+    "表・図の後のListを変換せず保持する",
+    value=st.session_state.preserve_lists_after_struct,
+    help="Item/Subitemの本文（*Sentence）の直後に表・図（TableStruct/FigStruct/StyleStruct）が"
+         "置かれている場合、その後に続くListを変換せずListのまま残します。"
+         "スキーマ上、Item/Subitem内では表・図の後ろに下位のSubitemを置けないため、"
+         "変換するとスキーマ違反になるのを防ぎます。Paragraph直下は表・図の後にItemを置けるため対象外です。"
+)
+st.session_state.preserve_lists_after_struct = preserve_lists_after_struct
+
+st.markdown(
+    "告示スキーマでは、`Item`/`Subitem` の内容は「本文 → 下位のSubitem → 表・図・List」の順序で"
+    "固定されています。本文の直後に `TableStruct`/`FigStruct` があり、その後にListが続く場合、"
+    "OFFのままではListが表・図の**後ろ**にSubitemとして作られ、スキーマ違反になります。"
+    "ONの場合、表・図の後のListは変換せずListのまま残します（表・図の後ろにListを置くことは"
+    "スキーマで許容されています）。表・図の**前**にListがある場合は従来どおり変換され、"
+    "表・図はそのSubitemの中に取り込まれるため対象外です。"
+    "`Paragraph` は本文の直後に表・図、その後にItemを置くことが許容されているため、"
+    "この設定に関わらず従来どおり変換されます。"
+)
+
+EXAMPLE_STRUCT_THEN_LISTS = '''        <Paragraph Num="1">
+          <ParagraphNum/>
+          <ParagraphSentence>
+            <Sentence Num="1">次に掲げるとおりとする。</Sentence>
+          </ParagraphSentence>
+          <Item Num="1">
+            <ItemTitle>一</ItemTitle>
+            <ItemSentence>
+              <Sentence Num="1">号の本文。次の表による。</Sentence>
+            </ItemSentence>
+            <TableStruct>
+              <Table>
+                <TableRow>
+                  <TableColumn><Sentence Num="1">表の内容</Sentence></TableColumn>
+                </TableRow>
+              </Table>
+            </TableStruct>
+            <List>
+              <ListSentence>
+                <Column Num="1"><Sentence Num="1">（１）</Sentence></Column>
+                <Column Num="2"><Sentence Num="1">表の後のラベル付きList</Sentence></Column>
+              </ListSentence>
+            </List>
+            <List>
+              <ListSentence>
+                <Sentence Num="1">表の後のColumnなしList</Sentence>
+              </ListSentence>
+            </List>
+          </Item>
+        </Paragraph>'''
+
+st.subheader("Item本文の直後に表があり、その後にListが続く（ON時は保護）")
+show_before_after(EXAMPLE_STRUCT_THEN_LISTS, preserve_enumeration,
+                  preserve_linebreak_list, merge_no_column_lists,
+                  preserve_lists_after_struct)
+
+EXAMPLE_LIST_THEN_STRUCT = '''        <Paragraph Num="1">
+          <ParagraphNum/>
+          <ParagraphSentence>
+            <Sentence Num="1">次に掲げるとおりとする。</Sentence>
+          </ParagraphSentence>
+          <Item Num="1">
+            <ItemTitle>一</ItemTitle>
+            <ItemSentence>
+              <Sentence Num="1">号の本文。</Sentence>
+            </ItemSentence>
+            <List>
+              <ListSentence>
+                <Column Num="1"><Sentence Num="1">（１）</Sentence></Column>
+                <Column Num="2"><Sentence Num="1">表の前のラベル付きList。次の表による。</Sentence></Column>
+              </ListSentence>
+            </List>
+            <TableStruct>
+              <Table>
+                <TableRow>
+                  <TableColumn><Sentence Num="1">表の内容</Sentence></TableColumn>
+                </TableRow>
+              </Table>
+            </TableStruct>
+            <List>
+              <ListSentence>
+                <Column Num="1"><Sentence Num="1">（２）</Sentence></Column>
+                <Column Num="2"><Sentence Num="1">表の後のラベル付きList</Sentence></Column>
+              </ListSentence>
+            </List>
+          </Item>
+        </Paragraph>'''
+
+st.subheader("表の前にListがある場合（設定に関わらず従来どおり変換）")
+st.markdown(
+    "表の前のListがSubitem1に変換され、表はそのSubitem1の中に取り込まれます。"
+    "Item直下に表が残らないため、表の後のListも従来どおりSubitem1に変換されます。"
+)
+show_before_after(EXAMPLE_LIST_THEN_STRUCT, preserve_enumeration,
+                  preserve_linebreak_list, merge_no_column_lists,
+                  preserve_lists_after_struct)
+
+st.markdown("---")
+
 # 現在の設定サマリー
 st.header("現在の設定")
 st.markdown(
@@ -345,7 +459,9 @@ st.markdown(
     f"- LineBreak付きColumnを含むListを保護: "
     f"**{'ON' if preserve_linebreak_list else 'OFF'}**\n"
     f"- 連続するColumnなしListをLineBreak付きColumnとして統合: "
-    f"**{'ON' if merge_no_column_lists else 'OFF'}**"
+    f"**{'ON' if merge_no_column_lists else 'OFF'}**\n"
+    f"- 表・図の後のListを保護: "
+    f"**{'ON' if preserve_lists_after_struct else 'OFF'}**"
 )
 # page_linkはマルチページ実行時のみ有効（テストランナー等では利用不可）
 try:

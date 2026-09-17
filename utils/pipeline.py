@@ -30,7 +30,7 @@ RECOMMENDED_SCRIPT_ORDER = [
 ]
 
 # List変換オプションのフラグ（--preserve-enumeration / --preserve-linebreak-list /
-# --merge-no-column-lists）に対応している変換スクリプト
+# --merge-no-column-lists / --preserve-lists-after-struct）に対応している変換スクリプト
 ENUMERATION_AWARE_SCRIPTS = [
     "convert_item_step0.py",
     "convert_subitem1_step0.py",

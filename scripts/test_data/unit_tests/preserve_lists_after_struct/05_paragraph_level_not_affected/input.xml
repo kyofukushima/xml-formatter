@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Law>
+  <LawBody>
+    <Paragraph Num="1">
+      <ParagraphNum>1</ParagraphNum>
+      <ParagraphSentence>
+        <Sentence Num="1">次の表のとおりとする。</Sentence>
+      </ParagraphSentence>
+      <TableStruct>
+        <Table>
+          <TableRow>
+            <TableColumn><Sentence Num="1">表の内容</Sentence></TableColumn>
+          </TableRow>
+        </Table>
+      </TableStruct>
+      <List>
+        <ListSentence>
+          <Column Num="1"><Sentence Num="1">一</Sentence></Column>
+          <Column Num="2"><Sentence Num="1">表の後のラベル付きList</Sentence></Column>
+        </ListSentence>
+      </List>
+    </Paragraph>
+  </LawBody>
+</Law>

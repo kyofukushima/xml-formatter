@@ -144,6 +144,21 @@ python3 scripts/convert_item_step0.py input.xml output.xml --preserve-linebreak-
 python3 scripts/convert_item_step0.py input.xml output.xml --preserve-enumeration --preserve-linebreak-list
 ```
 
+### 表・図の後のListの保護（オプション）
+
+告示スキーマ（`schema/kokuji20250320.xsd`）では、`Item`/`Subitem1`～`Subitem10` の内容が「本文（`*Sentence`）→ 下位のSubitem → `TableStruct`/`FigStruct`/`StyleStruct`/`List`」の順序で固定されています。本文の直後に表・図があり、その後にListが続くデータをそのまま変換すると、表・図の後ろに下位のSubitemが作られスキーマ違反になります。これを防ぐオプションです。Webアプリのサイドバーにあるチェックボックス「表・図の後のListを変換せず保持する」で切り替えます（デフォルトOFF＝従来動作）。設定ページ「List保護・統合設定」でXML例を確認できます。
+
+- **動作**: ONの場合、親要素（Item/Subitem）の直下に表・図が置かれた後に続くListは、変換せずListのまま残します（表・図の後ろにListを置くことはスキーマで許容されています）。ColumnなしList統合オプションの対象にもなりません。
+- **対象外**: 表・図の**前**にListがある場合、そのListは従来どおり変換され、表・図は変換後のSubitemの中に取り込まれます。親要素直下に表・図が残らないため、後続のListも従来どおり変換されます。`Paragraph` は本文の直後に表・図、その後にItemを置くことが許容されているため、Item変換（`convert_item_step0.py`）ではこの設定に関わらず従来どおり変換されます。
+- **後方互換**: OFFのままなら従来と完全に同じ動作です。
+- **対応スクリプト**: `convert_item_step0.py`、`convert_subitem1～10_step0.py`（`--preserve-lists-after-struct`フラグ。他のオプションと併用可）
+- **単体テスト**: `scripts/test_data/unit_tests/preserve_lists_after_struct/run_tests.py`
+
+```bash
+# CLIでの個別実行
+python3 scripts/convert_subitem1_step0.py input.xml output.xml --preserve-lists-after-struct
+```
+
 ---
 
 ### 連続するColumnなしListの統合（オプション）
@@ -201,7 +216,7 @@ ColumnなしList（段落）が連続したときの取り込み方は `scripts/
 | | 納品前検証 | 変換前後のXMLをアップロードし、ホームの変換後に自動実行される検証と同じ内容（テキスト欠落・文書順・表・図・構造要素数）を単独実行。スペース無視オプション付き |
 | 設定 | ラベル設定管理 | `label_config.json` のラベル定義、優先度、分割モード（ColumnなしList・画像List）等の編集 |
 | 設定 | 全角スペース補填設定 | 補填オプションをXML例（補填前→補填後）を見ながら設定。サイドバーと連動 |
-| 設定 | List保護・統合設定 | 列記List保護、LineBreak付きList保護、ColumnなしList統合をXML例（変換前→変換後）を見ながら設定。サイドバーと連動 |
+| 設定 | List保護・統合設定 | 列記List保護、LineBreak付きList保護、ColumnなしList統合、表・図の後のList保護をXML例（変換前→変換後）を見ながら設定。サイドバーと連動 |
 
 ---
 
