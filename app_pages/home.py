@@ -74,6 +74,8 @@ if 'preserve_linebreak_list' not in st.session_state:
     st.session_state.preserve_linebreak_list = False
 if 'merge_no_column_lists' not in st.session_state:
     st.session_state.merge_no_column_lists = True
+if 'preserve_lists_after_struct' not in st.session_state:
+    st.session_state.preserve_lists_after_struct = False
 
 AUTO_DETECT_LABEL = "（自動判定）"
 
@@ -279,6 +281,16 @@ def main():
                  "告示データ整備方針に沿ってLineBreakを使用しているデータではONを推奨します。"
         )
         st.session_state.preserve_linebreak_list = preserve_linebreak_list
+
+        preserve_lists_after_struct = st.checkbox(
+            "表・図の後のListを変換せず保持する",
+            value=st.session_state.preserve_lists_after_struct,
+            help="Item/Subitemの本文（*Sentence）の直後に表・図（TableStruct/FigStruct/StyleStruct）が"
+                 "置かれている場合、その後に続くListを変換せずListのまま残します。"
+                 "スキーマ上、Item/Subitem内では表・図の後ろに下位のSubitemを置けないため、"
+                 "変換するとスキーマ違反になるのを防ぎます。Paragraph直下は表・図の後にItemを置けるため対象外です。"
+        )
+        st.session_state.preserve_lists_after_struct = preserve_lists_after_struct
 
         # page_linkはマルチページ実行時のみ有効（テストランナー等では利用不可）
         try:
@@ -553,6 +565,8 @@ def main():
                     list_option_flags.append('--preserve-linebreak-list')
                 if st.session_state.merge_no_column_lists:
                     list_option_flags.append('--merge-no-column-lists')
+                if st.session_state.preserve_lists_after_struct:
+                    list_option_flags.append('--preserve-lists-after-struct')
                 extra_args_by_script = None
                 if list_option_flags:
                     extra_args_by_script = {

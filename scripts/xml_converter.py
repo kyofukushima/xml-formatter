@@ -150,7 +150,8 @@ class ConversionConfig:
                  skip_empty_parent: bool = False,  # 親要素空チェックを行うか
                  preserve_enumeration: bool = False,  # 列記List（Column種別が同一）を変換せず保持するか
                  preserve_linebreak_list: bool = False,  # LineBreak付きColumnを含むListを変換せず保持するか
-                 merge_no_column_lists: bool = False):  # 連続するColumnなしListをLineBreak付きColumnとして1要素に統合するか
+                 merge_no_column_lists: bool = False,  # 連続するColumnなしListをLineBreak付きColumnとして1要素に統合するか
+                 preserve_lists_after_struct: bool = False):  # 親要素直下に表・図（TableStruct等）が置かれた後のListを変換せず保持するか
         self.parent_tag = parent_tag
         self.child_tag = child_tag
         self.title_tag = title_tag
@@ -162,6 +163,7 @@ class ConversionConfig:
         self.preserve_enumeration = preserve_enumeration
         self.preserve_linebreak_list = preserve_linebreak_list
         self.merge_no_column_lists = merge_no_column_lists
+        self.preserve_lists_after_struct = preserve_lists_after_struct
 
 
 def is_grade_pattern(text: str) -> bool:
@@ -1314,6 +1316,20 @@ def rebuild_parent_element(parent_elem, parent_sentence, parent_caption_elem_cop
         parent_elem.append(new_child)
 
 
+def should_preserve_list_after_struct(state, config: ConversionConfig) -> bool:
+    """表・図の後のList保護（--preserve-lists-after-struct）を適用するかどうか
+
+    schema（kokuji XSD）では Item/Subitem の内容モデルが
+    「*Sentence → 下位Subitem* → (TableStruct|FigStruct|StyleStruct|List)*」の順序固定のため、
+    親要素直下に表・図が置かれた後ろに下位のSubitemを作るとschema違反になる。
+    このオプションがONの場合、親要素直下に表・図が置かれた後のListは変換せずListのまま残す。
+    Paragraph は「ParagraphSentence → 表・図* → Item*」を許容するため対象外。
+    """
+    return (config.preserve_lists_after_struct
+            and config.parent_tag != 'Paragraph'
+            and state.struct_at_parent_level)
+
+
 class ProcessingState:
     """要素処理の状態を管理するクラス"""
     def __init__(self):
@@ -1323,6 +1339,10 @@ class ProcessingState:
         self.new_children = []
         self.made_changes = False
         self.split_mode_terminated = False  # モード2の並列分割が終了したかどうか
+        # 親要素直下（先行するItem/Subitemに取り込めない位置）にTableStruct/FigStruct/StyleStructが
+        # 置かれたかどうか。preserve_lists_after_struct 用（schema上、Item/Subitem内では
+        # 表・図の後ろに下位のSubitemを置けないため、以降のListは変換せずListのまま残す）
+        self.struct_at_parent_level = False
     
     def add_seen_label(self, label_text: str):
         """出現したラベルを記録"""
@@ -1412,6 +1432,9 @@ def process_first_child_mode(child, state: ProcessingState, config: ConversionCo
         state.mode = ProcessingMode.NORMAL_PROCESSING
         return True
     else:
+        if child.tag in STRUCT_ELEMENT_TAGS:
+            # 親要素の*Sentence直後に表・図が来た場合（先行するItem/Subitemがないため親要素直下に残る）
+            state.struct_at_parent_level = True
         state.append_child(child)
         state.mode = ProcessingMode.NORMAL_PROCESSING
         return True
@@ -2276,6 +2299,11 @@ def process_elements_recursive(parent_elem, config: ConversionConfig, stats) -> 
         
         elif state.mode == ProcessingMode.NORMAL_PROCESSING:
             if is_list_element(child):
+                # 表・図の後のList保護: 親要素直下に表・図が置かれた後のListは変換せずそのまま残す
+                if should_preserve_list_after_struct(state, config):
+                    state.append_child(child)
+                    stats['SKIPPED_LIST_AFTER_STRUCT'] += 1
+                    continue
                 if process_normal_mode_list_element(child, child_idx, children_to_process, state, config, stats, parent_elem):
                     continue
             elif child.tag in STRUCT_ELEMENT_TAGS:
@@ -2286,6 +2314,7 @@ def process_elements_recursive(parent_elem, config: ConversionConfig, stats) -> 
                     state.append_to_last_child(child)
                 else:
                     state.append_child(child)
+                    state.struct_at_parent_level = True
             elif hasattr(child, 'tag') and isinstance(child.tag, str) and config.child_tag in child.tag:  # 既存の子要素
                 state.set_last_child(child)
             else:
@@ -2366,6 +2395,7 @@ def process_xml_file(input_path: Path, output_path: Path, config: ConversionConf
         f'SKIPPED_DUE_TO_EMPTY_PARENT',
         'SKIPPED_ENUMERATION_LIST',
         'SKIPPED_LINEBREAK_LIST',
+        'SKIPPED_LIST_AFTER_STRUCT',
         f'CONVERTED_NO_COLUMN_LIST_TO_{config.child_tag.upper()}_COLUMN',
         'MERGED_NO_COLUMN_LIST_AS_COLUMN',
         'FOLDED_NO_COLUMN_LIST_INTO_SENTENCE',
@@ -2433,6 +2463,8 @@ def process_xml_file(input_path: Path, output_path: Path, config: ConversionConf
                 desc = "スキップ（列記Listのため変換せず保持）"
             elif 'LINEBREAK' in key:
                 desc = "スキップ（LineBreak付きColumnのため変換せず保持）"
+            elif 'LIST_AFTER_STRUCT' in key:
+                desc = "スキップ（親要素直下の表・図の後のListのため変換せず保持）"
             elif 'SKIPPED' in key:
                 desc = "スキップ（親が空のため）"
             else:

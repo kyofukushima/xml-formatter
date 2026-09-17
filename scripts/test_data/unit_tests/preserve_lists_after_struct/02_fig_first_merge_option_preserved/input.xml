@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Law>
+  <LawBody>
+    <Paragraph Num="1">
+      <ParagraphNum>1</ParagraphNum>
+      <ParagraphSentence>
+        <Sentence Num="1">Paragraphの内容</Sentence>
+      </ParagraphSentence>
+      <Item Num="1">
+        <ItemTitle>一</ItemTitle>
+        <ItemSentence>
+          <Sentence Num="1">号の本文。次の表による。</Sentence>
+        </ItemSentence>
+      <FigStruct>
+        <Fig src="./pict/fig1.jpg"/>
+      </FigStruct>
+      <List>
+        <ListSentence>
+          <Sentence Num="1">図の後の段落１</Sentence>
+        </ListSentence>
+      </List>
+      <List>
+        <ListSentence>
+          <Sentence Num="1">図の後の段落２</Sentence>
+        </ListSentence>
+      </List>
+      </Item>
+    </Paragraph>
+  </LawBody>
+</Law>

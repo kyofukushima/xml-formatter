@@ -35,6 +35,8 @@ def main():
                         help='LineBreak="true"のColumnを含むListを変換せずListのまま保持する')
     parser.add_argument('--merge-no-column-lists', action='store_true',
                         help='連続するColumnなしListを個別の要素に分割せず、LineBreak="true"のColumnとして1要素に統合する')
+    parser.add_argument('--preserve-lists-after-struct', action='store_true',
+                        help='親要素直下に表・図（TableStruct/FigStruct/StyleStruct）が置かれた後のListを変換せずListのまま保持する（schema上、Item/Subitem内では表・図の後ろに下位Subitemを置けないため）')
 
     args = parser.parse_args()
 
@@ -58,7 +60,8 @@ def main():
         skip_empty_parent=False,  # Subitem4変換では親要素が空でも変換を実行
         preserve_enumeration=args.preserve_enumeration,  # 列記List保護
         preserve_linebreak_list=args.preserve_linebreak_list,  # LineBreak付きColumn保護
-        merge_no_column_lists=args.merge_no_column_lists  # ColumnなしList統合
+        merge_no_column_lists=args.merge_no_column_lists,  # ColumnなしList統合
+        preserve_lists_after_struct=args.preserve_lists_after_struct  # 表・図の後のList保護
     )
 
     return process_xml_file(input_path, output_path, config)
