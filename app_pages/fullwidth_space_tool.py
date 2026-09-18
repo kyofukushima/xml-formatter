@@ -7,7 +7,7 @@
 
 対象: Title要素が空（または不在）のItem/Subitem1～10の先頭Sentence冒頭、
 および LineBreak="true" のColumn内の先頭Sentence冒頭。
-除外条件（数式・変数定義行・補填済み等）はメインページの補填機能と同一です。
+除外条件（数式・変数定義行・補填済み等）とオプションはメインページの補填機能と同一です。
 """
 import sys
 from io import BytesIO
@@ -67,6 +67,13 @@ exclude_paren = st.checkbox(
     help="「（注）…」等の括弧書きで始まるSentenceに全角スペースを挿入しません。"
          "括弧書きを字下げするかどうかは告示ごとの官報体裁に合わせて選択してください。"
 )
+include_vardef = st.checkbox(
+    "変数定義行（「Ｅ：…」等の短い記号列）も対象にする",
+    value=False,
+    help="「Ｅ：ガス消費量…」「ＥＭ＝αＭ×Ａ…」のように短い記号列＋「：」「＝」で始まる"
+         "変数定義行・数式行にも全角スペースを挿入します。"
+         "官報体裁では字下げしないことが多いためデフォルトは対象外です。"
+)
 
 st.markdown("---")
 
@@ -92,7 +99,7 @@ if uploaded_file is not None:
         root = tree.getroot()
         # メインページの補填処理（addモード）と同一のロジックを適用する
         targets, excluded_vardefs = pp.collect_target_sentences(
-            root, include_list=include_list
+            root, include_list=include_list, include_vardef=include_vardef
         )
         changed = 0
         excluded_parens = 0
