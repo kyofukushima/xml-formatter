@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Law>
+  <MainProvision>
+    <Paragraph Num="1">
+      <ParagraphNum/>
+      <ParagraphSentence><Sentence>㉑及び㉒に掲げる事項は、<Ruby>表<Rt>ひょう</Rt></Ruby>の㉓による。</Sentence></ParagraphSentence>
+      <!-- コメント内の（（２４））は変更しない -->
+      <List><ListSentence><Sentence>Ｅ<Sub>ｇ</Sub>：㉕の値</Sentence></ListSentence></List>
+    </Paragraph>
+  </MainProvision>
+</Law>

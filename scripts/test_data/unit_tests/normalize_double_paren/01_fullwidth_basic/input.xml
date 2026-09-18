@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Law>
+  <MainProvision>
+    <Paragraph Num="1">
+      <ParagraphNum/>
+      <ParagraphSentence><Sentence>見出し</Sentence></ParagraphSentence>
+      <List><ListSentence><Column Num="1"><Sentence>（（１））</Sentence></Column><Column Num="2"><Sentence>本文一</Sentence></Column></ListSentence></List>
+      <List><ListSentence><Column Num="1"><Sentence>（（２０））</Sentence></Column><Column Num="2"><Sentence>本文二十</Sentence></Column></ListSentence></List>
+      <List><ListSentence><Column Num="1"><Sentence>（（２１））</Sentence></Column><Column Num="2"><Sentence>本文二十一</Sentence></Column></ListSentence></List>
+      <List><ListSentence><Column Num="1"><Sentence>（（３５））</Sentence></Column><Column Num="2"><Sentence>本文三十五</Sentence></Column></ListSentence></List>
+      <List><ListSentence><Column Num="1"><Sentence>（（３６））</Sentence></Column><Column Num="2"><Sentence>本文三十六</Sentence></Column></ListSentence></List>
+      <List><ListSentence><Column Num="1"><Sentence>（（５０））</Sentence></Column><Column Num="2"><Sentence>本文五十</Sentence></Column></ListSentence></List>
+    </Paragraph>
+  </MainProvision>
+</Law>

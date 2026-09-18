@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Law>
+  <MainProvision>
+    <Paragraph Num="1">
+      <ParagraphNum/>
+      <ParagraphSentence><Sentence>見出し</Sentence></ParagraphSentence>
+      <List><ListSentence><Column Num="1"><Sentence>（（０））</Sentence></Column><Column Num="2"><Sentence>ゼロは対象外</Sentence></Column></ListSentence></List>
+      <List><ListSentence><Column Num="1"><Sentence>（（５１））</Sentence></Column><Column Num="2"><Sentence>五十一は対象外</Sentence></Column></ListSentence></List>
+      <List><ListSentence><Column Num="1"><Sentence>（（１２３））</Sentence></Column><Column Num="2"><Sentence>三桁は対象外</Sentence></Column></ListSentence></List>
+      <List><ListSentence><Column Num="1"><Sentence>（（ア））</Sentence></Column><Column Num="2"><Sentence>カタカナは対象外</Sentence></Column></ListSentence></List>
+      <List><ListSentence><Column Num="1"><Sentence>（１）</Sentence></Column><Column Num="2"><Sentence>一重括弧は対象外</Sentence></Column></ListSentence></List>
+      <List><ListSentence><Column Num="1"><Sentence>（（（１）））</Sentence></Column><Column Num="2"><Sentence>三重括弧は内側の二重のみ変換</Sentence></Column></ListSentence></List>
+    </Paragraph>
+  </MainProvision>
+</Law>

@@ -61,10 +61,11 @@ def get_available_scripts(script_dir: Path) -> List[str]:
     
     scripts = []
     for script_file in script_dir.glob("*.py"):
-        # テストファイル・バックアップファイル・後処理スクリプトを除外
-        # （postprocess_はチェックボックスで適用制御するため選択リストに含めない）
+        # テストファイル・バックアップファイル・後処理/正規化スクリプトを除外
+        # （postprocess_/normalize_はチェックボックスで適用制御するため選択リストに含めない）
         if (not script_file.name.startswith("test_")
                 and not script_file.name.startswith("postprocess_")
+                and not script_file.name.startswith("normalize_")
                 and not script_file.name.endswith(".bak.py")):
             scripts.append(script_file.name)
     

@@ -6,6 +6,7 @@ HOMEページ（メイン変換機能）
 import streamlit as st
 from pathlib import Path
 import sys
+import re
 from datetime import datetime
 import tempfile
 import shutil
@@ -78,6 +79,8 @@ if 'merge_no_column_lists' not in st.session_state:
     st.session_state.merge_no_column_lists = True
 if 'preserve_lists_after_struct' not in st.session_state:
     st.session_state.preserve_lists_after_struct = False
+if 'normalize_double_paren' not in st.session_state:
+    st.session_state.normalize_double_paren = False
 
 AUTO_DETECT_LABEL = "（自動判定）"
 
@@ -262,6 +265,19 @@ def main():
 
         st.markdown("---")
 
+        # 二重パーレン正規化オプション（前処理）
+        st.header("🔢 二重パーレンの正規化")
+        normalize_double_paren = st.checkbox(
+            "二重パーレン（((N))）を丸数字に正規化する",
+            value=st.session_state.normalize_double_paren,
+            help="変換前に「（（２１））」「((21))」のような二重括弧の番号を丸数字（①〜⑳、㉑〜㉟、㊱〜㊿）に"
+                 "置き換えます。見出しだけでなく本文中の参照も対象です。1〜50以外の番号は変換しません。"
+                 "テキスト内容が変わるため、テキスト内容検証は正規化後のファイルを基準に実行されます。"
+        )
+        st.session_state.normalize_double_paren = normalize_double_paren
+
+        st.markdown("---")
+
         # 列記List保護オプション（告示データ整備方針パターン20D対応）
         st.header("📑 列記Listの保護")
         preserve_enumeration = st.checkbox(
@@ -386,7 +402,7 @@ def main():
         st.markdown("---")
         st.header("ℹ️ 情報")
         st.markdown("""
-        **バージョン**: 1.9.0
+        **バージョン**: 1.10.0
 
         **機能**:
         - XMLファイルのアップロード
@@ -587,18 +603,47 @@ def main():
                         if script_name in ENUMERATION_AWARE_SCRIPTS
                     }
 
+                # 二重パーレン正規化（前処理）: 適用時はパイプライン入力と
+                # テキスト内容検証の基準を正規化後のファイルに切り替える
+                pipeline_input_path = input_path
+                double_paren_normalized = None
+                success, error_msg, execution_log = True, None, {}
+                if st.session_state.normalize_double_paren:
+                    normalized_path = intermediate_dir / f"{intermediate_stem}_normalized_double_paren.xml"
+                    normalize_script = script_dir / "normalize_double_paren.py"
+                    try:
+                        with st.spinner("二重パーレンを丸数字に正規化中..."):
+                            norm_result = subprocess.run(
+                                [sys.executable, str(normalize_script),
+                                 str(input_path), str(normalized_path)],
+                                capture_output=True, text=True, timeout=300
+                            )
+                        if norm_result.returncode != 0:
+                            success = False
+                            error_msg = "二重パーレンの正規化に失敗しました"
+                            if norm_result.stderr:
+                                error_msg += f"\nエラー詳細: {norm_result.stderr}"
+                        else:
+                            pipeline_input_path = normalized_path
+                            m = re.search(r'正規化実施: (\d+)箇所', norm_result.stdout or '')
+                            double_paren_normalized = int(m.group(1)) if m else 0
+                    except Exception as e:
+                        success = False
+                        error_msg = f"二重パーレンの正規化でエラーが発生しました: {e}"
+
                 # パイプライン実行
-                with st.spinner("パイプライン処理を実行中..."):
-                    success, error_msg, execution_log = run_pipeline(
-                        input_path=input_path,
-                        output_path=output_path,
-                        scripts=st.session_state.selected_scripts,
-                        script_dir=script_dir,
-                        intermediate_dir=intermediate_dir,
-                        timeout=300,
-                        progress_callback=progress_callback,
-                        extra_args_by_script=extra_args_by_script
-                    )
+                if success:
+                    with st.spinner("パイプライン処理を実行中..."):
+                        success, error_msg, execution_log = run_pipeline(
+                            input_path=pipeline_input_path,
+                            output_path=output_path,
+                            scripts=st.session_state.selected_scripts,
+                            script_dir=script_dir,
+                            intermediate_dir=intermediate_dir,
+                            timeout=300,
+                            progress_callback=progress_callback,
+                            extra_args_by_script=extra_args_by_script
+                        )
 
                 # 文頭全角スペース補填（(a)方式: テキスト内容検証は補填前のファイルに対して実施）
                 text_validation_target = output_path
@@ -658,7 +703,8 @@ def main():
                             }
                     
                     # テキスト内容検証を自動実行
-                    original_file = st.session_state.uploaded_file_path
+                    # （二重パーレン正規化を適用した場合は正規化後のファイルを基準にする）
+                    original_file = pipeline_input_path
                     if original_file and original_file.exists() and output_path.exists():
                         with st.spinner("テキスト内容検証を実行中..."):
                             script_dir = project_root / "scripts"
@@ -681,7 +727,8 @@ def main():
                         "execution_log": execution_log,
                         "intermediate_dir": intermediate_dir,
                         "validation_results": validation_results,
-                        "fullwidth_space_applied": fullwidth_space_applied
+                        "fullwidth_space_applied": fullwidth_space_applied,
+                        "double_paren_normalized": double_paren_normalized
                     }
                 else:
                     status_text.error(f"❌ エラーが発生しました: {error_msg}")
@@ -735,6 +782,9 @@ def main():
                 st.markdown("元のXMLファイルと処理後のXMLファイルのテキスト内容が一致しているか検証します。")
                 if st.session_state.processing_result.get("fullwidth_space_applied"):
                     st.caption("※ 全角スペース補填**前**のファイルに対して検証しています（補填による差分は検証対象外）")
+                if st.session_state.processing_result.get("double_paren_normalized") is not None:
+                    n = st.session_state.processing_result["double_paren_normalized"]
+                    st.caption(f"※ 二重パーレン正規化**後**のファイルを基準に検証しています（正規化: {n}箇所）")
                 
                 if 'content' in validation_results:
                     content_result = validation_results['content']

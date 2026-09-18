@@ -358,7 +358,7 @@
       "id": "circled_number",
       "name": "丸数字",
       "patterns": [
-        "^[①-⑳]+$"
+        "^[①-⑳㉑-㉟㊱-㊿]+$"
       ],
       "examples": [
         "①",

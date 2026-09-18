@@ -112,6 +112,22 @@ python3 scripts/postprocess_fullwidth_space.py input.xml output.xml --include-va
 python3 scripts/postprocess_fullwidth_space.py input.xml output.xml --exclude-paren  # 「（」始まりは対象外
 ```
 
+### 二重パーレンの丸数字正規化（オプション）
+
+「（（２１））」「((21))」のように丸括弧を二重にした番号表記を、対応する丸数字（①〜⑳、㉑〜㉟、㊱〜㊿）に置き換える前処理です（`scripts/normalize_double_paren.py`）。Webアプリではサイドバーのチェックボックス「二重パーレン（((N))）を丸数字に正規化する」で切り替えます（**デフォルトOFF**）。ONにすると変換パイプラインの前に実行され、正規化後のファイルが中間ファイル（`intermediate_files/<元ファイル名>/*_normalized_double_paren.xml`）として保存されます。`run_pipeline.sh` には含まれないため、CLIでは下記コマンドで事前に実行してください。
+
+- **対象**: 文書内のすべてのテキスト（見出しのラベルだけでなく本文中の参照も同じ表記に揃えます）。全角括弧・半角括弧のどちらでも、また混在していても対象です。括弧と数字の間の空白は無視します。
+- **対象外**: 0、51以上、3桁以上の番号、数字以外の二重括弧（「（（ア））」等）、一重括弧。既に丸数字の箇所は変更されないため、再実行しても安全です。
+- **注意**: 見出しや本文のテキスト自体が変わる処理です。告示データとしてどちらの表記を正とするかは整備方針に従って判断してください。正規化しなくても既存のラベル定義（「二重括弧全角数字」等）で階層化はできます。
+- **検証との関係**: テキスト内容検証は正規化**後**のファイルを基準に実行されます（正規化による差分は検証対象外）。
+- **丸数字ラベルの範囲**: このオプションに合わせて、丸数字ラベルの判定範囲を①〜⑳から①〜㊿に拡張しています。
+- **単体テスト**: `scripts/test_data/unit_tests/normalize_double_paren/run_tests.py`、`tests/test_double_paren_normalization.py`
+
+```bash
+# CLIでの個別実行（パイプラインの前に実行し、出力をパイプラインの入力にする）
+python3 scripts/normalize_double_paren.py input.xml input_normalized.xml
+```
+
 ### 列記Listの保護（オプション）
 
 告示データ整備方針（パターン20D: スペースを使った列記）に基づき、列記を表すList要素を変換対象から除外するオプションを用意しています。Webアプリのサイドバーにあるチェックボックス「列記のList（Column構成）を変換せず保持する」で切り替えます（デフォルトOFF＝従来動作）。
