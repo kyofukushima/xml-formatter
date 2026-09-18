@@ -68,6 +68,8 @@ if 'fullwidth_space_include_list' not in st.session_state:
     st.session_state.fullwidth_space_include_list = False
 if 'fullwidth_space_exclude_paren' not in st.session_state:
     st.session_state.fullwidth_space_exclude_paren = False
+if 'fullwidth_space_include_vardef' not in st.session_state:
+    st.session_state.fullwidth_space_include_vardef = False
 if 'preserve_enumeration' not in st.session_state:
     st.session_state.preserve_enumeration = False
 if 'preserve_linebreak_list' not in st.session_state:
@@ -361,6 +363,16 @@ def main():
         )
         st.session_state.fullwidth_space_exclude_paren = fullwidth_space_exclude_paren
 
+        fullwidth_space_include_vardef = st.checkbox(
+            "変数定義行（「Ｅ：…」等の短い記号列）も対象にする",
+            value=st.session_state.fullwidth_space_include_vardef,
+            disabled=not apply_fullwidth_space,
+            help="「Ｅ：ガス消費量…」「ＥＭ＝αＭ×Ａ…」のように短い記号列＋「：」「＝」で始まる"
+                 "変数定義行・数式行にも全角スペースを挿入します。"
+                 "官報体裁では字下げしないことが多いためデフォルトは対象外です。"
+        )
+        st.session_state.fullwidth_space_include_vardef = fullwidth_space_include_vardef
+
         # page_linkはマルチページ実行時のみ有効（テストランナー等では利用不可）
         try:
             st.page_link(
@@ -602,6 +614,8 @@ def main():
                             cmd.append('--include-list')
                         if st.session_state.fullwidth_space_exclude_paren:
                             cmd.append('--exclude-paren')
+                        if st.session_state.fullwidth_space_include_vardef:
+                            cmd.append('--include-vardef')
                         with st.spinner("文頭全角スペースを補填中..."):
                             pp_result = subprocess.run(
                                 cmd, capture_output=True, text=True, timeout=300

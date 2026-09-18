@@ -37,15 +37,19 @@ if 'fullwidth_space_include_list' not in st.session_state:
     st.session_state.fullwidth_space_include_list = False
 if 'fullwidth_space_exclude_paren' not in st.session_state:
     st.session_state.fullwidth_space_exclude_paren = False
+if 'fullwidth_space_include_vardef' not in st.session_state:
+    st.session_state.fullwidth_space_include_vardef = False
 
 
 def apply_to_example(xml_str, include_list=False, exclude_paren=False,
-                     enabled=True):
+                     include_vardef=False, enabled=True):
     """サンプルXMLに実際の補填処理を適用して返す"""
     if not enabled:
         return xml_str
     root = etree.fromstring(xml_str.encode('utf-8'))
-    targets, _ = pp.collect_target_sentences(root, include_list=include_list)
+    targets, _ = pp.collect_target_sentences(
+        root, include_list=include_list, include_vardef=include_vardef
+    )
     for sentence in targets:
         if exclude_paren and pp.is_insertable(sentence) \
                 and pp.starts_with_paren(sentence):
@@ -55,7 +59,7 @@ def apply_to_example(xml_str, include_list=False, exclude_paren=False,
 
 
 def show_before_after(xml_str, include_list=False, exclude_paren=False,
-                      enabled=True):
+                      include_vardef=False, enabled=True):
     """補填前・補填後のXMLを左右に並べて表示する"""
     col_before, col_after = st.columns(2)
     with col_before:
@@ -67,7 +71,8 @@ def show_before_after(xml_str, include_list=False, exclude_paren=False,
         st.markdown(label)
         st.code(
             apply_to_example(xml_str, include_list=include_list,
-                             exclude_paren=exclude_paren, enabled=enabled),
+                             exclude_paren=exclude_paren,
+                             include_vardef=include_vardef, enabled=enabled),
             language='xml'
         )
 
@@ -178,10 +183,9 @@ with st.expander("常に補填されないもの（設定に関わらず除外�
     st.markdown(
         "- **数式画像のみのSentence**（`QuoteStruct`/`Fig`）と、"
         "冒頭が `ArithFormula`（算式）で始まるSentence\n"
-        "- **変数定義行・数式行**（「Ｅ：…」「ｎ：…」等の記号定義、"
-        "「ＥＭ＝αＭ×Ａ…」等のテキスト数式）\n"
         "- 既に全角スペースで始まるSentence（二重補填の防止）\n"
-        "- テキストのない空のSentence"
+        "- テキストのない空のSentence\n\n"
+        "※ 変数定義行（「Ｅ：…」等）は「4. 変数定義行も対象にする」で切り替えられます。"
     )
     st.code('''<Subitem4 Num="1">
   <Subitem4Title/>
@@ -194,13 +198,7 @@ with st.expander("常に補填されないもの（設定に関わらず除外�
   <Subitem4Sentence>
     <Sentence Num="1"><ArithFormula>売上高－費用総額＋給与総額</ArithFormula></Sentence>
   </Subitem4Sentence>
-</Subitem4>
-<Subitem5 Num="1">
-  <Subitem5Title/>
-  <Subitem5Sentence>
-    <Sentence Num="1">Ｅ<Sub>ＡＣ</Sub>：空気調和設備の設計一次エネルギー消費量</Sentence>
-  </Subitem5Sentence>
-</Subitem5>''', language='xml')
+</Subitem4>''', language='xml')
 
 st.markdown("---")
 
@@ -284,6 +282,63 @@ show_before_after(
 
 st.markdown("---")
 
+# ------------------------------------------------------------------
+# 4. 変数定義行（短い記号列）の扱い
+# ------------------------------------------------------------------
+st.header("4. 変数定義行（「Ｅ：…」等の短い記号列）も対象にする")
+
+fullwidth_space_include_vardef = st.checkbox(
+    "変数定義行・数式行にも補填する",
+    value=st.session_state.fullwidth_space_include_vardef,
+    disabled=not apply_fullwidth_space,
+    help="「Ｅ：ガス消費量…」「ＥＭ＝αＭ×Ａ…」のように短い記号列＋「：」「＝」で"
+         "始まる行にも全角スペースを挿入します。"
+         "官報体裁では字下げしないことが多いためデフォルトは対象外です。"
+)
+st.session_state.fullwidth_space_include_vardef = fullwidth_space_include_vardef
+
+st.markdown(
+    "式の後に続く記号定義の羅列（「この式において、Ｅ、Ｖ…は次の数値を表す」の"
+    "後の「Ｅ：…」「Ｖ：…」）や、テキストで書かれた数式（「ＥＭ＝αＭ×Ａ…」）は、"
+    "Titleが空でもデフォルトでは補填しません。要素内のテキスト全体が"
+    "「英数字・ギリシャ文字の短い記号列（20文字以内、句読点なし）＋『：』または『＝』」"
+    "で始まる形状で判定します（`Sub`/`Sup` の添え字は展開して連結）。"
+    "官報原本で字下げされている場合はONにしてください。"
+)
+
+EXAMPLE_VARDEF = '''<Subitem1 Num="1">
+  <Subitem1Title/>
+  <Subitem1Sentence>
+    <Sentence Num="1">この式において、Ｅ及びＶは、それぞれ次の数値を表すものとする。</Sentence>
+  </Subitem1Sentence>
+  <Subitem2 Num="1">
+    <Subitem2Title/>
+    <Subitem2Sentence>
+      <Sentence Num="1">Ｅ：ガス消費量（単位　ワット時）</Sentence>
+    </Subitem2Sentence>
+  </Subitem2>
+  <Subitem2 Num="2">
+    <Subitem2Title/>
+    <Subitem2Sentence>
+      <Sentence Num="1">Ｖ<Sub>ｇ</Sub>：庫内容積（単位　リットル）</Sentence>
+    </Subitem2Sentence>
+  </Subitem2>
+  <Subitem2 Num="3">
+    <Subitem2Title/>
+    <Subitem2Sentence>
+      <Sentence Num="1">ＥＭ＝αＭ×Ａ（テキストで書かれた数式）</Sentence>
+    </Subitem2Sentence>
+  </Subitem2>
+</Subitem1>'''
+
+show_before_after(
+    f"<MainProvision>\n{EXAMPLE_VARDEF}\n</MainProvision>",
+    include_vardef=fullwidth_space_include_vardef,
+    enabled=apply_fullwidth_space
+)
+
+st.markdown("---")
+
 # 現在の設定サマリー
 st.header("現在の設定")
 st.markdown(
@@ -291,7 +346,9 @@ st.markdown(
     f"- List内も対象: "
     f"**{'ON' if fullwidth_space_include_list else 'OFF'}**\n"
     f"- 「（」始まりを対象外: "
-    f"**{'ON' if fullwidth_space_exclude_paren else 'OFF'}**"
+    f"**{'ON' if fullwidth_space_exclude_paren else 'OFF'}**\n"
+    f"- 変数定義行も対象: "
+    f"**{'ON' if fullwidth_space_include_vardef else 'OFF'}**"
 )
 # page_linkはマルチページ実行時のみ有効（テストランナー等では利用不可）
 try:
