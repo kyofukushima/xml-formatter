@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Law>
+  <MainProvision>
+    <Paragraph Num="1">
+      <ParagraphNum/>
+      <ParagraphSentence><Sentence>見出し</Sentence></ParagraphSentence>
+      <List><ListSentence><Column Num="1"><Sentence>①</Sentence></Column><Column Num="2"><Sentence>半角</Sentence></Column></ListSentence></List>
+      <List><ListSentence><Column Num="1"><Sentence>㉑</Sentence></Column><Column Num="2"><Sentence>半角二十一</Sentence></Column></ListSentence></List>
+      <List><ListSentence><Column Num="1"><Sentence>②</Sentence></Column><Column Num="2"><Sentence>全角半角混在</Sentence></Column></ListSentence></List>
+      <List><ListSentence><Column Num="1"><Sentence>③</Sentence></Column><Column Num="2"><Sentence>空白入り</Sentence></Column></ListSentence></List>
+      <List><ListSentence><Column Num="1"><Sentence>④</Sentence></Column><Column Num="2"><Sentence>全角空白入り</Sentence></Column></ListSentence></List>
+    </Paragraph>
+  </MainProvision>
+</Law>

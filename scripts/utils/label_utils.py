@@ -511,7 +511,7 @@ def split_label_and_content(text: str) -> Tuple[Optional[str], Optional[str]]:
         # 括弧数字
         (r'^([（(][０-９0-9]+[）)])[\s　]+(.+)$', True),
         # 丸数字
-        (r'^([①-⑳]+)[\s　]+(.+)$', True),
+        (r'^([①-⑳㉑-㉟㊱-㊿]+)[\s　]+(.+)$', True),
         # カタカナ
         (r'^([ア-ヴ]+)[\s　]+(.+)$', True),
         # アルファベット
