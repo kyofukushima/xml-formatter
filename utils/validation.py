@@ -6,7 +6,7 @@ XML構文検証とテキスト内容検証の機能を提供します。
 import subprocess
 import sys
 from pathlib import Path
-from typing import Optional, Tuple, Dict
+from typing import Optional, Tuple, Dict, List
 import xml.etree.ElementTree as ET
 import streamlit as st
 
@@ -34,6 +34,71 @@ def validate_xml_syntax(file_path: Path) -> Tuple[bool, Optional[str], Optional[
     except Exception as e:
         error_msg = f"予期しないエラー: {str(e)}"
         return False, error_msg, f"ERROR: Unexpected error: {e}"
+
+
+# 変換ロジック（scripts/xml_converter.py）が対応していない要素。
+# List 配下に Sublist が存在すると、Sublist 内の Column を List 自身の Column と
+# 誤認して空の Subitem を生成し、数式や Sublist の本文が欠落する。
+UNSUPPORTED_ELEMENT_TAGS = ('Sublist1', 'Sublist2', 'Sublist3')
+
+
+def find_unsupported_elements(file_path: Path) -> List[Dict[str, object]]:
+    """
+    変換ツールが対応していない要素（Sublist1/2/3）をXMLファイルから検出する
+
+    Args:
+        file_path: 検証するXMLファイルのパス
+
+    Returns:
+        検出した要素の一覧。各要素は {"tag", "line", "path"} を持つ辞書。
+        検出なしの場合は空リスト。
+    """
+    from lxml import etree
+
+    tree = etree.parse(str(file_path))
+    found = []
+    for elem in tree.iter(*UNSUPPORTED_ELEMENT_TAGS):
+        found.append({
+            "tag": elem.tag,
+            "line": elem.sourceline,
+            "path": tree.getpath(elem),
+        })
+    return found
+
+
+def validate_unsupported_elements(file_path: Path) -> Tuple[bool, Optional[str]]:
+    """
+    変換ツールが対応していない要素（Sublist1/2/3）が含まれていないか検証する
+
+    Args:
+        file_path: 検証するXMLファイルのパス
+
+    Returns:
+        (is_valid: bool, error_message: Optional[str])
+        検出時は is_valid=False とし、要素名・行番号・XPath を列挙したメッセージを返す。
+    """
+    if not file_path.exists():
+        return False, "ファイルが見つかりません"
+
+    try:
+        found = find_unsupported_elements(file_path)
+    except Exception as e:
+        return False, f"XMLの解析に失敗しました: {e}"
+
+    if not found:
+        return True, None
+
+    max_show = 10
+    lines = [
+        f"変換ツールが対応していない要素（{'/'.join(UNSUPPORTED_ELEMENT_TAGS)}）が {len(found)} 件検出されました。",
+        "Sublist を含む List は正しく変換できず、要素が欠落します。入力XMLを修正してから再度アップロードしてください。",
+        "",
+    ]
+    for item in found[:max_show]:
+        lines.append(f"- {item['tag']}（{item['line']}行目）: {item['path']}")
+    if len(found) > max_show:
+        lines.append(f"- ... 他 {len(found) - max_show} 件")
+    return False, "\n".join(lines)
 
 
 def validate_xml_syntax_with_script(
