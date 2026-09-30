@@ -30,6 +30,7 @@ from utils.validation import (
     validate_xml_syntax,
     validate_xml_syntax_with_script,
     validate_text_content,
+    validate_unsupported_elements,
     format_validation_report
 )
 from utils.label_analyzer import analyze_xml_labels
@@ -435,6 +436,11 @@ def main():
             tmp_path = Path(tmp_file.name)
         
         is_valid, error_msg = validate_xml_file(tmp_path)
+
+        # 変換ロジックが対応していない要素（Sublist1/2/3）の検出
+        # 含まれている場合は要素欠落が発生するため、アップロード時点でエラーにする
+        if is_valid:
+            is_valid, error_msg = validate_unsupported_elements(tmp_path)
         
         if is_valid:
             st.session_state.uploaded_file_path = tmp_path
