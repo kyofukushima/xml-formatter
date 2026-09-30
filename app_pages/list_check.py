@@ -10,12 +10,19 @@ List要素判定ページ
 
 結果一覧はCSVとしてダウンロードできます。
 """
-import zipfile
+import sys
 from io import BytesIO
+from pathlib import Path
 
 import pandas as pd
 import streamlit as st
 from lxml import etree
+
+# プロジェクトルートをパスに追加
+project_root = Path(__file__).parent.parent
+sys.path.insert(0, str(project_root))
+
+from utils.upload_helpers import iter_uploaded_xml, split_upload_path  # noqa: E402
 
 st.set_page_config(
     page_title="List有無判定 - XML変換パイプライン",
@@ -66,51 +73,6 @@ else:
     )
 
 
-def split_upload_path(name):
-    """パスをフォルダ階層とファイル名に分解する"""
-    parts = name.replace('\\', '/').split('/')
-    parts = [p for p in parts if p]
-    if not parts:
-        return [], name
-    return parts[:-1], parts[-1]
-
-
-def decode_zip_name(info):
-    """ZIP内のファイル名を正しい文字コードで取得する
-
-    ZIPの仕様上、UTF-8フラグが立っていないエントリ名はcp437として
-    デコードされるため、日本語名（Windowsで作成されたZIPはcp932）を
-    復元する。
-    """
-    if info.flag_bits & 0x800:  # UTF-8フラグ
-        return info.filename
-    try:
-        raw = info.filename.encode('cp437')
-    except UnicodeEncodeError:
-        return info.filename
-    for encoding in ('cp932', 'utf-8'):
-        try:
-            return raw.decode(encoding)
-        except UnicodeDecodeError:
-            continue
-    return info.filename
-
-
-def is_target_zip_entry(name):
-    """ZIP内エントリが判定対象のXMLファイルかどうか"""
-    if name.endswith('/'):
-        return False
-    parts = [p for p in name.replace('\\', '/').split('/') if p]
-    if not parts:
-        return False
-    # macOSのメタデータ・隠しファイルを除外
-    if any(p == '__MACOSX' for p in parts):
-        return False
-    if parts[-1].startswith('._') or parts[-1].startswith('.'):
-        return False
-    return parts[-1].lower().endswith('.xml')
-
-
 def analyze_xml_data(path_name, data, source=""):
     """1ファイル分のXMLデータを解析してList要素の判定結果を返す"""
     folders, file_name = split_upload_path(path_name)
@@ -144,36 +106,17 @@ def analyze_xml_data(path_name, data, source=""):
 def collect_rows(files, is_zip_mode):
     """アップロードされたファイルから判定結果の行を収集する"""
     rows = []
-    for uploaded in files:
-        if not is_zip_mode:
-            rows.append(analyze_xml_data(uploaded.name, uploaded.getvalue()))
-            continue
-        try:
-            with zipfile.ZipFile(BytesIO(uploaded.getvalue())) as zf:
-                xml_entries = [
-                    info for info in zf.infolist()
-                    if is_target_zip_entry(decode_zip_name(info))
-                ]
-                if not xml_entries:
-                    rows.append({
-                        "_source": uploaded.name, "_folders": [],
-                        "ファイル名": "", "判定": "対象なし",
-                        "List要素数": None, "うちColumnなし": None,
-                        "備考": "ZIP内にXMLファイルがありません",
-                    })
-                    continue
-                for info in xml_entries:
-                    rows.append(analyze_xml_data(
-                        decode_zip_name(info), zf.read(info),
-                        source=uploaded.name
-                    ))
-        except zipfile.BadZipFile:
+    for source, path_name, data, error in iter_uploaded_xml(files, is_zip_mode):
+        if error is not None:
             rows.append({
-                "_source": uploaded.name, "_folders": [],
-                "ファイル名": "", "判定": "解析エラー",
+                "_source": source, "_folders": [],
+                "ファイル名": "",
+                "判定": "対象なし" if "ありません" in error else "解析エラー",
                 "List要素数": None, "うちColumnなし": None,
-                "備考": "ZIPファイルとして読み込めません",
+                "備考": error,
             })
+            continue
+        rows.append(analyze_xml_data(path_name, data, source=source))
     return rows
 
 

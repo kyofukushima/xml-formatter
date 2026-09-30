@@ -1,0 +1,20 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git -C /Users/fukushima/Documents/xml_anken/kouzou1_xml_app fetch --all --quiet)",
+      "Bash(git -C /Users/fukushima/Documents/xml_anken/kouzou1_xml_app status)",
+      "Bash(git -C /Users/fukushima/Documents/xml_anken/kouzou1_xml_app log --oneline --left-right origin/feature/reverse-conversion...HEAD)",
+      "Read(//Users/fukushima/Documents/xml_anken/gyosei_xml2026/手動修正/0014_export_xml_horei_00006730_20251001/**)",
+      "Bash(grep -o 'の[０-９0-9一二三四五六七八九十]*' \"/Users/fukushima/Documents/xml_anken/gyosei_xml2026/手動修正/0014_export_xml_horei_00006730_20251001/H21null[2430]509_R06null[2430]287_R071001_1.xml\" | sort | uniq -c | sort -rn | head -20)",
+      "Bash(grep -n 'Subject\\\\|Item\\\\|Title' \"/Users/fukushima/Documents/xml_anken/gyosei_xml2026/手動修正/0014_export_xml_horei_00006730_20251001/H21null[2430]509_R06null[2430]287_R071001_1.xml\" | head -40)",
+      "Bash(head -60 \"/Users/fukushima/Documents/xml_anken/gyosei_xml2026/手動修正/0014_export_xml_horei_00006730_20251001/H21null[2430]509_R06null[2430]287_R071001_1.xml\")",
+      "Bash(grep -oE '<\\(Paragraph|Item|Subitem[0-9]+\\)\\(Num|Title\\)?[^>]*>[^<]*' \"/Users/fukushima/Documents/xml_anken/gyosei_xml2026/手動修正/0014_export_xml_horei_00006730_20251001/H21null[2430]509_R06null[2430]287_R071001_1.xml\" | grep -E 'Title>' | head -40)",
+      "Bash(grep -B1 -A1 'vertical\">[０-９0-9一二三四五六七八九十]+の[０-９0-9一二三四五六七八九十]' \"/Users/fukushima/Documents/xml_anken/gyosei_xml2026/手動修正/0014_export_xml_horei_00006730_20251001/H21null[2430]509_R06null[2430]287_R071001_1.xml\" | head -10; echo ---; grep -oE '<Sentence Num=\"1\" WritingMode=\"vertical\">[^<]{1,12}</Sentence>' \"/Users/fukushima/Documents/xml_anken/gyosei_xml2026/手動修正/0014_export_xml_horei_00006730_20251001/H21null[2430]509_R06null[2430]287_R071001_1.xml\" | grep -E '>\\([０-９0-9一二三四五六七八九十（）\\\\\\(\\\\\\)イロハニホヘトチリヌルヲaａbｂ]+|[^<]*の[０-９0-9一二三四五六七八九十]+\\)</' | sort | uniq -c | sort -rn | head -40)",
+      "Bash(venv/bin/python -c ' *)",
+      "Bash(/Users/fukushima/Documents/xml_anken/kouzou1_xml_app/venv/bin/python3 --version)",
+      "Bash(venv/bin/python --version)",
+      "Bash(venv/bin/pip install *)",
+      "Bash(venv/bin/python scripts/batch_fullwidth_space.py *)"
+    ]
+  }
+}
