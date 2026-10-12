@@ -12,19 +12,19 @@
           <Sentence Num="1">括弧全角数字（１）</Sentence>
         </ItemSentence>
       </Item>
-      <Item Num="2">
+      <Item Num="1_2">
         <ItemTitle>（１）の２</ItemTitle>
         <ItemSentence>
           <Sentence Num="1">括弧全角数字（１）の２</Sentence>
         </ItemSentence>
       </Item>
-      <Item Num="3">
+      <Item Num="2">
         <ItemTitle>（２）</ItemTitle>
         <ItemSentence>
           <Sentence Num="1">括弧全角数字（２）</Sentence>
         </ItemSentence>
       </Item>
-      <Item Num="4">
+      <Item Num="2_2_2">
         <ItemTitle>（２）の２の２</ItemTitle>
         <ItemSentence>
           <Sentence Num="1">括弧全角数字（２）の２の２</Sentence>
@@ -35,7 +35,7 @@
             <Sentence Num="1">括弧漢数字（一）</Sentence>
           </Subitem1Sentence>
         </Subitem1>
-        <Subitem1 Num="2">
+        <Subitem1 Num="1_2">
           <Subitem1Title>（一）の二</Subitem1Title>
           <Subitem1Sentence>
             <Sentence Num="1">括弧漢数字（一）の二</Sentence>
@@ -46,7 +46,7 @@
               <Sentence Num="1">括弧半角数字(1)</Sentence>
             </Subitem2Sentence>
           </Subitem2>
-          <Subitem2 Num="2">
+          <Subitem2 Num="1_2">
             <Subitem2Title>(1)の2</Subitem2Title>
             <Subitem2Sentence>
               <Sentence Num="1">括弧半角数字(1)の2</Sentence>

@@ -12,7 +12,9 @@
      直下の*Sentence要素内の先頭Sentence冒頭
      ※Title（番号）があるものは対象外（パターン6のSubitem2Title例外に対応）
   2. LineBreak="true"のColumn要素内の先頭Sentence冒頭
-     （同一要素内でColumn改行された二段目以降の段落）
+     （同一要素内でColumn改行された二段目以降の段落）、および
+     LineBreak="true"のColumnの直後にあるColumn内の先頭Sentence冒頭
+     （改行の次の行頭に表示される。統合で畳み込んだ複数Column本文の先頭Column）
      ※Title（番号）が空でないItem/Subitem1～10、およびParagraphNumが空でない
        Paragraphの先頭Column（見出し）は、番号と同じ行に表示されるため対象外
   3. List/ListSentence内の先頭Sentence冒頭（--include-list指定時のみ。
@@ -205,6 +207,20 @@ def collect_target_sentences(root, include_list=False, include_vardef=False):
         if _is_inside_list(column) and not include_list:
             continue
         if _is_heading_column(column):
+            continue
+        add(_first_direct_sentence(column))
+
+    # 2b. LineBreak="true"のColumnの直後にあるColumn（行頭に表示される）
+    #     ColumnなしList統合で、見出し（LineBreak付きColumn1）の直後に
+    #     先頭Columnがラベルでない複数Column Listを畳み込んだ場合の本文Column2が該当する。
+    #     Column3以降（LineBreakなしColumnの直後）は同じ行の続きのため対象外。
+    for column in root.iter('Column'):
+        previous = column.getprevious()
+        while previous is not None and not isinstance(previous.tag, str):
+            previous = previous.getprevious()  # コメント等を飛ばす
+        if previous is None or previous.tag != 'Column' or previous.get('LineBreak') != 'true':
+            continue
+        if _is_inside_list(column) and not include_list:
             continue
         add(_first_direct_sentence(column))
 

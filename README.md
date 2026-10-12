@@ -94,7 +94,7 @@ python3 scripts/compare_xml_text_content.py 変換前.xml 変換後.xml --ignore
 
 告示データ整備方針に基づき、段落冒頭の1字下げを全角スペースで再現する後処理を用意しています（`scripts/postprocess_fullwidth_space.py`）。Webアプリではパイプラインの最終段として実行され、サイドバーのチェックボックス「変換後に文頭全角スペースを補填する」で適用の有無を指定できます（**デフォルトON**。サブオプションの「List内のSentenceも対象にする」「「（」で始まるSentenceは対象外にする」「変数定義行（「Ｅ：…」等の短い記号列）も対象にする」はデフォルトOFF）。`run_pipeline.sh` には含まれないため、CLIでは下記コマンドで個別に実行してください。「文頭スペース補填」ページではパイプラインを通さず補填のみを単独実行できます（複数XMLの同時アップロードや、フォルダをZIP化したもののアップロードにも対応し、ZIPの場合はフォルダ階層を保ったまま補填後のXMLをZIPで返却します）。また、専用の設定ページ（`app_pages/fullwidth_space_settings.py`）では、各オプションのXML例（補填前→補填後）を確認しながら設定できます。例の「補填後」は実際の補填処理をサンプルXMLに適用した結果を表示するため、例示と実動作は常に一致します。設定はサイドバーと共有されます。
 
-- **対象**: ①Title要素が空のItem/Subitem1～10のSentence冒頭、②`LineBreak="true"`のColumn内Sentence冒頭（Titleあり要素の先頭Column＝見出しは番号と同じ行のため対象外）、③List内Sentence冒頭（サブオプション、デフォルト対象外）
+- **対象**: ①Title要素が空のItem/Subitem1～10のSentence冒頭、②`LineBreak="true"`のColumn内Sentence冒頭（Titleあり要素の先頭Column＝見出しは番号と同じ行のため対象外）、および`LineBreak="true"`のColumnの直後にあるColumn内Sentence冒頭（改行の次の行頭。ColumnなしList統合で見出しの直後に畳み込んだ複数Column本文の先頭Columnが該当し、同じ行の続きである次のColumn以降は対象外）、③List内Sentence冒頭（サブオプション、デフォルト対象外）
 - **除外**: 上記①②③に該当しても、次のSentenceには補填しません。
   - テキストを一切含まないSentence（空行防止用の空要素、`QuoteStruct`/`Fig`等の数式画像のみのSentence）、および冒頭が`ArithFormula`/`QuoteStruct`/`Fig`で始まるSentence（算式の表示行）
   - 変数定義行・数式行（「Ｅ：…」「ｎ：…」等の記号定義の羅列、「ＥＭ＝αＭ×Ａ…」等のテキストで書かれた数式）。コンテナ全体のテキスト（`Sub`/`Sup`の添え字を展開して連結）が「短い記号列＋『：』または『＝』」で始まる形状で判定します。先行文脈に「（この|これらの）式において」の説明文が見つからないものは、判定根拠が形状のみのため実行ログに「要確認」として行番号付きで出力されます。`--include-vardef`指定でこの除外を無効化できます（Webアプリではサイドバーのチェックボックス「変数定義行（「Ｅ：…」等の短い記号列）も対象にする」で切り替え）。
@@ -134,6 +134,25 @@ python3 scripts/batch_fullwidth_space.py input_dir/ --keep-names --csv result.cs
 ```bash
 # CLIでの個別実行（パイプラインの前に実行し、出力をパイプラインの入力にする）
 python3 scripts/normalize_double_paren.py input.xml input_normalized.xml
+```
+
+### 別表（AppdxTable）のNum付与（オプション）
+
+変換パイプラインは`AppdxTable`の`Num`属性を扱わないため、逆変換由来のXMLなど`Num`のない`AppdxTable`はそのまま出力されます。この後処理（`scripts/postprocess_appdxtable_num.py`）は、出力XMLの`AppdxTable`に`Num`を付与します。Webアプリではサイドバーのチェックボックス「変換後に別表（AppdxTable）のNum属性を付与する」で切り替えます（**デフォルトOFF**）。ONにすると文頭全角スペース補填の後に実行され、付与前のファイルが中間ファイル（`intermediate_files/<元ファイル名>/*_before_appdxtable_num.xml`）として保存されます。属性のみの変更のため、テキスト内容検証には影響しません。`run_pipeline.sh` には含まれないため、CLIでは下記コマンドで個別に実行してください。
+
+- **付与方式**（サイドバーのラジオボタン / `--mode`）
+  - **タイトルの序数**（既定、`title`）: `AppdxTableTitle`の序数を`Num`にします（「別表第一」→`Num="1"`、「別表第２」→`Num="2"`、「別記第二十」→`Num="20"`。全角・半角アラビア数字と漢数字に対応）。スキーマ上`Num`は正の整数（`xs:positiveInteger`）のため、枝番付きのタイトル（「別表第三の一の二」。`3_1_2`を表せない）と序数の読み取れないタイトルには付与せず、実行結果に「未付与」として行番号付きで表示します。序数のないタイトルでも、その要素が文書内に1つだけなら`Num="1"`にします。「別表第一」と「別記第一」のように同じ序数が複数の要素に付く場合は、付与したうえで「重複」として表示します。
+  - **出現順の連番**（`sequential`）: 文書内の`AppdxTable`を出現順に1, 2, 3…と振ります。枝番付きのタイトルが混在する告示で全件に付与したい場合に使います。
+- **既存Numの扱い**: 既定では`Num`がない、または正の整数でない（`Num="0"`等）`AppdxTable`だけに付与し、有効な`Num`が付いているものは変更しません（繰り返し実行しても結果は変わりません）。既存の`Num`が方式による値と異なる場合は「要確認」として表示します。「既存のNumも振り直す」（`--overwrite`）をONにすると、有効な`Num`も選択した方式で振り直します。
+- **対象要素**: 既定は`AppdxTable`のみ。CLIの`--elements`で`AppdxNote`、`AppdxStyle`、`AppdxFormat`、`AppdxFig`、`SupplProvisionAppdxTable`、`SupplProvisionAppdxStyle`（いずれも`Num`が正の整数の付録系要素）に広げられます。タイトル要素は「<要素名>Title」とみなします。
+- **単体テスト**: `tests/test_appdxtable_num.py`
+
+```bash
+# CLIでの個別実行
+python3 scripts/postprocess_appdxtable_num.py input.xml output.xml                     # タイトルの序数
+python3 scripts/postprocess_appdxtable_num.py input.xml output.xml --mode sequential   # 出現順の連番
+python3 scripts/postprocess_appdxtable_num.py input.xml output.xml --overwrite         # 既存Numも振り直す
+python3 scripts/postprocess_appdxtable_num.py input.xml output.xml --elements AppdxTable,AppdxNote
 ```
 
 ### 列記Listの保護（オプション）
@@ -192,12 +211,13 @@ python3 scripts/convert_subitem1_step0.py input.xml output.xml --preserve-lists-
 - **Paragraph直下**: ParagraphSentenceの直後に連続するColumnなしListは、1つの空TitleのItemにまとめ、`ItemSentence`内の`Column Num="1"…"n"`（すべて`LineBreak="true"`）として並べます（従来は`no_column_text_split_mode`により個別のItemに分割）。
 - **単独のColumnなしList**: 連続せず1つだけのColumnなしList（統合相手がないもの）は、Columnで包まず従来どおり`*Sentence`直下の`Sentence`として変換します。LineBreak付きColumnは複数段落を1要素にまとめるための構成のため、段落が1つの場合には付与しません。
 - **Titleあり要素の本文直後**: ラベル付きListから変換した要素（例:「（１）　見出し」）や、入力時点のItem/Subitemの本文直後に続くColumnなしListは、本文（見出し）を`Column Num="1"`に包み、各段落を`Column Num="2"`以降として`*Sentence`内に畳み込みます。空TitleのSubitemは作りません。
-- **LineBreak属性**: `LineBreak="true"`は「そのColumnの後ろで改行する」指示のため、見出しのColumnを含むすべてのColumnに付与します。
+- **Titleあり要素の本文直後の非ラベルColumnありList**: 見出しの直後に、先頭Columnがラベルでない複数ColumnのList（例: 引用符で分断された本文「…の「６（１）」「基本分類表」（以下…）」）が続く場合も、見出しを`Column Num="1"`（`LineBreak="true"`）に包み、Listの各Columnを`Column Num="2"`以降としてそのまま畳み込みます。改行が必要なのは見出しと本文の間だけなので、追記したColumnには`LineBreak`を付けません。その後にさらにColumnなしList（段落）が続く場合は、直前の末尾Columnに`LineBreak="true"`を付けてから追記します。
+- **LineBreak属性**: `LineBreak="true"`は「そのColumnの後ろで改行する」指示のため、見出しのColumnと、ColumnなしListから追記した段落のColumnに付与します（非ラベルColumnありListから追記したColumnには付与しません）。
 - **終了条件**: ラベル付き（Columnあり）List、既存のItem/Subitem要素、TableStruct等が現れた時点で統合を終了し、以降は従来どおり処理します（ラベル付きListは従来どおり直前の要素に取り込まれます）。
-- **対象外**: 画像のみのList（QuoteStruct/Fig）と括弧付き見出し（科目名・指導項目・学年）のListは従来どおり処理します。Columnあり（非ラベル）Listを続きの段落として連結する処理（改行しないColumnの連結）は非対応です。
+- **対象外**: 画像のみのList（QuoteStruct/Fig）と括弧付き見出し（科目名・指導項目・学年）のListは従来どおり処理します。非ラベルColumnありListの畳み込みはTitleあり要素の本文直後に限り、Paragraph直下や空Title要素への追記は行いません。
 - **全角スペース補填との整合**: 補填処理はTitleあり要素の先頭Column（見出し）を対象外とするため、見出しには補填されず、Column2以降の段落と空Title要素の先頭Columnに補填されます。
 - **対応スクリプト**: `convert_item_step0.py`、`convert_subitem1～10_step0.py`（`--merge-no-column-lists`フラグ。保護オプションと併用可）
-- **単体テスト**: `scripts/test_data/unit_tests/merge_no_column_lists/run_tests.py`
+- **単体テスト**: `scripts/test_data/unit_tests/merge_no_column_lists/run_tests.py`（非ラベルColumnありListの畳み込みは `10_titled_item_fold_text_column_list` / `11_titled_parent_fold_text_column_list_next_step`）
 
 ```bash
 # CLIでの個別実行

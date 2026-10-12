@@ -179,6 +179,31 @@ show_before_after(
     enabled=apply_fullwidth_space
 )
 
+st.markdown(
+    "ColumnなしList統合で、見出し（`LineBreak=\"true\"` のColumn1）の直後に先頭Columnがラベルでない"
+    "複数ColumnのListを畳み込んだ場合、本文のColumn2は改行の次の行頭に表示されるため補填対象です。"
+    "Column3以降は同じ行の続きのため補填しません。"
+)
+EXAMPLE_COLUMN_AFTER_LINEBREAK = '''<Item Num="1">
+  <ItemTitle>一</ItemTitle>
+  <ItemSentence>
+    <Column Num="1" LineBreak="true">
+      <Sentence Num="1">特定疾患療養管理料に規定する疾患（見出し・対象外）</Sentence>
+    </Column>
+    <Column Num="2">
+      <Sentence Num="1">平成二十七年総務省告示第三十五号の「６（１）（行頭・補填対象）</Sentence>
+    </Column>
+    <Column Num="3">
+      <Sentence Num="1">基本分類表」に規定する疾病（同じ行の続き・対象外）</Sentence>
+    </Column>
+  </ItemSentence>
+</Item>'''
+
+show_before_after(
+    f"<MainProvision>\n{EXAMPLE_COLUMN_AFTER_LINEBREAK}\n</MainProvision>",
+    enabled=apply_fullwidth_space
+)
+
 with st.expander("常に補填されないもの（設定に関わらず除外）"):
     st.markdown(
         "- **数式画像のみのSentence**（`QuoteStruct`/`Fig`）と、"

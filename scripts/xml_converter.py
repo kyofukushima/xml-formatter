@@ -583,6 +583,9 @@ def create_element_with_text_first_column_and_multiple_sentences(all_sentences: 
 #   - Title あり要素（ラベル付き List から変換した要素・既存要素）の本文直後に続く場合:
 #     本文（見出し）の Sentence を Column1 に包み、各 List を Column2 以降として畳み込む
 #     （空Title の下位要素は作らない）
+#   - Title あり要素の本文直後に「先頭 Column がラベルでない複数 Column の List」が続く場合:
+#     見出しの Sentence を Column1（LineBreak="true"）に包み、List の各 Column を
+#     Column2 以降としてそのまま追記する（改行は見出しと本文の間のみ。追記分には LineBreak を付けない）
 # LineBreak="true" は「その Column の後ろで改行する」指示のため、見出しの Column にも付与する。
 # ラベル付き List・既存の子要素・TableStruct 等が現れた時点で統合を終了し、従来の処理に戻す。
 # ============================================================================
@@ -635,14 +638,72 @@ def is_plain_no_column_list(list_elem, config: ConversionConfig) -> bool:
     return True
 
 
-def append_list_as_linebreak_column(sentence_container, list_elem) -> etree.Element:
-    """ColumnなしList の Sentence 群を LineBreak="true" の Column として *Sentence の末尾に追記する
+def is_text_first_multi_column_list(list_elem, config: ConversionConfig) -> bool:
+    """畳み込み対象となる「先頭 Column がラベルでない複数 Column の List」かどうか
 
-    Sentence は Ruby 等の子要素・属性を保持してコピーし、Column 内で Num を 1 から振り直す。
+    「見出し文」の直後に、本文が複数 Column（例: 引用符で分断された文）で続く形を対象とする。
+    先頭 Column がラベル（イ・（１）等）や括弧付き見出し（科目名・指導項目・学年）の場合、
+    Column 以外の内容（Sublist・要素外テキスト等）を含む場合は対象外。
     """
-    column_num = len(sentence_container.findall('Column')) + 1
-    column = etree.SubElement(sentence_container, 'Column', Num=str(column_num), LineBreak='true')
+    if not is_list_element(list_elem):
+        return False
+    _, _, col_count = get_list_columns(list_elem)
+    if col_count < 2:
+        return False
+    if not _has_only_child_elements(list_elem, {'ListSentence'}):
+        return False
     list_sentence = list_elem.find('ListSentence')
+    if list_sentence is None or not _has_only_child_elements(list_sentence, {'Column'}):
+        return False
+    columns = list_sentence.findall('Column')
+    if any(not _has_only_child_elements(column, {'Sentence'}) or not column.findall('Sentence')
+           for column in columns):
+        return False
+    first_text = "".join(columns[0].itertext()).strip()
+    if not first_text or is_label(first_text) or is_kanji_number_label(first_text):
+        return False
+    if is_subject_name_bracket(first_text) or is_instruction_bracket(first_text):
+        return False
+    if is_grade_single_bracket(first_text) or is_grade_double_bracket(first_text):
+        return False
+    return True
+
+
+def is_foldable_list(list_elem, config: ConversionConfig) -> bool:
+    """Title あり要素の本文に Column として畳み込める List かどうか
+
+    ColumnなしList（本文段落）または先頭 Column がラベルでない複数 Column の List。
+    """
+    return is_plain_no_column_list(list_elem, config) or is_text_first_multi_column_list(list_elem, config)
+
+
+def append_list_as_linebreak_column(sentence_container, list_elem) -> etree.Element:
+    """List の内容を Column として *Sentence の末尾に追記する
+
+    - ColumnなしList: Sentence 群を LineBreak="true" の Column 1つとして追記する
+    - 複数 Column の List（先頭 Column がラベルでないもの）: 各 Column をそのまま追記する
+      （LineBreak は付けない。改行が必要なのは見出しと本文の間のみ）
+    いずれも、追記する前に直前の末尾 Column へ LineBreak="true" を付与して段落の区切りを保つ。
+    Sentence は Ruby 等の子要素・属性を保持してコピーし、Column 内で Num を 1 から振り直す。
+    戻り値は追記した末尾の Column。
+    """
+    existing_columns = sentence_container.findall('Column')
+    if existing_columns:
+        existing_columns[-1].set('LineBreak', 'true')
+    column_num = len(existing_columns) + 1
+    list_sentence = list_elem.find('ListSentence')
+    source_columns = list_sentence.findall('Column')
+    if source_columns:
+        column = None
+        for source_column in source_columns:
+            column = deepcopy(source_column)
+            column.set('Num', str(column_num))
+            for idx, sentence in enumerate(column.findall('Sentence'), start=1):
+                sentence.set('Num', str(idx))
+            sentence_container.append(column)
+            column_num += 1
+        return column
+    column = etree.SubElement(sentence_container, 'Column', Num=str(column_num), LineBreak='true')
     for idx, sentence in enumerate(list_sentence.findall('Sentence'), start=1):
         new_sentence = deepcopy(sentence)
         new_sentence.set('Num', str(idx))
@@ -734,8 +795,9 @@ def wrap_sentences_as_first_column(sentence_container) -> bool:
 
 
 def fold_list_into_titled_element(element, list_elem, config: ConversionConfig) -> bool:
-    """Title あり要素の本文直後に続く ColumnなしList を、その要素の *Sentence 内の
-    LineBreak付きColumn として畳み込む（空Title の下位要素は作らない）。畳み込んだら True"""
+    """Title あり要素の本文直後に続く ColumnなしList（または先頭 Column がラベルでない
+    複数 Column の List）を、その要素の *Sentence 内の Column として畳み込む
+    （空Title の下位要素は作らない）。畳み込んだら True"""
     if element is None or not get_title_text(element, config):
         return False
     if not has_only_title_and_sentence(element, config):
@@ -775,8 +837,9 @@ def unwrap_single_column_merged_elements(new_children, config: ConversionConfig)
 
 
 def fold_leading_no_column_lists_into_parent(parent_elem, parent_sentence, config: ConversionConfig) -> int:
-    """Title あり親要素の *Sentence 直後に連続する ColumnなしList を、親の *Sentence 内の
-    LineBreak付きColumn として畳み込む。畳み込んだ List の数を返す
+    """Title あり親要素の *Sentence 直後に連続する ColumnなしList（または先頭 Column が
+    ラベルでない複数 Column の List）を、親の *Sentence 内の Column として畳み込む。
+    畳み込んだ List の数を返す
 
     前ステップで Title あり要素に List のまま取り込まれた場合や、入力時点で
     Title あり要素の中に List がある場合に対応する。Paragraph 直下は
@@ -791,7 +854,7 @@ def fold_leading_no_column_lists_into_parent(parent_elem, parent_sentence, confi
     for sibling in parent_sentence.itersiblings():
         if not isinstance(sibling.tag, str):
             continue
-        if not is_plain_no_column_list(sibling, config):
+        if not is_foldable_list(sibling, config):
             break
         leading_lists.append(sibling)
     if not leading_lists or not wrap_sentences_as_first_column(parent_sentence):
@@ -2215,6 +2278,17 @@ def process_normal_mode_list_element(child, child_idx, children_to_process, stat
             # この判定はhandle_two_column_non_labeled_listやhandle_multi_column_non_labeled_list内で行うため、
             # ここでは通常の処理フローに進む
             
+            # ColumnなしList統合モード: 先頭Columnがラベルでない複数Column Listが、Titleあり要素
+            # （ラベル付きList由来等）の本文直後に続く場合は、空Titleの下位要素を作らず、
+            # その要素の*Sentence内のColumnとして畳み込む（見出しColumnにのみLineBreak="true"）
+            if (config.merge_no_column_lists and col_count >= 2 and not has_label
+                    and is_text_first_multi_column_list(child, config)
+                    and is_last_output_child(state)
+                    and fold_list_into_titled_element(state.last_child, child, config)):
+                stats['FOLDED_TEXT_COLUMN_LIST_INTO_SENTENCE'] += 1
+                state.made_changes = True
+                return True
+
             # Column数による処理分岐
             if col_count == 0:
                 # ColumnなしListの処理
@@ -2399,6 +2473,7 @@ def process_xml_file(input_path: Path, output_path: Path, config: ConversionConf
         f'CONVERTED_NO_COLUMN_LIST_TO_{config.child_tag.upper()}_COLUMN',
         'MERGED_NO_COLUMN_LIST_AS_COLUMN',
         'FOLDED_NO_COLUMN_LIST_INTO_SENTENCE',
+        'FOLDED_TEXT_COLUMN_LIST_INTO_SENTENCE',
         'UNWRAPPED_SINGLE_COLUMN_MERGED'
     ]
 
@@ -2431,6 +2506,8 @@ def process_xml_file(input_path: Path, output_path: Path, config: ConversionConf
                 desc = "ColumnなしList（統合: 直前要素のColumnとして追記）"
             elif key == 'FOLDED_NO_COLUMN_LIST_INTO_SENTENCE':
                 desc = "ColumnなしList（統合: Titleあり要素の本文にColumnとして畳み込み）"
+            elif key == 'FOLDED_TEXT_COLUMN_LIST_INTO_SENTENCE':
+                desc = "先頭Columnがラベルでない複数Column List（統合: Titleあり要素の本文にColumnとして畳み込み）"
             elif key == 'UNWRAPPED_SINGLE_COLUMN_MERGED':
                 desc = "ColumnなしList（統合: 単独段落のためColumnで包まずSentenceに戻した）"
             elif 'KANJI_LABELED' in key:

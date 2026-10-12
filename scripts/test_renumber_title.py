@@ -52,6 +52,19 @@ from utils.renumber_utils import (
     ("第一条", "1"),
     ("第十三条の二", "13_2"),
     ("第百条", "100"),
+    # 括弧付き数字（中の数値を用いる）
+    ("（１）", "1"),
+    ("（１）の２", "1_2"),
+    ("（２）の２の２", "2_2_2"),
+    ("(1)の2", "1_2"),
+    ("（一）の二", "1_2"),
+    ("（（１））", "1"),
+    # 丸数字・数字＋閉じ括弧・数字＋ピリオド
+    ("①", "1"),
+    ("⑫", "12"),
+    ("１）", "1"),
+    ("1)", "1"),
+    ("１．", "1"),
     # 前後の空白（全角スペース含む）は無視
     ("　六の二　", "6_2"),
     (" １２ ", "12"),
@@ -64,10 +77,10 @@ def test_title_to_num_valid(text, expected):
     None,
     "",
     "　",
-    "（１）",       # 括弧付きは対象外（コーパスでも連番）
-    "（２）",
-    "イ",           # イロハは対象外
+    "イ",           # イロハは登場順採番（derive_child_nums 側）のため単体では導出不可
     "ア",
+    "（１）の",     # 「の」の後に数字がない
+    "１．２",       # ピリオド区切り番号は対象外
     "一二",         # 位取り表記は番号として扱わない
     "一〇三",       # 〇を含む表記は対象外
     "第１　総則",   # 番号以外の文字列を含む
@@ -116,9 +129,57 @@ def test_renumber_children_kanji_branch():
     assert _item_nums(paragraph) == ['1', '2', '6_2', '6_3']
 
 
+def test_renumber_children_paren_branch():
+    """括弧付き数字は中の数値で採番し、枝番付きは "1_2" 形式になる"""
+    paragraph = _make_paragraph(['（１）', '（１）の２', '（２）', '（２）の２の２'])
+    mode, _ = renumber_children(paragraph, 'Item')
+    assert mode == 'title'
+    assert _item_nums(paragraph) == ['1', '1_2', '2', '2_2_2']
+
+
+def test_renumber_children_appearance_order_iroha():
+    """イロハは初出順に採番し、枝番付きは初出時の値を引き継ぐ"""
+    paragraph = _make_paragraph(['イ', 'ロ', 'イの二', 'ハ'])
+    mode, _ = renumber_children(paragraph, 'Item')
+    assert mode == 'title'
+    assert _item_nums(paragraph) == ['1', '2', '1_2', '3']
+
+
+def test_renumber_children_appearance_order_alphabet_paren():
+    """括弧付きアルファベットも初出順＋枝番引き継ぎで採番する"""
+    paragraph = _make_paragraph(['（ａ）', '（ｂ）', '（ａ）の２'])
+    mode, _ = renumber_children(paragraph, 'Item')
+    assert mode == 'title'
+    assert _item_nums(paragraph) == ['1', '2', '1_2']
+
+
+def test_renumber_children_fallback_on_mixed_numeric_and_iroha():
+    """数字系と数字以外が混在する親は連番にフォールバック"""
+    paragraph = _make_paragraph(['一', 'イ', '三'])
+    mode, _ = renumber_children(paragraph, 'Item')
+    assert mode == 'sequential'
+    assert _item_nums(paragraph) == ['1', '2', '3']
+
+
+def test_renumber_children_fallback_on_duplicate_iroha():
+    """同じイロハが枝番なしで再登場した場合は連番にフォールバック"""
+    paragraph = _make_paragraph(['イ', 'ロ', 'イ'])
+    mode, _ = renumber_children(paragraph, 'Item')
+    assert mode == 'sequential'
+    assert _item_nums(paragraph) == ['1', '2', '3']
+
+
+def test_renumber_children_fallback_on_non_numeric_branch():
+    """枝番部分が数字でない場合は連番にフォールバック"""
+    paragraph = _make_paragraph(['イ', 'イのロ'])
+    mode, _ = renumber_children(paragraph, 'Item')
+    assert mode == 'sequential'
+    assert _item_nums(paragraph) == ['1', '2']
+
+
 def test_renumber_children_fallback_on_underivable():
     """1つでも導出できないタイトルがあれば親単位で連番にフォールバック"""
-    paragraph = _make_paragraph(['一', '（２）', '三'])
+    paragraph = _make_paragraph(['一', '様式', '三'])
     mode, _ = renumber_children(paragraph, 'Item')
     assert mode == 'sequential'
     assert _item_nums(paragraph) == ['1', '2', '3']
@@ -206,8 +267,8 @@ def test_renumber_nums_by_title_mixed_parents():
         <Item Num="9"><ItemTitle>六の二</ItemTitle><ItemSentence/></Item>
       </Paragraph>
       <Paragraph Num="2">
-        <Item Num="9"><ItemTitle>（１）</ItemTitle><ItemSentence/></Item>
-        <Item Num="9"><ItemTitle>（２）</ItemTitle><ItemSentence/></Item>
+        <Item Num="9"><ItemTitle>様式第一</ItemTitle><ItemSentence/></Item>
+        <Item Num="9"><ItemTitle>様式第二</ItemTitle><ItemSentence/></Item>
       </Paragraph>
     </MainProvision>
     """

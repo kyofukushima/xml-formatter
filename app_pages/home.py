@@ -82,6 +82,12 @@ if 'preserve_lists_after_struct' not in st.session_state:
     st.session_state.preserve_lists_after_struct = False
 if 'normalize_double_paren' not in st.session_state:
     st.session_state.normalize_double_paren = False
+if 'apply_appdxtable_num' not in st.session_state:
+    st.session_state.apply_appdxtable_num = False
+if 'appdxtable_num_mode' not in st.session_state:
+    st.session_state.appdxtable_num_mode = 'title'
+if 'appdxtable_num_overwrite' not in st.session_state:
+    st.session_state.appdxtable_num_overwrite = False
 
 AUTO_DETECT_LABEL = "（自動判定）"
 
@@ -401,9 +407,47 @@ def main():
             st.caption("XML例は「全角スペース補填設定」ページで確認できます。")
 
         st.markdown("---")
+
+        # 別表（AppdxTable）のNum付与オプション（後処理）
+        st.header("📋 別表（AppdxTable）のNum付与")
+        apply_appdxtable_num = st.checkbox(
+            "変換後に別表（AppdxTable）のNum属性を付与する",
+            value=st.session_state.apply_appdxtable_num,
+            help="変換パイプラインはAppdxTableのNum属性を扱わないため、逆変換由来のXMLなどでは"
+                 "AppdxTableにNumが付きません。ONにすると変換後にNumを付与します。"
+                 "既定ではNumがない（または正の整数でない）AppdxTableだけに付与し、"
+                 "有効なNumが付いているものは変更しません。"
+        )
+        st.session_state.apply_appdxtable_num = apply_appdxtable_num
+
+        mode_options = ['title', 'sequential']
+        mode_labels = {'title': 'タイトルの序数（別表第一 → 1）', 'sequential': '出現順の連番（1, 2, 3 …）'}
+        appdxtable_num_mode = st.radio(
+            "付与方式",
+            options=mode_options,
+            index=mode_options.index(st.session_state.appdxtable_num_mode),
+            format_func=lambda m: mode_labels[m],
+            disabled=not apply_appdxtable_num,
+            help="タイトルの序数: AppdxTableTitleの序数（別表第一→1、別表第２→2）をNumにします。"
+                 "スキーマ上Numは正の整数のため、枝番付きのタイトル（別表第三の一の二 等）には付与せず、"
+                 "実行結果に「未付与」として表示します。"
+                 "出現順の連番: 文書内のAppdxTableを出現順に1, 2, 3…と振ります（枝番付きが混在する告示向け）。"
+        )
+        st.session_state.appdxtable_num_mode = appdxtable_num_mode
+
+        appdxtable_num_overwrite = st.checkbox(
+            "既存のNumも振り直す",
+            value=st.session_state.appdxtable_num_overwrite,
+            disabled=not apply_appdxtable_num,
+            help="OFF（既定）では、Numがない・正の整数でないAppdxTableだけに付与します。"
+                 "ONにすると、有効なNumが付いているAppdxTableも選択した方式で振り直します。"
+        )
+        st.session_state.appdxtable_num_overwrite = appdxtable_num_overwrite
+
+        st.markdown("---")
         st.header("ℹ️ 情報")
         st.markdown("""
-        **バージョン**: 1.10.0
+        **バージョン**: 1.11.0
 
         **機能**:
         - XMLファイルのアップロード
@@ -684,6 +728,45 @@ def main():
                         success = False
                         error_msg = f"文頭全角スペース補填でエラーが発生しました: {e}"
 
+                # 別表（AppdxTable）のNum付与（後処理）: 属性のみの変更のためテキスト内容検証には影響しない
+                appdxtable_num_result = None
+                if success and st.session_state.apply_appdxtable_num:
+                    pre_num_path = intermediate_dir / f"{intermediate_stem}_before_appdxtable_num.xml"
+                    appdx_script = script_dir / "postprocess_appdxtable_num.py"
+                    try:
+                        shutil.copy(output_path, pre_num_path)
+                        cmd = [sys.executable, str(appdx_script),
+                               str(pre_num_path), str(output_path),
+                               '--mode', st.session_state.appdxtable_num_mode]
+                        if st.session_state.appdxtable_num_overwrite:
+                            cmd.append('--overwrite')
+                        with st.spinner("別表（AppdxTable）のNum属性を付与中..."):
+                            an_result = subprocess.run(
+                                cmd, capture_output=True, text=True, timeout=300
+                            )
+                        if an_result.returncode != 0:
+                            success = False
+                            error_msg = "別表（AppdxTable）のNum付与に失敗しました"
+                            if an_result.stderr:
+                                error_msg += f"\nエラー詳細: {an_result.stderr}"
+                        else:
+                            out = an_result.stdout or ''
+                            def _count(label):
+                                m = re.search(rf'{label}: (\d+)箇所', out)
+                                return int(m.group(1)) if m else 0
+                            appdxtable_num_result = {
+                                'mode': st.session_state.appdxtable_num_mode,
+                                'total': _count('対象要素数'),
+                                'assigned': _count('付与実施'),
+                                'kept': _count('既存Numを維持'),
+                                'unassigned': _count('未付与'),
+                                'mismatched': _count(r'要確認（既存Numが方式による値と異なる。--overwrite で振り直し可）'),
+                                'output': out,
+                            }
+                    except Exception as e:
+                        success = False
+                        error_msg = f"別表（AppdxTable）のNum付与でエラーが発生しました: {e}"
+
                 st.session_state.processing = False
                 
                 if success:
@@ -734,7 +817,8 @@ def main():
                         "intermediate_dir": intermediate_dir,
                         "validation_results": validation_results,
                         "fullwidth_space_applied": fullwidth_space_applied,
-                        "double_paren_normalized": double_paren_normalized
+                        "double_paren_normalized": double_paren_normalized,
+                        "appdxtable_num_result": appdxtable_num_result
                     }
                 else:
                     status_text.error(f"❌ エラーが発生しました: {error_msg}")
@@ -756,6 +840,32 @@ def main():
         st.markdown("---")
         
         # FR-007, FR-008, FR-009: 検証機能（自動実行・自動表示）
+        # 別表（AppdxTable）Num付与の結果
+        if st.session_state.processing_result and st.session_state.processing_result.get("success"):
+            an_res = st.session_state.processing_result.get("appdxtable_num_result")
+            if an_res:
+                mode_label = 'タイトルの序数' if an_res['mode'] == 'title' else '出現順の連番'
+                summary = (f"📋 別表（AppdxTable）のNum付与（{mode_label}）: 対象 {an_res['total']}件 / "
+                           f"付与 {an_res['assigned']}件")
+                if an_res['kept']:
+                    summary += f" / 既存Numを維持 {an_res['kept']}件"
+                if an_res['unassigned']:
+                    summary += f" / 未付与 {an_res['unassigned']}件"
+                if an_res['unassigned'] or an_res['mismatched']:
+                    st.warning(summary)
+                    hint = []
+                    if an_res['unassigned']:
+                        hint.append("未付与のAppdxTable（枝番付きのタイトル等）があります。"
+                                    "付与方式を「出現順の連番」にすると全件に付与できます。")
+                    if an_res['mismatched']:
+                        hint.append(f"既存のNumが方式による値と異なるものが {an_res['mismatched']}件あります"
+                                    "（「既存のNumも振り直す」で振り直し可）。")
+                    st.caption(" ".join(hint))
+                    with st.expander("Num付与の実行ログ（未付与・要確認の一覧）"):
+                        st.code(an_res['output'], language=None)
+                else:
+                    st.success(summary)
+
         st.header("🔍 ステップ3: 検証")
         
         if st.session_state.processing_result and st.session_state.processing_result.get("success"):
