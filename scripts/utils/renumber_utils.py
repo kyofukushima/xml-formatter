@@ -34,7 +34,10 @@ from typing import List, Tuple, Optional, Dict, Set, Union
 #
 # e-LAWS / 対応済コーパスでは、Num 属性は表示番号と対応させる
 # （例: <ItemTitle>六の二</ItemTitle> → Num="6_2"、<ArticleTitle>第十三条の二</ArticleTitle> → Num="13_2"）。
-# タイトルが番号として完全に解釈できない場合（「（１）」「イ」等）は従来どおり連番。
+# 括弧付き・丸数字などの数字系ラベル（「（１）の２」「①」等）は中の数値を用いる（→ "1_2"）。
+# 数字以外のラベル（「イ」「ａ」等）は親の中での初出順に 1, 2, … を割り当て、
+# 枝番付き（「イの二」）は初出時の値を引き継ぐ（→ "1_2"）。
+# それ以外（タイトルなし・解釈不能・重複）は従来どおり親単位で連番。
 # ============================================================================
 
 # スキーマ上 Num が xs:positiveInteger のため枝番形式（"6_2"）を使えない要素
@@ -50,8 +53,26 @@ _KANJI_PART = r'[一二三四五六七八九十百千]+'
 _NUM_PART = rf'(?:{_ARABIC_PART}|{_KANJI_PART})'
 _SEP = r'[のノ]'
 
-# 「１２」「六の二」など番号のみのタイトル（完全一致）
-_PLAIN_TITLE_RE = re.compile(rf'^{_NUM_PART}(?:{_SEP}{_NUM_PART})*$')
+# 丸数字（①〜㊿）
+_CIRCLED_DIGITS = '①②③④⑤⑥⑦⑧⑨⑩⑪⑫⑬⑭⑮⑯⑰⑱⑲⑳' \
+                  '㉑㉒㉓㉔㉕㉖㉗㉘㉙㉚㉛㉜㉝㉞㉟㊱㊲㊳㊴㊵㊶㊷㊸㊹㊺㊻㊼㊽㊾㊿'
+_CIRCLED_TO_INT = {ch: i + 1 for i, ch in enumerate(_CIRCLED_DIGITS)}
+
+# ラベルの装飾: 「（１）」「（（１））」「１）」「１．」
+_PAREN_OPEN = r'[（(]{1,2}'
+_PAREN_CLOSE = r'[）)]{1,2}'
+_TRAILING_MARK = r'[）)．.]'
+# 数字系ラベルの先頭要素: 「１」「（１）」「（（１））」「１）」「１．」「①」
+_HEAD_NUM_PART = rf'(?:{_PAREN_OPEN}{_NUM_PART}{_PAREN_CLOSE}|{_NUM_PART}{_TRAILING_MARK}?|[{_CIRCLED_DIGITS}])'
+
+# 「１２」「六の二」「（１）の２」「①」など数字系のみのタイトル（完全一致）
+_PLAIN_TITLE_RE = re.compile(rf'^{_HEAD_NUM_PART}(?:{_SEP}{_NUM_PART})*$')
+
+# 数字以外のラベル（イロハ・カタカナ・アルファベット）＋任意の枝番: 「イ」「（ア）」「ａ」「イの二」
+_ALPHA_KANA = r'(?:[ア-ヴ]+|[a-zA-Zａ-ｚＡ-Ｚ]+)'
+_NON_NUMERIC_TITLE_RE = re.compile(
+    rf'^((?:{_PAREN_OPEN})?{_ALPHA_KANA}(?:{_PAREN_CLOSE})?{_TRAILING_MARK}?)((?:{_SEP}{_NUM_PART})*)$'
+)
 # 条見出し形式: 「第１」「第１の２」「第十三条の二」など（完全一致）
 _ARTICLE_TITLE_RE = re.compile(rf'^第{_NUM_PART}条?(?:{_SEP}{_NUM_PART})*$')
 
@@ -92,15 +113,30 @@ def _number_part_to_int(part: str) -> Optional[int]:
     return _kanji_to_int(part)
 
 
+def _head_part_to_int(part: str) -> Optional[int]:
+    """先頭要素（括弧・末尾記号・丸数字を含みうる）を整数に変換する
+
+    「（１）」「（（１））」「１）」「１．」は装飾を除いた数値、「①」は 1 を返す。
+    """
+    if part in _CIRCLED_TO_INT:
+        return _CIRCLED_TO_INT[part]
+    core = re.sub(rf'^{_PAREN_OPEN}|{_PAREN_CLOSE}$|{_TRAILING_MARK}$', '', part)
+    return _number_part_to_int(core)
+
+
 def title_to_num(text: Optional[str]) -> Optional[str]:
     """タイトル文字列からコーパス準拠の Num 値を導出する
 
     例:
         「１２」「十二」          → "12"
         「６の２」「六の二」      → "6_2"
+        「（１）」「（１）の２」  → "1" / "1_2"（括弧の中の数値を用いる）
+        「①」「１）」「１．」    → "1"
         「第１の２」「第十三条の二」 → "13_2" 等の条見出し形式にも対応
 
-    タイトル全体が番号として解釈できない場合は None を返す
+    イロハ・アルファベット等の数字以外のラベルは、親の中での登場順に依存するため
+    ここでは None を返す（derive_child_nums 側で初出順に採番する）。
+    タイトル全体が番号として解釈できない場合も None を返す
     （呼び出し側で連番にフォールバックする）。
     """
     if not text:
@@ -112,26 +148,59 @@ def title_to_num(text: Optional[str]) -> Optional[str]:
         t = t[1:].replace('条', '', 1)  # 先頭の「第」と「条」を除去
     elif not _PLAIN_TITLE_RE.match(t):
         return None
-    nums = [_number_part_to_int(p) for p in re.split(_SEP, t)]
+    head, *rest = re.split(_SEP, t)
+    nums = [_head_part_to_int(head)] + [_number_part_to_int(p) for p in rest]
     if any(n is None for n in nums):
         return None
     return '_'.join(str(n) for n in nums)
 
 
+def _derive_nums_by_appearance(titles: List[Optional[str]]) -> Optional[List[str]]:
+    """数字以外のラベル（イロハ・アルファベット等）を初出順に採番する
+
+    「の」の前の基底ラベルごとに、親の中で初めて現れた順に 1, 2, … を割り当て、
+    枝番付き（「イの二」）は基底ラベルの値を引き継いで "1_2" のようにする。
+    1つでも解釈できないタイトルがあれば None を返す（all-or-nothing）。
+
+    例: ['イ', 'ロ', 'イの二', 'ハ'] → ['1', '2', '1_2', '3']
+    """
+    order: Dict[str, int] = {}
+    nums: List[str] = []
+    for text in titles:
+        if not text:
+            return None
+        t = text.strip(' \t\r\n　')
+        m = _NON_NUMERIC_TITLE_RE.match(t)
+        if not m:
+            return None
+        base, branch = m.group(1), m.group(2)
+        branch_nums = [_number_part_to_int(p) for p in re.split(_SEP, branch) if p]
+        if any(n is None for n in branch_nums):
+            return None
+        if base not in order:
+            order[base] = len(order) + 1
+        nums.append('_'.join(str(n) for n in [order[base]] + branch_nums))
+    return nums
+
+
 def derive_child_nums(children: List[ET._Element], title_tag: str) -> Optional[List[str]]:
     """子要素群のタイトルから Num 値のリストを導出する
 
-    全要素が導出可能かつ値が一意である場合のみリストを返し、
+    1. 全要素が数字系ラベル（title_to_num で導出可能）ならその値
+    2. そうでなければ、全要素が数字以外のラベル（イロハ・アルファベット等）なら初出順
+       （_derive_nums_by_appearance）
+    のいずれかで、値が一意である場合のみリストを返す。
     それ以外は None を返す（親単位の all-or-nothing 判定）。
     """
-    nums: List[str] = []
+    titles: List[Optional[str]] = []
     for child in children:
         title_elem = child.find(title_tag)
-        num = title_to_num(title_elem.text if title_elem is not None else None)
-        if num is None:
-            return None
-        nums.append(num)
-    if len(set(nums)) != len(nums):
+        titles.append(title_elem.text if title_elem is not None else None)
+
+    nums: Optional[List[str]] = [title_to_num(t) for t in titles]
+    if any(n is None for n in nums):
+        nums = _derive_nums_by_appearance(titles)
+    if nums is None or len(set(nums)) != len(nums):
         return None
     return nums
 
@@ -145,7 +214,9 @@ def renumber_children(
     """親要素直下の child_tag 要素の Num 属性を振り直す
 
     タイトル要素（title_tag、省略時は child_tag + 'Title'）から番号を導出できる場合は
-    コーパス準拠の枝番形式（例: 「六の二」→ "6_2"）を用いる。
+    コーパス準拠の枝番形式（例: 「六の二」「（６）の２」→ "6_2"）を用いる。
+    数字以外のラベル（イロハ等）は初出順に採番し、枝番は初出時の値を引き継ぐ
+    （例: 「イ」「ロ」「イの二」→ "1" "2" "1_2"）。derive_child_nums 参照。
     1つでも導出できない・重複する場合は、その親要素内は従来どおり連番を振る。
     SEQUENTIAL_ONLY_TAGS（Paragraph 等、スキーマ上 Num が正整数の要素）は常に連番。
 

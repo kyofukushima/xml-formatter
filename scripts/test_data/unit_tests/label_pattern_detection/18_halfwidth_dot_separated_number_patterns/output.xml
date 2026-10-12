@@ -28,13 +28,13 @@
           <Subitem1Sentence>
             <Sentence Num="1">半角ドット区切り4.3.2</Sentence>
           </Subitem1Sentence>
-          <Subitem2 Num="1">
+          <Subitem2 Num="2">
             <Subitem2Title>2.</Subitem2Title>
             <Subitem2Sentence>
               <Sentence Num="1">半角数字ピリオド2.</Sentence>
             </Subitem2Sentence>
           </Subitem2>
-          <Subitem2 Num="2">
+          <Subitem2 Num="3">
             <Subitem2Title>3.</Subitem2Title>
             <Subitem2Sentence>
               <Sentence Num="1">半角数字ピリオド3.</Sentence>
