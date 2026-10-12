@@ -461,6 +461,14 @@ python3 scripts/postprocess_fullwidth_space.py input.xml output.xml             
 python3 scripts/postprocess_fullwidth_space.py input.xml output.xml --mode remove  # 除去（逆変換前）
 ```
 
+### 別表（AppdxTable）のNum付与
+
+```bash
+python3 scripts/postprocess_appdxtable_num.py input.xml output.xml                     # タイトルの序数（別表第一→1）
+python3 scripts/postprocess_appdxtable_num.py input.xml output.xml --mode sequential   # 出現順の連番
+python3 scripts/postprocess_appdxtable_num.py input.xml output.xml --overwrite         # 既存Numも振り直す
+```
+
 ---
 
 ## 補足情報
