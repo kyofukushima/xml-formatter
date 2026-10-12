@@ -47,6 +47,20 @@ from utils.label_utils import detect_label_id, is_label, split_label_and_content
     ("1", "halfwidth_number"),
     ("1の2", "halfwidth_number"),
     ("13の2", "halfwidth_number"),
+    # 括弧全角数字（枝番付き: 「（１）の２」）
+    ("（１）", "paren_fullwidth_number"),
+    ("（１）の２", "paren_fullwidth_number"),
+    ("（１１）の３", "paren_fullwidth_number"),
+    ("（２）の２の２", "paren_fullwidth_number"),
+    ("（１）ノ２", "paren_fullwidth_number"),
+    # 括弧半角数字（枝番付き）
+    ("(1)", "paren_halfwidth_number"),
+    ("(1)の2", "paren_halfwidth_number"),
+    ("(2)の2の2", "paren_halfwidth_number"),
+    # 括弧漢数字（枝番付き）
+    ("（一）", "paren_kanji_number"),
+    ("（一）の二", "paren_kanji_number"),
+    ("（十三）の二", "paren_kanji_number"),
 ])
 def test_branch_number_label_id(text, expected):
     assert detect_label_id(text) == expected
@@ -57,6 +71,9 @@ def test_branch_number_label_id(text, expected):
     "十三の四",
     "１の１",
     "1の2",
+    "（１）の２",
+    "(1)の2",
+    "（一）の二",
 ])
 def test_branch_number_is_label(text):
     assert is_label(text)
@@ -79,6 +96,20 @@ def test_non_branch_number_not_number_label(text):
         f"{text!r} が {label_id} に誤判定された"
 
 
+@pytest.mark.parametrize("text", [
+    "（１）の",       # 「の」の後に数字がない
+    "（１）のうち",   # 「の」の後が数字でない通常テキスト
+    "（１）の二",     # 種別の混在（括弧全角数字＋漢数字）は対象外
+    "（１）の2",      # 種別の混在（括弧全角数字＋半角数字）は対象外
+    "（一）のみ",     # 通常のテキスト
+    "の（１）",       # 「の」で始まる
+])
+def test_non_paren_branch_number_not_paren_label(text):
+    label_id = detect_label_id(text)
+    assert label_id not in ("paren_kanji_number", "paren_fullwidth_number", "paren_halfwidth_number"), \
+        f"{text!r} が {label_id} に誤判定された"
+
+
 # ============================================================================
 # split_label_and_content: ラベルと本文の分離
 # ============================================================================
@@ -88,6 +119,11 @@ def test_non_branch_number_not_number_label(text):
     ("十三の四　テキスト", ("十三の四", "テキスト")),
     ("１の１　テキスト", ("１の１", "テキスト")),
     ("1の2 テキスト", ("1の2", "テキスト")),
+    # 括弧数字の枝番付き
+    ("（１）の２　テキスト", ("（１）の２", "テキスト")),
+    ("（２）の２の２　テキスト", ("（２）の２の２", "テキスト")),
+    ("(1)の2 テキスト", ("(1)の2", "テキスト")),
+    ("（１）　テキスト", ("（１）", "テキスト")),
     # 従来動作の確認（枝番なし）
     ("一　テキスト", ("一", "テキスト")),
     ("１　テキスト", ("１", "テキスト")),

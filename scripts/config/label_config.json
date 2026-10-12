@@ -315,44 +315,50 @@
       "id": "paren_halfwidth_number",
       "name": "括弧半角数字",
       "patterns": [
-        "^[（(][0-9]+[）)]$"
+        "^[（(][0-9]+[）)](?:[のノ][0-9]+)*$"
       ],
       "examples": [
         "(1)",
         "(2)",
         "(10)",
-        "(123)"
+        "(123)",
+        "(1)の2",
+        "(2)の2の2"
       ],
-      "description": "Item/Subitem1レベル"
+      "description": "Item/Subitem1レベル。「(1)の2」形式の枝番付きも同一種別として扱う"
     },
     "paren_fullwidth_number": {
       "id": "paren_fullwidth_number",
       "name": "括弧全角数字",
       "patterns": [
-        "^[（(][０-９]+[）)]$"
+        "^[（(][０-９]+[）)](?:[のノ][０-９]+)*$"
       ],
       "examples": [
         "（１）",
         "（２）",
         "（１０）",
-        "（１２３）"
+        "（１２３）",
+        "（１）の２",
+        "（２）の２の２"
       ],
-      "description": "Item/Subitem1レベル"
+      "description": "Item/Subitem1レベル。「（１）の２」形式の枝番付きも同一種別として扱う"
     },
     "paren_kanji_number": {
       "id": "paren_kanji_number",
       "name": "括弧漢数字",
       "patterns": [
-        "^[（(][一二三四五六七八九十百千]+[）)]$"
+        "^[（(][一二三四五六七八九十百千]+[）)](?:[のノ][一二三四五六七八九十百千]+)*$"
       ],
       "examples": [
         "（一）",
         "（二）",
         "（十）",
         "（百）",
-        "（千）"
+        "（千）",
+        "（一）の二",
+        "（二）の二の二"
       ],
-      "description": "Item/Subitem1レベル"
+      "description": "Item/Subitem1レベル。「（一）の二」形式の枝番付きも同一種別として扱う"
     },
     "circled_number": {
       "id": "circled_number",
@@ -1208,7 +1214,10 @@
     "empty",
     "text_non_label"
   ],
-  "label_overrides": {},
+  "label_overrides": {
+    "七から八の二まで": "kanji_number",
+    "八・九": "kanji_number"
+  },
   "hierarchy_rules": {
     "same_pattern_same_hierarchy": true,
     "allow_cross_hierarchy_split": false,

@@ -92,7 +92,7 @@ python3 scripts/compare_xml_text_content.py 変換前.xml 変換後.xml --ignore
 
 ### 文頭全角スペース補填（オプション）
 
-告示データ整備方針に基づき、段落冒頭の1字下げを全角スペースで再現する後処理を用意しています（`scripts/postprocess_fullwidth_space.py`）。Webアプリではパイプラインの最終段として実行され、サイドバーのチェックボックス「変換後に文頭全角スペースを補填する」で適用の有無を指定できます（**デフォルトON**。サブオプションの「List内のSentenceも対象にする」「「（」で始まるSentenceは対象外にする」「変数定義行（「Ｅ：…」等の短い記号列）も対象にする」はデフォルトOFF）。`run_pipeline.sh` には含まれないため、CLIでは下記コマンドで個別に実行してください。「文頭スペース補填」ページではパイプラインを通さず補填のみを単独実行できます。また、専用の設定ページ（`app_pages/fullwidth_space_settings.py`）では、各オプションのXML例（補填前→補填後）を確認しながら設定できます。例の「補填後」は実際の補填処理をサンプルXMLに適用した結果を表示するため、例示と実動作は常に一致します。設定はサイドバーと共有されます。
+告示データ整備方針に基づき、段落冒頭の1字下げを全角スペースで再現する後処理を用意しています（`scripts/postprocess_fullwidth_space.py`）。Webアプリではパイプラインの最終段として実行され、サイドバーのチェックボックス「変換後に文頭全角スペースを補填する」で適用の有無を指定できます（**デフォルトON**。サブオプションの「List内のSentenceも対象にする」「「（」で始まるSentenceは対象外にする」「変数定義行（「Ｅ：…」等の短い記号列）も対象にする」はデフォルトOFF）。`run_pipeline.sh` には含まれないため、CLIでは下記コマンドで個別に実行してください。「文頭スペース補填」ページではパイプラインを通さず補填のみを単独実行できます（複数XMLの同時アップロードや、フォルダをZIP化したもののアップロードにも対応し、ZIPの場合はフォルダ階層を保ったまま補填後のXMLをZIPで返却します）。また、専用の設定ページ（`app_pages/fullwidth_space_settings.py`）では、各オプションのXML例（補填前→補填後）を確認しながら設定できます。例の「補填後」は実際の補填処理をサンプルXMLに適用した結果を表示するため、例示と実動作は常に一致します。設定はサイドバーと共有されます。
 
 - **対象**: ①Title要素が空のItem/Subitem1～10のSentence冒頭、②`LineBreak="true"`のColumn内Sentence冒頭（Titleあり要素の先頭Column＝見出しは番号と同じ行のため対象外）、③List内Sentence冒頭（サブオプション、デフォルト対象外）
 - **除外**: 上記①②③に該当しても、次のSentenceには補填しません。
@@ -110,7 +110,15 @@ python3 scripts/postprocess_fullwidth_space.py input.xml output.xml --mode remov
 python3 scripts/postprocess_fullwidth_space.py input.xml output.xml --include-list
 python3 scripts/postprocess_fullwidth_space.py input.xml output.xml --include-vardef # 変数定義行・数式行も補填
 python3 scripts/postprocess_fullwidth_space.py input.xml output.xml --exclude-paren  # 「（」始まりは対象外
+
+# フォルダ / ZIP / 複数XMLへの一括実行（Webアプリの「文頭スペース補填」ページと同じロジック）
+python3 scripts/batch_fullwidth_space.py input_dir/                        # → input_dir_space/ に階層を保って出力
+python3 scripts/batch_fullwidth_space.py input.zip -o output.zip           # ZIP入力→ZIP出力
+python3 scripts/batch_fullwidth_space.py a.xml b.xml -o out_dir/           # 複数XML
+python3 scripts/batch_fullwidth_space.py input_dir/ --keep-names --csv result.csv  # 元の名前のまま出力・結果一覧CSV
 ```
+
+一括実行はオプション（`--include-list` / `--exclude-paren` / `--include-vardef`）もWebアプリと共通です。出力ファイル名は既定で `<元の名前>_space.xml`、`--keep-names` で元の名前のままになります。解析エラーのファイルは出力に含めず、終了コード 2 で知らせます。Claude Code からは `/fullwidth-space <入力パス>`（プロジェクトスキル `.claude/skills/fullwidth-space/`）で同じスクリプトを実行できます。
 
 ### 二重パーレンの丸数字正規化（オプション）
 
@@ -228,7 +236,7 @@ ColumnなしList（段落）が連続したときの取り込み方は `scripts/
 | | ホーム | XMLを1ファイルアップロードし、ラベル判定表の確認、ラベル種別の手動指定、パイプライン変換（実行スクリプト・各オプションはサイドバーで選択）、構文検証・テキスト内容検証の自動実行、結果と中間ファイルのダウンロード |
 | | 逆変換 | Item〜Subitem10の階層をList要素に戻す。Item要素を処理する親要素（Paragraph/Class/AppdxTable/TableColumn/Remarks/NewProvision）の個別選択と、逆変換前の文頭全角スペース除去に対応 |
 | | List有無判定 | 複数XMLまたはフォルダをZIP化したものをアップロードし、List要素の有無と個数を一覧表示（フォルダ階層を列として表示、CSVダウンロード可） |
-| | 文頭スペース補填 | パイプラインを通さず、文頭全角スペース補填のみを単独実行 |
+| | 文頭スペース補填 | パイプラインを通さず、文頭全角スペース補填のみを単独実行。複数XMLまたはフォルダをZIP化したものをまとめて処理でき、ZIPの場合はフォルダ階層を保ったまま補填後のXMLをZIPで返却（ファイルごとの結果一覧をCSVダウンロード可） |
 | | 納品前検証 | 変換前後のXMLをアップロードし、ホームの変換後に自動実行される検証と同じ内容（テキスト欠落・文書順・表・図・構造要素数）を単独実行。スペース無視オプション付き |
 | 設定 | ラベル設定管理 | `label_config.json` のラベル定義、優先度、分割モード（ColumnなしList・画像List）等の編集 |
 | 設定 | 全角スペース補填設定 | 補填オプションをXML例（補填前→補填後）を見ながら設定。サイドバーと連動 |
