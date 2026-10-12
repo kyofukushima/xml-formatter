@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Law>
+  <LawBody>
+    <MainProvision>
+      <Article Num="3">
+        <ArticleTitle>第三</ArticleTitle>
+        <Paragraph Num="1">
+          <ParagraphNum/>
+          <ParagraphSentence>
+            <Sentence Num="1">医学管理等</Sentence>
+          </ParagraphSentence>
+          <Item Num="1">
+            <ItemTitle>一</ItemTitle>
+            <ItemSentence>
+              <Column Num="1" LineBreak="true">
+                <Sentence Num="1">特定疾患療養管理料に規定する疾患</Sentence>
+              </Column>
+              <Column Num="2">
+                <Sentence Num="1">平成二十七年総務省告示第三十五号（統計法第二十八条の規定に基づき、疾病、傷害及び死因に関する分類を定める件）の「６（１）</Sentence>
+              </Column>
+              <Column Num="3">
+                <Sentence Num="1">基本分類表」（以下「分類表」という。）に規定する疾病のうち別表第一に掲げる疾病</Sentence>
+              </Column>
+            </ItemSentence>
+          </Item>
+          <Item Num="1_2">
+            <ItemTitle>一の二</ItemTitle>
+            <ItemSentence>
+              <Column Num="1" LineBreak="true">
+                <Sentence Num="1">特定疾患療養管理料の注５に規定する施設基準</Sentence>
+              </Column>
+              <Column Num="2" LineBreak="true">
+                <Sentence Num="1">情報通信機器を用いた診療を行うにつき十分な体制が整備されていること。</Sentence>
+              </Column>
+            </ItemSentence>
+          </Item>
+          <Item Num="2">
+            <ItemTitle>二</ItemTitle>
+            <ItemSentence>
+              <Sentence Num="1">分類表に規定する疾病のうち別表第二に掲げる疾病</Sentence>
+            </ItemSentence>
+          </Item>
+        </Paragraph>
+      </Article>
+    </MainProvision>
+  </LawBody>
+</Law>

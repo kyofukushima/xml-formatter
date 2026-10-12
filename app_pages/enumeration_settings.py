@@ -261,6 +261,8 @@ merge_no_column_lists = st.checkbox(
          "*Sentence内にColumn（LineBreak=\"true\"）として並べます。"
          "Titleあり要素（ラベル付きList由来）の本文直後に続くColumnなしListは、"
          "本文（見出し）をColumn1に、各段落をColumn2以降に畳み込み、空TitleのSubitemは作りません。"
+         "見出しの直後に先頭Columnがラベルでない複数ColumnのListが続く場合も同様に畳み込みます"
+         "（改行は見出しと本文の間のみ）。"
          "ラベル付きListや表等が現れた時点で統合を終了します。"
          "告示データ整備方針に沿ったデータを前提にデフォルトONです。従来どおり段落ごとに"
          "個別のItem/Subitemへ分割したい場合はOFFにしてください。"
@@ -271,7 +273,8 @@ st.markdown(
     "告示データ整備方針①では、同一項番内の段落分けを `LineBreak=\"true\"` のColumnで表現します。"
     "OFFの場合、連続するColumnなしList（段落）は個別の空Title要素に分割されます。"
     "ONの場合は1つの空Title要素にまとめ、各段落を `LineBreak=\"true\"` のColumnとして並べます。"
-    "`LineBreak=\"true\"` は「そのColumnの後ろで改行する」指示のため、見出しや最後のColumnにも付与します。"
+    "`LineBreak=\"true\"` は「そのColumnの後ろで改行する」指示のため、見出しや段落のColumnに付与します"
+    "（先頭Columnがラベルでない複数ColumnのListを畳み込んだ場合、その本文Columnには付与しません）。"
 )
 
 EXAMPLE_MERGE_PARAGRAPH = '''        <Paragraph Num="1">
@@ -342,6 +345,42 @@ st.markdown(
     "（ラベル付きListが現れた時点で統合を終了します）。"
 )
 show_before_after(EXAMPLE_MERGE_TITLED, preserve_enumeration,
+                  preserve_linebreak_list, merge_no_column_lists)
+
+EXAMPLE_MERGE_TEXT_COLUMNS = '''        <Paragraph Num="1">
+          <ParagraphNum/>
+          <ParagraphSentence>
+            <Sentence Num="1">医学管理等</Sentence>
+          </ParagraphSentence>
+          <List>
+            <ListSentence>
+              <Column Num="1"><Sentence Num="1">一</Sentence></Column>
+              <Column Num="2"><Sentence Num="1">特定疾患療養管理料に規定する疾患</Sentence></Column>
+            </ListSentence>
+          </List>
+          <List>
+            <ListSentence>
+              <Column Num="1"><Sentence Num="1">平成二十七年総務省告示第三十五号（統計法第二十八条の規定に基づき、疾病、傷害及び死因に関する分類を定める件）の「６（１）</Sentence></Column>
+              <Column Num="2"><Sentence Num="1">基本分類表」（以下「分類表」という。）に規定する疾病のうち別表第一に掲げる疾病</Sentence></Column>
+            </ListSentence>
+          </List>
+          <List>
+            <ListSentence>
+              <Column Num="1"><Sentence Num="1">一の二</Sentence></Column>
+              <Column Num="2"><Sentence Num="1">特定疾患療養管理料の注５に規定する施設基準</Sentence></Column>
+            </ListSentence>
+          </List>
+        </Paragraph>'''
+
+st.subheader("Titleあり要素の本文直後に続く非ラベルColumnありList（ON時は各ColumnをColumn2以降に畳み込み）")
+st.markdown(
+    "引用符などで本文が複数Columnに分断されたList（先頭Columnがラベルではないもの）が"
+    "見出しの直後に続く場合です。OFFの場合は空TitleのSubitem1（Column構成）に変換されます。"
+    "ONの場合は、見出し「特定疾患療養管理料に規定する疾患」を `LineBreak=\"true\"` のColumn1に包み、"
+    "Listの各ColumnをColumn2・3としてItemSentence内に畳み込みます。"
+    "改行が必要なのは見出しと本文の間だけなので、Column2・3には `LineBreak` を付けません。"
+)
+show_before_after(EXAMPLE_MERGE_TEXT_COLUMNS, preserve_enumeration,
                   preserve_linebreak_list, merge_no_column_lists)
 
 st.markdown("---")
