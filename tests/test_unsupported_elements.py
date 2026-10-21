@@ -108,3 +108,101 @@ def test_missing_file(tmp_path: Path):
     is_valid, msg = validate_unsupported_elements(tmp_path / "nope.xml")
     assert is_valid is False
     assert msg
+
+
+XML_WITH_NESTED_LIST = """<?xml version="1.0" encoding="UTF-8"?>
+<Law><LawBody><MainProvision><Article Num="1"><Paragraph Num="1">
+<ParagraphSentence><Sentence>本文</Sentence></ParagraphSentence>
+<List>
+  <ListSentence>
+    <Column><Sentence>（２）</Sentence></Column>
+    <Column><Sentence>異核種</Sentence></Column>
+  </ListSentence>
+  <List><ListSentence><Sentence>定量法</Sentence></ListSentence></List>
+  <List><ListSentence><Sentence>準用する。</Sentence></ListSentence></List>
+</List>
+<List><ListSentence><Sentence>次の段落</Sentence></ListSentence></List>
+</Paragraph></Article></MainProvision></LawBody></Law>
+"""
+
+
+def test_detects_nested_list(tmp_path: Path):
+    xml_path = tmp_path / "nested_list.xml"
+    xml_path.write_text(XML_WITH_NESTED_LIST, encoding="utf-8")
+
+    found = find_unsupported_elements(xml_path)
+
+    # 外側の List 1件のみ（入れ子側の List や正常な List は報告しない）
+    assert len(found) == 1
+    assert found[0]["tag"] == _validation.NESTED_LIST_TAG
+    assert found[0]["line"] == 4
+    assert found[0]["path"].endswith("/Paragraph/List[1]")
+    assert "直下に List 2件" in found[0]["detail"]
+    assert "9行目〜10行目" in found[0]["detail"]
+
+
+def test_validate_reports_nested_list_message(tmp_path: Path):
+    xml_path = tmp_path / "nested_list.xml"
+    xml_path.write_text(XML_WITH_NESTED_LIST, encoding="utf-8")
+
+    is_valid, msg = validate_unsupported_elements(xml_path)
+
+    assert is_valid is False
+    assert "1 件" in msg
+    assert _validation.NESTED_LIST_TAG in msg
+    assert "4行目" in msg
+    assert "欠落" in msg
+
+
+def test_detects_sublist_and_nested_list_together(tmp_path: Path):
+    xml = XML_WITH_NESTED_LIST.replace(
+        "<List><ListSentence><Sentence>次の段落</Sentence></ListSentence></List>",
+        "<List><ListSentence><Sentence>次の段落</Sentence></ListSentence>"
+        "<Sublist1><Sublist1Sentence><Sentence>枝</Sentence></Sublist1Sentence></Sublist1></List>")
+    xml_path = tmp_path / "both.xml"
+    xml_path.write_text(xml, encoding="utf-8")
+
+    found = find_unsupported_elements(xml_path)
+    assert [f["tag"] for f in found] == [_validation.NESTED_LIST_TAG, "Sublist1"]
+
+    is_valid, msg = validate_unsupported_elements(xml_path)
+    assert is_valid is False
+    assert "2 件" in msg
+    assert "Sublist1/Sublist2/Sublist3: 1 件" in msg
+    assert f"{_validation.NESTED_LIST_TAG}: 1 件" in msg
+
+
+XML_WITH_MISSING_LIST_OPEN_TAG = """<?xml version="1.0" encoding="UTF-8"?>
+<Law><LawBody><MainProvision><Article Num="1"><Paragraph Num="1">
+<ParagraphSentence><Sentence>本文</Sentence></ParagraphSentence>
+<List>
+  <ListSentence>
+    <Column><Sentence>（２）</Sentence></Column>
+    <Column><Sentence>異核種</Sentence></Column>
+  </ListSentence>
+  <List><ListSentence><Sentence>定量法</Sentence></ListSentence></List>
+  <TableStruct><Table><TableRow><TableColumn><Sentence>表</Sentence></TableColumn></TableRow></Table></TableStruct>
+  <ListSentence><Sentence>ｐＨ</Sentence></ListSentence>
+</List>
+<List><ListSentence><Sentence>６．０～８．０</Sentence></ListSentence></List>
+</Paragraph></Article></MainProvision></LawBody></Law>
+"""
+
+
+def test_detects_missing_list_open_tag_pattern(tmp_path: Path):
+    """<List> 開始タグ欠落で List 直下に List・TableStruct・2つ目の ListSentence が並ぶケース"""
+    xml_path = tmp_path / "missing_open.xml"
+    xml_path.write_text(XML_WITH_MISSING_LIST_OPEN_TAG, encoding="utf-8")
+
+    found = find_unsupported_elements(xml_path)
+    assert len(found) == 1
+    assert found[0]["tag"] == _validation.NESTED_LIST_TAG
+    assert found[0]["line"] == 4
+    assert "List 1件" in found[0]["detail"]
+    assert "TableStruct 1件" in found[0]["detail"]
+    assert "ListSentence（2つ目以降） 1件" in found[0]["detail"]
+    assert "9行目〜11行目" in found[0]["detail"]
+
+    is_valid, msg = validate_unsupported_elements(xml_path)
+    assert is_valid is False
+    assert "TableStruct 1件" in msg

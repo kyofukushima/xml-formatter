@@ -880,6 +880,11 @@ def create_element_from_list(element, config: ConversionConfig, stats, parent_el
     if element.tag == 'List':
         col1_sentence, col2_sentence, col_count = get_list_columns(element)
         col1_text = get_column_text(col1_sentence)
+        # 1つ目のColumnがテキストを持たなくても、数式画像（QuoteStruct/Fig）や
+        # ArithFormula 等の子要素を持つ場合は「テキスト（ラベルではない）のColumn」として扱う。
+        # 従来は col1_text が空だとどの分岐にも入らず、空要素が作られて図・本文が欠落していた。
+        col1_has_content = bool(col1_text) or (col1_sentence is not None and len(col1_sentence) > 0)
+        col1_is_label = bool(col1_text) and (is_label(col1_text) or is_kanji_number_label(col1_text))
 
         # LineBreak付きColumn保護（告示データ整備方針①: 改行表現の保持）:
         # LineBreak="true"のColumnは「改行して表示する」指示を持つが、変換分岐によっては
@@ -923,7 +928,7 @@ def create_element_from_list(element, config: ConversionConfig, stats, parent_el
         
         # Columnが3つ以上で、最初のColumnがラベル要素でない場合の処理
         # convert_subitem1_step0.pyのテスト30で、3列のList（1つ目がラベルでない）もSubitem1に変換される
-        if col_count > 2 and col1_text and not (is_label(col1_text) or is_kanji_number_label(col1_text)):
+        if col_count > 2 and col1_has_content and not col1_is_label:
             all_sentences = get_all_list_columns(element)
             
             # ItemTitleは空にして、すべてのColumnをItemSentenceに含める
@@ -936,14 +941,14 @@ def create_element_from_list(element, config: ConversionConfig, stats, parent_el
         if col_count > 2:
             return None, f"*** {config.script_name}: [スキップ] Column3つ以上（1つ目が空） List -> 変換スキップ（そのままList要素として残す） ***"
         # Columnが1つで、最初のColumnがラベル要素に該当しない場合の処理
-        elif col_count == 1 and col1_text and not (is_label(col1_text) or is_kanji_number_label(col1_text)):
+        elif col_count == 1 and col1_has_content and not col1_is_label:
             # ItemSentenceの中にColumn要素を1つ作成
             child_elem = create_element_with_single_column(col1_sentence, config, element)
             comment_text = f"*** {config.script_name}: [処理1-分岐1-0] Column1つ（テキスト） List -> {config.child_tag}（Column要素1つ） ***"
             stats[f'CONVERTED_SINGLE_COLUMN_LIST_TO_{config.child_tag.upper()}'] += 1
             return child_elem, comment_text
         # Columnが2つ以上あり、かつ1つ目のColumnがラベル要素に該当しない場合の処理
-        elif col_count >= config.column_condition_min and col1_text and not (is_label(col1_text) or is_kanji_number_label(col1_text)):
+        elif col_count >= config.column_condition_min and col1_has_content and not col1_is_label:
             # 常にItemSentenceの中にColumn要素を2つ作成
             child_elem = create_element_with_two_sentences(col1_sentence, col2_sentence, config, element)
             comment_text = f"*** {config.script_name}: [処理1-分岐1-1] Column2つ（1つ目がテキスト） List -> {config.child_tag}（Column要素2つ） ***"
@@ -964,6 +969,12 @@ def create_element_from_list(element, config: ConversionConfig, stats, parent_el
             # 学年パターン（subitem1基準のロジック）
             # テキストチェックは残しつつ、Sentence要素全体をコピーしてRuby要素などの子要素構造を保持
             list_sentence = get_list_sentence(element)
+            if list_sentence is None:
+                # Column 付きだが上記のどの分岐にも該当しない List（1つ目のColumnが空 等）。
+                # 以降の分岐は ColumnなしList を前提に Sentence をコピーするため、
+                # ここで空要素を作ると内容が丸ごと欠落する。変換せず List のまま残す。
+                stats['SKIPPED_UNCONVERTIBLE_COLUMN_LIST'] += 1
+                return None, f"*** {config.script_name}: [スキップ] 内容を取り出せないColumn付きList -> 変換スキップ（そのままList要素として残す） ***"
             if 'grade' in config.supported_types and list_text and is_subject_name_bracket(list_text) and is_grade_pattern(list_text):
                 child_elem = create_empty_element(config)
                 target_sentence = child_elem.find(f'{config.sentence_tag}/Sentence')

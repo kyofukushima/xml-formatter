@@ -31,7 +31,8 @@ from utils.validation import (
     validate_xml_syntax_with_script,
     validate_text_content,
     validate_unsupported_elements,
-    format_validation_report
+    format_validation_report,
+    build_result_report_text
 )
 from utils.label_analyzer import analyze_xml_labels
 from utils.config_manager import (
@@ -481,7 +482,7 @@ def main():
         
         is_valid, error_msg = validate_xml_file(tmp_path)
 
-        # 変換ロジックが対応していない要素（Sublist1/2/3）の検出
+        # 変換ロジックが対応していない構造（Sublist1/2/3、List内のList）の検出
         # 含まれている場合は要素欠落が発生するため、アップロード時点でエラーにする
         if is_valid:
             is_valid, error_msg = validate_unsupported_elements(tmp_path)
@@ -827,15 +828,26 @@ def main():
                         "error": error_msg,
                         "execution_log": execution_log
                     }
-                    
-                    # エラー詳細の表示
-                    if execution_log and execution_log.get("steps"):
-                        with st.expander("エラー詳細", expanded=True):
-                            for step_info in execution_log["steps"]:
-                                if not step_info.get("success", False):
-                                    st.error(f"ステップ {step_info['step']}: {step_info['script']}")
-                                    if step_info.get("error"):
-                                        st.code(step_info["error"], language=None)
+
+        # エラー詳細の表示（session_state から描画し、再実行後も残す）
+        if st.session_state.processing_result and not st.session_state.processing_result.get("success"):
+            failed_result = st.session_state.processing_result
+            with st.expander("エラー詳細", expanded=True):
+                st.error(str(failed_result.get("error") or "エラーが発生しました"))
+                execution_log = failed_result.get("execution_log") or {}
+                for step_info in execution_log.get("steps", []):
+                    if not step_info.get("success", False):
+                        st.error(f"ステップ {step_info['step']}: {step_info['script']}")
+                        if step_info.get("error"):
+                            st.code(step_info["error"], language=None)
+                report_stem = Path(st.session_state.uploaded_file_name or "result").stem
+                st.download_button(
+                    label="📥 エラー出力の全文をダウンロード（txt）",
+                    data=build_result_report_text(failed_result, st.session_state.uploaded_file_name).encode("utf-8"),
+                    file_name=f"{report_stem}_error_report.txt",
+                    mime="text/plain",
+                    key="download_error_report"
+                )
         
         st.markdown("---")
         
@@ -918,6 +930,20 @@ def main():
                                     st.error(f"**エラー数**: {len(content_result['report_data']['errors'])}")
                 else:
                     st.info("検証結果がありません。")
+
+            # 検証結果・エラー出力の全文（画面表示は先頭10件・1000文字に省略されるため）
+            report_stem = Path(st.session_state.uploaded_file_name or "result").stem
+            st.download_button(
+                label="📥 検証結果の全文をダウンロード（txt）",
+                data=build_result_report_text(
+                    st.session_state.processing_result,
+                    st.session_state.uploaded_file_name
+                ).encode("utf-8"),
+                file_name=f"{report_stem}_validation_report.txt",
+                mime="text/plain",
+                help="構文検証・テキスト内容検証の出力とレポート全文、実行ログをまとめたテキストファイルです。",
+                key="download_validation_report"
+            )
         else:
             st.info("処理が完了すると、ここに検証結果が自動的に表示されます。")
         
