@@ -41,23 +41,51 @@ def validate_xml_syntax(file_path: Path) -> Tuple[bool, Optional[str], Optional[
 # 誤認して空の Subitem を生成し、数式や Sublist の本文が欠落する。
 UNSUPPORTED_ELEMENT_TAGS = ('Sublist1', 'Sublist2', 'Sublist3')
 
+# List 直下に ListSentence 以外の要素（List・TableStruct・2つ目の ListSentence 等）が
+# ある箇所（スキーマ違反。<List>/</List> の位置誤りで発生）を表す検出タグ名。
+# 変換時は先頭の ListSentence だけが新要素へコピーされ、それ以外は丸ごと破棄される。
+NESTED_LIST_TAG = 'List（直下の構造不正）'
+
 
 def find_unsupported_elements(file_path: Path) -> List[Dict[str, object]]:
     """
-    変換ツールが対応していない要素（Sublist1/2/3）をXMLファイルから検出する
+    変換ツールが対応していない要素（Sublist1/2/3）と、List 直下の構造が不正な箇所
+    （入れ子の List・TableStruct・2つ目の ListSentence 等）をXMLファイルから検出する
 
     Args:
         file_path: 検証するXMLファイルのパス
 
     Returns:
-        検出した要素の一覧。各要素は {"tag", "line", "path"} を持つ辞書。
-        検出なしの場合は空リスト。
+        検出した要素の一覧。各要素は {"tag", "line", "path"} を持つ辞書
+        （入れ子Listの場合は "detail" も持つ）。検出なしの場合は空リスト。
     """
     from lxml import etree
 
     tree = etree.parse(str(file_path))
     found = []
-    for elem in tree.iter(*UNSUPPORTED_ELEMENT_TAGS):
+    for elem in tree.iter(*UNSUPPORTED_ELEMENT_TAGS, 'List'):
+        if elem.tag == 'List':
+            # List 直下に ListSentence 以外の要素や 2 つ目の ListSentence があるケース
+            # （<List>/</List> の位置誤り等）。スキーマ上 List の子は ListSentence 1つと
+            # Sublist のみで、変換時は先頭の ListSentence だけが新要素へコピーされるため、
+            # それ以外の子要素（入れ子の List・TableStruct・後続の ListSentence）は丸ごと破棄される。
+            children = [c for c in elem if isinstance(c.tag, str) and c.tag not in UNSUPPORTED_ELEMENT_TAGS]
+            first_ls = next((c for c in children if c.tag == 'ListSentence'), None)
+            unexpected = [c for c in children if c is not first_ls]
+            if not unexpected:
+                continue
+            counts = {}
+            for c in unexpected:
+                label = 'ListSentence（2つ目以降）' if c.tag == 'ListSentence' else c.tag
+                counts[label] = counts.get(label, 0) + 1
+            summary = '・'.join(f"{k} {v}件" for k, v in counts.items())
+            found.append({
+                "tag": NESTED_LIST_TAG,
+                "line": elem.sourceline,
+                "path": tree.getpath(elem),
+                "detail": f"直下に {summary}（{unexpected[0].sourceline}行目〜{unexpected[-1].sourceline}行目）",
+            })
+            continue
         found.append({
             "tag": elem.tag,
             "line": elem.sourceline,
@@ -68,7 +96,7 @@ def find_unsupported_elements(file_path: Path) -> List[Dict[str, object]]:
 
 def validate_unsupported_elements(file_path: Path) -> Tuple[bool, Optional[str]]:
     """
-    変換ツールが対応していない要素（Sublist1/2/3）が含まれていないか検証する
+    変換ツールが対応していない要素（Sublist1/2/3）や List 直下の構造不正が含まれていないか検証する
 
     Args:
         file_path: 検証するXMLファイルのパス
@@ -89,13 +117,26 @@ def validate_unsupported_elements(file_path: Path) -> Tuple[bool, Optional[str]]
         return True, None
 
     max_show = 10
+    sublist_count = sum(1 for f in found if f['tag'] in UNSUPPORTED_ELEMENT_TAGS)
+    nested_count = len(found) - sublist_count
     lines = [
-        f"変換ツールが対応していない要素（{'/'.join(UNSUPPORTED_ELEMENT_TAGS)}）が {len(found)} 件検出されました。",
-        "Sublist を含む List は正しく変換できず、要素が欠落します。入力XMLを修正してから再度アップロードしてください。",
-        "",
+        f"変換ツールが対応していない構造が {len(found)} 件検出されました。"
+        "入力XMLを修正してから再度アップロードしてください。",
     ]
+    if sublist_count:
+        lines.append(f"- {'/'.join(UNSUPPORTED_ELEMENT_TAGS)}: {sublist_count} 件。"
+                     "Sublist を含む List は正しく変換できず、要素が欠落します。")
+    if nested_count:
+        lines.append(f"- {NESTED_LIST_TAG}: {nested_count} 件。"
+                     "List の直下に ListSentence 以外の要素（入れ子の List・TableStruct・2つ目の ListSentence 等）"
+                     "があります（<List>/</List> の位置誤り等）。"
+                     "変換時にこれらは丸ごと破棄され、本文・表が欠落します。")
+    lines.append("")
     for item in found[:max_show]:
-        lines.append(f"- {item['tag']}（{item['line']}行目）: {item['path']}")
+        line = f"- {item['tag']}（{item['line']}行目）: {item['path']}"
+        if item.get('detail'):
+            line += f" — {item['detail']}"
+        lines.append(line)
     if len(found) > max_show:
         lines.append(f"- ... 他 {len(found) - max_show} 件")
     return False, "\n".join(lines)
@@ -276,3 +317,95 @@ def format_validation_report(report_data: Dict) -> str:
     return "\n".join(lines)
 
 
+def build_result_report_text(processing_result: Dict, file_name: Optional[str] = None) -> str:
+    """
+    処理結果（検証結果・エラー出力・実行ログ）の全文をテキストにまとめる
+
+    画面表示では検証レポートが先頭10件・1000文字に省略されるため、
+    txtダウンロード用に省略なしの全文を組み立てる。
+
+    Args:
+        processing_result: st.session_state.processing_result 相当の辞書
+        file_name: 入力ファイル名（見出し用、任意）
+
+    Returns:
+        レポート全文の文字列
+    """
+    from datetime import datetime
+
+    sep = "=" * 70
+    sub = "-" * 70
+    lines = [sep, "XML変換パイプライン 処理結果レポート（全文）", sep]
+    if file_name:
+        lines.append(f"入力ファイル: {file_name}")
+    lines.append(f"出力日時: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+    if not processing_result:
+        lines.append("")
+        lines.append("処理結果がありません。")
+        return "\n".join(lines)
+
+    success = processing_result.get("success")
+    lines.append(f"処理結果: {'成功' if success else '失敗'}")
+    if processing_result.get("output_path"):
+        lines.append(f"出力ファイル: {Path(str(processing_result['output_path'])).name}")
+
+    if not success:
+        lines += ["", sep, "エラー", sep]
+        lines.append(str(processing_result.get("error") or "（エラー内容なし）"))
+
+    validation_results = processing_result.get("validation_results") or {}
+
+    syntax = validation_results.get("syntax")
+    if syntax is not None:
+        lines += ["", sep, "XML構文検証", sep]
+        lines.append(f"結果: {'OK（構文は正しい）' if syntax.get('is_valid') else 'NG（構文エラー）'}")
+        if syntax.get("error"):
+            lines.append(f"エラー: {syntax['error']}")
+        if syntax.get("output"):
+            lines += [sub, syntax["output"].rstrip()]
+
+    content = validation_results.get("content")
+    if content is not None:
+        lines += ["", sep, "テキスト内容検証", sep]
+        lines.append(f"結果: {'OK（テキスト内容は一致）' if content.get('is_valid') else 'NG（不一致あり）'}")
+        if processing_result.get("fullwidth_space_applied"):
+            lines.append("※ 全角スペース補填前のファイルに対して検証")
+        if processing_result.get("double_paren_normalized") is not None:
+            lines.append(f"※ 二重パーレン正規化後のファイルを基準に検証（正規化: {processing_result['double_paren_normalized']}箇所）")
+        if content.get("error"):
+            lines.append(f"エラー: {content['error']}")
+        report_data = content.get("report_data") or {}
+        errors = report_data.get("errors") or []
+        if errors:
+            lines += ["", f"エラー一覧（{len(errors)}件）:", sub]
+            lines += [f"  - {e}" for e in errors]
+        if content.get("output"):
+            lines += ["", "比較スクリプトの出力:", sub, content["output"].rstrip()]
+        if report_data.get("content"):
+            lines += ["", "詳細レポート（全文）:", sub, report_data["content"].rstrip()]
+
+    an_res = processing_result.get("appdxtable_num_result")
+    if an_res:
+        lines += ["", sep, "別表（AppdxTable）のNum付与", sep]
+        lines.append(f"方式: {'タイトルの序数' if an_res.get('mode') == 'title' else '出現順の連番'}")
+        lines.append(f"対象 {an_res.get('total', 0)}件 / 付与 {an_res.get('assigned', 0)}件 / "
+                     f"既存Numを維持 {an_res.get('kept', 0)}件 / 未付与 {an_res.get('unassigned', 0)}件 / "
+                     f"要確認 {an_res.get('mismatched', 0)}件")
+        if an_res.get("output"):
+            lines += [sub, an_res["output"].rstrip()]
+
+    execution_log = processing_result.get("execution_log") or {}
+    steps = execution_log.get("steps") or []
+    if steps or execution_log:
+        lines += ["", sep, "実行ログ", sep]
+        if execution_log.get("total_steps") is not None:
+            lines.append(f"完了ステップ: {execution_log.get('completed_steps', 0)} / {execution_log.get('total_steps', 0)}")
+        if execution_log.get("failed_step"):
+            lines.append(f"失敗ステップ: {execution_log['failed_step']}")
+        for step in steps:
+            status = "OK" if step.get("success") else "NG"
+            lines.append(f"[{status}] ステップ {step.get('step')}: {step.get('script')}")
+            if step.get("error"):
+                lines.append(f"    {step['error']}")
+
+    return "\n".join(lines) + "\n"
