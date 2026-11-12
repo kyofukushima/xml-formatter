@@ -14,7 +14,7 @@
               <Sentence Num="1">一段目の段落</Sentence>
             </Column>
             <Column Num="2" LineBreak="true">
-              <Sentence Num="1">　改行された二段目の段落</Sentence>
+              <Sentence Num="1">改行された二段目の段落</Sentence>
             </Column>
             <Column Num="3" LineBreak="true">
               <Sentence Num="1">　改行された三段目の段落</Sentence>

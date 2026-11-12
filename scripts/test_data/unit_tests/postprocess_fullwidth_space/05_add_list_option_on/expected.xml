@@ -28,7 +28,7 @@
               <Sentence Num="1">一段目の段落</Sentence>
             </Column>
             <Column Num="2" LineBreak="true">
-              <Sentence Num="1">　List内で改行された二段目</Sentence>
+              <Sentence Num="1">List内で改行された二段目</Sentence>
             </Column>
           </ListSentence>
         </List>

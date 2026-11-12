@@ -11,12 +11,18 @@
   1. Title要素が空（または不在）のItem/Subitem1～10の、
      直下の*Sentence要素内の先頭Sentence冒頭
      ※Title（番号）があるものは対象外（パターン6のSubitem2Title例外に対応）
-  2. LineBreak="true"のColumn要素内の先頭Sentence冒頭
-     （同一要素内でColumn改行された二段目以降の段落）、および
-     LineBreak="true"のColumnの直後にあるColumn内の先頭Sentence冒頭
-     （改行の次の行頭に表示される。統合で畳み込んだ複数Column本文の先頭Column）
+  2. 行頭に表示されるColumn要素内の先頭Sentence冒頭
+     Column の LineBreak="true" は「その Column の後ろで改行する」指示のため、
+     Column が行頭かどうかは直前の Column の LineBreak で決まる。
+       (a) 直前の Column が LineBreak="true" の Column
+           （改行の次の行頭。自身の LineBreak の有無は問わない）
+       (b) 先頭の Column で、かつ LineBreak="true" のもの（要素本文の一段目）
      ※Title（番号）が空でないItem/Subitem1～10、およびParagraphNumが空でない
        Paragraphの先頭Column（見出し）は、番号と同じ行に表示されるため対象外
+     ※直前の Column に LineBreak がない Column は、自身に LineBreak="true" が
+       付いていても同じ行の続き（表示側で Column 間に全角スペースが自動挿入
+       される）のため対象外。補填すると二重の空きになる
+       （removeモードでは旧仕様で補填済みのスペースも除去できるよう対象に含める）
   3. List/ListSentence内の先頭Sentence冒頭（--include-list指定時のみ。
      資料上「要確認」のためデフォルトでは対象外）
 
@@ -97,6 +103,16 @@ def _is_inside_list(element):
     return False
 
 
+def _previous_column(column):
+    """直前の兄弟要素が Column ならそれを返す（コメント等は飛ばす）。それ以外は None"""
+    previous = column.getprevious()
+    while previous is not None and not isinstance(previous.tag, str):
+        previous = previous.getprevious()
+    if previous is not None and previous.tag == 'Column':
+        return previous
+    return None
+
+
 def _is_heading_column(column):
     """Titleあり要素の先頭Column（見出し）かどうか
 
@@ -162,7 +178,8 @@ def _has_formula_context(element):
     return False
 
 
-def collect_target_sentences(root, include_list=False, include_vardef=False):
+def collect_target_sentences(root, include_list=False, include_vardef=False,
+                             include_same_line_columns=False):
     """補填/除去の対象となるSentence要素を収集する
 
     Returns:
@@ -199,29 +216,30 @@ def collect_target_sentences(root, include_list=False, include_vardef=False):
                 continue
             add(sentence)
 
-    # 2. LineBreak="true"のColumn（List内はinclude_list指定時のみ。
-    #    Titleあり要素の先頭Column＝見出しは番号と同じ行のため対象外）
+    # 2. 行頭に表示されるColumn（List内はinclude_list指定時のみ）
+    #    Column の LineBreak="true" は「その Column の後ろで改行する」指示のため、
+    #    Column が行頭かどうかは直前の Column の LineBreak で決まる。
+    #    (a) 直前の Column が LineBreak="true" → 改行の次の行頭（自身の LineBreak の有無は問わない）
+    #        例: ColumnなしList統合で見出し（LineBreak付きColumn1）の直後に畳み込んだ本文Column2、
+    #            統合した段落Column、2列List（記号｜説明）を畳み込んだ記号Column
+    #    (b) 先頭 Column で LineBreak="true" → 要素本文の一段目
+    #        （Titleあり要素の先頭Column＝見出しは番号と同じ行のため対象外）
+    #    直前の Column に LineBreak がない Column は、自身に LineBreak="true" が付いていても
+    #    同じ行の続き（表示側で Column 間に全角スペースが自動挿入される）のため対象外。
+    #    例: 2列List（記号｜説明）を畳み込んだ説明Column（後続段落との区切りで LineBreak が付く）
+    #    removeモードでは旧仕様で補填済みのスペースも除去できるよう include_same_line_columns で含める。
     for column in root.iter('Column'):
-        if column.get('LineBreak') != 'true':
-            continue
         if _is_inside_list(column) and not include_list:
             continue
-        if _is_heading_column(column):
-            continue
-        add(_first_direct_sentence(column))
-
-    # 2b. LineBreak="true"のColumnの直後にあるColumn（行頭に表示される）
-    #     ColumnなしList統合で、見出し（LineBreak付きColumn1）の直後に
-    #     先頭Columnがラベルでない複数Column Listを畳み込んだ場合の本文Column2が該当する。
-    #     Column3以降（LineBreakなしColumnの直後）は同じ行の続きのため対象外。
-    for column in root.iter('Column'):
-        previous = column.getprevious()
-        while previous is not None and not isinstance(previous.tag, str):
-            previous = previous.getprevious()  # コメント等を飛ばす
-        if previous is None or previous.tag != 'Column' or previous.get('LineBreak') != 'true':
-            continue
-        if _is_inside_list(column) and not include_list:
-            continue
+        previous = _previous_column(column)
+        if previous is None:
+            # 先頭 Column（または Sentence 等の後に現れた Column）
+            if column.get('LineBreak') != 'true' or _is_heading_column(column):
+                continue
+        elif previous.get('LineBreak') != 'true':
+            # 同じ行の続き
+            if not (include_same_line_columns and column.get('LineBreak') == 'true'):
+                continue
         add(_first_direct_sentence(column))
 
     # 3. List/ListSentence直下の先頭Sentence（オプション）
@@ -309,11 +327,12 @@ def process_xml_file(input_path, output_path, mode='add', include_list=False,
 
     root = tree.getroot()
     # removeモードでは旧仕様で挿入済みのスペースも確実に除去できるよう、
-    # 変数定義行も対象に含める
+    # 変数定義行と、同じ行の続きのLineBreak付きColumnも対象に含める
     targets, excluded_vardefs = collect_target_sentences(
         root,
         include_list=include_list,
-        include_vardef=include_vardef or mode == 'remove'
+        include_vardef=include_vardef or mode == 'remove',
+        include_same_line_columns=(mode == 'remove')
     )
 
     changed = 0

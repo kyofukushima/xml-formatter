@@ -1214,10 +1214,7 @@
     "empty",
     "text_non_label"
   ],
-  "label_overrides": {
-    "七から八の二まで": "kanji_number",
-    "八・九": "kanji_number"
-  },
+  "label_overrides": {},
   "hierarchy_rules": {
     "same_pattern_same_hierarchy": true,
     "allow_cross_hierarchy_split": false,

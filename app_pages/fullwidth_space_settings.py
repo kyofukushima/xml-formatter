@@ -94,8 +94,10 @@ apply_fullwidth_space = st.checkbox(
     "変換後に文頭全角スペースを補填する",
     value=st.session_state.apply_fullwidth_space,
     help="Title要素が空のItem/Subitem1～10のSentence冒頭、および"
-         "LineBreak=\"true\"のColumn内Sentence冒頭に全角スペースを挿入します"
-         "（Titleあり要素の先頭Column＝見出しは番号と同じ行のため対象外）。"
+         "行頭に表示されるColumn（直前のColumnがLineBreak=\"true\"のもの、"
+         "または先頭でLineBreak=\"true\"のもの）内Sentence冒頭に全角スペースを挿入します"
+         "（Titleあり要素の先頭Column＝見出しは番号と同じ行のため対象外。"
+         "直前のColumnに改行がない同じ行の続きのColumnも対象外）。"
 )
 st.session_state.apply_fullwidth_space = apply_fullwidth_space
 
@@ -124,18 +126,31 @@ show_before_after(
 )
 
 st.markdown(
-    "同一要素内で `LineBreak=\"true\"` の `Column` により改行された"
-    "二段目以降の段落も対象です。"
+    "同一要素内で `Column` により改行された二段目以降の段落も対象です。"
+    "`LineBreak=\"true\"` は「そのColumnの**後ろ**で改行する」指示なので、"
+    "対象になるのは**直前のColumnに `LineBreak=\"true\"` が付いている**（改行の次の行頭に表示される）"
+    "Columnです。直前のColumnに改行がないColumnは同じ行の続きとして表示され、"
+    "表示側でColumn間に全角スペースが自動挿入されるため、自身に `LineBreak=\"true\"` が"
+    "付いていても補填しません（補填すると二重の空きになります）。"
 )
 
 EXAMPLE_COLUMN = '''<Item Num="1">
   <ItemTitle>一</ItemTitle>
   <ItemSentence>
-    <Column>
-      <Sentence Num="1">一段目の本文（対象外）</Sentence>
+    <Column Num="1" LineBreak="true">
+      <Sentence Num="1">一段目の本文（見出し・対象外）</Sentence>
     </Column>
-    <Column LineBreak="true">
-      <Sentence Num="1">改行された二段目の段落（補填対象）</Sentence>
+    <Column Num="2" LineBreak="true">
+      <Sentence Num="1">改行された二段目の段落（行頭・補填対象）</Sentence>
+    </Column>
+    <Column Num="3">
+      <Sentence Num="1">三段目の前半（行頭・補填対象）</Sentence>
+    </Column>
+    <Column Num="4" LineBreak="true">
+      <Sentence Num="1">同じ行の続き（自身にLineBreakがあっても対象外）</Sentence>
+    </Column>
+    <Column Num="5">
+      <Sentence Num="1">改行された四段目の段落（行頭・補填対象）</Sentence>
     </Column>
   </ItemSentence>
 </Item>'''
@@ -201,6 +216,46 @@ EXAMPLE_COLUMN_AFTER_LINEBREAK = '''<Item Num="1">
 
 show_before_after(
     f"<MainProvision>\n{EXAMPLE_COLUMN_AFTER_LINEBREAK}\n</MainProvision>",
+    enabled=apply_fullwidth_space
+)
+
+st.markdown(
+    "「記号｜説明」の2列Listを連続して畳み込んだ場合、記号のColumnは行頭（補填対象）、"
+    "説明のColumnは同じ行の続き（対象外）です。説明のColumnには次の段落との区切りとして"
+    "`LineBreak=\"true\"` が付きますが、行頭ではないため補填しません。"
+)
+EXAMPLE_SAME_LINE_COLUMN = '''<Subitem2 Num="1">
+  <Subitem2Title>（１）</Subitem2Title>
+  <Subitem2Sentence>
+    <Column Num="1" LineBreak="true">
+      <Sentence Num="1">次の式によって計算した数値以上であること。（見出し・対象外）</Sentence>
+    </Column>
+    <Column Num="2" LineBreak="true">
+      <Sentence Num="1"><ArithFormula>Ｑ＝ａ＋ｂ</ArithFormula></Sentence>
+    </Column>
+    <Column Num="3">
+      <Sentence Num="1">（</Sentence>
+    </Column>
+    <Column Num="4" LineBreak="true">
+      <Sentence Num="1">この式において、ａ及びｂは、それぞれ次の数値を表すものとする。（同じ行の続き・対象外）</Sentence>
+    </Column>
+    <Column Num="5">
+      <Sentence Num="1">ａ（行頭・補填対象）</Sentence>
+    </Column>
+    <Column Num="6" LineBreak="true">
+      <Sentence Num="1">記号ａの説明（同じ行の続き・対象外）</Sentence>
+    </Column>
+    <Column Num="7">
+      <Sentence Num="1">ｂ（行頭・補填対象）</Sentence>
+    </Column>
+    <Column Num="8">
+      <Sentence Num="1">記号ｂの説明（同じ行の続き・対象外））</Sentence>
+    </Column>
+  </Subitem2Sentence>
+</Subitem2>'''
+
+show_before_after(
+    f"<MainProvision>\n{EXAMPLE_SAME_LINE_COLUMN}\n</MainProvision>",
     enabled=apply_fullwidth_space
 )
 
