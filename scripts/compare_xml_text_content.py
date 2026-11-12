@@ -97,9 +97,18 @@ def get_table_sequence(tree: etree._ElementTree, ignore_spaces: bool = False) ->
             skip_tags = ('TableStructTitle', 'Remarks')
             texts = []
             for sub in elem.iter():
+                if sub is elem:
+                    continue
+                # 祖先の判定は、この TableStruct の内側だけを見る
+                # （Remarks 内の Item に入れ子になった TableStruct 自身が、
+                #   外側の Remarks を理由に丸ごと除外されないようにする）
+                inner_ancestors = []
+                for a in sub.iterancestors():
+                    if a is elem:
+                        break
+                    inner_ancestors.append(a)
                 if sub.tag in skip_tags or \
-                        any(a.tag in skip_tags
-                            for a in sub.iterancestors()):
+                        any(a.tag in skip_tags for a in inner_ancestors):
                     continue
                 if sub.text and sub.text.strip():
                     text = sub.text.strip()
