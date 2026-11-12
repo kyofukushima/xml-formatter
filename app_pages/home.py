@@ -363,8 +363,11 @@ def main():
             "変換後に文頭全角スペースを補填する",
             value=st.session_state.apply_fullwidth_space,
             help="Title要素が空（または省略されている）Item/Subitem1～10のSentence冒頭、および"
-                 "LineBreak=\"true\"のColumn内Sentence冒頭に全角スペースを挿入します"
-                 "（Titleあり要素の先頭Column＝見出しは番号と同じ行のため対象外）。"
+                 "行頭に表示されるColumn（直前のColumnがLineBreak=\"true\"のもの、"
+                 "または先頭でLineBreak=\"true\"のもの）内Sentence冒頭に全角スペースを挿入します"
+                 "（Titleあり要素の先頭Column＝見出しは番号と同じ行のため対象外。"
+                 "直前のColumnに改行がない同じ行の続きのColumnは、表示側で全角スペースが"
+                 "自動挿入されるため対象外）。"
                  "テキスト内容検証は補填前のファイルに対して実行されます。"
         )
         st.session_state.apply_fullwidth_space = apply_fullwidth_space

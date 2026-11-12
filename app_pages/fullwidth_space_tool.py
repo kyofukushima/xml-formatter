@@ -10,7 +10,9 @@
   保ったまま補填後のXMLをZIPで返却。結果一覧には階層を列として表示）
 
 対象: Title要素が空（または不在）のItem/Subitem1～10の先頭Sentence冒頭、
-および LineBreak="true" のColumn内の先頭Sentence冒頭。
+および行頭に表示されるColumn（直前のColumnが LineBreak="true" のもの、
+または先頭で LineBreak="true" のもの）内の先頭Sentence冒頭。
+直前のColumnに改行がない同じ行の続きのColumnは対象外。
 除外条件（数式・変数定義行・補填済み等）とオプションはメインページの補填機能と同一です。
 """
 import sys
