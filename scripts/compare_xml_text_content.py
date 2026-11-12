@@ -36,8 +36,14 @@ def get_all_texts(tree: etree._ElementTree, ignore_spaces: bool = False) -> set:
     """
     texts = set()
     for element in tree.iter():
-        if element.text:
-            text = element.text.strip()
+        # text（開始タグ直後）に加えて tail（終了タグ直後）も集める。
+        # 「Ｗ<Sub>１</Sub>：　乾燥前の質量」のように、子要素（Sub・Fig 等）の
+        # 後ろに続く文字は tail にしか現れないため、text だけを見ると
+        # 2列を1文に結合したときに後半を欠落と誤検出する。
+        for raw in (element.text, element.tail):
+            if not raw:
+                continue
+            text = raw.strip()
             if ignore_spaces:
                 text = normalize_spaces(text)
             if text:
@@ -85,12 +91,14 @@ def get_table_sequence(tree: etree._ElementTree, ignore_spaces: bool = False) ->
     for elem in tree.getroot().iter():
         if elem.tag == 'TableStruct':
             # 表全体のテキストを取得
-            # TableStructTitle（表１等）はマークアップによって表の内外どちらにも
-            # 置かれ得るため、内容比較からは除外する
+            # TableStructTitle（表１等）と Remarks（単位・注・キャプション）は
+            # マークアップによって表の内外どちらにも置かれ得るため、
+            # 内容比較からは除外する（文字と並び順は全文比較で検証される）
+            skip_tags = ('TableStructTitle', 'Remarks')
             texts = []
             for sub in elem.iter():
-                if sub.tag == 'TableStructTitle' or \
-                        any(a.tag == 'TableStructTitle'
+                if sub.tag in skip_tags or \
+                        any(a.tag in skip_tags
                             for a in sub.iterancestors()):
                     continue
                 if sub.text and sub.text.strip():
